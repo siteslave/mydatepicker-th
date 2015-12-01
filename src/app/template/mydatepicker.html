@@ -1,0 +1,42 @@
+<div class="mydatepicker" [ng-style]="{'height': height, 'width': width}">
+    <div class="selectiongroup">
+        <span class="selection" [ng-style]="{'height': height, 'line-height': height}" (click)="openBtnClicked()">{{selectionDayTxt}}</span>
+        <span class="selbtngroup" [style.height]="height">
+            <button class="btnclear" *ng-if="selectionDayTxt.length>0" (click)="removeBtnClicked()"><span class="icon icon-cross"></span></button>
+            <button class="btnpicker" (click)="openBtnClicked()"><span class="icon icon-calendar"></span></button>
+        </span>
+    </div>
+    <div class="selector" *ng-if="showSelector">
+        <table class="header">
+            <tr>
+                <td>
+                    <div style="float:left">
+                        <div class="headerbtn" (click)="prevMonth()"><span class="icon icon-left"></span></div>
+                        <div class="headermonthtxt">{{visibleMonth.monthTxt}}</div>
+                        <div class="headerbtn" (click)="nextMonth()"><span class="icon icon-right"></span></div>
+                    </div>
+                </td>
+                <td>
+                    <button class="headertodaybtn" (click)="todayClicked()">Today</button>
+                </td>
+                <td>
+                    <div style="float:right">
+                        <div class="headerbtn" (click)="prevYear()"><span class="icon icon-left"></span></div>
+                        <div class="headeryeartxt">{{visibleMonth.year}}</div>
+                        <div class="headerbtn" (click)="nextYear()"><span class="icon icon-right"></span></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table class="caltable">
+            <thead><tr><th *ng-for="#d of weekDays">{{d}}</th></tr></thead>
+            <tbody>
+            <tr *ng-for="#w of dates">
+                <td *ng-for="#d of w" [ng-class]="{'currmonth':d.cmo===CURR_MONTH, 'currday':d.currDay, 'selectedday':selectedDate.day===d.day && selectedDate.month===d.month && selectedDate.year===d.year && d.cmo===CURR_MONTH}" (click)="cellClicked(d)">
+                    <span style="background-color:inherit" [ng-class]="{'prevmonth':d.cmo===PREV_MONTH,'currmonth':d.cmo===CURR_MONTH,'nextmonth':d.cmo===NEXT_MONTH,'sunday':d.sun && d.cmo===CURR_MONTH && sunHighlight}">{{d.day}}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

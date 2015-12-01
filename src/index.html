@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <title>Angular 2 Date picker</title>
+        <script src="../node_modules/systemjs/dist/system.src.js"></script>
+        <script src="../node_modules/angular2/bundles/angular2.dev.js"></script>
+
+        <!--
+        <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+        -->
+
+        <script>
+            System.config({
+                packages: {'app': {defaultExtension: 'js'}}
+            });
+            System.import('app/sampleapp').catch(console.log.bind(console));
+        </script>
+
+        <style>
+            body {
+                margin: 20px 60px;
+                min-width: 400px;
+            }
+
+            h3, h5 {
+                background-color: #78FA89;
+                padding: 8px;
+                border: 1px solid #AAA;
+                border-radius: 3px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+        </style>
+    </head>
+    <body style="margin: 50px 200px">
+        <h3>AngularJS 2 date picker</h3>
+        <ul style="margin-bottom: 60px">
+            <li>Homepage of the component is <a href="http://kekeh.github.io/mydatepicker" target="_blank">here</a></li>
+            <li>See all of my AngularJS 1 UI components from <a href="http://kekeh.github.io" target="_blank">here</a></li>
+        </ul>
+        <sample-date-picker>loading...</sample-date-picker>
+    </body>
+</html>

@@ -1,0 +1,301 @@
+.mydatepicker {
+    min-width: 100px;
+    border-radius: 2px;
+    line-height: 1.1;
+}
+
+.mydatepicker * {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+.mydatepicker .selector {
+    margin-top: 3px;
+    margin-left: -1px;
+    position: absolute;
+    max-width: 262px;
+    padding: 3px;
+    border-radius: 2px;
+    background-color: #DDD;
+    z-index: 100;
+}
+
+.mydatepicker .selectiongroup {
+    position: relative;
+    display: table;
+    border: none;
+    background-color: #FFF;
+}
+
+.mydatepicker .selection {
+    background-color: #FFF;
+    display: table-cell;
+    position: absolute;
+    width: 100%;
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0 64px 0 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.mydatepicker .selbtngroup {
+    position: relative;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 1%;
+    display: table-cell;
+    text-align: right;
+    font-size: 0;
+}
+
+.mydatepicker .btnpicker,
+.mydatepicker .btnclear {
+    height: 100%;
+    width: 30px;
+    border: none;
+    border-left: 1px solid #999;
+    padding: 0px;
+    cursor: pointer;
+    outline: 0;
+    font: inherit;
+    -moz-user-select: none;
+}
+
+.mydatepicker .btnpicker,
+.mydatepicker .btnclear,
+.mydatepicker .headertodaybtn,
+.mydatepicker .footerbtn {
+    background: #FAFAFA;
+    background-image: -webkit-linear-gradient(#F0F0F0 30%, #AEC2E1 100%);
+    background-image: -moz-linear-gradient(#F0F0F0 30%, #AEC2E1 100%);
+    background-image: -o-linear-gradient(#F0F0F0 30%, #AEC2E1 100%);
+    background-image: -ms-linear-gradient(#F0F0F0 30%, #AEC2E1 100%);
+    background-image: linear-gradient(#F0F0F0 30%, #AEC2E1 100%);
+}
+
+.mydatepicker .header {
+    width: 100%;
+    height: 36px;
+    margin-bottom: 1px;
+    background-color: #FAFAFA;
+}
+
+.mydatepicker .header td {
+    vertical-align: middle;
+    border: none;
+}
+
+.mydatepicker .header td:nth-child(1) {
+    font-size: 16px;
+    padding-left: 4px;
+}
+
+.mydatepicker .header td:nth-child(2) {
+    text-align: center;
+}
+
+.mydatepicker .header td:nth-child(3) {
+    font-size: 16px;
+    padding-right: 4px;
+}
+
+.mydatepicker .caltable {
+    table-layout: fixed;
+    width: 100%;
+    background-color: #FFF;
+    font-size: 14px;
+}
+
+.mydatepicker .caltable tbody{
+    border: 1px solid #AAA;
+}
+
+.mydatepicker .caltable,
+.mydatepicker .caltable th,
+.mydatepicker .caltable td {
+    border-collapse: collapse;
+    color: #003366;
+    line-height: 1.1;
+}
+
+.mydatepicker .caltable th,
+.mydatepicker .caltable td {
+    padding: 5px;
+    text-align: center;
+}
+
+.mydatepicker .caltable th {
+    background-color: #DDD;
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+.mydatepicker .caltable td {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.mydatepicker .prevmonth {
+    color: #CCC;
+}
+
+.dpdatepicker .dpcurrmonth {
+    color: #000;
+    font-weight: bold;
+}
+
+.mydatepicker .nextmonth {
+    color: #CCC;
+}
+
+.mydatepicker .sunday {
+    color: #C30000;
+}
+
+.mydatepicker .currmonth {
+    background-color: #FAFAFA;
+}
+
+.mydatepicker .currday {
+    background-color: #64E986;
+    text-decoration: underline;
+}
+
+.mydatepicker .selectedday {
+    background-color: #3BB9FF;
+}
+
+.mydatepicker .selectmenu {
+    height: 24px;
+    width: 60px
+}
+
+.mydatepicker .headerbtn {
+    background-color: #FAFAFA;
+    cursor: pointer;
+    display: table-cell;
+}
+
+.mydatepicker,
+.mydatepicker .selector,
+.mydatepicker .header,
+.mydatepicker .footerarea,
+.mydatepicker .table,
+.mydatepicker .table th,
+.mydatepicker .table td,
+.mydatepicker .headertodaybtn,
+.mydatepicker .footerbtn {
+    border: 1px solid #AAA;
+}
+
+.mydatepicker .btnpicker,
+.mydatepicker .btnclear,
+.mydatepicker .headerbtn,
+.mydatepicker .headermonthtxt,
+.mydatepicker .headeryeartxt,
+.mydatepicker .headertodaybtn,
+.mydatepicker .selection,
+.mydatepicker .footerbtn {
+    color: #000;
+}
+
+.mydatepicker .headertodaybtn,
+.mydatepicker .footerbtn {
+    padding: 4px 6px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.mydatepicker .btndisable {
+    cursor: default;
+    opacity: 0.5;
+}
+
+.mydatepicker button::-moz-focus-inner {
+    border: 0;
+}
+
+.mydatepicker .headermonthtxt,
+.mydatepicker .headeryeartxt {
+    width: 40px;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.mydatepicker .btnclear:focus,
+.mydatepicker .btnpicker:focus,
+.mydatepicker .btnclear:hover,
+.mydatepicker .btnpicker:hover {
+    background: #ADD8E6;
+}
+
+.mydatepicker .icon-calendar,
+.mydatepicker .icon-cross {
+    font-size: 16px;
+}
+
+.mydatepicker .icon-left,
+.mydatepicker .icon-right {
+    font-size: 14px;
+}
+
+.mydatepicker .icon-left:hover,
+.mydatepicker .icon-right:hover {
+    color: #63B2CC;
+}
+
+
+
+.mydatepicker table {
+    display: table;
+}
+
+.mydatepicker table td {
+    padding: 0;
+}
+
+@font-face {
+    font-family: 'mydatepicker';
+    src: url(data:application/x-font-ttf;charset=utf-8;base64,AAEAAAALAIAAAwAwT1MvMg8SAssAAAC8AAAAYGNtYXDMUczTAAABHAAAAGxnYXNwAAAAEAAAAYgAAAAIZ2x5ZmFQ1q4AAAGQAAABbGhlYWQGZuTFAAAC/AAAADZoaGVhB4IDyQAAAzQAAAAkaG10eBYAAnAAAANYAAAAIGxvY2EBdAE0AAADeAAAABJtYXhwABUAPgAAA4wAAAAgbmFtZQ5R9RkAAAOsAAABnnBvc3QAAwAAAAAFTAAAACAAAwOaAZAABQAAApkCzAAAAI8CmQLMAAAB6wAzAQkAAAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAAAAAAAABAAADmBwPA/8AAQAPAAEAAAAABAAAAAAAAAAAAAAAgAAAAAAADAAAAAwAAABwAAQADAAAAHAADAAEAAAAcAAQAUAAAABAAEAADAAAAAQAg5gDmAuYF5gf//f//AAAAAAAg5gDmAuYF5gf//f//AAH/4xoEGgMaARoAAAMAAQAAAAAAAAAAAAAAAAAAAAAAAQAB//8ADwABAAAAAAAAAAAAAgAANzkBAAAAAAEAAAAAAAAAAAACAAA3OQEAAAAAAQAAAAAAAAAAAAIAADc5AQAAAAAMAEAAAAPAA4AABAAJAA4AEwAYAB0AIgAnACwAMQA2ADsAABMRMxEjFyE1IRUDITUhFQERMxEjJRUzNSMTFTM1IzMVMzUjMxUzNSMBFTM1IzMVMzUjMxUzNSMTFTM1I0Bzc0ADAP0AQAOA/IADDXNz/ZOAgCCAgMCAgMCAgP6AgIDAgIDAgIAggIADAP1AAsBzc3P9c3NzAwD9QALAgMDA/sCAgICAgID/AICAgICAgAJAwMAAAAAAAgBwADADkANQAAQACQAANwEnARcDATcBB+kCp3n9WXl5Aqd5/Vl5MAKnef1ZeQKn/Vl5Aqd5AAABAOAAAAMgA4AAAwAAAQMBJQMgA/3DASADgPyAAcPfAAEA4AAAAyADgAADAAA3EwEF4AMCPf7gAAOA/j3fAAAAAQAAAAEAAF0/BsNfDzz1AAsEAAAAAADRxFAkAAAAANHEUCQAAAAAA8ADgAAAAAgAAgAAAAAAAAABAAADwP/AAAAEAAAAAAADwAABAAAAAAAAAAAAAAAAAAAACAQAAAAAAAAAAAAAAAIAAAAEAABABAAAcAQAAOAEAADgAAAAAAAKABQAHgB6AJYApgC2AAAAAQAAAAgAPAAMAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA4ArgABAAAAAAABAAkAAAABAAAAAAACAAcAcgABAAAAAAADAAkAPAABAAAAAAAEAAkAhwABAAAAAAAFAAsAGwABAAAAAAAGAAkAVwABAAAAAAAKABoAogADAAEECQABABIACQADAAEECQACAA4AeQADAAEECQADABIARQADAAEECQAEABIAkAADAAEECQAFABYAJgADAAEECQAGABIAYAADAAEECQAKADQAvHZzZHBpY2tlcgB2AHMAZABwAGkAYwBrAGUAclZlcnNpb24gMS4wAFYAZQByAHMAaQBvAG4AIAAxAC4AMHZzZHBpY2tlcgB2AHMAZABwAGkAYwBrAGUAcnZzZHBpY2tlcgB2AHMAZABwAGkAYwBrAGUAclJlZ3VsYXIAUgBlAGcAdQBsAGEAcnZzZHBpY2tlcgB2AHMAZABwAGkAYwBrAGUAckZvbnQgZ2VuZXJhdGVkIGJ5IEljb01vb24uAEYAbwBuAHQAIABnAGUAbgBlAHIAYQB0AGUAZAAgAGIAeQAgAEkAYwBvAE0AbwBvAG4ALgAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.mydatepicker .icon {
+    font-family: 'mydatepicker';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.mydatepicker .icon-calendar:before {
+    content: "\e600";
+}
+
+.mydatepicker .icon-cross:before {
+    content: "\e602";
+}
+
+.mydatepicker .icon-left:before {
+    content: "\e605";
+}
+
+.mydatepicker .icon-right:before {
+    content: "\e607";
+}
