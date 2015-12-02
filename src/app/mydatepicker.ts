@@ -38,6 +38,8 @@ export class MyDatePicker {
     constructor() {}
 
     onInit() {
+        this.dayLabels = this.options.dayLabels !== undefined ? this.options.dayLabels : this.dayLabels;
+        this.monthLabels = this.options.monthLabels !== undefined ? this.options.monthLabels : this.monthLabels;
         this.dateFormat = this.options.dateFormat !== undefined ? this.options.dateFormat : this.dateFormat;
         this.firstDayOfWeek = this.options.firstDayOfWeek !== undefined ? this.options.firstDayOfWeek : this.firstDayOfWeek;
         this.sunHighlight = this.options.sunHighlight !== undefined ? this.options.sunHighlight : this.sunHighlight;
@@ -57,16 +59,22 @@ export class MyDatePicker {
 
     removeBtnClicked() {
         this.selectionDayTxt = '';
-        this.selectedDate = {};
-        this.dateChanged.next({date: {}, formatted: this.selectionDayTxt});
+        this.selectedDate = {year:0, month:0, day:0};
+        this.dateChanged.next({date: {}, formatted: this.selectionDayTxt, epoc: 0});
     }
 
     openBtnClicked() {
         this.showSelector = !this.showSelector;
         if (this.showSelector) {
-            var y = this.today.getFullYear();
-            var m = this.today.getMonth() + 1;
-
+            var y = 0, m = 0;
+            if(this.selectedDate.year === 0 && this.selectedDate.month === 0 && this.selectedDate.day === 0) {
+                y = this.today.getFullYear();
+                m = this.today.getMonth() + 1;
+            }
+            else {
+                y = this.selectedDate.year;
+                m = this.selectedDate.month;
+            }
             // Set current month
             this.visibleMonth = {monthTxt: this.monthLabels[m], monthNbr: m, year: y};
 
@@ -131,7 +139,8 @@ export class MyDatePicker {
             this.selectedDate = {day: cell.day, month: cell.month, year: cell.year};
             this.selectionDayTxt = this.formatDate(cell);
             this.showSelector = false;
-            this.dateChanged.next({date: this.selectedDate, formatted: this.selectionDayTxt});
+            var epoc = new Date(cell.year, cell.month - 1, cell.day, 0, 0, 0, 0).getTime()/1000.0;
+            this.dateChanged.next({date: this.selectedDate, formatted: this.selectionDayTxt, epoc: epoc});
         }
         else if (cell.cmo === this.NEXT_MONTH) {
             // Next month of day

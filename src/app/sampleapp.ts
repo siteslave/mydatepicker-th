@@ -22,7 +22,7 @@ class SampleDatePicker {
     }
 
     onDateChanged(event) {
-        console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted);
+        console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
     }
 }
 bootstrap(SampleDatePicker);
