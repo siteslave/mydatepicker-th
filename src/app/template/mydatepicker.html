@@ -2,8 +2,8 @@
     <div class="selectiongroup">
         <span class="selection" [ng-style]="{'height': height, 'line-height': height}" (click)="openBtnClicked()">{{selectionDayTxt}}</span>
         <span class="selbtngroup" [style.height]="height">
-            <button class="btnclear" *ng-if="selectionDayTxt.length>0" (click)="removeBtnClicked()"><span class="icon icon-cross"></span></button>
-            <button class="btnpicker" (click)="openBtnClicked()"><span class="icon icon-calendar"></span></button>
+            <button type="button" class="btnclear" *ng-if="selectionDayTxt.length>0" (click)="removeBtnClicked()"><span class="icon icon-cross"></span></button>
+            <button type="button" class="btnpicker" (click)="openBtnClicked()"><span class="icon icon-calendar"></span></button>
         </span>
     </div>
     <div class="selector" *ng-if="showSelector">
