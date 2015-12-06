@@ -3,7 +3,7 @@
 **AngularJS 2 date picker - AngularJS reusable UI component**
 
 ## Description
-Simple AngularJS 2 date picker. Uses version "2.0.0-alpha.46" of AngularJS 2.
+Simple AngularJS 2 date picker. Uses version "2.0.0-alpha.48" of AngularJS 2.
 
 ##Getting Started
 1. Fork and clone this repo

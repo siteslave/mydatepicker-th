@@ -1,4 +1,4 @@
-import {Component, View, Input, Output, EventEmitter, NgIf, NgFor, NgClass, NgStyle} from 'angular2/angular2';
+import {Component, View, Input, Output, EventEmitter, OnInit, NgIf, NgFor, NgClass, NgStyle} from 'angular2/angular2';
 
 @Component({
     selector: 'my-date-picker'
@@ -9,35 +9,36 @@ import {Component, View, Input, Output, EventEmitter, NgIf, NgFor, NgClass, NgSt
     directives: [NgIf, NgFor, NgClass, NgStyle]
 })
 
-export class MyDatePicker {
-    @Input() options:any;
+export class MyDatePicker implements OnInit {
+    @Input() options: any;
     @Output() dateChanged = new EventEmitter();
 
-    private showSelector:boolean = false;
-    private visibleMonth:Month = {monthTxt: '', monthNbr: 0, year: 0};
-    private selectedDate:Date = {year:0, month:0, day:0};
-    private weekDays:Array = [];
-    private dates:Array = [];
-    private selectionDayTxt:string = '';
-    private dayIdx:number = 0;
+    showSelector: boolean = false;
+    visibleMonth: MyMonth = { monthTxt: '', monthNbr: 0, year: 0 };
+    selectedDate: MyDate = { year: 0, month: 0, day: 0 };
+    weekDays: Array<string> = [];
+    dates: Array<Object> = [];
+    selectionDayTxt: string = '';
+    dayIdx: number = 0;
 
-    private PREV_MONTH:number = 1;
-    private CURR_MONTH:number = 2;
-    private NEXT_MONTH:number = 3;
-    private dayLabels = {su: 'Sun', mo: 'Mon', tu: 'Tue', we: 'Wed', th: 'Thu', fr: 'Fri', sa: 'Sat'};
-    private monthLabels = {1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun', 7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec'};
+    PREV_MONTH: number = 1;
+    CURR_MONTH: number = 2;
+    NEXT_MONTH: number = 3;
 
-    private dateFormat:string = 'yyyy-mm-dd'
-    private firstDayOfWeek:string = 'mo';
-    private sunHighlight:boolean = true;
-    private height:string = '34px';
-    private width:string = '100%';
+    // Default options
+    dayLabels = { su: 'Sun', mo: 'Mon', tu: 'Tue', we: 'Wed', th: 'Thu', fr: 'Fri', sa: 'Sat' };
+    monthLabels = { 1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun', 7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec' };
+    dateFormat: string = 'yyyy-mm-dd'
+    firstDayOfWeek: string = 'mo';
+    sunHighlight: boolean = true;
+    height: string = '34px';
+    width: string = '100%';
 
-    private today = new Date();
+    today = new Date();
 
-    constructor() {}
+    constructor() { }
 
-    onInit() {
+    ngOnInit() {
         this.dayLabels = this.options.dayLabels !== undefined ? this.options.dayLabels : this.dayLabels;
         this.monthLabels = this.options.monthLabels !== undefined ? this.options.monthLabels : this.monthLabels;
         this.dateFormat = this.options.dateFormat !== undefined ? this.options.dateFormat : this.dateFormat;
@@ -59,15 +60,15 @@ export class MyDatePicker {
 
     removeBtnClicked() {
         this.selectionDayTxt = '';
-        this.selectedDate = {year:0, month:0, day:0};
-        this.dateChanged.next({date: {}, formatted: this.selectionDayTxt, epoc: 0});
+        this.selectedDate = { year: 0, month: 0, day: 0 };
+        this.dateChanged.next({ date: {}, formatted: this.selectionDayTxt, epoc: 0 });
     }
 
     openBtnClicked() {
         this.showSelector = !this.showSelector;
         if (this.showSelector) {
             var y = 0, m = 0;
-            if(this.selectedDate.year === 0 && this.selectedDate.month === 0 && this.selectedDate.day === 0) {
+            if (this.selectedDate.year === 0 && this.selectedDate.month === 0 && this.selectedDate.day === 0) {
                 y = this.today.getFullYear();
                 m = this.today.getMonth() + 1;
             }
@@ -76,7 +77,7 @@ export class MyDatePicker {
                 m = this.selectedDate.month;
             }
             // Set current month
-            this.visibleMonth = {monthTxt: this.monthLabels[m], monthNbr: m, year: y};
+            this.visibleMonth = { monthTxt: this.monthLabels[m], monthNbr: m, year: y };
 
             // Create current month
             this.createMonth(m, y);
@@ -93,7 +94,7 @@ export class MyDatePicker {
         else {
             m--;
         }
-        this.visibleMonth = {monthTxt: this.monthText(m), monthNbr: m, year: y};
+        this.visibleMonth = { monthTxt: this.monthText(m), monthNbr: m, year: y };
         this.createMonth(m, y);
     }
 
@@ -107,7 +108,7 @@ export class MyDatePicker {
         else {
             m++;
         }
-        this.visibleMonth = {monthTxt: this.monthText(m), monthNbr: m, year: y};
+        this.visibleMonth = { monthTxt: this.monthText(m), monthNbr: m, year: y };
         this.createMonth(m, y);
     }
 
@@ -124,7 +125,7 @@ export class MyDatePicker {
     todayClicked() {
         // Today selected
         var m = this.today.getMonth() + 1;
-        this.visibleMonth = {monthTxt: this.monthText(m), monthNbr: m, year: this.today.getFullYear()};
+        this.visibleMonth = { monthTxt: this.monthText(m), monthNbr: m, year: this.today.getFullYear() };
         this.createMonth(this.visibleMonth.monthNbr, this.visibleMonth.year);
     }
 
@@ -136,11 +137,11 @@ export class MyDatePicker {
         }
         else if (cell.cmo === this.CURR_MONTH) {
             // Current month of day
-            this.selectedDate = {day: cell.day, month: cell.month, year: cell.year};
+            this.selectedDate = { day: cell.day, month: cell.month, year: cell.year };
             this.selectionDayTxt = this.formatDate(cell);
             this.showSelector = false;
-            var epoc = new Date(cell.year, cell.month - 1, cell.day, 0, 0, 0, 0).getTime()/1000.0;
-            this.dateChanged.next({date: this.selectedDate, formatted: this.selectionDayTxt, epoc: epoc});
+            var epoc = new Date(cell.year, cell.month - 1, cell.day, 0, 0, 0, 0).getTime() / 1000.0;
+            this.dateChanged.next({ date: this.selectedDate, formatted: this.selectionDayTxt, epoc: epoc });
         }
         else if (cell.cmo === this.NEXT_MONTH) {
             // Next month of day
@@ -154,7 +155,7 @@ export class MyDatePicker {
     }
 
     formatDate(val) {
-         return this.dateFormat.replace('yyyy', val.year)
+        return this.dateFormat.replace('yyyy', val.year)
             .replace('mm', this.preZero(val.month))
             .replace('dd', this.preZero(val.day));
     }
@@ -250,13 +251,13 @@ export class MyDatePicker {
     }
 }
 
-interface Date {
+interface MyDate {
     year: number;
     month: number;
     day: number;
 }
 
-interface Month {
+interface MyMonth {
     monthTxt: string;
     monthNbr: number;
     year: number;
