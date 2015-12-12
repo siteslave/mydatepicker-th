@@ -11,7 +11,7 @@ import {Component, View, Input, Output, EventEmitter, OnInit, NgIf, NgFor, NgCla
 
 export class MyDatePicker implements OnInit {
     @Input() options: any;
-    @Output() dateChanged = new EventEmitter();
+    @Output() dateChanged: EventEmitter<Object> = new EventEmitter();
 
     showSelector: boolean = false;
     visibleMonth: MyMonth = { monthTxt: '', monthNbr: 0, year: 0 };
@@ -61,7 +61,7 @@ export class MyDatePicker implements OnInit {
     removeBtnClicked() {
         this.selectionDayTxt = '';
         this.selectedDate = { year: 0, month: 0, day: 0 };
-        this.dateChanged.next({ date: {}, formatted: this.selectionDayTxt, epoc: 0 });
+        this.dateChanged.emit({ date: {}, formatted: this.selectionDayTxt, epoc: 0 });
     }
 
     openBtnClicked() {
@@ -141,7 +141,7 @@ export class MyDatePicker implements OnInit {
             this.selectionDayTxt = this.formatDate(cell);
             this.showSelector = false;
             var epoc = new Date(cell.year, cell.month - 1, cell.day, 0, 0, 0, 0).getTime() / 1000.0;
-            this.dateChanged.next({ date: this.selectedDate, formatted: this.selectionDayTxt, epoc: epoc });
+            this.dateChanged.emit({ date: this.selectedDate, formatted: this.selectionDayTxt, epoc: epoc });
         }
         else if (cell.cmo === this.NEXT_MONTH) {
             // Next month of day
