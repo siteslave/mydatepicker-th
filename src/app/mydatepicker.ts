@@ -1,4 +1,6 @@
-import {Component, View, Input, Output, EventEmitter, OnInit, NgIf, NgFor, NgClass, NgStyle} from 'angular2/angular2';
+import {Component, View, Input, Output, EventEmitter, OnInit} from 'angular2/core';
+import {NgIf, NgFor, NgClass, NgStyle} from 'angular2/common';
+import {MyDate, MyMonth} from './interfaces';
 
 @Component({
     selector: 'my-date-picker'
@@ -249,16 +251,4 @@ export class MyDatePicker implements OnInit {
             this.dates.push(week);
         }
     }
-}
-
-interface MyDate {
-    year: number;
-    month: number;
-    day: number;
-}
-
-interface MyMonth {
-    monthTxt: string;
-    monthNbr: number;
-    year: number;
 }

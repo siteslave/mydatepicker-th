@@ -1,18 +1,21 @@
 <html>
     <head>
-        <title>Angular 2 Date picker</title>
+        <title>Angular2 Date picker</title>
+        <script src="../node_modules/angular2/bundles/angular2-polyfills.js"></script>
         <script src="../node_modules/systemjs/dist/system.src.js"></script>
+        <script src="../node_modules/rxjs/bundles/Rx.js"></script>
         <script src="../node_modules/angular2/bundles/angular2.dev.js"></script>
-
-        <!--
-        <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-        -->
 
         <script>
             System.config({
-                packages: {'app': {defaultExtension: 'js'}}
+                packages: {
+                    app: {
+                        format: 'register',
+                        defaultExtension: 'js'
+                    }
+                }
             });
-            System.import('app/sampleapp').catch(console.log.bind(console));
+            System.import('app/sampleapp').then(null, console.error.bind(console));
         </script>
 
         <style>
@@ -34,7 +37,7 @@
         </style>
     </head>
     <body style="margin: 50px 200px">
-        <h3>AngularJS 2 date picker</h3>
+        <h3>Angular2 date picker</h3>
         <ul style="margin-bottom: 60px">
             <li>Homepage of the component is <a href="http://kekeh.github.io/mydatepicker" target="_blank">here</a></li>
             <li>See all of my AngularJS 1 UI components from <a href="http://kekeh.github.io" target="_blank">here</a></li>
