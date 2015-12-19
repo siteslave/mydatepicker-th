@@ -1,14 +1,14 @@
 import {bootstrap} from 'angular2/platform/browser'
-import {Component} from 'angular2/core';
+import {Component, OnInit} from 'angular2/core';
 import {MyDatePicker} from './mydatepicker';
 
 @Component({
     selector: 'sample-date-picker',
-    template: `<my-date-picker [(options)]="myDatePickerOptions" (date-changed)="onDateChanged($event)"></my-date-picker>`,
+    template: `<my-date-picker [(options)]="myDatePickerOptions" (dateChanged)="onDateChanged($event)"></my-date-picker>`,
     directives: [MyDatePicker]
 })
 
-class SampleDatePicker {
+class SampleDatePicker implements OnInit {
     private myDatePickerOptions = {
         dateFormat: 'dd.mm.yyyy',
         firstDayOfWeek: 'mo',
@@ -18,7 +18,7 @@ class SampleDatePicker {
     };
     constructor() {}
 
-    onInit() {
+    ngOnInit() {
         console.log('onInit(): SampleDatePicker')
     }
 

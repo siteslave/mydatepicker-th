@@ -12,33 +12,33 @@ import {MyDate, MyMonth} from './interfaces';
 })
 
 export class MyDatePicker implements OnInit {
-    @Input() options: any;
-    @Output() dateChanged: EventEmitter<Object> = new EventEmitter();
+    @Input() options:any;
+    @Output() dateChanged:EventEmitter<Object> = new EventEmitter();
 
-    showSelector: boolean = false;
-    visibleMonth: MyMonth = { monthTxt: '', monthNbr: 0, year: 0 };
-    selectedDate: MyDate = { year: 0, month: 0, day: 0 };
-    weekDays: Array<string> = [];
-    dates: Array<Object> = [];
-    selectionDayTxt: string = '';
-    dayIdx: number = 0;
+    showSelector:boolean = false;
+    visibleMonth:MyMonth = {monthTxt: '', monthNbr: 0, year: 0};
+    selectedDate:MyDate = {year: 0, month: 0, day: 0};
+    weekDays:Array<string> = [];
+    dates:Array<Object> = [];
+    selectionDayTxt:string = '';
+    dayIdx:number = 0;
 
-    PREV_MONTH: number = 1;
-    CURR_MONTH: number = 2;
-    NEXT_MONTH: number = 3;
+    PREV_MONTH:number = 1;
+    CURR_MONTH:number = 2;
+    NEXT_MONTH:number = 3;
 
     // Default options
-    dayLabels = { su: 'Sun', mo: 'Mon', tu: 'Tue', we: 'Wed', th: 'Thu', fr: 'Fri', sa: 'Sat' };
+    dayLabels = {su: 'Sun', mo: 'Mon', tu: 'Tue', we: 'Wed', th: 'Thu', fr: 'Fri', sa: 'Sat'};
     monthLabels = { 1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun', 7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec' };
-    dateFormat: string = 'yyyy-mm-dd'
-    firstDayOfWeek: string = 'mo';
-    sunHighlight: boolean = true;
-    height: string = '34px';
-    width: string = '100%';
+    dateFormat:string = 'yyyy-mm-dd'
+    firstDayOfWeek:string = 'mo';
+    sunHighlight:boolean = true;
+    height:string = '34px';
+    width:string = '100%';
 
     today = new Date();
 
-    constructor() { }
+    constructor() {}
 
     ngOnInit() {
         this.dayLabels = this.options.dayLabels !== undefined ? this.options.dayLabels : this.dayLabels;
@@ -60,13 +60,13 @@ export class MyDatePicker implements OnInit {
         }
     }
 
-    removeBtnClicked() {
+    removeBtnClicked():void {
         this.selectionDayTxt = '';
-        this.selectedDate = { year: 0, month: 0, day: 0 };
-        this.dateChanged.emit({ date: {}, formatted: this.selectionDayTxt, epoc: 0 });
+        this.selectedDate = {year: 0, month: 0, day: 0};
+        this.dateChanged.emit({date: {}, formatted: this.selectionDayTxt, epoc: 0});
     }
 
-    openBtnClicked() {
+    openBtnClicked():void {
         this.showSelector = !this.showSelector;
         if (this.showSelector) {
             var y = 0, m = 0;
@@ -79,14 +79,14 @@ export class MyDatePicker implements OnInit {
                 m = this.selectedDate.month;
             }
             // Set current month
-            this.visibleMonth = { monthTxt: this.monthLabels[m], monthNbr: m, year: y };
+            this.visibleMonth = {monthTxt: this.monthLabels[m], monthNbr: m, year: y};
 
             // Create current month
             this.createMonth(m, y);
         }
     }
 
-    prevMonth() {
+    prevMonth():void {
         var m = this.visibleMonth.monthNbr;
         var y = this.visibleMonth.year;
         if (m === 1) {
@@ -96,11 +96,11 @@ export class MyDatePicker implements OnInit {
         else {
             m--;
         }
-        this.visibleMonth = { monthTxt: this.monthText(m), monthNbr: m, year: y };
+        this.visibleMonth = {monthTxt: this.monthText(m), monthNbr: m, year: y};
         this.createMonth(m, y);
     }
 
-    nextMonth() {
+    nextMonth():void {
         var m = this.visibleMonth.monthNbr;
         var y = this.visibleMonth.year;
         if (m === 12) {
@@ -110,28 +110,28 @@ export class MyDatePicker implements OnInit {
         else {
             m++;
         }
-        this.visibleMonth = { monthTxt: this.monthText(m), monthNbr: m, year: y };
+        this.visibleMonth = {monthTxt: this.monthText(m), monthNbr: m, year: y};
         this.createMonth(m, y);
     }
 
-    prevYear() {
+    prevYear():void {
         this.visibleMonth.year--;
         this.createMonth(this.visibleMonth.monthNbr, this.visibleMonth.year);
     }
 
-    nextYear() {
+    nextYear():void {
         this.visibleMonth.year++;
         this.createMonth(this.visibleMonth.monthNbr, this.visibleMonth.year);
     }
 
-    todayClicked() {
+    todayClicked():void {
         // Today selected
         var m = this.today.getMonth() + 1;
-        this.visibleMonth = { monthTxt: this.monthText(m), monthNbr: m, year: this.today.getFullYear() };
+        this.visibleMonth = {monthTxt: this.monthText(m), monthNbr: m, year: this.today.getFullYear()};
         this.createMonth(this.visibleMonth.monthNbr, this.visibleMonth.year);
     }
 
-    cellClicked(cell) {
+    cellClicked(cell:any):void {
         // Cell clicked in the selector
         if (cell.cmo === this.PREV_MONTH) {
             // Previous month of day
@@ -139,11 +139,11 @@ export class MyDatePicker implements OnInit {
         }
         else if (cell.cmo === this.CURR_MONTH) {
             // Current month of day
-            this.selectedDate = { day: cell.day, month: cell.month, year: cell.year };
+            this.selectedDate = {day: cell.day, month: cell.month, year: cell.year};
             this.selectionDayTxt = this.formatDate(cell);
             this.showSelector = false;
             var epoc = new Date(cell.year, cell.month - 1, cell.day, 0, 0, 0, 0).getTime() / 1000.0;
-            this.dateChanged.emit({ date: this.selectedDate, formatted: this.selectionDayTxt, epoc: epoc });
+            this.dateChanged.emit({date: this.selectedDate, formatted: this.selectionDayTxt, epoc: epoc});
         }
         else if (cell.cmo === this.NEXT_MONTH) {
             // Next month of day
@@ -151,23 +151,23 @@ export class MyDatePicker implements OnInit {
         }
     }
 
-    preZero(val) {
+    preZero(val:string):string {
         // Prepend zero if smaller than 10
         return val < 10 ? '0' + val : val;
     }
 
-    formatDate(val) {
+    formatDate(val:any):string {
         return this.dateFormat.replace('yyyy', val.year)
             .replace('mm', this.preZero(val.month))
             .replace('dd', this.preZero(val.day));
     }
 
-    monthText(m) {
+    monthText(m:number):string {
         // Returns mont as a text
         return this.monthLabels[m];
     }
 
-    monthStartIdx(y, m) {
+    monthStartIdx(y:number, m:number):number {
         // Month start index
         var d = new Date();
         d.setDate(1);
@@ -177,12 +177,12 @@ export class MyDatePicker implements OnInit {
         return idx >= 7 ? idx - 7 : idx;
     }
 
-    daysInMonth(m, y) {
+    daysInMonth(m:number, y:number):number {
         // Return number of days of current month
         return new Date(y, m, 0).getDate();
     }
 
-    daysInPrevMonth(m, y) {
+    daysInPrevMonth(m:number, y:number):number {
         // Return number of days of the previous month
         if (m === 1) {
             m = 12;
@@ -194,17 +194,17 @@ export class MyDatePicker implements OnInit {
         return this.daysInMonth(m, y);
     }
 
-    isCurrDay(d, m, y, cmo) {
+    isCurrDay(d:number, m:number, y:number, cmo:any):boolean {
         // Check is a given date the current date
         return d === this.today.getDate() && m === this.today.getMonth() + 1 && y === this.today.getFullYear() && cmo === 2;
     }
 
-    sundayIdx() {
+    sundayIdx():number {
         // Index of Sunday day
         return this.dayIdx > 0 ? 7 - this.dayIdx : 0;
     }
 
-    createMonth(m, y) {
+    createMonth(m:number, y:number): void {
         this.dates.length = 0;
         var monthStart = this.monthStartIdx(y, m);
         var dInThisM = this.daysInMonth(m, y);
@@ -220,17 +220,13 @@ export class MyDatePicker implements OnInit {
                 var pm = dInPrevM - monthStart + 1;
                 // Previous month
                 for (var j = pm; j <= dInPrevM; j++) {
-                    week.push({
-                        day: j, month: m, year: y, cmo: cmo, currDay: this.isCurrDay(j, m, y, cmo), sun: week.length === sunIdx
-                    });
+                    week.push({day: j, month: m, year: y, cmo: cmo, currDay: this.isCurrDay(j, m, y, cmo), sun: week.length === sunIdx});
                 }
                 cmo = this.CURR_MONTH;
                 // Current month
                 var daysLeft = 7 - week.length;
                 for (var j = 0; j < daysLeft; j++) {
-                    week.push({
-                        day: dayNbr, month: m, year: y, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo), sun: week.length === sunIdx
-                    });
+                    week.push({day: dayNbr, month: m, year: y, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo), sun: week.length === sunIdx});
                     dayNbr++;
                 }
             }
@@ -242,9 +238,7 @@ export class MyDatePicker implements OnInit {
                         dayNbr = 1;
                         cmo = this.NEXT_MONTH;
                     }
-                    week.push({
-                        day: dayNbr, month: m, year: y, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo), sun: week.length === sunIdx
-                    });
+                    week.push({day: dayNbr, month: m, year: y, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo), sun: week.length === sunIdx});
                     dayNbr++;
                 }
             }
