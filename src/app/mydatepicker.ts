@@ -1,4 +1,4 @@
-import {Component, View, Input, Output, EventEmitter, OnInit} from 'angular2/core';
+import {Component, View, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange} from 'angular2/core';
 import {NgIf, NgFor, NgClass, NgStyle} from 'angular2/common';
 import {MyDate, MyMonth} from './interfaces';
 
@@ -11,8 +11,9 @@ import {MyDate, MyMonth} from './interfaces';
     directives: [NgIf, NgFor, NgClass, NgStyle]
 })
 
-export class MyDatePicker implements OnInit {
+export class MyDatePicker implements OnInit, OnChanges {
     @Input() options:any;
+    @Input() selDate:string;
     @Output() dateChanged:EventEmitter<Object> = new EventEmitter();
 
     showSelector:boolean = false;
@@ -60,10 +61,22 @@ export class MyDatePicker implements OnInit {
         }
     }
 
+    ngOnChanges(changes: {[propName: string]: SimpleChange}) {
+        var fmt = this.options.dateFormat !== undefined ? this.options.dateFormat : this.dateFormat;
+        var dpos = fmt.indexOf('dd');
+        var mpos = fmt.indexOf('mm');
+        var ypos = fmt.indexOf('yyyy');
+        this.selectionDayTxt = changes['selDate'].currentValue;
+        this.selectedDate = {day: parseInt(this.selectionDayTxt.substring(dpos, dpos + 2)),
+            month: parseInt(this.selectionDayTxt.substring(mpos, mpos + 2)),
+            year: parseInt(this.selectionDayTxt.substring(ypos, ypos + 4))};
+    }
+
     removeBtnClicked():void {
         this.selectionDayTxt = '';
         this.selectedDate = {year: 0, month: 0, day: 0};
         this.dateChanged.emit({date: {}, formatted: this.selectionDayTxt, epoc: 0});
+        this.selDate = '';
     }
 
     openBtnClicked():void {
@@ -144,6 +157,7 @@ export class MyDatePicker implements OnInit {
             this.showSelector = false;
             var epoc = new Date(cell.year, cell.month - 1, cell.day, 0, 0, 0, 0).getTime() / 1000.0;
             this.dateChanged.emit({date: this.selectedDate, formatted: this.selectionDayTxt, epoc: epoc});
+            this.selDate = this.selectionDayTxt;
         }
         else if (cell.cmo === this.NEXT_MONTH) {
             // Next month of day

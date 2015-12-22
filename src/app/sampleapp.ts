@@ -4,7 +4,7 @@ import {MyDatePicker} from './mydatepicker';
 
 @Component({
     selector: 'sample-date-picker',
-    template: `<my-date-picker [(options)]="myDatePickerOptions" (dateChanged)="onDateChanged($event)"></my-date-picker>`,
+    template: `<my-date-picker [(options)]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" [(selDate)]="selectedDate"></my-date-picker>`,
     directives: [MyDatePicker]
 })
 
@@ -16,6 +16,8 @@ class SampleDatePicker implements OnInit {
         height: '34px',
         width: '260px'
     };
+    selectedDate: string = '20.12.2015';
+
     constructor() {}
 
     ngOnInit() {
