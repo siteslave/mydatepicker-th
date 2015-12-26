@@ -1,10 +1,10 @@
-import {bootstrap} from 'angular2/platform/browser'
+import {bootstrap} from 'angular2/platform/browser';
 import {Component, OnInit} from 'angular2/core';
 import {MyDatePicker} from './mydatepicker';
 
 @Component({
     selector: 'sample-date-picker',
-    template: `<my-date-picker [(options)]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" [(selDate)]="selectedDate"></my-date-picker>`,
+    template: `<my-date-picker [(options)]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" [selDate]="selectedDate"></my-date-picker>`,
     directives: [MyDatePicker]
 })
 

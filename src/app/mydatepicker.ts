@@ -50,10 +50,10 @@ export class MyDatePicker implements OnInit, OnChanges {
         this.height = this.options.height !== undefined ? this.options.height : this.height;
         this.width = this.options.width !== undefined ? this.options.width : this.width;
 
-        var days = ['su', 'mo', 'tu', 'we', 'th', 'fr', 'sa'];
+        let days = ['su', 'mo', 'tu', 'we', 'th', 'fr', 'sa'];
         this.dayIdx = days.indexOf(this.firstDayOfWeek);
         if (this.dayIdx !== -1) {
-            var idx = this.dayIdx;
+            let idx = this.dayIdx;
             for (var i = 0; i < days.length; i++) {
                 this.weekDays.push(this.dayLabels[days[idx]]);
                 idx = days[idx] === 'sa' ? 0 : idx + 1;
@@ -62,10 +62,10 @@ export class MyDatePicker implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: {[propName: string]: SimpleChange}) {
-        var fmt = this.options.dateFormat !== undefined ? this.options.dateFormat : this.dateFormat;
-        var dpos = fmt.indexOf('dd');
-        var mpos = fmt.indexOf('mm');
-        var ypos = fmt.indexOf('yyyy');
+        let fmt = this.options.dateFormat !== undefined ? this.options.dateFormat : this.dateFormat;
+        let dpos = fmt.indexOf('dd');
+        let mpos = fmt.indexOf('mm');
+        let ypos = fmt.indexOf('yyyy');
         this.selectionDayTxt = changes['selDate'].currentValue;
         this.selectedDate = {day: parseInt(this.selectionDayTxt.substring(dpos, dpos + 2)),
             month: parseInt(this.selectionDayTxt.substring(mpos, mpos + 2)),
@@ -76,13 +76,12 @@ export class MyDatePicker implements OnInit, OnChanges {
         this.selectionDayTxt = '';
         this.selectedDate = {year: 0, month: 0, day: 0};
         this.dateChanged.emit({date: {}, formatted: this.selectionDayTxt, epoc: 0});
-        this.selDate = '';
     }
 
     openBtnClicked():void {
         this.showSelector = !this.showSelector;
         if (this.showSelector) {
-            var y = 0, m = 0;
+            let y = 0, m = 0;
             if (this.selectedDate.year === 0 && this.selectedDate.month === 0 && this.selectedDate.day === 0) {
                 y = this.today.getFullYear();
                 m = this.today.getMonth() + 1;
@@ -100,8 +99,8 @@ export class MyDatePicker implements OnInit, OnChanges {
     }
 
     prevMonth():void {
-        var m = this.visibleMonth.monthNbr;
-        var y = this.visibleMonth.year;
+        let m = this.visibleMonth.monthNbr;
+        let y = this.visibleMonth.year;
         if (m === 1) {
             m = 12;
             y--;
@@ -114,8 +113,8 @@ export class MyDatePicker implements OnInit, OnChanges {
     }
 
     nextMonth():void {
-        var m = this.visibleMonth.monthNbr;
-        var y = this.visibleMonth.year;
+        let m = this.visibleMonth.monthNbr;
+        let y = this.visibleMonth.year;
         if (m === 12) {
             m = 1;
             y++;
@@ -139,7 +138,7 @@ export class MyDatePicker implements OnInit, OnChanges {
 
     todayClicked():void {
         // Today selected
-        var m = this.today.getMonth() + 1;
+        let m = this.today.getMonth() + 1;
         this.visibleMonth = {monthTxt: this.monthText(m), monthNbr: m, year: this.today.getFullYear()};
         this.createMonth(this.visibleMonth.monthNbr, this.visibleMonth.year);
     }
@@ -155,9 +154,8 @@ export class MyDatePicker implements OnInit, OnChanges {
             this.selectedDate = {day: cell.day, month: cell.month, year: cell.year};
             this.selectionDayTxt = this.formatDate(cell);
             this.showSelector = false;
-            var epoc = new Date(cell.year, cell.month - 1, cell.day, 0, 0, 0, 0).getTime() / 1000.0;
+            let epoc = new Date(cell.year, cell.month - 1, cell.day, 0, 0, 0, 0).getTime() / 1000.0;
             this.dateChanged.emit({date: this.selectedDate, formatted: this.selectionDayTxt, epoc: epoc});
-            this.selDate = this.selectionDayTxt;
         }
         else if (cell.cmo === this.NEXT_MONTH) {
             // Next month of day
@@ -183,11 +181,11 @@ export class MyDatePicker implements OnInit, OnChanges {
 
     monthStartIdx(y:number, m:number):number {
         // Month start index
-        var d = new Date();
+        let d = new Date();
         d.setDate(1);
         d.setMonth(m - 1);
         d.setFullYear(y);
-        var idx = d.getDay() + this.sundayIdx();
+        let idx = d.getDay() + this.sundayIdx();
         return idx >= 7 ? idx - 7 : idx;
     }
 
@@ -220,13 +218,13 @@ export class MyDatePicker implements OnInit, OnChanges {
 
     createMonth(m:number, y:number): void {
         this.dates.length = 0;
-        var monthStart = this.monthStartIdx(y, m);
-        var dInThisM = this.daysInMonth(m, y);
-        var dInPrevM = this.daysInPrevMonth(m, y);
-        var sunIdx = this.sundayIdx();
+        let monthStart = this.monthStartIdx(y, m);
+        let dInThisM = this.daysInMonth(m, y);
+        let dInPrevM = this.daysInPrevMonth(m, y);
+        let sunIdx = this.sundayIdx();
 
-        var dayNbr = 1;
-        var cmo = this.PREV_MONTH;
+        let dayNbr = 1;
+        let cmo = this.PREV_MONTH;
         for (var i = 1; i < 7; i++) {
             var week = [];
             if (i === 1) {

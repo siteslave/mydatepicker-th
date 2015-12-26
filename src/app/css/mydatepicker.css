@@ -141,6 +141,7 @@
 .mydatepicker .caltable td {
     cursor: pointer;
     font-weight: bold;
+    height: 28px;
 }
 
 .mydatepicker .prevmonth {
@@ -160,13 +161,14 @@
     font-weight: bold;
 }
 
-.mydatepicker .currday {
-    background-color: #64E986;
-    text-decoration: underline;
+.mydatepicker .currday div {
+    border: 1px solid #C30000;
+    border-radius: 50%;
 }
 
-.mydatepicker .selectedday {
-    background-color: #3BB9FF;
+.mydatepicker .selectedday div {
+    border: 1px solid #004198;
+    background-color: #3BB9FF !important;
 }
 
 .mydatepicker .selectmenu {
@@ -249,8 +251,6 @@
 .mydatepicker .icon-right:hover {
     color: #63B2CC;
 }
-
-
 
 .mydatepicker table {
     display: table;

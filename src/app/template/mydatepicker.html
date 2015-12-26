@@ -33,7 +33,7 @@
             <tbody>
             <tr *ngFor="#w of dates">
                 <td *ngFor="#d of w" [ngClass]="{'currmonth':d.cmo===CURR_MONTH, 'currday':d.currDay, 'selectedday':selectedDate.day===d.day && selectedDate.month===d.month && selectedDate.year===d.year && d.cmo===CURR_MONTH}" (click)="cellClicked(d)">
-                    <span style="background-color:inherit" [ngClass]="{'prevmonth':d.cmo===PREV_MONTH,'currmonth':d.cmo===CURR_MONTH,'nextmonth':d.cmo===NEXT_MONTH,'sunday':d.sun && d.cmo===CURR_MONTH && sunHighlight}">{{d.day}}</span>
+                    <div style="background-color:inherit" [ngClass]="{'prevmonth':d.cmo===PREV_MONTH,'currmonth':d.cmo===CURR_MONTH,'nextmonth':d.cmo===NEXT_MONTH,'sunday':d.sun && d.cmo===CURR_MONTH && sunHighlight}">{{d.day}}</div>
                 </td>
             </tr>
             </tbody>
