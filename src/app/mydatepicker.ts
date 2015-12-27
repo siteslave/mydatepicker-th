@@ -23,6 +23,7 @@ export class MyDatePicker implements OnInit, OnChanges {
     dates:Array<Object> = [];
     selectionDayTxt:string = '';
     dayIdx:number = 0;
+    today:Date = null;
 
     PREV_MONTH:number = 1;
     CURR_MONTH:number = 2;
@@ -37,9 +38,9 @@ export class MyDatePicker implements OnInit, OnChanges {
     height:string = '34px';
     width:string = '100%';
 
-    today = new Date();
-
-    constructor() {}
+    constructor() {
+        this.today = new Date();
+    }
 
     ngOnInit() {
         this.dayLabels = this.options.dayLabels !== undefined ? this.options.dayLabels : this.dayLabels;
@@ -62,14 +63,16 @@ export class MyDatePicker implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: {[propName: string]: SimpleChange}) {
-        let fmt = this.options.dateFormat !== undefined ? this.options.dateFormat : this.dateFormat;
-        let dpos = fmt.indexOf('dd');
-        let mpos = fmt.indexOf('mm');
-        let ypos = fmt.indexOf('yyyy');
         this.selectionDayTxt = changes['selDate'].currentValue;
-        this.selectedDate = {day: parseInt(this.selectionDayTxt.substring(dpos, dpos + 2)),
-            month: parseInt(this.selectionDayTxt.substring(mpos, mpos + 2)),
-            year: parseInt(this.selectionDayTxt.substring(ypos, ypos + 4))};
+        if(this.selectionDayTxt !== '') {
+            let fmt = this.options.dateFormat !== undefined ? this.options.dateFormat : this.dateFormat;
+            let dpos = fmt.indexOf('dd');
+            let mpos = fmt.indexOf('mm');
+            let ypos = fmt.indexOf('yyyy');
+            this.selectedDate = {day: parseInt(this.selectionDayTxt.substring(dpos, dpos + 2)),
+                month: parseInt(this.selectionDayTxt.substring(mpos, mpos + 2)),
+                year: parseInt(this.selectionDayTxt.substring(ypos, ypos + 4))};
+        }
     }
 
     removeBtnClicked():void {

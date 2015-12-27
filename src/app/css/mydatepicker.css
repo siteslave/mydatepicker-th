@@ -37,7 +37,7 @@
     position: absolute;
     width: 100%;
     text-align: left;
-    font-size: 16px;
+    font-size: 17px;
     font-weight: bold;
     padding: 0 64px 0 4px;
     overflow: hidden;
@@ -169,6 +169,11 @@
 .mydatepicker .selectedday div {
     border: 1px solid #004198;
     background-color: #8EBFFF !important;
+    border-radius: 0;
+}
+
+.mydatepicker .caltable tbody .currmonth:hover {
+    background-color: #6AD0EB;
 }
 
 .mydatepicker .selectmenu {
@@ -189,8 +194,7 @@
 .mydatepicker .table,
 .mydatepicker .table th,
 .mydatepicker .table td,
-.mydatepicker .headertodaybtn,
-.mydatepicker .footerbtn {
+.mydatepicker .headertodaybtn {
     border: 1px solid #AAA;
 }
 
@@ -200,22 +204,15 @@
 .mydatepicker .headermonthtxt,
 .mydatepicker .headeryeartxt,
 .mydatepicker .headertodaybtn,
-.mydatepicker .selection,
-.mydatepicker .footerbtn {
+.mydatepicker .selection {
     color: #000;
 }
 
-.mydatepicker .headertodaybtn,
-.mydatepicker .footerbtn {
+.mydatepicker .headertodaybtn {
     padding: 4px 6px;
     border-radius: 2px;
     cursor: pointer;
     font-size: 12px;
-}
-
-.mydatepicker .btndisable {
-    cursor: default;
-    opacity: 0.5;
 }
 
 .mydatepicker button::-moz-focus-inner {
