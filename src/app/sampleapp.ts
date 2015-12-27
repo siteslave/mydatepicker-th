@@ -4,7 +4,7 @@ import {MyDatePicker} from './mydatepicker';
 
 @Component({
     selector: 'sample-date-picker',
-    template: `<my-date-picker [(options)]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" [selDate]="selectedDate"></my-date-picker>`,
+    template: `<my-date-picker [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" [selDate]="selectedDate"></my-date-picker>`,
     directives: [MyDatePicker]
 })
 

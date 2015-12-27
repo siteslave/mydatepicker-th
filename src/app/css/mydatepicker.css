@@ -162,13 +162,13 @@
 }
 
 .mydatepicker .currday div {
-    border: 1px solid #C30000;
+    border: 1px solid #004198;
     border-radius: 50%;
 }
 
 .mydatepicker .selectedday div {
     border: 1px solid #004198;
-    background-color: #3BB9FF !important;
+    background-color: #8EBFFF !important;
 }
 
 .mydatepicker .selectmenu {

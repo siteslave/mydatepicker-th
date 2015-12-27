@@ -1,5 +1,5 @@
 import {Component, View, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange} from 'angular2/core';
-import {NgIf, NgFor, NgClass, NgStyle} from 'angular2/common';
+import {NgIf, NgFor, NgClass, NgStyle, NgModel} from 'angular2/common';
 import {MyDate, MyMonth} from './interfaces';
 
 @Component({
