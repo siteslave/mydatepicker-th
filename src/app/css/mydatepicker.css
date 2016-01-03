@@ -1,10 +1,11 @@
-.mydatepicker {
+.mydp {
     min-width: 100px;
     border-radius: 2px;
     line-height: 1.1;
+    display: inline-block;
 }
 
-.mydatepicker * {
+.mydp * {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -13,7 +14,7 @@
     margin: 0;
 }
 
-.mydatepicker .selector {
+.mydp .selector {
     margin-top: 2px;
     margin-left: -1px;
     position: absolute;
@@ -24,20 +25,20 @@
     z-index: 100;
 }
 
-.mydatepicker .selectiongroup {
+.mydp .selectiongroup {
     position: relative;
     display: table;
     border: none;
     background-color: #FFF;
 }
 
-.mydatepicker .selection {
+.mydp .selection {
     background-color: #FFF;
     display: table-cell;
     position: absolute;
     width: 100%;
     text-align: left;
-    font-size: 17px;
+    font-size: 18px;
     font-weight: bold;
     padding: 0 64px 0 4px;
     overflow: hidden;
@@ -46,7 +47,7 @@
     text-align: center;
 }
 
-.mydatepicker .selbtngroup {
+.mydp .selbtngroup {
     position: relative;
     vertical-align: middle;
     white-space: nowrap;
@@ -56,12 +57,12 @@
     font-size: 0;
 }
 
-.mydatepicker .btnpicker,
-.mydatepicker .btnclear {
+.mydp .btnpicker,
+.mydp .btnclear {
     height: 100%;
     width: 30px;
     border: none;
-    border-left: 1px solid #999;
+    border-left: 1px solid #AAA;
     padding: 0px;
     cursor: pointer;
     outline: 0;
@@ -69,10 +70,10 @@
     -moz-user-select: none;
 }
 
-.mydatepicker .btnpicker,
-.mydatepicker .btnclear,
-.mydatepicker .headertodaybtn,
-.mydatepicker .footerbtn {
+.mydp .btnpicker,
+.mydp .btnclear,
+.mydp .headertodaybtn,
+.mydp .footerbtn {
     background: #FAFAFA;
     background-image: -webkit-linear-gradient(#F0F0F0 30%, #AEC2E1 100%);
     background-image: -moz-linear-gradient(#F0F0F0 30%, #AEC2E1 100%);
@@ -81,179 +82,176 @@
     background-image: linear-gradient(#F0F0F0 30%, #AEC2E1 100%);
 }
 
-.mydatepicker .header {
+.mydp .header {
     width: 100%;
     height: 36px;
     margin-bottom: 1px;
     background-color: #FAFAFA;
 }
 
-.mydatepicker .header td {
+.mydp .header td {
     vertical-align: middle;
     border: none;
 }
 
-.mydatepicker .header td:nth-child(1) {
+.mydp .header td:nth-child(1) {
     font-size: 16px;
     padding-left: 4px;
 }
 
-.mydatepicker .header td:nth-child(2) {
+.mydp .header td:nth-child(2) {
     text-align: center;
 }
 
-.mydatepicker .header td:nth-child(3) {
+.mydp .header td:nth-child(3) {
     font-size: 16px;
     padding-right: 4px;
 }
 
-.mydatepicker .caltable {
+.mydp .caltable {
     table-layout: fixed;
     width: 100%;
     background-color: #FFF;
     font-size: 14px;
 }
 
-.mydatepicker .caltable tbody {
-    border: 1px solid #AAA;
-}
-
-.mydatepicker .caltable,
-.mydatepicker .caltable th,
-.mydatepicker .caltable td {
+.mydp .caltable,
+.mydp .caltable th,
+.mydp .caltable td {
     border-collapse: collapse;
     color: #003366;
     line-height: 1.1;
 }
 
-.mydatepicker .caltable th,
-.mydatepicker .caltable td {
+.mydp .caltable th,
+.mydp .caltable td {
     padding: 5px;
     text-align: center;
 }
 
-.mydatepicker .caltable th {
+.mydp .caltable th {
     background-color: #DDD;
     font-size: 12px;
     vertical-align: middle;
 }
 
-.mydatepicker .caltable td {
+.mydp .caltable td {
     cursor: pointer;
     font-weight: bold;
     height: 28px;
 }
 
-.mydatepicker .prevmonth {
+.mydp .prevmonth {
     color: #CCC;
 }
 
-.mydatepicker .nextmonth {
+.mydp .nextmonth {
     color: #CCC;
 }
 
-.mydatepicker .sunday {
+.mydp .sunday {
     color: #C30000;
 }
 
-.mydatepicker .currmonth {
+.mydp .currmonth {
     background-color: #F6F6F6;
     font-weight: bold;
 }
 
-.mydatepicker .currday div {
+.mydp .currday div {
     border: 1px solid #004198;
     border-radius: 50%;
 }
 
-.mydatepicker .selectedday div {
+.mydp .selectedday div {
     border: 1px solid #004198;
     background-color: #8EBFFF !important;
     border-radius: 0;
 }
 
-.mydatepicker .caltable tbody .currmonth:hover {
+.mydp .caltable tbody .currmonth:hover {
     background-color: #6AD0EB;
 }
 
-.mydatepicker .selectmenu {
+.mydp .selectmenu {
     height: 24px;
     width: 60px
 }
 
-.mydatepicker .headerbtn {
+.mydp .headerbtn {
     background-color: #FAFAFA;
     cursor: pointer;
     display: table-cell;
 }
 
-.mydatepicker,
-.mydatepicker .selector,
-.mydatepicker .header,
-.mydatepicker .footerarea,
-.mydatepicker .table,
-.mydatepicker .table th,
-.mydatepicker .table td,
-.mydatepicker .headertodaybtn {
+.mydp,
+.mydp .selector,
+.mydp .header,
+.mydp .footerarea,
+.mydp .table,
+.mydp .table th,
+.mydp .table td,
+.mydp .headertodaybtn,
+.mydp .caltable tbody {
     border: 1px solid #AAA;
 }
 
-.mydatepicker .btnpicker,
-.mydatepicker .btnclear,
-.mydatepicker .headerbtn,
-.mydatepicker .headermonthtxt,
-.mydatepicker .headeryeartxt,
-.mydatepicker .headertodaybtn,
-.mydatepicker .selection {
+.mydp .btnpicker,
+.mydp .btnclear,
+.mydp .headerbtn,
+.mydp .headermonthtxt,
+.mydp .headeryeartxt,
+.mydp .headertodaybtn,
+.mydp .selection {
     color: #000;
 }
 
-.mydatepicker .headertodaybtn {
+.mydp .headertodaybtn {
     padding: 4px 6px;
     border-radius: 2px;
     cursor: pointer;
     font-size: 12px;
 }
 
-.mydatepicker button::-moz-focus-inner {
+.mydp button::-moz-focus-inner {
     border: 0;
 }
 
-.mydatepicker .headermonthtxt,
-.mydatepicker .headeryeartxt {
+.mydp .headermonthtxt,
+.mydp .headeryeartxt {
     width: 40px;
     text-align: center;
     display: table-cell;
     vertical-align: middle;
 }
 
-.mydatepicker .btnclear:focus,
-.mydatepicker .btnpicker:focus,
-.mydatepicker .btnclear:hover,
-.mydatepicker .btnpicker:hover {
+.mydp .btnclear:focus,
+.mydp .btnpicker:focus,
+.mydp .btnclear:hover,
+.mydp .btnpicker:hover {
     background: #ADD8E6;
 }
 
-.mydatepicker .icon-calendar,
-.mydatepicker .icon-cross {
+.mydp .icon-calendar,
+.mydp .icon-cross {
     font-size: 16px;
 }
 
-.mydatepicker .icon-left,
-.mydatepicker .icon-right {
+.mydp .icon-left,
+.mydp .icon-right {
     font-size: 14px;
 }
 
-.mydatepicker .icon-left:hover,
-.mydatepicker .icon-right:hover {
+.mydp .icon-left:hover,
+.mydp .icon-right:hover {
     color: #63B2CC;
 }
 
-.mydatepicker table {
+.mydp table {
     display: table;
 }
 
-.mydatepicker table td {
+.mydp table td {
     padding: 0;
 }
 
@@ -264,7 +262,7 @@
     font-style: normal;
 }
 
-.mydatepicker .icon {
+.mydp .icon {
     font-family: 'mydatepicker';
     speak: none;
     font-style: normal;
@@ -277,18 +275,18 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.mydatepicker .icon-calendar:before {
+.mydp .icon-calendar:before {
     content: "\e600";
 }
 
-.mydatepicker .icon-cross:before {
+.mydp .icon-cross:before {
     content: "\e602";
 }
 
-.mydatepicker .icon-left:before {
+.mydp .icon-left:before {
     content: "\e605";
 }
 
-.mydatepicker .icon-right:before {
+.mydp .icon-right:before {
     content: "\e607";
 }

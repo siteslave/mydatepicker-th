@@ -1,4 +1,4 @@
-import {Component, View, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange} from 'angular2/core';
+import {Component, View, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange, ElementRef} from 'angular2/core';
 import {NgIf, NgFor, NgClass, NgStyle, NgModel} from 'angular2/common';
 import {MyDate, MyMonth} from './interfaces';
 
@@ -33,19 +33,27 @@ export class MyDatePicker implements OnInit, OnChanges {
     dayLabels = {su: 'Sun', mo: 'Mon', tu: 'Tue', we: 'Wed', th: 'Thu', fr: 'Fri', sa: 'Sat'};
     monthLabels = { 1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun', 7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec' };
     dateFormat:string = 'yyyy-mm-dd'
+    todayBtnTxt:string = 'Today';
     firstDayOfWeek:string = 'mo';
     sunHighlight:boolean = true;
     height:string = '34px';
     width:string = '100%';
 
-    constructor() {
+    constructor(public elem: ElementRef) {
         this.today = new Date();
+        let doc = document.getElementsByTagName('html')[0];
+        doc.addEventListener('click', (event) => {
+            if (this.showSelector && event.target && this.elem.nativeElement !== event.target && !this.elem.nativeElement.contains(event.target)) {
+                this.showSelector = false;
+            }
+        }, false);
     }
 
     ngOnInit() {
         this.dayLabels = this.options.dayLabels !== undefined ? this.options.dayLabels : this.dayLabels;
         this.monthLabels = this.options.monthLabels !== undefined ? this.options.monthLabels : this.monthLabels;
         this.dateFormat = this.options.dateFormat !== undefined ? this.options.dateFormat : this.dateFormat;
+        this.todayBtnTxt = this.options.todayBtnTxt !== undefined ? this.options.todayBtnTxt : this.todayBtnTxt;
         this.firstDayOfWeek = this.options.firstDayOfWeek !== undefined ? this.options.firstDayOfWeek : this.firstDayOfWeek;
         this.sunHighlight = this.options.sunHighlight !== undefined ? this.options.sunHighlight : this.sunHighlight;
         this.height = this.options.height !== undefined ? this.options.height : this.height;
@@ -141,9 +149,7 @@ export class MyDatePicker implements OnInit, OnChanges {
 
     todayClicked():void {
         // Today selected
-        let m = this.today.getMonth() + 1;
-        this.visibleMonth = {monthTxt: this.monthText(m), monthNbr: m, year: this.today.getFullYear()};
-        this.createMonth(this.visibleMonth.monthNbr, this.visibleMonth.year);
+        this.selectDate({day: this.today.getDate(), month: this.today.getMonth() + 1, year: this.today.getFullYear()});
     }
 
     cellClicked(cell:any):void {
@@ -154,16 +160,20 @@ export class MyDatePicker implements OnInit, OnChanges {
         }
         else if (cell.cmo === this.CURR_MONTH) {
             // Current month of day
-            this.selectedDate = {day: cell.day, month: cell.month, year: cell.year};
-            this.selectionDayTxt = this.formatDate(cell);
-            this.showSelector = false;
-            let epoc = new Date(cell.year, cell.month - 1, cell.day, 0, 0, 0, 0).getTime() / 1000.0;
-            this.dateChanged.emit({date: this.selectedDate, formatted: this.selectionDayTxt, epoc: epoc});
+            this.selectDate(cell);
         }
         else if (cell.cmo === this.NEXT_MONTH) {
             // Next month of day
             this.nextMonth();
         }
+    }
+
+    selectDate(date:any):void {
+        this.selectedDate = {day: date.day, month: date.month, year: date.year};
+        this.selectionDayTxt = this.formatDate(date);
+        this.showSelector = false;
+        let epoc = new Date(date.year, date.month - 1, date.day, 0, 0, 0, 0).getTime() / 1000.0;
+        this.dateChanged.emit({date: this.selectedDate, formatted: this.selectionDayTxt, epoc: epoc});
     }
 
     preZero(val:string):string {

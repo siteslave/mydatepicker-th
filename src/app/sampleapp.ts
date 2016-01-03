@@ -10,6 +10,7 @@ import {MyDatePicker} from './mydatepicker';
 
 class SampleDatePicker implements OnInit {
     private myDatePickerOptions = {
+        todayBtnTxt: 'Today',
         dateFormat: 'dd.mm.yyyy',
         firstDayOfWeek: 'mo',
         sunHighlight: true,
