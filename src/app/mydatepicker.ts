@@ -2,12 +2,14 @@ import {Component, View, Input, Output, EventEmitter, OnInit, OnChanges, SimpleC
 import {NgIf, NgFor, NgClass, NgStyle, NgModel} from 'angular2/common';
 import {MyDate, MyMonth} from './interfaces';
 
+declare var require: any;
+
 @Component({
     selector: 'my-date-picker'
 })
 @View({
-    templateUrl: 'app/template/mydatepicker.html',
-    styleUrls: ['app/css/mydatepicker.css'],
+    template: require('raw!./template/mydatepicker.html'),
+    styles: [require('raw!./css/mydatepicker.css')],
     directives: [NgIf, NgFor, NgClass, NgStyle]
 })
 
@@ -178,7 +180,7 @@ export class MyDatePicker implements OnInit, OnChanges {
 
     preZero(val:string):string {
         // Prepend zero if smaller than 10
-        return val < 10 ? '0' + val : val;
+        return parseInt(val) < 10 ? '0' + val : val;
     }
 
     formatDate(val:any):string {

@@ -1,10 +1,10 @@
-interface MyDate {
+export interface MyDate {
     year: number;
     month: number;
     day: number;
 }
 
-interface MyMonth {
+export interface MyMonth {
     monthTxt: string;
     monthNbr: number;
     year: number;
