@@ -1,6 +1,6 @@
 {
   "name": "MyDatePicker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Angular2 date picker",
   "scripts": {
     "tsc": "tsc -p src -w",
@@ -14,10 +14,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kekeh/mydatepicker.git"
+    "url": "https://github.com/ForNeVeR/mydatepicker.git"
   },
   "dependencies": {
-    "angular2": "2.0.0-beta.7",
+    "angular2": "^2.0.0-beta.8",
     "systemjs": "0.19.6",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.33.3",
@@ -29,6 +29,9 @@
     "concurrently": "^1.0.0",
     "live-server": "^0.8.2",
     "typescript": "^1.7.3"
+  },
+  "peerDependencies": {
+      "raw-loader": "^0.5.1"
   },
   "engine": "node >= 0.10"
 }
