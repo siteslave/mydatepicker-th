@@ -1,14 +1,14 @@
-import {Component, View, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange, ElementRef} from 'angular2/core';
+import {Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange, ElementRef} from 'angular2/core';
 import {NgIf, NgFor, NgClass, NgStyle, NgModel} from 'angular2/common';
 import {MyDate, MyMonth} from './interfaces';
+
+declare var require: any;
 
 const styles: string = require('./css/mydatepicker.css');
 const template: string = require('./template/mydatepicker.html');
 
 @Component({
-    selector: 'my-date-picker'
-})
-@View({
+    selector: 'my-date-picker',
     directives: [NgIf, NgFor, NgClass, NgStyle],
     styles: [styles],
     template
