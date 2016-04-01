@@ -2,16 +2,14 @@ import {Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange,
 import {NgIf, NgFor, NgClass, NgStyle, NgModel} from 'angular2/common';
 import {MyDate, MyMonth} from './interfaces';
 
-declare var require: any;
-
-const styles: string = require('./css/mydatepicker.css');
-const template: string = require('./template/mydatepicker.html');
+const styles: string = 'app/css/mydatepicker.css';
+const template: string = 'app/template/mydatepicker.html';
 
 @Component({
     selector: 'my-date-picker',
     directives: [NgIf, NgFor, NgClass, NgStyle],
-    styles: [styles],
-    template
+    templateUrl: template,
+    styleUrls: [styles]
 })
 
 export class MyDatePicker implements OnInit, OnChanges {
