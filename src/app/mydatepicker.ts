@@ -5,6 +5,23 @@ import {MyDate, MyMonth} from './interfaces';
 const styles: string = 'app/css/mydatepicker.css';
 const template: string = 'app/template/mydatepicker.html';
 
+interface DayLabels {
+    [day: string]: string;
+}
+
+interface MonthLabels {
+    [month: number]: string;
+}
+
+interface Week {
+    day: number;
+    month: number;
+    year: number;
+    cmo: number;
+    currDay: boolean;
+    sun: boolean;
+}
+
 @Component({
     selector: 'my-date-picker',
     directives: [NgIf, NgFor, NgClass, NgStyle],
@@ -31,8 +48,8 @@ export class MyDatePicker implements OnInit, OnChanges {
     NEXT_MONTH:number = 3;
 
     // Default options
-    dayLabels = {su: 'Sun', mo: 'Mon', tu: 'Tue', we: 'Wed', th: 'Thu', fr: 'Fri', sa: 'Sat'};
-    monthLabels = { 1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun', 7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec' };
+    dayLabels:DayLabels = {su: 'Sun', mo: 'Mon', tu: 'Tue', we: 'Wed', th: 'Thu', fr: 'Fri', sa: 'Sat'};
+    monthLabels:MonthLabels = { 1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun', 7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec' };
     dateFormat:string = 'yyyy-mm-dd'
     todayBtnTxt:string = 'Today';
     firstDayOfWeek:string = 'mo';
@@ -244,7 +261,7 @@ export class MyDatePicker implements OnInit, OnChanges {
         let dayNbr = 1;
         let cmo = this.PREV_MONTH;
         for (var i = 1; i < 7; i++) {
-            var week = [];
+            var week:Week[] = [];
             if (i === 1) {
                 // First week
                 var pm = dInPrevM - monthStart + 1;
