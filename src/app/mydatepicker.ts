@@ -72,15 +72,19 @@ export class MyDatePicker implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: {[propName: string]: SimpleChange}) {
-        this.selectionDayTxt = changes['selDate'].currentValue;
-        if(this.selectionDayTxt !== '') {
-            let fmt = this.options.dateFormat !== undefined ? this.options.dateFormat : this.dateFormat;
-            let dpos = fmt.indexOf('dd');
-            let mpos = fmt.indexOf('mm');
-            let ypos = fmt.indexOf('yyyy');
-            this.selectedDate = {day: parseInt(this.selectionDayTxt.substring(dpos, dpos + 2)),
-                month: parseInt(this.selectionDayTxt.substring(mpos, mpos + 2)),
-                year: parseInt(this.selectionDayTxt.substring(ypos, ypos + 4))};
+        if (changes.hasOwnProperty('selDate')) {
+            this.selectionDayTxt = changes['selDate'].currentValue;
+            if (this.selectionDayTxt !== '') {
+                let fmt = this.options.dateFormat !== undefined ? this.options.dateFormat : this.dateFormat;
+                let dpos = fmt.indexOf('dd');
+                let mpos = fmt.indexOf('mm');
+                let ypos = fmt.indexOf('yyyy');
+                this.selectedDate = {
+                    day: parseInt(this.selectionDayTxt.substring(dpos, dpos + 2)),
+                    month: parseInt(this.selectionDayTxt.substring(mpos, mpos + 2)),
+                    year: parseInt(this.selectionDayTxt.substring(ypos, ypos + 4))
+                };
+            }
         }
     }
 
