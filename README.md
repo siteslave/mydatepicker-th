@@ -26,6 +26,41 @@ To install this component to an external project, follow the procedure:
                    [selDate]="selectedDate"></my-date-picker>
    ```
 
+## Usage
+
+All input properties are optional.
+
+### options
+Bind to an object containing replacements for any of the following defaults:
+
+#### dayLabels
+  `{su: 'Sun', mo: 'Mon', tu: 'Tue', we: 'Wed', th: 'Thu', fr: 'Fri', sa: 'Sat'}`
+  
+#### monthLabels
+  `{ 1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun', 7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec' }`
+    
+#### dateFormat
+  `'yyyy-mm-dd'`
+  
+#### todayBtnTxt
+  `'Today'`
+  
+#### firstDayOfWeek
+  `'mo'`
+  
+#### sunHighlight
+  `true`
+  
+#### height
+  `'34px'`
+  
+#### width
+  `'100%'`
+
+### selDate
+Provide the initially chosen date that will display both in the text input field
+and provide the default for the popped-up datepicker.
+
 ## Demo
 Online demo is [here](http://kekeh.github.io/mydatepicker)
 
