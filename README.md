@@ -57,6 +57,10 @@ Bind to an object containing replacements for any of the following defaults:
 #### width
   `'100%'`
 
+### locale
+A two-letter ISO 639-1 language code can be provided as shorthand for several of
+the options listed above. Currently supported languages: ja.
+
 ### selDate
 Provide the initially chosen date that will display both in the text input field
 and provide the default for the popped-up datepicker.

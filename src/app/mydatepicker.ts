@@ -22,6 +22,21 @@ interface Week {
     sun: boolean;
 }
 
+interface Options {
+    dayLabels?: DayLabels;
+    monthLabels?: MonthLabels;
+    dateFormat?: string;
+    todayBtnTxt?: string;
+    firstDayOfWeek?: string;
+    sunHighlight?: boolean;
+    height?: string;
+    width?: string;
+}
+
+interface Locales {
+    [lang: string]: Options;
+}
+
 @Component({
     selector: 'my-date-picker',
     directives: [NgIf, NgFor, NgClass, NgStyle],
@@ -31,6 +46,7 @@ interface Week {
 
 export class MyDatePicker implements OnInit, OnChanges {
     @Input() options:any;
+    @Input() locale:string;
     @Input() defaultMonth:string;
     @Input() selDate:string;
     @Output() dateChanged:EventEmitter<Object> = new EventEmitter();
@@ -59,6 +75,17 @@ export class MyDatePicker implements OnInit, OnChanges {
     height:string = '34px';
     width:string = '100%';
 
+    private _locales:Locales = {
+        'ja': {
+            dayLabels: {su: '日', mo: '月', tu: '火', we: '水', th: '木', fr: '金', sa: '土'},
+            monthLabels: {1: '１月', 2: '２月', 3: '３月', 4: '４月', 5: '５月', 6: '６月',
+                7: '７月', 8: '８月', 9: '９月', 10: '１０月', 11: '１１月', 12: '１２月'},
+            dateFormat: "yyyy.mm.dd",
+            todayBtnTxt: '今日',
+            sunHighlight: false
+        }
+    };
+
     constructor(public elem: ElementRef) {
         this.today = new Date();
         let doc = document.getElementsByTagName('html')[0];
@@ -70,14 +97,26 @@ export class MyDatePicker implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        this.dayLabels = this.options.dayLabels !== undefined ? this.options.dayLabels : this.dayLabels;
-        this.monthLabels = this.options.monthLabels !== undefined ? this.options.monthLabels : this.monthLabels;
-        this.dateFormat = this.options.dateFormat !== undefined ? this.options.dateFormat : this.dateFormat;
-        this.todayBtnTxt = this.options.todayBtnTxt !== undefined ? this.options.todayBtnTxt : this.todayBtnTxt;
-        this.firstDayOfWeek = this.options.firstDayOfWeek !== undefined ? this.options.firstDayOfWeek : this.firstDayOfWeek;
-        this.sunHighlight = this.options.sunHighlight !== undefined ? this.options.sunHighlight : this.sunHighlight;
-        this.height = this.options.height !== undefined ? this.options.height : this.height;
-        this.width = this.options.width !== undefined ? this.options.width : this.width;
+        let localeOptions:Options = {};
+        if (this.locale && this._locales.hasOwnProperty(this.locale)) {
+            localeOptions = this._locales[this.locale];
+        }
+
+        // the relatively ugly casts to any in this loop are needed to
+        // avoid tsc errors when noImplicitAny is true.
+        let optionprops = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt',
+            'firstDayOfWeek', 'sunHighlight', 'height', 'width'];
+        let noptionprops = optionprops.length;
+        for (let i = 0; i < noptionprops; i++) {
+            let propname = optionprops[i];
+            if (this.options && (<any>this.options)[propname] !== undefined) {
+                (<any>this)[propname] = (<any>this.options)[propname];
+            } else {
+                if (localeOptions.hasOwnProperty(propname)) {
+                    (<any>this)[propname] = (<any>localeOptions)[propname];
+                }
+            }
+        }
 
         let days = ['su', 'mo', 'tu', 'we', 'th', 'fr', 'sa'];
         this.dayIdx = days.indexOf(this.firstDayOfWeek);
@@ -297,7 +336,7 @@ export class MyDatePicker implements OnInit, OnChanges {
     private _parseDate(ds:string): MyDate {
         let rv:MyDate = {day: 0, month: 0, year: 0};
         if (ds !== '') {
-            let fmt = this.options.dateFormat !== undefined ? this.options.dateFormat : this.dateFormat;
+            let fmt = this.options && this.options.dateFormat !== undefined ? this.options.dateFormat : this.dateFormat;
             let dpos = fmt.indexOf('dd');
             if (dpos >= 0) {
                 rv.day = parseInt(ds.substring(dpos, dpos + 2));
