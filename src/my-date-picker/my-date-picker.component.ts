@@ -1,47 +1,16 @@
-import {Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange, ElementRef} from 'angular2/core';
-import {NgIf, NgFor, NgClass, NgStyle, NgModel} from 'angular2/common';
-import {MyDate, MyMonth} from './interfaces';
+import {Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange, ElementRef} from '@angular/core';
+import {NgIf, NgFor, NgClass, NgStyle, NgModel} from '@angular/common';
+import {IMyDate, IMyMonth, IMyWeek, IMyDayLabels, IMyMonthLabels, IMyLocales, IMyOptions} from './interfaces/index';
 
-const styles: string = 'app/css/mydatepicker.css';
-const template: string = 'app/template/mydatepicker.html';
-
-interface DayLabels {
-    [day: string]: string;
-}
-
-interface MonthLabels {
-    [month: number]: string;
-}
-
-interface Week {
-    day: number;
-    month: number;
-    year: number;
-    cmo: number;
-    currDay: boolean;
-    sun: boolean;
-}
-
-interface Options {
-    dayLabels?: DayLabels;
-    monthLabels?: MonthLabels;
-    dateFormat?: string;
-    todayBtnTxt?: string;
-    firstDayOfWeek?: string;
-    sunHighlight?: boolean;
-    height?: string;
-    width?: string;
-}
-
-interface Locales {
-    [lang: string]: Options;
-}
+declare var require;
+const styles: string = require('./my-date-picker.component.scss');
+const template: string = require('./my-date-picker.component.html');
 
 @Component({
     selector: 'my-date-picker',
     directives: [NgIf, NgFor, NgClass, NgStyle],
-    templateUrl: template,
-    styleUrls: [styles]
+    styles: [styles],
+    template
 })
 
 export class MyDatePicker implements OnInit, OnChanges {
@@ -51,35 +20,34 @@ export class MyDatePicker implements OnInit, OnChanges {
     @Input() selDate:string;
     @Output() dateChanged:EventEmitter<Object> = new EventEmitter();
 
-    showSelector:boolean = false;
-    visibleMonth:MyMonth = {monthTxt: '', monthNbr: 0, year: 0};
-    defaultDate:MyDate = {year: 0, month: 0, day: 0};
-    selectedDate:MyDate = {year: 0, month: 0, day: 0};
-    weekDays:Array<string> = [];
-    dates:Array<Object> = [];
-    selectionDayTxt:string = '';
-    dayIdx:number = 0;
-    today:Date = null;
+    showSelector: boolean = false;
+    visibleMonth: IMyMonth = {monthTxt: '', monthNbr: 0, year: 0};
+    defaultDate: IMyDate = {year: 0, month: 0, day: 0};
+    selectedDate: IMyDate = {year: 0, month: 0, day: 0};
+    weekDays: Array<string> = [];
+    dates: Array<Object> = [];
+    selectionDayTxt: string = '';
+    dayIdx: number = 0;
+    today: Date = null;
 
-    PREV_MONTH:number = 1;
-    CURR_MONTH:number = 2;
-    NEXT_MONTH:number = 3;
+    PREV_MONTH: number = 1;
+    CURR_MONTH: number = 2;
+    NEXT_MONTH: number = 3;
 
     // Default options
-    dayLabels:DayLabels = {su: 'Sun', mo: 'Mon', tu: 'Tue', we: 'Wed', th: 'Thu', fr: 'Fri', sa: 'Sat'};
-    monthLabels:MonthLabels = { 1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun', 7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec' };
-    dateFormat:string = 'yyyy-mm-dd'
-    todayBtnTxt:string = 'Today';
-    firstDayOfWeek:string = 'mo';
-    sunHighlight:boolean = true;
-    height:string = '34px';
-    width:string = '100%';
+    dayLabels: IMyDayLabels = {su: 'Sun', mo: 'Mon', tu: 'Tue', we: 'Wed', th: 'Thu', fr: 'Fri', sa: 'Sat'};
+    monthLabels: IMyMonthLabels = { 1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun', 7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec' };
+    dateFormat: string = 'yyyy-mm-dd'
+    todayBtnTxt: string = 'Today';
+    firstDayOfWeek: string = 'mo';
+    sunHighlight: boolean = true;
+    height: string = '34px';
+    width: string = '100%';
 
-    private _locales:Locales = {
+    private _locales:IMyLocales = {
         'ja': {
             dayLabels: {su: '日', mo: '月', tu: '火', we: '水', th: '木', fr: '金', sa: '土'},
-            monthLabels: {1: '１月', 2: '２月', 3: '３月', 4: '４月', 5: '５月', 6: '６月',
-                7: '７月', 8: '８月', 9: '９月', 10: '１０月', 11: '１１月', 12: '１２月'},
+            monthLabels: {1: '１月', 2: '２月', 3: '３月', 4: '４月', 5: '５月', 6: '６月', 7: '７月', 8: '８月', 9: '９月', 10: '１０月', 11: '１１月', 12: '１２月'},
             dateFormat: "yyyy.mm.dd",
             todayBtnTxt: '今日',
             sunHighlight: false
@@ -97,15 +65,14 @@ export class MyDatePicker implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        let localeOptions:Options = {};
+        let localeOptions:IMyOptions = {};
         if (this.locale && this._locales.hasOwnProperty(this.locale)) {
             localeOptions = this._locales[this.locale];
         }
 
         // the relatively ugly casts to any in this loop are needed to
         // avoid tsc errors when noImplicitAny is true.
-        let optionprops = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt',
-            'firstDayOfWeek', 'sunHighlight', 'height', 'width'];
+        let optionprops = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'height', 'width'];
         let noptionprops = optionprops.length;
         for (let i = 0; i < noptionprops; i++) {
             let propname = optionprops[i];
@@ -301,7 +268,7 @@ export class MyDatePicker implements OnInit, OnChanges {
         let dayNbr = 1;
         let cmo = this.PREV_MONTH;
         for (var i = 1; i < 7; i++) {
-            var week:Week[] = [];
+            var week: IMyWeek[] = [];
             if (i === 1) {
                 // First week
                 var pm = dInPrevM - monthStart + 1;
@@ -333,8 +300,8 @@ export class MyDatePicker implements OnInit, OnChanges {
         }
     }
 
-    private _parseDate(ds:string): MyDate {
-        let rv:MyDate = {day: 0, month: 0, year: 0};
+    private _parseDate(ds:string): IMyDate {
+        let rv:IMyDate = {day: 0, month: 0, year: 0};
         if (ds !== '') {
             let fmt = this.options && this.options.dateFormat !== undefined ? this.options.dateFormat : this.dateFormat;
             let dpos = fmt.indexOf('dd');
