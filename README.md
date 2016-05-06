@@ -3,7 +3,7 @@
 **Angular 2 date picker - Angular2 reusable UI component**
 
 ## Description
-Simple Angular2 date picker. Uses version "2.0.0-beta.17" of Angular2.
+Simple Angular2 date picker. Uses version "2.0.0-rc1" of Angular2.
 
 ##Getting Started
 1. Fork and clone this repo
