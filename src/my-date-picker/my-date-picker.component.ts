@@ -2,7 +2,7 @@ import {Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange,
 import {NgIf, NgFor, NgClass, NgStyle, NgModel} from '@angular/common';
 import {IMyDate, IMyMonth, IMyWeek, IMyDayLabels, IMyMonthLabels, IMyLocales, IMyOptions} from './interfaces/index';
 
-declare var require;
+declare var require:any;
 const styles: string = require('./my-date-picker.component.scss');
 const template: string = require('./my-date-picker.component.html');
 
