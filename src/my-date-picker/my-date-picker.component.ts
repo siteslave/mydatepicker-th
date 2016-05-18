@@ -51,6 +51,12 @@ export class MyDatePicker implements OnInit, OnChanges {
             dateFormat: "yyyy.mm.dd",
             todayBtnTxt: '今日',
             sunHighlight: false
+        },
+        'fr': {
+            dayLabels: {su: 'Dim', mo: 'Lun', tu: 'Mar', we: 'Mer', th: 'Jeu', fr: 'Ven', sa: 'Sam'},
+            monthLabels: {1: 'Jan', 2: 'Fév', 3: 'Mar', 4: 'Avr', 5: 'Mai', 6: 'Juin', 7: 'Juil', 8: 'Aoû', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Déc'},
+            dateFormat: "dd/mm/yyyy",
+            todayBtnTxt: 'Aujourd\'hui'
         }
     };
 
