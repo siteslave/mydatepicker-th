@@ -13,7 +13,7 @@ const template: string = require('./sample-date-app.component.html');
 })
 
 export class SampleDateApp implements OnInit {
-    private myDatePickerOptions = {
+    private myDatePickerOptions1 = {
         todayBtnTxt: 'Today',
         dateFormat: 'dd.mm.yyyy',
         firstDayOfWeek: 'mo',
@@ -21,7 +21,17 @@ export class SampleDateApp implements OnInit {
         height: '34px',
         width: '260px'
     };
-    selectedDate: string = '20.12.2015';
+    selectedDate1: string = '20.12.2015';
+    
+    private myDatePickerOptions2 = {
+        todayBtnTxt: 'Today',
+        dateFormat: 'yyyy-mm-dd',
+        firstDayOfWeek: 'mo',
+        sunHighlight: true,
+        height: '34px',
+        width: '260px'
+    };
+    selectedDate2: string = '2015-04-24';
 
     constructor() {}
 
@@ -29,7 +39,11 @@ export class SampleDateApp implements OnInit {
         console.log('onInit(): SampleDatePicker')
     }
 
-    onDateChanged(event) {
-        console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
+    onDateChanged1(event) {
+        console.log('onDateChanged1(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);  
+    }
+    
+    onDateChanged2(event) {
+        console.log('onDateChanged2(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);  
     }
 }
