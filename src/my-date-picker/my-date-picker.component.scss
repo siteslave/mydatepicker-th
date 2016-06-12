@@ -21,6 +21,10 @@
         background-color: #DDD;
         z-index: 100;
     }
+    .inlinedp {
+        position: relative;
+        margin-top: -2px;
+    }
     .selectiongroup {
         position: relative;
         display: table;
@@ -154,7 +158,6 @@
         cursor: pointer;
         display: table-cell;
     }
-    border: 1px solid #AAA;
     .selector, .header, .footerarea {
         border: 1px solid #AAA;
     }

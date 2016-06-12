@@ -1,12 +1,12 @@
-<div class="mydp" [ngStyle]="{'height': height, 'width': width}">
-    <div class="selectiongroup">
+<div class="mydp" [ngStyle]="{'height': height, 'width': width, 'border': inline ? 'none' : '1px solid #AAA'}">
+    <div class="selectiongroup" *ngIf="!inline">
         <span class="selection" [ngStyle]="{'height': height, 'line-height': height}" (click)="openBtnClicked()">{{selectionDayTxt}}</span>
         <span class="selbtngroup" [style.height]="height">
             <button type="button" class="btnclear" *ngIf="selectionDayTxt.length>0" (click)="removeBtnClicked()"><span class="icon icon-cross"></span></button>
             <button type="button" class="btnpicker" (click)="openBtnClicked()"><span class="icon icon-calendar"></span></button>
         </span>
     </div>
-    <div class="selector" *ngIf="showSelector">
+    <div class="selector" *ngIf="showSelector||inline" [ngClass]="{'inlinedp': inline}">
         <table class="header">
             <tr>
                 <td>

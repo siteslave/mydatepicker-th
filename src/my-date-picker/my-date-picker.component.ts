@@ -45,7 +45,8 @@ export class MyDatePicker implements OnInit, OnChanges {
     width: string = '100%';
     disableUntil: IMyDate = {year: 0, month: 0, day: 0};
     disableSince: IMyDate = {year: 0, month: 0, day: 0};
-    disableWeekends : boolean = false;
+    disableWeekends: boolean = false;
+    inline: boolean = false;
 
     private _locales:IMyLocales = {
         'ja': {
@@ -81,7 +82,7 @@ export class MyDatePicker implements OnInit, OnChanges {
 
         // the relatively ugly casts to any in this loop are needed to
         // avoid tsc errors when noImplicitAny is true.
-        let optionprops = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'disableWeekends', 'height', 'width'];
+        let optionprops = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'disableWeekends', 'height', 'width', 'inline'];
         let noptionprops = optionprops.length;
         for (let i = 0; i < noptionprops; i++) {
             let propname = optionprops[i];
@@ -102,6 +103,10 @@ export class MyDatePicker implements OnInit, OnChanges {
                 this.weekDays.push(this.dayLabels[days[idx]]);
                 idx = days[idx] === 'sa' ? 0 : idx + 1;
             }
+        }
+        
+        if(this.inline) {
+            this.openBtnClicked();
         }
     }
 
@@ -187,7 +192,13 @@ export class MyDatePicker implements OnInit, OnChanges {
 
     todayClicked():void {
         // Today selected
-        this.selectDate({day: this.today.getDate(), month: this.today.getMonth() + 1, year: this.today.getFullYear()});
+        let m = this.today.getMonth() + 1;
+        let y = this.today.getFullYear();
+        this.selectDate({day: this.today.getDate(), month: m, year: y});
+        if(this.inline) {
+            this.visibleMonth = {monthTxt: this.monthLabels[m], monthNbr: m, year: y};
+            this.createMonth(m, y);
+        }
     }
 
     cellClicked(cell:any):void {

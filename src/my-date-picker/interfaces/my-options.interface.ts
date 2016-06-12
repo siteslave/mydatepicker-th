@@ -14,4 +14,5 @@ export interface IMyOptions {
     disableWeekends?: boolean;
     height?: string;
     width?: string;
+    inline?: boolean;
 }

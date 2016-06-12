@@ -29,10 +29,11 @@ export class SampleDateApp implements OnInit {
     private myDatePickerOptions2 = {
         todayBtnTxt: 'Today',
         dateFormat: 'yyyy-mm-dd',
-        firstDayOfWeek: 'su',
+        firstDayOfWeek: 'mo',
         sunHighlight: true,
         height: '34px',
-        width: '260px'
+        width: '260px',
+        inline: true
     };
     selectedDate2: string = '2015-04-24';
 
