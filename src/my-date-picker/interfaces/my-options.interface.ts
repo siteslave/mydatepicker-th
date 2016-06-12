@@ -11,6 +11,7 @@ export interface IMyOptions {
     sunHighlight?: boolean;
     disabledUntil?: IMyDate;
     disabledSince?: IMyDate;
+    disableWeekends?: boolean;
     height?: string;
     width?: string;
 }

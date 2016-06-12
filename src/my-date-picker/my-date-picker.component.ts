@@ -45,6 +45,7 @@ export class MyDatePicker implements OnInit, OnChanges {
     width: string = '100%';
     disableUntil: IMyDate = {year: 0, month: 0, day: 0};
     disableSince: IMyDate = {year: 0, month: 0, day: 0};
+    disableWeekends : boolean = false;
 
     private _locales:IMyLocales = {
         'ja': {
@@ -80,7 +81,7 @@ export class MyDatePicker implements OnInit, OnChanges {
 
         // the relatively ugly casts to any in this loop are needed to
         // avoid tsc errors when noImplicitAny is true.
-        let optionprops = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'height', 'width'];
+        let optionprops = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'disableWeekends', 'height', 'width'];
         let noptionprops = optionprops.length;
         for (let i = 0; i < noptionprops; i++) {
             let propname = optionprops[i];
@@ -241,7 +242,7 @@ export class MyDatePicker implements OnInit, OnChanges {
 
     daysInMonth(m:number, y:number):number {
         // Return number of days of current month
-        return new Date(y, m - 1, 0).getDate();
+        return new Date(y, m, 0).getDate();
     }
 
     daysInPrevMonth(m:number, y:number):number {
@@ -262,15 +263,17 @@ export class MyDatePicker implements OnInit, OnChanges {
     }
     
     isDisabledDay(date:IMyDate):boolean {
-        // Check is a given date <= disabledUntil or given date >= disabledSince
+        // Check is a given date <= disabledUntil or given date >= disabledSince or disabled weekend
         let givenDate = this.getTimeInMilliseconds(date);
-        if(this.disableUntil.year !== 0 && this.disableUntil.month !== 0 && this.disableUntil.day !== 0) {
-            if(givenDate <= this.getTimeInMilliseconds(this.disableUntil)) {
-                return true;
-            }
+        if(this.disableUntil.year !== 0 && this.disableUntil.month !== 0 && this.disableUntil.day !== 0 && givenDate <= this.getTimeInMilliseconds(this.disableUntil)) {
+            return true;
         }
-        if(this.disableSince.year !== 0 && this.disableSince.month !== 0 && this.disableSince.day !== 0) {
-            if(givenDate >= this.getTimeInMilliseconds(this.disableSince)) {
+        if(this.disableSince.year !== 0 && this.disableSince.month !== 0 && this.disableSince.day !== 0 && givenDate >= this.getTimeInMilliseconds(this.disableSince)) {
+            return true;
+        }
+        if(this.disableWeekends) {
+            let dayNbr = this.getDayNumber(date);
+            if(dayNbr === 0 || dayNbr === 6) {
                 return true;
             }
         }
@@ -281,6 +284,12 @@ export class MyDatePicker implements OnInit, OnChanges {
         return new Date(date.year, date.month, date.day, 0, 0, 0, 0).getTime();
     }
 
+    getDayNumber(date:IMyDate):number {
+        // Get day number: sun=0, mon=1, tue=2, wed=3 ...
+        let d = new Date(date.year, date.month - 1 , date.day, 0, 0, 0, 0);
+        return d.getDay();
+    }
+    
     sundayIdx():number {
         // Index of Sunday day
         return this.dayIdx > 0 ? 7 - this.dayIdx : 0;
@@ -291,7 +300,6 @@ export class MyDatePicker implements OnInit, OnChanges {
         let monthStart = this.monthStartIdx(y, m);
         let dInThisM = this.daysInMonth(m, y);
         let dInPrevM = this.daysInPrevMonth(m, y);
-        let sunIdx = this.sundayIdx();
 
         let dayNbr = 1;
         let cmo = this.PREV_MONTH;
@@ -303,17 +311,15 @@ export class MyDatePicker implements OnInit, OnChanges {
                 // Previous month
                 for (var j = pm; j <= dInPrevM; j++) {
                     let date: IMyDate = {year: y, month: m - 1, day: j};
-                    week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(j, m, y, cmo), sun: week.length === sunIdx, disabled: this.isDisabledDay(date)});
+                    week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(j, m, y, cmo), dayNbr: this.getDayNumber(date), disabled: this.isDisabledDay(date)});
                 }
                 
                 cmo = this.CURR_MONTH;
                 // Current month
                 var daysLeft = 7 - week.length;
                 for (var j = 0; j < daysLeft; j++) {
- 
                     let date: IMyDate = {year: y, month: m, day: dayNbr};
-                    
-                    week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo), sun: week.length === sunIdx, disabled: this.isDisabledDay(date)});
+                    week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo), dayNbr: this.getDayNumber(date), disabled: this.isDisabledDay(date)});
                     dayNbr++;
                 }
             }
@@ -325,10 +331,8 @@ export class MyDatePicker implements OnInit, OnChanges {
                         dayNbr = 1;
                         cmo = this.NEXT_MONTH;
                     }
-  
                     let date: IMyDate = {year: y, month: cmo === this.CURR_MONTH ? m : m + 1, day: dayNbr};
-                    
-                    week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo), sun: week.length === sunIdx, disabled: this.isDisabledDay(date)});
+                    week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo), dayNbr: this.getDayNumber(date), disabled: this.isDisabledDay(date)});
                     dayNbr++;
                 }
             }

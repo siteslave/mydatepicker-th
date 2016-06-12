@@ -33,7 +33,7 @@
             <tbody>
                 <tr *ngFor="let w of dates">
                     <td *ngFor="let d of w" [ngClass]="{'currmonth':d.cmo===CURR_MONTH&&!d.disabled, 'currday':d.currDay, 'selectedday':selectedDate.day===d.dateObj.day && selectedDate.month===d.dateObj.month && selectedDate.year===d.dateObj.year && d.cmo===CURR_MONTH, 'disabled': d.disabled}" (click)="$event.stopPropagation();!d.disabled && cellClicked(d)">
-                        <div style="background-color:inherit" [ngClass]="{'prevmonth':d.cmo===PREV_MONTH,'currmonth':d.cmo===CURR_MONTH,'nextmonth':d.cmo===NEXT_MONTH,'sunday':d.sun && d.cmo===CURR_MONTH && sunHighlight}">{{d.dateObj.day}}</div>
+                        <div style="background-color:inherit" [ngClass]="{'prevmonth':d.cmo===PREV_MONTH,'currmonth':d.cmo===CURR_MONTH,'nextmonth':d.cmo===NEXT_MONTH,'sunday':d.dayNbr === 0 && sunHighlight}">{{d.dateObj.day}}</div>
                     </td>
                 </tr>
             </tbody>

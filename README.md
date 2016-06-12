@@ -57,6 +57,9 @@ Bind to an object containing replacements for any of the following defaults:
 #### disableSince
   `{year: 2016, month: 7, day: 22}`
   
+#### disableWeekends
+  `false`
+
 #### height
   `'34px'`
   

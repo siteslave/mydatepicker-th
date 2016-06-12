@@ -4,6 +4,6 @@ export interface IMyWeek {
     dateObj: IMyDate;
     cmo: number;
     currDay: boolean;
-    sun: boolean;
+    dayNbr: number;
     disabled: boolean;
 }

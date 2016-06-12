@@ -22,13 +22,14 @@ export class SampleDateApp implements OnInit {
         height: '34px',
         width: '260px',
         disableUntil: {year: 0, month: 0, day: 0},
-        //disableSince: {year: 2016, month: 6, day: 26}
+        //disableSince: {year: 2016, month: 6, day: 26},
+        //disableWeekends: true
     };
     
     private myDatePickerOptions2 = {
         todayBtnTxt: 'Today',
         dateFormat: 'yyyy-mm-dd',
-        firstDayOfWeek: 'mo',
+        firstDayOfWeek: 'su',
         sunHighlight: true,
         height: '34px',
         width: '260px'

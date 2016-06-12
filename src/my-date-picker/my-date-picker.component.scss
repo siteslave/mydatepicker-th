@@ -121,9 +121,6 @@
     .prevmonth, .nextmonth {
         color: #CCC;
     }
-    .sunday {
-        color: #C30000;
-    }
     .currmonth {
         background-color: #F6F6F6;
         font-weight: bold;
@@ -137,13 +134,16 @@
         background-color: #8EBFFF !important;
         border-radius: 0;
     }
-
     .caltable tbody .currmonth:hover {
         background-color: #6AD0EB;
     }
     .disabled {
         cursor: default !important;
         color: #CCC !important;
+        background: #FFF0F0 !important;
+    }
+    .sunday {
+        color: #C30000;
     }
     .selectmenu {
         height: 24px;
