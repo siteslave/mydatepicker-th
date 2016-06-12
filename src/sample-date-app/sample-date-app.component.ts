@@ -13,15 +13,17 @@ const template: string = require('./sample-date-app.component.html');
 })
 
 export class SampleDateApp implements OnInit {
+    selectedDate1:string = ''; 
     private myDatePickerOptions1 = {
         todayBtnTxt: 'Today',
         dateFormat: 'dd.mm.yyyy',
         firstDayOfWeek: 'mo',
         sunHighlight: true,
         height: '34px',
-        width: '260px'
+        width: '260px',
+        disableUntil: {year: 0, month: 0, day: 0},
+        //disableSince: {year: 2016, month: 6, day: 26}
     };
-    selectedDate1: string = '20.12.2015';
     
     private myDatePickerOptions2 = {
         todayBtnTxt: 'Today',
@@ -33,7 +35,15 @@ export class SampleDateApp implements OnInit {
     };
     selectedDate2: string = '2015-04-24';
 
-    constructor() {}
+    constructor() {
+        let date = new Date();
+
+        this.selectedDate1 = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + '.' + ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '.' + date.getFullYear();
+
+        // Disable dates from 5th backward
+        date.setDate(date.getDate() - 5);
+        this.myDatePickerOptions1.disableUntil = {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()}
+    }
 
     ngOnInit() {
         console.log('onInit(): SampleDatePicker')

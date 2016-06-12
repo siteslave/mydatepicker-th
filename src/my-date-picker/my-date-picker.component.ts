@@ -43,6 +43,8 @@ export class MyDatePicker implements OnInit, OnChanges {
     sunHighlight: boolean = true;
     height: string = '34px';
     width: string = '100%';
+    disableUntil: IMyDate = {year: 0, month: 0, day: 0};
+    disableSince: IMyDate = {year: 0, month: 0, day: 0};
 
     private _locales:IMyLocales = {
         'ja': {
@@ -78,7 +80,7 @@ export class MyDatePicker implements OnInit, OnChanges {
 
         // the relatively ugly casts to any in this loop are needed to
         // avoid tsc errors when noImplicitAny is true.
-        let optionprops = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'height', 'width'];
+        let optionprops = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'height', 'width'];
         let noptionprops = optionprops.length;
         for (let i = 0; i < noptionprops; i++) {
             let propname = optionprops[i];
@@ -195,7 +197,7 @@ export class MyDatePicker implements OnInit, OnChanges {
         }
         else if (cell.cmo === this.CURR_MONTH) {
             // Current month of day
-            this.selectDate(cell);
+            this.selectDate(cell.dateObj);
         }
         else if (cell.cmo === this.NEXT_MONTH) {
             // Next month of day
@@ -205,9 +207,9 @@ export class MyDatePicker implements OnInit, OnChanges {
 
     selectDate(date:any):void {
         this.selectedDate = {day: date.day, month: date.month, year: date.year};
-        this.selectionDayTxt = this.formatDate(date);
+        this.selectionDayTxt = this.formatDate(this.selectedDate);
         this.showSelector = false;
-        let epoc = new Date(date.year, date.month - 1, date.day, 0, 0, 0, 0).getTime() / 1000.0;
+        let epoc = new Date(this.selectedDate.year, this.selectedDate.month, this.selectedDate.day, 0, 0, 0, 0).getTime() / 1000.0;
         this.dateChanged.emit({date: this.selectedDate, formatted: this.selectionDayTxt, epoc: epoc});
     }
 
@@ -239,7 +241,7 @@ export class MyDatePicker implements OnInit, OnChanges {
 
     daysInMonth(m:number, y:number):number {
         // Return number of days of current month
-        return new Date(y, m, 0).getDate();
+        return new Date(y, m - 1, 0).getDate();
     }
 
     daysInPrevMonth(m:number, y:number):number {
@@ -258,6 +260,26 @@ export class MyDatePicker implements OnInit, OnChanges {
         // Check is a given date the current date
         return d === this.today.getDate() && m === this.today.getMonth() + 1 && y === this.today.getFullYear() && cmo === 2;
     }
+    
+    isDisabledDay(date:IMyDate):boolean {
+        // Check is a given date <= disabledUntil or given date >= disabledSince
+        let givenDate = this.getTimeInMilliseconds(date);
+        if(this.disableUntil.year !== 0 && this.disableUntil.month !== 0 && this.disableUntil.day !== 0) {
+            if(givenDate <= this.getTimeInMilliseconds(this.disableUntil)) {
+                return true;
+            }
+        }
+        if(this.disableSince.year !== 0 && this.disableSince.month !== 0 && this.disableSince.day !== 0) {
+            if(givenDate >= this.getTimeInMilliseconds(this.disableSince)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    getTimeInMilliseconds(date:IMyDate):number {
+        return new Date(date.year, date.month, date.day, 0, 0, 0, 0).getTime();
+    }
 
     sundayIdx():number {
         // Index of Sunday day
@@ -273,20 +295,25 @@ export class MyDatePicker implements OnInit, OnChanges {
 
         let dayNbr = 1;
         let cmo = this.PREV_MONTH;
-        for (var i = 1; i < 7; i++) {
-            var week: IMyWeek[] = [];
+        for (let i = 1; i < 7; i++) {
+            let week: IMyWeek[] = [];
             if (i === 1) {
                 // First week
                 var pm = dInPrevM - monthStart + 1;
                 // Previous month
                 for (var j = pm; j <= dInPrevM; j++) {
-                    week.push({day: j, month: m, year: y, cmo: cmo, currDay: this.isCurrDay(j, m, y, cmo), sun: week.length === sunIdx});
+                    let date: IMyDate = {year: y, month: m - 1, day: j};
+                    week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(j, m, y, cmo), sun: week.length === sunIdx, disabled: this.isDisabledDay(date)});
                 }
+                
                 cmo = this.CURR_MONTH;
                 // Current month
                 var daysLeft = 7 - week.length;
                 for (var j = 0; j < daysLeft; j++) {
-                    week.push({day: dayNbr, month: m, year: y, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo), sun: week.length === sunIdx});
+ 
+                    let date: IMyDate = {year: y, month: m, day: dayNbr};
+                    
+                    week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo), sun: week.length === sunIdx, disabled: this.isDisabledDay(date)});
                     dayNbr++;
                 }
             }
@@ -298,12 +325,15 @@ export class MyDatePicker implements OnInit, OnChanges {
                         dayNbr = 1;
                         cmo = this.NEXT_MONTH;
                     }
-                    week.push({day: dayNbr, month: m, year: y, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo), sun: week.length === sunIdx});
+  
+                    let date: IMyDate = {year: y, month: cmo === this.CURR_MONTH ? m : m + 1, day: dayNbr};
+                    
+                    week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo), sun: week.length === sunIdx, disabled: this.isDisabledDay(date)});
                     dayNbr++;
                 }
             }
             this.dates.push(week);
-        }
+        }  
     }
 
     private _parseDate(ds:string): IMyDate {

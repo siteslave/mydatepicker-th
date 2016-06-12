@@ -9,6 +9,7 @@ Simple Angular2 date picker. Uses version "2.0.0-rc1" of Angular2.
 1. Fork and clone this repo
 2. npm install
 3. Open a terminal and type "npm start"
+4. Open "http://localhost:5000" to browser
 
 ## Installation
 
@@ -49,6 +50,12 @@ Bind to an object containing replacements for any of the following defaults:
   
 #### sunHighlight
   `true`
+  
+#### disableUntil
+  `{year: 2016, month: 6, day: 26}`
+  
+#### disableSince
+  `{year: 2016, month: 7, day: 22}`
   
 #### height
   `'34px'`

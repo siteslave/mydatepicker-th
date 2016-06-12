@@ -137,8 +137,13 @@
         background-color: #8EBFFF !important;
         border-radius: 0;
     }
+
     .caltable tbody .currmonth:hover {
         background-color: #6AD0EB;
+    }
+    .disabled {
+        cursor: default !important;
+        color: #CCC !important;
     }
     .selectmenu {
         height: 24px;
