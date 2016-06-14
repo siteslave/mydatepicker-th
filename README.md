@@ -1,9 +1,11 @@
-# mydatepicker v. 0.0.7
+# mydatepicker v. 0.0.11
 
 **Angular 2 date picker - Angular2 reusable UI component**
 
 ## Description
 Simple Angular2 date picker. Uses version "2.0.0-rc1" of Angular2.
+
+![alt text](https://github.com/kekeh/mydatepicker/blob/master/image/mydatepicker-image.png "mydatepicker image")
 
 ##Getting Started
 1. Fork and clone this repo
@@ -60,6 +62,9 @@ Bind to an object containing replacements for any of the following defaults:
 #### disableWeekends
   `false`
 
+#### inline
+  `false`
+  
 #### height
   `'34px'`
   

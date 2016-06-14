@@ -10,7 +10,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ForNeVeR/mydatepicker.git"
+    "url": "https://github.com/kekeh/mydatepicker.git"
   },
   "engines": {
     "node": ">=5.4"
