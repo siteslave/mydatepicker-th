@@ -7,6 +7,8 @@ Simple Angular2 date picker. Uses version "2.0.0-rc1" of Angular2.
 
 ![alt text](https://github.com/kekeh/mydatepicker/blob/master/image/mydatepicker-image.png "mydatepicker image")
 
+Image 1. _mydatepicker in normal and inline modes._
+
 ##Getting Started
 1. Fork and clone this repo
 2. npm install
