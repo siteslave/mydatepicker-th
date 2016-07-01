@@ -3,7 +3,11 @@
 **Angular 2 date picker - Angular2 reusable UI component**
 
 ## Description
+<<<<<<< HEAD
 Simple Angular2 date picker.
+=======
+Simple Angular2 date picker. Uses version "2.0.0-rc3" of Angular2.
+>>>>>>> 002d1c05ab9bd807c21f73d0148d547a1348e5ce
 
 ![alt text](https://github.com/kekeh/mydatepicker/blob/master/image/mydatepicker-normal-image.png "mydatepicker normal mode")
 
