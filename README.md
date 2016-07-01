@@ -1,9 +1,9 @@
-# mydatepicker v. 0.0.11
+# mydatepicker v. 0.0.12
 
 **Angular 2 date picker - Angular2 reusable UI component**
 
 ## Description
-Simple Angular2 date picker. Uses version "2.0.0-rc1" of Angular2.
+Simple Angular2 date picker.
 
 ![alt text](https://github.com/kekeh/mydatepicker/blob/master/image/mydatepicker-normal-image.png "mydatepicker normal mode")
 
@@ -98,6 +98,8 @@ Online demo is [here](http://kekeh.github.io/mydatepicker)
 ## Compatibility (tested with)
 * Firefox (latest)
 * Chromium (latest)
+* Edge
+* IE11
 
 ## License
 * License: MIT
