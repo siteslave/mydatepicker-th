@@ -1,6 +1,6 @@
 {
-  "name": "MyDatePicker",
-  "version": "0.0.12",
+  "name": "mydatepicker",
+  "version": "0.0.14",
   "description": "Angular2 date picker",
   "keywords": [
     "Angular2",

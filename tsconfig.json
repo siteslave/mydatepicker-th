@@ -1,6 +1,5 @@
 {
   "version": "1.8.10",
-
   "compilerOptions": {
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -9,12 +8,10 @@
     "sourceMap": true,
     "target": "es5"
   },
-
   "files": [
     "src/main.ts",
     "typings/browser.d.ts"
   ],
-
   "compileOnSave": false,
   "buildOnSave": false
 }

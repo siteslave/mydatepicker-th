@@ -1,7 +1,7 @@
-import {provide} from "@angular/core";
+
 import {bootstrap} from "@angular/platform-browser-dynamic";
 
-// App component
-import {SampleDateApp} from "./sample-date-app/index";
+// Sample app component
+import {MyDatePickerApp} from "./sample-date-picker-app";
 
-bootstrap(SampleDateApp, []).catch((error: Error) => console.error(error));
+bootstrap(MyDatePickerApp, []).catch((error: Error) => console.error(error));

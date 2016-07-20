@@ -3,7 +3,7 @@ import {NgIf, NgFor, NgClass, NgStyle, NgModel} from '@angular/common';
 import {IMyDate, IMyMonth, IMyWeek, IMyDayLabels, IMyMonthLabels, IMyLocales, IMyOptions} from './interfaces/index';
 
 declare var require:any;
-const styles: string = require('./my-date-picker.component.scss');
+const styles: string = require('./my-date-picker.component.css');
 const template: string = require('./my-date-picker.component.html');
 
 @Component({

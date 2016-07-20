@@ -1,19 +1,11 @@
-# mydatepicker v. 0.0.12
+# mydatepicker v. 0.0.14
 
 **Angular 2 date picker - Angular2 reusable UI component**
 
 ## Description
-Simple Angular2 date picker.
+Simple Angular2 date picker. Online demo is [here](http://kekeh.github.io/mydatepicker)
 
-![alt text](https://github.com/kekeh/mydatepicker/blob/master/image/mydatepicker-normal-image.png "mydatepicker normal mode")
-
-Image 1. _mydatepicker in normal mode._
-
-![alt text](https://github.com/kekeh/mydatepicker/blob/master/image/mydatepicker-inline-image.png "mydatepicker inline mode")
-
-Image 2. _mydatepicker in inline mode._
-
-##Getting Started
+## Getting Started
 1. Fork and clone this repo
 2. npm install
 3. Open a terminal and type "npm start"
@@ -23,8 +15,8 @@ Image 2. _mydatepicker in inline mode._
 
 To install this component to an external project, follow the procedure:
 
-1. Make sure you're using Webpack and have installed `raw-loader`, `postcss-loader` and `sass-loader`.
-2. `npm install kekeh/mydatepicker`.
+1. Make sure you're using Webpack and have installed `raw-loader`, `postcss-loader`.
+2. `npm install mydatepicker`.
 3. `import {MyDatePicker} from 'MyDatePicker/src/index';`
 4. Use the following snippet inside your template:
 
