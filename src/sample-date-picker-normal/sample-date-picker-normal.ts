@@ -11,14 +11,14 @@ import {MyDatePicker} from '../my-date-picker/index';
 })
 
 export class SampleDatePickerNormal implements OnInit {
-    selectedDate:string = ''; 
+    selectedDate:string = '';
     private myDatePickerOptions = {
         todayBtnTxt: 'Today',
         dateFormat: 'dd.mm.yyyy',
         firstDayOfWeek: 'mo',
         sunHighlight: true,
         height: '34px',
-        width: '260px',
+        width: '260px'
     };
     
     selectedText: string = '';
@@ -29,11 +29,11 @@ export class SampleDatePickerNormal implements OnInit {
     }
 
     ngOnInit() {
-        console.log('onInit(): SampleDatePickerNormal')
+        console.log('onInit(): SampleDatePickerNormal');
     }
 
     onDateChanged(event:any) {
-        console.log('onDateChanged1(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);  
+        console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
         if(event.formatted !== '') {
             this.selectedText = 'Formatted: ' + event.formatted + ' - epoc timestamp: ' + event.epoc;
             this.border = '1px solid #CCC';

@@ -36,11 +36,11 @@ export class SampleDatePickerInline implements OnInit {
     }
 
     ngOnInit() {
-        console.log('onInit(): SampleDatePickerInline')
+        console.log('onInit(): SampleDatePickerInline');
     }
 
     onDateChanged(event:any) {
-        console.log('onDateChanged1(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);  
+        console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
         if(event.formatted !== '') {
             this.selectedText = 'Formatted: ' + event.formatted + ' - epoc timestamp: ' + event.epoc;
             this.border = '1px solid #CCC';

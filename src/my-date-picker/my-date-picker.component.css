@@ -141,6 +141,10 @@
     height: 28px;
 }
 
+.mydp .inlinedp {
+    position: relative;
+}
+
 .mydp .prevmonth {
     color: #CCC;
 }
@@ -166,7 +170,6 @@
 
 .mydp .currday div {
     border: 1px solid #004198;
-    border-radius: 50%;
 }
 
 .mydp .selectedday div {
@@ -245,7 +248,8 @@
 
 .mydp .icon-left,
 .mydp .icon-right {
-    font-size: 14px;
+    color: #222;
+    font-size: 18px;
 }
 
 .mydp .icon-left:hover,

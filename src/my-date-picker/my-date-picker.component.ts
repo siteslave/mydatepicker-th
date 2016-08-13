@@ -22,7 +22,7 @@ export class MyDatePicker implements OnInit, OnChanges {
 
     showSelector: boolean = false;
     visibleMonth: IMyMonth = {monthTxt: '', monthNbr: 0, year: 0};
-    defaultDate: IMyDate = {year: 0, month: 0, day: 0};
+    selectedMonth: IMyMonth = {monthTxt: '', monthNbr: 0, year: 0};
     selectedDate: IMyDate = {year: 0, month: 0, day: 0};
     weekDays: Array<string> = [];
     dates: Array<Object> = [];
@@ -113,11 +113,11 @@ export class MyDatePicker implements OnInit, OnChanges {
     ngOnChanges(changes: {[propName: string]: SimpleChange}) {
         if (changes.hasOwnProperty('selDate')) {
             this.selectionDayTxt = changes['selDate'].currentValue;
-            this.selectedDate = this._parseDate(this.selectionDayTxt);
+            this.selectedDate = this.parseSelectedDate(this.selectionDayTxt);
         }
 
         if (changes.hasOwnProperty('defaultMonth')) {
-            this.defaultDate = this._parseDate(changes['defaultMonth'].currentValue);
+            this.selectedMonth = this.parseSelectedMonth((changes['defaultMonth'].currentValue).toString());
         }
     }
 
@@ -132,12 +132,12 @@ export class MyDatePicker implements OnInit, OnChanges {
         if (this.showSelector) {
             let y = 0, m = 0;
             if (this.selectedDate.year === 0 && this.selectedDate.month === 0 && this.selectedDate.day === 0) {
-                if (this.defaultDate.year === 0 && this.defaultDate.month === 0) {
+                if (this.selectedMonth.year === 0 && this.selectedMonth.monthNbr === 0) {
                     y = this.today.getFullYear();
                     m = this.today.getMonth() + 1;
                 } else {
-                    y = this.defaultDate.year;
-                    m = this.defaultDate.month;
+                    y = this.selectedMonth.year;
+                    m = this.selectedMonth.monthNbr;
                 }
             }
             else {
@@ -292,7 +292,7 @@ export class MyDatePicker implements OnInit, OnChanges {
     }
     
     getTimeInMilliseconds(date:IMyDate):number {
-        return new Date(date.year, date.month, date.day, 0, 0, 0, 0).getTime();
+        return new Date(date.year, date.month - 1, date.day, 0, 0, 0, 0).getTime();
     }
 
     getDayNumber(date:IMyDate):number {
@@ -351,23 +351,30 @@ export class MyDatePicker implements OnInit, OnChanges {
         }  
     }
 
-    private _parseDate(ds:string): IMyDate {
-        let rv:IMyDate = {day: 0, month: 0, year: 0};
+    parseSelectedDate(ds:string): IMyDate {
+        let date:IMyDate = {day: 0, month: 0, year: 0};
         if (ds !== '') {
             let fmt = this.options && this.options.dateFormat !== undefined ? this.options.dateFormat : this.dateFormat;
             let dpos = fmt.indexOf('dd');
             if (dpos >= 0) {
-                rv.day = parseInt(ds.substring(dpos, dpos + 2));
+                date.day = parseInt(ds.substring(dpos, dpos + 2));
             }
             let mpos = fmt.indexOf('mm');
             if (mpos >= 0) {
-                rv.month = parseInt(ds.substring(mpos, mpos + 2));
+                date.month = parseInt(ds.substring(mpos, mpos + 2));
             }
             let ypos = fmt.indexOf('yyyy');
             if (ypos >= 0) {
-                rv.year = parseInt(ds.substring(ypos, ypos + 4));
+                date.year = parseInt(ds.substring(ypos, ypos + 4));
             }
         }
-        return rv;
+        return date;
+    }
+
+    parseSelectedMonth(ms:string): IMyMonth {
+        let split = ms.split(ms.match(/[^0-9]/)[0]);
+        return (parseInt(split[0]) > parseInt(split[1])) ?
+            {monthTxt: '', monthNbr: parseInt(split[1]), year: parseInt(split[0])} :
+            {monthTxt: '', monthNbr: parseInt(split[0]), year: parseInt(split[1])};
     }
 }
