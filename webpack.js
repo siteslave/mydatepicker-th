@@ -20,7 +20,6 @@ module.exports = {
         loaders: [
             {test: /\.ts$/, exclude: [/\.spec\.ts$/, /node_modules/], loader: 'ts'},
             {test: /\.html$/, loader: 'raw'},
-            {test: /\.scss$/, include: [path.resolve(__dirname, 'src')], loader: 'raw!postcss-loader!sass'},
             {test: /\.css$/, include: [path.resolve(__dirname, 'src')], loader: 'raw'}
         ],
 
@@ -113,4 +112,4 @@ module.exports = {
             version: false
         }
     }
-};3
+};

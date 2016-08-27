@@ -1,0 +1,20 @@
+<div>
+    <div style="margin-bottom: 10px">
+        <button type="button" (click)="disablePreviousDay()">Change disabledUntil</button>
+    </div>
+
+    <div style="margin-bottom: 10px">
+        <span style="margin-right: 10px">Locale:</span>
+        <span>
+            <select (change)="onChangeLocale($event.target.value)">
+                <option *ngFor="let l of locales">{{l}}</option>
+            </select>
+        </span>
+    </div>
+
+    <div style="padding:4px;border-radius:4px;margin-bottom:8px;float:right" [ngStyle]="{border: border}">
+        {{selectedText}}
+    </div>
+    <my-date-picker [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)"
+                    [selDate]="selectedDate" [locale]="locale"></my-date-picker>
+</div>

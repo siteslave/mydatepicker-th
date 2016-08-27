@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {NgStyle} from '@angular/common';
 import {MyDatePicker} from '../my-date-picker/index';
 
+declare var require:any;
+const template: string = require('./sample-date-picker-normal.html');
 
 @Component({
     selector: 'sample-date-picker-normal',
     directives: [MyDatePicker],
-    template: '<div style="padding:4px;border-radius:4px;margin-bottom:8px;float:right" [ngStyle]="{border: border}">{{selectedText}}</div><my-date-picker [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" [selDate]="selectedDate"></my-date-picker>'
-
+    template
 })
 
 export class SampleDatePickerNormal implements OnInit {

@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {NgStyle} from '@angular/common';
 import {MyDatePicker} from '../my-date-picker/index';
 
+declare var require:any;
+const template: string = require('./sample-date-picker-inline.html');
 
 @Component({
     selector: 'sample-date-picker-inline',
     directives: [MyDatePicker],
-    template: '<div style="padding:4px;border-radius:4px;margin-bottom:8px;float:right" [ngStyle]="{border: border}">{{selectedText}}</div><my-date-picker [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" [selDate]="selectedDate"></my-date-picker>'
+    template
 })
 
 export class SampleDatePickerInline implements OnInit {
@@ -25,6 +26,9 @@ export class SampleDatePickerInline implements OnInit {
 
     selectedText: string = '';
     border: string = 'none';
+    locale:string = 'en';
+
+    locales:Array<string> = new Array('en', 'fr', 'ja', 'fi');
     
     constructor() {
         let date = new Date();
@@ -32,11 +36,32 @@ export class SampleDatePickerInline implements OnInit {
 
         // Disable dates from 5th backward
         date.setDate(date.getDate() - 5);
-        this.myDatePickerOptions.disableUntil = {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()}
+        this.myDatePickerOptions.disableUntil = {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()};
     }
 
     ngOnInit() {
         console.log('onInit(): SampleDatePickerInline');
+    }
+
+    disablePreviousDay() {
+        // Change options dynamically - set disabledUntil to previous date and keep other options
+        let date = new Date(this.myDatePickerOptions.disableUntil.year, this.myDatePickerOptions.disableUntil.month - 1, this.myDatePickerOptions.disableUntil.day, 0, 0, 0, 0);
+        date.setDate(date.getDate() - 1);
+
+        this.myDatePickerOptions = {
+            todayBtnTxt: 'Today',
+            dateFormat: 'yyyy-mm-dd',
+            firstDayOfWeek: 'mo',
+            sunHighlight: true,
+            height: '34px',
+            width: '260px',
+            inline: true,
+            disableUntil: {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()}
+        };
+    }
+
+    onChangeLocale(locale) {
+        this.locale = locale;
     }
 
     onDateChanged(event:any) {

@@ -1,5 +1,5 @@
-import {Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange, ElementRef} from '@angular/core';
-import {NgIf, NgFor, NgClass, NgStyle, NgModel} from '@angular/common';
+import {Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ElementRef} from '@angular/core';
+import {NgIf, NgFor, NgClass, NgStyle} from '@angular/common';
 import {IMyDate, IMyMonth, IMyWeek, IMyDayLabels, IMyMonthLabels, IMyLocales, IMyOptions} from './interfaces/index';
 
 declare var require:any;
@@ -13,7 +13,7 @@ const template: string = require('./my-date-picker.component.html');
     template
 })
 
-export class MyDatePicker implements OnInit, OnChanges {
+export class MyDatePicker implements OnChanges {
     @Input() options:any;
     @Input() locale:string;
     @Input() defaultMonth:string;
@@ -49,18 +49,30 @@ export class MyDatePicker implements OnInit, OnChanges {
     inline: boolean = false;
 
     private _locales:IMyLocales = {
+        'en': {
+            dayLabels: this.dayLabels,
+            monthLabels: this.monthLabels,
+            dateFormat: this.dateFormat,
+            todayBtnTxt: this.todayBtnTxt
+        },
         'ja': {
             dayLabels: {su: '日', mo: '月', tu: '火', we: '水', th: '木', fr: '金', sa: '土'},
             monthLabels: {1: '１月', 2: '２月', 3: '３月', 4: '４月', 5: '５月', 6: '６月', 7: '７月', 8: '８月', 9: '９月', 10: '１０月', 11: '１１月', 12: '１２月'},
-            dateFormat: "yyyy.mm.dd",
+            dateFormat: 'yyyy.mm.dd',
             todayBtnTxt: '今日',
             sunHighlight: false
         },
         'fr': {
             dayLabels: {su: 'Dim', mo: 'Lun', tu: 'Mar', we: 'Mer', th: 'Jeu', fr: 'Ven', sa: 'Sam'},
             monthLabels: {1: 'Jan', 2: 'Fév', 3: 'Mar', 4: 'Avr', 5: 'Mai', 6: 'Juin', 7: 'Juil', 8: 'Aoû', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Déc'},
-            dateFormat: "dd/mm/yyyy",
+            dateFormat: 'dd/mm/yyyy',
             todayBtnTxt: 'Aujourd\'hui'
+        },
+        'fi': {
+            dayLabels: {su: 'Su', mo: 'Ma', tu: 'Ti', we: 'Ke', th: 'To', fr: 'Pe', sa: 'La'},
+            monthLabels: {1: 'Tam', 2: 'Hel', 3: 'Maa', 4: 'Huh', 5: 'Tou', 6: 'Kes', 7: 'Hei', 8: 'Elo', 9: 'Syy', 10: 'Lok', 11: 'Mar', 12: 'Jou'},
+            dateFormat: 'dd.mm.yyyy',
+            todayBtnTxt: 'Tämä päivä'
         }
     };
 
@@ -74,7 +86,7 @@ export class MyDatePicker implements OnInit, OnChanges {
         }, false);
     }
 
-    ngOnInit() {
+    parseOptions() {
         let localeOptions:IMyOptions = {};
         if (this.locale && this._locales.hasOwnProperty(this.locale)) {
             localeOptions = this._locales[this.locale];
@@ -83,15 +95,13 @@ export class MyDatePicker implements OnInit, OnChanges {
         // the relatively ugly casts to any in this loop are needed to
         // avoid tsc errors when noImplicitAny is true.
         let optionprops = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'disableWeekends', 'height', 'width', 'inline'];
-        let noptionprops = optionprops.length;
-        for (let i = 0; i < noptionprops; i++) {
+        for (let i = 0; i < optionprops.length; i++) {
             let propname = optionprops[i];
-            if (this.options && (<any>this.options)[propname] !== undefined) {
+            if(localeOptions.hasOwnProperty(propname)) {
+                (<any>this)[propname] = (<any>localeOptions)[propname];
+            }
+            else if (this.options && (<any>this.options)[propname] !== undefined) {
                 (<any>this)[propname] = (<any>this.options)[propname];
-            } else {
-                if (localeOptions.hasOwnProperty(propname)) {
-                    (<any>this)[propname] = (<any>localeOptions)[propname];
-                }
             }
         }
 
@@ -110,7 +120,7 @@ export class MyDatePicker implements OnInit, OnChanges {
         }
     }
 
-    ngOnChanges(changes: {[propName: string]: SimpleChange}) {
+    ngOnChanges(changes: SimpleChanges) {
         if (changes.hasOwnProperty('selDate')) {
             this.selectionDayTxt = changes['selDate'].currentValue;
             this.selectedDate = this.parseSelectedDate(this.selectionDayTxt);
@@ -119,6 +129,17 @@ export class MyDatePicker implements OnInit, OnChanges {
         if (changes.hasOwnProperty('defaultMonth')) {
             this.selectedMonth = this.parseSelectedMonth((changes['defaultMonth'].currentValue).toString());
         }
+
+        if (changes.hasOwnProperty('locale')) {
+            this.locale = changes['locale'].currentValue;
+        }
+
+        if (changes.hasOwnProperty('options')) {
+            this.options = changes['options'].currentValue;
+        }
+
+        this.weekDays.length = 0;
+        this.parseOptions();
     }
 
     removeBtnClicked():void {
@@ -129,7 +150,8 @@ export class MyDatePicker implements OnInit, OnChanges {
 
     openBtnClicked():void {
         this.showSelector = !this.showSelector;
-        if (this.showSelector) {
+
+        if (this.showSelector || this.inline) {
             let y = 0, m = 0;
             if (this.selectedDate.year === 0 && this.selectedDate.month === 0 && this.selectedDate.day === 0) {
                 if (this.selectedMonth.year === 0 && this.selectedMonth.monthNbr === 0) {

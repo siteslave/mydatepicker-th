@@ -1,4 +1,4 @@
-# mydatepicker v. 0.0.17
+# mydatepicker v. 0.0.18
 
 **Angular 2 date picker - Angular2 reusable UI component**
 
@@ -15,7 +15,7 @@ Simple Angular2 date picker. Online demo is [here](http://kekeh.github.io/mydate
 
 To install this component to an external project, follow the procedure:
 
-1. Make sure you're using Webpack and have installed `raw-loader`, `postcss-loader`.
+1. Make sure you're using Webpack. You can check needed dependencies from the package.json file of this module.
 2. `npm install mydatepicker`.
 3. `import {MyDatePicker} from 'MyDatePicker/src/index';`
 4. Use the following snippet inside your template:
@@ -71,7 +71,7 @@ Bind to an object containing replacements for any of the following defaults:
 
 ### locale
 A two-letter ISO 639-1 language code can be provided as shorthand for several of
-the options listed above. Currently supported languages: ja.
+the options listed above. Currently supported languages: en, fr, ja and fi.
 
 ### selDate
 Provide the initially chosen date that will display both in the text input field
