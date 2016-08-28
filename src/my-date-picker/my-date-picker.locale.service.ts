@@ -37,7 +37,7 @@ export class LocaleService {
         }
     };
 
-    getLocaleOptions(locale): IMyOptions {
+    getLocaleOptions(locale:string): IMyOptions {
         if (locale && this.locales.hasOwnProperty(locale)) {
             // User given locale
             return this.locales[locale];
