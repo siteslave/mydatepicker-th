@@ -2,7 +2,7 @@
     <div style="margin-bottom: 10px">
         <span style="margin-right: 10px">Locale:</span>
         <span>
-            <select style="padding: 4px 2px;border-radius: 2px;cursor: pointer;font-size: 11px;min-width: 60px;" (change)="onChangeLocale($event.target.value)">
+            <select style="padding: 2px;cursor: pointer;font-size: 11px;min-width: 60px;" (change)="onChangeLocale($event.target.value)">
                 <option *ngFor="let l of locales">{{l}}</option>
             </select>
         </span>

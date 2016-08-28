@@ -191,6 +191,7 @@
     background-color: #FAFAFA;
     cursor: pointer;
     display: table-cell;
+    vertical-align: middle;
 }
 
 .mydp,
@@ -236,6 +237,11 @@
     font-size: 14px;
 }
 
+.mydp .headermonthtxt span,
+.mydp .headeryeartxt span {
+    vertical-align: middle;
+}
+
 .mydp .btnclear:focus,
 .mydp .btnpicker:focus,
 .mydp .btnclear:hover,
@@ -252,6 +258,7 @@
 .mydp .icon-right {
     color: #222;
     font-size: 16px;
+    vertical-align: middle;
 }
 
 .mydp .icon-left:hover,
