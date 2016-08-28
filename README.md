@@ -1,4 +1,4 @@
-# mydatepicker v. 0.0.18
+# mydatepicker v. 0.0.19
 
 **Angular 2 date picker - Angular2 reusable UI component**
 
@@ -25,6 +25,35 @@ To install this component to an external project, follow the procedure:
                    (dateChanged)="onDateChanged($event)"
                    [selDate]="selectedDate"></my-date-picker>
    ```
+
+* Mandatory attributes:
+  * [options]="myDatePickerOptions"
+  * [dateChanged]="onDateChanged($event)"
+
+* Optional attributes:
+  * [selDate]="selectedDate" || [defaultMonth]="defaultMonth"
+  * [locale]="locale"
+
+* Example of the options data (not all properties listed):
+```js
+    myDatePickerOptions = {
+        todayBtnTxt: 'Today',
+        dateFormat: 'yyyy-mm-dd',
+        firstDayOfWeek: 'mo',
+        sunHighlight: true,
+        height: '34px',
+        width: '260px',
+        inline: false,
+        disableUntil: {year: 2016, month: 8, day: 10}
+    };
+```
+
+* Example of the date changed callback:
+```js
+    onDateChanged(event:any) {
+        console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
+    }
+```
 
 ## Usage
 
@@ -72,6 +101,9 @@ Bind to an object containing replacements for any of the following defaults:
 ### locale
 A two-letter ISO 639-1 language code can be provided as shorthand for several of
 the options listed above. Currently supported languages: en, fr, ja and fi.
+If the locale is used it overrides dayLabels, monthLabels, dateFormat, todayBtnTxt,
+firstDayOfWeek and sunHighlight properties from the options.
+
 
 ### selDate
 Provide the initially chosen date that will display both in the text input field

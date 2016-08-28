@@ -1,6 +1,7 @@
 import {Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ElementRef} from '@angular/core';
 import {NgIf, NgFor, NgClass, NgStyle} from '@angular/common';
-import {IMyDate, IMyMonth, IMyWeek, IMyDayLabels, IMyMonthLabels, IMyLocales, IMyOptions} from './interfaces/index';
+import {IMyDate, IMyMonth, IMyWeek, IMyDayLabels, IMyMonthLabels} from './interfaces/index';
+import {LocaleService} from './my-date-picker.locale.service';
 
 declare var require:any;
 const styles: string = require('./my-date-picker.component.css');
@@ -10,7 +11,8 @@ const template: string = require('./my-date-picker.component.html');
     selector: 'my-date-picker',
     directives: [NgIf, NgFor, NgClass, NgStyle],
     styles: [styles],
-    template
+    template,
+    providers: [LocaleService]
 })
 
 export class MyDatePicker implements OnChanges {
@@ -34,13 +36,13 @@ export class MyDatePicker implements OnChanges {
     CURR_MONTH: number = 2;
     NEXT_MONTH: number = 3;
 
-    // Default options
-    dayLabels: IMyDayLabels = {su: 'Sun', mo: 'Mon', tu: 'Tue', we: 'Wed', th: 'Thu', fr: 'Fri', sa: 'Sat'};
-    monthLabels: IMyMonthLabels = { 1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun', 7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec' };
-    dateFormat: string = 'yyyy-mm-dd'
-    todayBtnTxt: string = 'Today';
-    firstDayOfWeek: string = 'mo';
+    dayLabels: IMyDayLabels = {};
+    monthLabels: IMyMonthLabels = {};
+    dateFormat: string = ''
+    todayBtnTxt: string = '';
+    firstDayOfWeek: string = '';
     sunHighlight: boolean = true;
+
     height: string = '34px';
     width: string = '100%';
     disableUntil: IMyDate = {year: 0, month: 0, day: 0};
@@ -48,35 +50,14 @@ export class MyDatePicker implements OnChanges {
     disableWeekends: boolean = false;
     inline: boolean = false;
 
-    private _locales:IMyLocales = {
-        'en': {
-            dayLabels: this.dayLabels,
-            monthLabels: this.monthLabels,
-            dateFormat: this.dateFormat,
-            todayBtnTxt: this.todayBtnTxt
-        },
-        'ja': {
-            dayLabels: {su: '日', mo: '月', tu: '火', we: '水', th: '木', fr: '金', sa: '土'},
-            monthLabels: {1: '１月', 2: '２月', 3: '３月', 4: '４月', 5: '５月', 6: '６月', 7: '７月', 8: '８月', 9: '９月', 10: '１０月', 11: '１１月', 12: '１２月'},
-            dateFormat: 'yyyy.mm.dd',
-            todayBtnTxt: '今日',
-            sunHighlight: false
-        },
-        'fr': {
-            dayLabels: {su: 'Dim', mo: 'Lun', tu: 'Mar', we: 'Mer', th: 'Jeu', fr: 'Ven', sa: 'Sam'},
-            monthLabels: {1: 'Jan', 2: 'Fév', 3: 'Mar', 4: 'Avr', 5: 'Mai', 6: 'Juin', 7: 'Juil', 8: 'Aoû', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Déc'},
-            dateFormat: 'dd/mm/yyyy',
-            todayBtnTxt: 'Aujourd\'hui'
-        },
-        'fi': {
-            dayLabels: {su: 'Su', mo: 'Ma', tu: 'Ti', we: 'Ke', th: 'To', fr: 'Pe', sa: 'La'},
-            monthLabels: {1: 'Tam', 2: 'Hel', 3: 'Maa', 4: 'Huh', 5: 'Tou', 6: 'Kes', 7: 'Hei', 8: 'Elo', 9: 'Syy', 10: 'Lok', 11: 'Mar', 12: 'Jou'},
-            dateFormat: 'dd.mm.yyyy',
-            todayBtnTxt: 'Tämä päivä'
+    constructor(public elem: ElementRef, private localeService: LocaleService) {
+        let defaultOptions = this.localeService.getLocaleOptions('en');
+        for (let propname in defaultOptions) {
+            if (defaultOptions.hasOwnProperty(propname)) {
+                (<any>this)[propname] = (<any>defaultOptions)[propname];
+            }
         }
-    };
 
-    constructor(public elem: ElementRef) {
         this.today = new Date();
         let doc = document.getElementsByTagName('html')[0];
         doc.addEventListener('click', (event) => {
@@ -87,10 +68,7 @@ export class MyDatePicker implements OnChanges {
     }
 
     parseOptions() {
-        let localeOptions:IMyOptions = {};
-        if (this.locale && this._locales.hasOwnProperty(this.locale)) {
-            localeOptions = this._locales[this.locale];
-        }
+        let localeOptions = this.localeService.getLocaleOptions(this.locale);
 
         // the relatively ugly casts to any in this loop are needed to
         // avoid tsc errors when noImplicitAny is true.
@@ -170,7 +148,7 @@ export class MyDatePicker implements OnChanges {
             this.visibleMonth = {monthTxt: this.monthLabels[m], monthNbr: m, year: y};
 
             // Create current month
-            this.createMonth(m, y);
+            this.generateCalendar(m, y);
         }
     }
 
@@ -185,7 +163,7 @@ export class MyDatePicker implements OnChanges {
             m--;
         }
         this.visibleMonth = {monthTxt: this.monthText(m), monthNbr: m, year: y};
-        this.createMonth(m, y);
+        this.generateCalendar(m, y);
     }
 
     nextMonth():void {
@@ -199,17 +177,17 @@ export class MyDatePicker implements OnChanges {
             m++;
         }
         this.visibleMonth = {monthTxt: this.monthText(m), monthNbr: m, year: y};
-        this.createMonth(m, y);
+        this.generateCalendar(m, y);
     }
 
     prevYear():void {
         this.visibleMonth.year--;
-        this.createMonth(this.visibleMonth.monthNbr, this.visibleMonth.year);
+        this.generateCalendar(this.visibleMonth.monthNbr, this.visibleMonth.year);
     }
 
     nextYear():void {
         this.visibleMonth.year++;
-        this.createMonth(this.visibleMonth.monthNbr, this.visibleMonth.year);
+        this.generateCalendar(this.visibleMonth.monthNbr, this.visibleMonth.year);
     }
 
     todayClicked():void {
@@ -219,7 +197,7 @@ export class MyDatePicker implements OnChanges {
         this.selectDate({day: this.today.getDate(), month: m, year: y});
         if(this.inline) {
             this.visibleMonth = {monthTxt: this.monthLabels[m], monthNbr: m, year: y};
-            this.createMonth(m, y);
+            this.generateCalendar(m, y);
         }
     }
 
@@ -328,7 +306,7 @@ export class MyDatePicker implements OnChanges {
         return this.dayIdx > 0 ? 7 - this.dayIdx : 0;
     }
 
-    createMonth(m:number, y:number): void {
+    generateCalendar(m:number, y:number): void {
         this.dates.length = 0;
         let monthStart = this.monthStartIdx(y, m);
         let dInThisM = this.daysInMonth(m, y);

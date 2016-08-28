@@ -216,7 +216,7 @@
 }
 
 .mydp .headertodaybtn {
-    padding: 4px 2px;
+    padding: 4px;
     border-radius: 2px;
     cursor: pointer;
     font-size: 11px;
@@ -229,11 +229,11 @@
 
 .mydp .headermonthtxt,
 .mydp .headeryeartxt {
-    width: 40px;
+    min-width: 40px;
     text-align: center;
     display: table-cell;
     vertical-align: middle;
-    font-size: 90%;
+    font-size: 14px;
 }
 
 .mydp .btnclear:focus,
@@ -251,7 +251,7 @@
 .mydp .icon-left,
 .mydp .icon-right {
     color: #222;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .mydp .icon-left:hover,
@@ -276,12 +276,10 @@
 
 .mydp .icon {
     font-family: 'mydatepicker';
-    speak: none;
     font-style: normal;
     font-weight: normal;
     font-variant: normal;
     text-transform: none;
-    line-height: 1;
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

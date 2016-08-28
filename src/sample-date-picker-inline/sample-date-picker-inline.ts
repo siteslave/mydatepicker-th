@@ -26,7 +26,7 @@ export class SampleDatePickerInline implements OnInit {
 
     selectedText: string = '';
     border: string = 'none';
-    locale:string = 'en';
+    locale:string = '';
 
     locales:Array<string> = new Array('en', 'fr', 'ja', 'fi');
     
@@ -43,24 +43,7 @@ export class SampleDatePickerInline implements OnInit {
         console.log('onInit(): SampleDatePickerInline');
     }
 
-    disablePreviousDay() {
-        // Change options dynamically - set disabledUntil to previous date and keep other options
-        let date = new Date(this.myDatePickerOptions.disableUntil.year, this.myDatePickerOptions.disableUntil.month - 1, this.myDatePickerOptions.disableUntil.day, 0, 0, 0, 0);
-        date.setDate(date.getDate() - 1);
-
-        this.myDatePickerOptions = {
-            todayBtnTxt: 'Today',
-            dateFormat: 'yyyy-mm-dd',
-            firstDayOfWeek: 'mo',
-            sunHighlight: true,
-            height: '34px',
-            width: '260px',
-            inline: true,
-            disableUntil: {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()}
-        };
-    }
-
-    onChangeLocale(locale) {
+    onChangeLocale(locale:string) {
         this.locale = locale;
     }
 
