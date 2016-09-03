@@ -6,7 +6,6 @@ const template: string = require('./sample-date-picker-normal.html');
 
 @Component({
     selector: 'sample-date-picker-normal',
-    directives: [MyDatePicker],
     template
 })
 

@@ -6,7 +6,6 @@ const template: string = require('./sample-date-picker-inline.html');
 
 @Component({
     selector: 'sample-date-picker-inline',
-    directives: [MyDatePicker],
     template
 })
 

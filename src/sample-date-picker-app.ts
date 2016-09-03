@@ -8,9 +8,6 @@ const template: string = require('./sample-date-picker-app.html');
 
 @Component({
   selector: 'mydatepicker-app',
-  providers: [],
-  pipes: [],
-  directives: [SampleDatePickerNormal, SampleDatePickerInline],
   styles: [styles],
   template
 })

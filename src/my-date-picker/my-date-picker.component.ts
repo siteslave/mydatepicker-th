@@ -9,7 +9,6 @@ const template: string = require('./my-date-picker.component.html');
 
 @Component({
     selector: 'my-date-picker',
-    directives: [NgIf, NgFor, NgClass, NgStyle],
     styles: [styles],
     template,
     providers: [LocaleService]

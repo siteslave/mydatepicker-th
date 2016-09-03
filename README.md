@@ -1,4 +1,4 @@
-# mydatepicker v. 0.0.21
+# mydatepicker v. 0.0.22
 
 **Angular 2 date picker - Angular2 reusable UI component**
 
@@ -22,13 +22,12 @@ To install this component to an external project, follow the procedure:
 
    ```html
    <my-date-picker [options]="myDatePickerOptions"
-                   (dateChanged)="onDateChanged($event)"
-                   [selDate]="selectedDate"></my-date-picker>
+                   (dateChanged)="onDateChanged($event)"></my-date-picker>
    ```
 
 * Mandatory attributes:
   * [options]="myDatePickerOptions"
-  * [dateChanged]="onDateChanged($event)"
+  * (dateChanged)="onDateChanged($event)"
 
 * Optional attributes:
   * [selDate]="selectedDate" || [defaultMonth]="defaultMonth"
@@ -103,6 +102,8 @@ A two-letter ISO 639-1 language code can be provided as shorthand for several of
 the options listed above. Currently supported languages: en, fr, ja and fi.
 If the locale is used it overrides dayLabels, monthLabels, dateFormat, todayBtnTxt,
 firstDayOfWeek and sunHighlight properties from the options.
+
+* new locale data can be added to [this](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/my-date-picker.locale.service.ts) file.
 
 
 ### selDate
