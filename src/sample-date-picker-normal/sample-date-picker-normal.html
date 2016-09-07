@@ -1,7 +1,7 @@
 <div>
     <div style="padding:4px;border-radius:4px;margin-bottom:8px;float:right" [ngStyle]="{border: border}">
-        {{selectedText}}
+        {{selectedTextNormal}}
     </div>
-    <my-date-picker [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)"
-                    [selDate]="selectedDate"></my-date-picker>
+    <my-date-picker [options]="myDatePickerNormalOptions" (dateChanged)="onDateChanged($event)"
+                    [selDate]="selectedDateNormal"></my-date-picker>
 </div>

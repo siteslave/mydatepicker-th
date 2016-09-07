@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 
 declare var require:any;
-const template: string = require('./sample-date-picker-normal.html');
+const normalSampleTpl: string = require('./sample-date-picker-normal.html');
 
 @Component({
     selector: 'sample-date-picker-normal',
-    template: template
+    template: normalSampleTpl
 })
 
 export class SampleDatePickerNormal implements OnInit {
-    selectedDate:string = '';
-    private myDatePickerOptions = {
+
+    private myDatePickerNormalOptions = {
         todayBtnTxt: 'Today',
         dateFormat: 'dd.mm.yyyy',
         firstDayOfWeek: 'mo',
@@ -18,9 +18,10 @@ export class SampleDatePickerNormal implements OnInit {
         height: '34px',
         width: '260px'
     };
-    
-    selectedText: string = '';
-    border: string = 'none';
+    private selectedDateNormal:string = '';
+
+    private selectedTextNormal: string = '';
+    private border: string = 'none';
 
     constructor() {
         let date = new Date();
@@ -33,11 +34,11 @@ export class SampleDatePickerNormal implements OnInit {
     onDateChanged(event:any) {
         console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
         if(event.formatted !== '') {
-            this.selectedText = 'Formatted: ' + event.formatted + ' - epoc timestamp: ' + event.epoc;
+            this.selectedTextNormal = 'Formatted: ' + event.formatted + ' - epoc timestamp: ' + event.epoc;
             this.border = '1px solid #CCC';
         }
         else {
-            this.selectedText = '';
+            this.selectedTextNormal = '';
             this.border = 'none';
         }
     }

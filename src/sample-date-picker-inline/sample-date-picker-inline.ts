@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 
 declare var require:any;
-const template: string = require('./sample-date-picker-inline.html');
+const inlineSampleTpl: string = require('./sample-date-picker-inline.html');
 
 @Component({
     selector: 'sample-date-picker-inline',
-    template: template
+    template: inlineSampleTpl
 })
 
 export class SampleDatePickerInline implements OnInit {
 
-    private myDatePickerOptions = {
+    private myDatePickerInlineOptions = {
         todayBtnTxt: 'Today',
         dateFormat: 'yyyy-mm-dd',
         firstDayOfWeek: 'mo',
@@ -20,21 +20,21 @@ export class SampleDatePickerInline implements OnInit {
         inline: true,
         disableUntil: {year: 0, month: 0, day: 0}
     };
-    selectedDate: string = '';
+    private selectedDateInline: string = '';
 
-    selectedText: string = '';
-    border: string = 'none';
-    locale:string = '';
+    private selectedTextInline: string = '';
+    private border: string = 'none';
+    private locale:string = '';
 
-    locales:Array<string> = new Array('en', 'fr', 'ja', 'fi');
+    private locales:Array<string> = new Array('en', 'fr', 'ja', 'fi');
     
     constructor() {
         let date = new Date();
-        this.selectedDate = date.getFullYear() + '-' + ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
+        this.selectedDateInline = date.getFullYear() + '-' + ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
 
         // Disable dates from 5th backward
         date.setDate(date.getDate() - 5);
-        this.myDatePickerOptions.disableUntil = {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()};
+        this.myDatePickerInlineOptions.disableUntil = {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()};
     }
 
     ngOnInit() {
@@ -48,11 +48,11 @@ export class SampleDatePickerInline implements OnInit {
     onDateChanged(event:any) {
         console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
         if(event.formatted !== '') {
-            this.selectedText = 'Formatted: ' + event.formatted + ' - epoc timestamp: ' + event.epoc;
+            this.selectedTextInline = 'Formatted: ' + event.formatted + ' - epoc timestamp: ' + event.epoc;
             this.border = '1px solid #CCC';
         }
         else {
-            this.selectedText = '';
+            this.selectedTextInline = '';
             this.border = 'none';
         }
     }

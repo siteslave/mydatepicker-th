@@ -3,13 +3,13 @@ import {IMyDate, IMyMonth, IMyWeek, IMyDayLabels, IMyMonthLabels} from './interf
 import {LocaleService} from './my-date-picker.locale.service';
 
 declare var require:any;
-const styles: string = require('./my-date-picker.component.css');
-const template: string = require('./my-date-picker.component.html');
+const myDpStyles: string = require('./my-date-picker.component.css');
+const myDpTpl: string = require('./my-date-picker.component.html');
 
 @Component({
     selector: 'my-date-picker',
-    styles: [styles],
-    template: template,
+    styles: [myDpStyles],
+    template: myDpTpl,
     providers: [LocaleService]
 })
 
@@ -62,12 +62,12 @@ export class MyDatePicker implements OnChanges {
 
     setLocaleOptions():void {
         let options = this.localeService.getLocaleOptions(this.locale);
-        for (let key in options) {
-            if(options[key] instanceof Object) {
-                (this)[key] = Object.assign({}, options[key]);
+        for (let prop in options) {
+            if(options[prop] instanceof Object) {
+                (this)[prop] = JSON.parse(JSON.stringify(options[prop]));
             }
             else {
-                (this)[key] = options[key];
+                (this)[prop] = options[prop];
             }
         }
     }
@@ -76,7 +76,7 @@ export class MyDatePicker implements OnChanges {
         let options = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'disableWeekends', 'height', 'width', 'inline'];
         for (let prop of options) {
             if (this.options && (this.options)[prop] !== undefined  && (this.options)[prop] instanceof Object) {
-                (this)[prop] = Object.assign({}, (this.options)[prop]);
+                (this)[prop] = JSON.parse(JSON.stringify((this.options)[prop]));
             }
             else if(this.options && (this.options)[prop] !== undefined) {
                 (this)[prop] = (this.options)[prop];
@@ -278,7 +278,7 @@ export class MyDatePicker implements OnChanges {
         // Check is a given date the current date
         return d === this.today.getDate() && m === this.today.getMonth() + 1 && y === this.today.getFullYear() && cmo === 2;
     }
-    
+
     isDisabledDay(date:IMyDate):boolean {
         // Check is a given date <= disabledUntil or given date >= disabledSince or disabled weekend
         let givenDate = this.getTimeInMilliseconds(date);
@@ -296,7 +296,7 @@ export class MyDatePicker implements OnChanges {
         }
         return false;
     }
-    
+
     getTimeInMilliseconds(date:IMyDate):number {
         return new Date(date.year, date.month - 1, date.day, 0, 0, 0, 0).getTime();
     }
@@ -306,7 +306,7 @@ export class MyDatePicker implements OnChanges {
         let d = new Date(date.year, date.month - 1 , date.day, 0, 0, 0, 0);
         return d.getDay();
     }
-    
+
     sundayIdx():number {
         // Index of Sunday day
         return this.dayIdx > 0 ? 7 - this.dayIdx : 0;
@@ -330,7 +330,7 @@ export class MyDatePicker implements OnChanges {
                     let date: IMyDate = {year: y, month: m - 1, day: j};
                     week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(j, m, y, cmo), dayNbr: this.getDayNumber(date), disabled: this.isDisabledDay(date)});
                 }
-                
+
                 cmo = this.CURR_MONTH;
                 // Current month
                 var daysLeft = 7 - week.length;
@@ -354,7 +354,7 @@ export class MyDatePicker implements OnChanges {
                 }
             }
             this.dates.push(week);
-        }  
+        }
     }
 
     parseSelectedDate(ds:string): IMyDate {
@@ -380,7 +380,7 @@ export class MyDatePicker implements OnChanges {
     parseSelectedMonth(ms:string): IMyMonth {
         let split = ms.split(ms.match(/[^0-9]/)[0]);
         return (parseInt(split[0]) > parseInt(split[1])) ?
-            {monthTxt: '', monthNbr: parseInt(split[1]), year: parseInt(split[0])} :
-            {monthTxt: '', monthNbr: parseInt(split[0]), year: parseInt(split[1])};
+        {monthTxt: '', monthNbr: parseInt(split[1]), year: parseInt(split[0])} :
+        {monthTxt: '', monthNbr: parseInt(split[0]), year: parseInt(split[1])};
     }
 }
