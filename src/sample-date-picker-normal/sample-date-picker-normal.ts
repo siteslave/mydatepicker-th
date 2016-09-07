@@ -1,12 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {MyDatePicker} from '../my-date-picker/index';
 
 declare var require:any;
 const template: string = require('./sample-date-picker-normal.html');
 
 @Component({
     selector: 'sample-date-picker-normal',
-    template
+    template: template
 })
 
 export class SampleDatePickerNormal implements OnInit {

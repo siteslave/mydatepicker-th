@@ -1,5 +1,4 @@
 import {Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ElementRef} from '@angular/core';
-import {NgIf, NgFor, NgClass, NgStyle} from '@angular/common';
 import {IMyDate, IMyMonth, IMyWeek, IMyDayLabels, IMyMonthLabels} from './interfaces/index';
 import {LocaleService} from './my-date-picker.locale.service';
 
@@ -10,7 +9,7 @@ const template: string = require('./my-date-picker.component.html');
 @Component({
     selector: 'my-date-picker',
     styles: [styles],
-    template,
+    template: template,
     providers: [LocaleService]
 })
 
@@ -50,12 +49,7 @@ export class MyDatePicker implements OnChanges {
     inline: boolean = false;
 
     constructor(public elem: ElementRef, private localeService: LocaleService) {
-        let defaultOptions = this.localeService.getLocaleOptions('en');
-        for (let propname in defaultOptions) {
-            if (defaultOptions.hasOwnProperty(propname)) {
-                (<any>this)[propname] = (<any>defaultOptions)[propname];
-            }
-        }
+        this.setLocaleOptions();
 
         this.today = new Date();
         let doc = document.getElementsByTagName('html')[0];
@@ -66,20 +60,34 @@ export class MyDatePicker implements OnChanges {
         }, false);
     }
 
-    parseOptions() {
-        let localeOptions = this.localeService.getLocaleOptions(this.locale);
+    setLocaleOptions():void {
+        let options = this.localeService.getLocaleOptions(this.locale);
+        for (let key in options) {
+            if(options[key] instanceof Object) {
+                (this)[key] = Object.assign({}, options[key]);
+            }
+            else {
+                (this)[key] = options[key];
+            }
+        }
+    }
 
-        // the relatively ugly casts to any in this loop are needed to
-        // avoid tsc errors when noImplicitAny is true.
-        let optionprops = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'disableWeekends', 'height', 'width', 'inline'];
-        for (let i = 0; i < optionprops.length; i++) {
-            let propname = optionprops[i];
-            if(localeOptions.hasOwnProperty(propname)) {
-                (<any>this)[propname] = (<any>localeOptions)[propname];
+    setOptions():void {
+        let options = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'disableWeekends', 'height', 'width', 'inline'];
+        for (let prop of options) {
+            if (this.options && (this.options)[prop] !== undefined  && (this.options)[prop] instanceof Object) {
+                (this)[prop] = Object.assign({}, (this.options)[prop]);
             }
-            else if (this.options && (<any>this.options)[propname] !== undefined) {
-                (<any>this)[propname] = (<any>this.options)[propname];
+            else if(this.options && (this.options)[prop] !== undefined) {
+                (this)[prop] = (this.options)[prop];
             }
+        }
+    }
+
+    parseOptions():void {
+        this.setOptions();
+        if(this.locale) {
+            this.setLocaleOptions();
         }
 
         let days = ['su', 'mo', 'tu', 'we', 'th', 'fr', 'sa'];
@@ -91,13 +99,12 @@ export class MyDatePicker implements OnChanges {
                 idx = days[idx] === 'sa' ? 0 : idx + 1;
             }
         }
-        
         if(this.inline) {
             this.openBtnClicked();
         }
     }
 
-    ngOnChanges(changes: SimpleChanges) {
+    ngOnChanges(changes: SimpleChanges):void {
         if (changes.hasOwnProperty('selDate')) {
             this.selectionDayTxt = changes['selDate'].currentValue;
             this.selectedDate = this.parseSelectedDate(this.selectionDayTxt);

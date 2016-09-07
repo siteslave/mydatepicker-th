@@ -1,4 +1,4 @@
-# mydatepicker v. 0.0.22
+# mydatepicker v. 0.0.23
 
 **Angular 2 date picker - Angular2 reusable UI component**
 
