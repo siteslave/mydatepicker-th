@@ -1,13 +1,13 @@
-import { NgModule }      from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { MyDatePickerApp }  from './sample-date-picker-app';
-import { SampleDatePickerNormal }  from './sample-date-picker-normal';
-import { SampleDatePickerInline }  from './sample-date-picker-inline';
-import { MyDatePicker }  from './my-date-picker/my-date-picker.component';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {MyDatePickerApp} from './sample-date-picker-app';
+import {SampleDatePickerNormal} from './sample-date-picker-normal';
+import {SampleDatePickerInline} from './sample-date-picker-inline';
+import {MyDatePickerModule} from './my-date-picker/my-date-picker.module';
 
 @NgModule({
-    imports:      [ BrowserModule ],
-    declarations: [ MyDatePickerApp, SampleDatePickerNormal, SampleDatePickerInline, MyDatePicker ],
-    bootstrap:    [ MyDatePickerApp ]
+    imports: [BrowserModule, MyDatePickerModule],
+    declarations: [MyDatePickerApp, SampleDatePickerNormal, SampleDatePickerInline],
+    bootstrap: [MyDatePickerApp]
 })
 export class SampleDatePickerModule { }

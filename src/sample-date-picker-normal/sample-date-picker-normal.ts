@@ -16,7 +16,8 @@ export class SampleDatePickerNormal implements OnInit {
         firstDayOfWeek: 'mo',
         sunHighlight: true,
         height: '34px',
-        width: '260px'
+        width: '260px',
+        selectionTxtFontSize: '18px'
     };
     private selectedDateNormal:string = '';
 
