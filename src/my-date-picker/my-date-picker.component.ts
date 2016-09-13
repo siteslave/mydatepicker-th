@@ -48,6 +48,7 @@ export class MyDatePicker implements OnChanges {
     disableSince: IMyDate = {year: 0, month: 0, day: 0};
     disableWeekends: boolean = false;
     inline: boolean = false;
+    alignSelectorRight: boolean = false;
 
     constructor(public elem: ElementRef, private localeService: LocaleService) {
         this.setLocaleOptions();
@@ -74,7 +75,7 @@ export class MyDatePicker implements OnChanges {
     }
 
     setOptions():void {
-        let options = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'disableWeekends', 'height', 'width', 'selectionTxtFontSize', 'inline'];
+        let options = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'disableWeekends', 'height', 'width', 'selectionTxtFontSize', 'inline', 'alignSelectorRight'];
         for (let prop of options) {
             if (this.options && (this.options)[prop] !== undefined  && (this.options)[prop] instanceof Object) {
                 (this)[prop] = JSON.parse(JSON.stringify((this.options)[prop]));

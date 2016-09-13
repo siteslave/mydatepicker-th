@@ -17,7 +17,8 @@ export class SampleDatePickerNormal implements OnInit {
         sunHighlight: true,
         height: '34px',
         width: '260px',
-        selectionTxtFontSize: '18px'
+        selectionTxtFontSize: '18px',
+        alignSelectorRight: false,
     };
     private selectedDateNormal:string = '';
 

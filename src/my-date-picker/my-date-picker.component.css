@@ -3,6 +3,7 @@
     border-radius: 2px;
     line-height: 1.1;
     display: inline-block;
+    position: relative;
 }
 
 .mydp * {
@@ -18,11 +19,15 @@
     margin-top: 2px;
     margin-left: -1px;
     position: absolute;
-    max-width: 262px;
+    width: 262px;
     padding: 3px;
     border-radius: 2px;
     background-color: #DDD;
     z-index: 100;
+}
+
+.mydp .alignselectorright {
+    right: -1px;
 }
 
 .mydp .selectiongroup {
