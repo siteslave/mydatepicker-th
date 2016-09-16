@@ -1,16 +1,15 @@
 import {Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ElementRef} from '@angular/core';
-import {NgIf, NgFor, NgClass, NgStyle} from '@angular/common';
 import {IMyDate, IMyMonth, IMyWeek, IMyDayLabels, IMyMonthLabels} from './interfaces/index';
 import {LocaleService} from './my-date-picker.locale.service';
 
 declare var require:any;
-const styles: string = require('./my-date-picker.component.css');
-const template: string = require('./my-date-picker.component.html');
+const myDpStyles: string = require('./my-date-picker.component.css');
+const myDpTpl: string = require('./my-date-picker.component.html');
 
 @Component({
     selector: 'my-date-picker',
-    styles: [styles],
-    template,
+    styles: [myDpStyles],
+    template: myDpTpl,
     providers: [LocaleService]
 })
 
@@ -44,18 +43,15 @@ export class MyDatePicker implements OnChanges {
 
     height: string = '34px';
     width: string = '100%';
+    selectionTxtFontSize: string = '18px';
     disableUntil: IMyDate = {year: 0, month: 0, day: 0};
     disableSince: IMyDate = {year: 0, month: 0, day: 0};
     disableWeekends: boolean = false;
     inline: boolean = false;
+    alignSelectorRight: boolean = false;
 
     constructor(public elem: ElementRef, private localeService: LocaleService) {
-        let defaultOptions = this.localeService.getLocaleOptions('en');
-        for (let propname in defaultOptions) {
-            if (defaultOptions.hasOwnProperty(propname)) {
-                (<any>this)[propname] = (<any>defaultOptions)[propname];
-            }
-        }
+        this.setLocaleOptions();
 
         this.today = new Date();
         let doc = document.getElementsByTagName('html')[0];
@@ -66,20 +62,34 @@ export class MyDatePicker implements OnChanges {
         }, false);
     }
 
-    parseOptions() {
-        let localeOptions = this.localeService.getLocaleOptions(this.locale);
+    setLocaleOptions():void {
+        let options = this.localeService.getLocaleOptions(this.locale);
+        for (let prop in options) {
+            if(options[prop] instanceof Object) {
+                (this)[prop] = JSON.parse(JSON.stringify(options[prop]));
+            }
+            else {
+                (this)[prop] = options[prop];
+            }
+        }
+    }
 
-        // the relatively ugly casts to any in this loop are needed to
-        // avoid tsc errors when noImplicitAny is true.
-        let optionprops = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'disableWeekends', 'height', 'width', 'inline'];
-        for (let i = 0; i < optionprops.length; i++) {
-            let propname = optionprops[i];
-            if(localeOptions.hasOwnProperty(propname)) {
-                (<any>this)[propname] = (<any>localeOptions)[propname];
+    setOptions():void {
+        let options = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'disableWeekends', 'height', 'width', 'selectionTxtFontSize', 'inline', 'alignSelectorRight'];
+        for (let prop of options) {
+            if (this.options && (this.options)[prop] !== undefined  && (this.options)[prop] instanceof Object) {
+                (this)[prop] = JSON.parse(JSON.stringify((this.options)[prop]));
             }
-            else if (this.options && (<any>this.options)[propname] !== undefined) {
-                (<any>this)[propname] = (<any>this.options)[propname];
+            else if(this.options && (this.options)[prop] !== undefined) {
+                (this)[prop] = (this.options)[prop];
             }
+        }
+    }
+
+    parseOptions():void {
+        this.setOptions();
+        if(this.locale) {
+            this.setLocaleOptions();
         }
 
         let days = ['su', 'mo', 'tu', 'we', 'th', 'fr', 'sa'];
@@ -91,13 +101,12 @@ export class MyDatePicker implements OnChanges {
                 idx = days[idx] === 'sa' ? 0 : idx + 1;
             }
         }
-        
         if(this.inline) {
             this.openBtnClicked();
         }
     }
 
-    ngOnChanges(changes: SimpleChanges) {
+    ngOnChanges(changes: SimpleChanges):void {
         if (changes.hasOwnProperty('selDate')) {
             this.selectionDayTxt = changes['selDate'].currentValue;
             this.selectedDate = this.parseSelectedDate(this.selectionDayTxt);
@@ -271,7 +280,7 @@ export class MyDatePicker implements OnChanges {
         // Check is a given date the current date
         return d === this.today.getDate() && m === this.today.getMonth() + 1 && y === this.today.getFullYear() && cmo === 2;
     }
-    
+
     isDisabledDay(date:IMyDate):boolean {
         // Check is a given date <= disabledUntil or given date >= disabledSince or disabled weekend
         let givenDate = this.getTimeInMilliseconds(date);
@@ -289,7 +298,7 @@ export class MyDatePicker implements OnChanges {
         }
         return false;
     }
-    
+
     getTimeInMilliseconds(date:IMyDate):number {
         return new Date(date.year, date.month - 1, date.day, 0, 0, 0, 0).getTime();
     }
@@ -299,7 +308,7 @@ export class MyDatePicker implements OnChanges {
         let d = new Date(date.year, date.month - 1 , date.day, 0, 0, 0, 0);
         return d.getDay();
     }
-    
+
     sundayIdx():number {
         // Index of Sunday day
         return this.dayIdx > 0 ? 7 - this.dayIdx : 0;
@@ -323,7 +332,7 @@ export class MyDatePicker implements OnChanges {
                     let date: IMyDate = {year: y, month: m - 1, day: j};
                     week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(j, m, y, cmo), dayNbr: this.getDayNumber(date), disabled: this.isDisabledDay(date)});
                 }
-                
+
                 cmo = this.CURR_MONTH;
                 // Current month
                 var daysLeft = 7 - week.length;
@@ -347,7 +356,7 @@ export class MyDatePicker implements OnChanges {
                 }
             }
             this.dates.push(week);
-        }  
+        }
     }
 
     parseSelectedDate(ds:string): IMyDate {
@@ -373,7 +382,7 @@ export class MyDatePicker implements OnChanges {
     parseSelectedMonth(ms:string): IMyMonth {
         let split = ms.split(ms.match(/[^0-9]/)[0]);
         return (parseInt(split[0]) > parseInt(split[1])) ?
-            {monthTxt: '', monthNbr: parseInt(split[1]), year: parseInt(split[0])} :
-            {monthTxt: '', monthNbr: parseInt(split[0]), year: parseInt(split[1])};
+        {monthTxt: '', monthNbr: parseInt(split[1]), year: parseInt(split[0])} :
+        {monthTxt: '', monthNbr: parseInt(split[0]), year: parseInt(split[1])};
     }
 }

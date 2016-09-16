@@ -3,6 +3,7 @@
     border-radius: 2px;
     line-height: 1.1;
     display: inline-block;
+    position: relative;
 }
 
 .mydp * {
@@ -18,11 +19,15 @@
     margin-top: 2px;
     margin-left: -1px;
     position: absolute;
-    max-width: 262px;
+    width: 262px;
     padding: 3px;
     border-radius: 2px;
     background-color: #DDD;
     z-index: 100;
+}
+
+.mydp .alignselectorright {
+    right: -1px;
 }
 
 .mydp .selectiongroup {
@@ -38,7 +43,6 @@
     position: absolute;
     width: 100%;
     text-align: left;
-    font-size: 18px;
     font-weight: bold;
     padding: 0 64px 0 4px;
     overflow: hidden;
@@ -72,14 +76,8 @@
 
 .mydp .btnpicker,
 .mydp .btnclear,
-.mydp .headertodaybtn,
-.mydp .footerbtn {
-    background: #FAFAFA;
-    background-image: -webkit-linear-gradient(#F0F0F0 30%, #AEC2E1 100%);
-    background-image: -moz-linear-gradient(#F0F0F0 30%, #AEC2E1 100%);
-    background-image: -o-linear-gradient(#F0F0F0 30%, #AEC2E1 100%);
-    background-image: -ms-linear-gradient(#F0F0F0 30%, #AEC2E1 100%);
-    background-image: linear-gradient(#F0F0F0 30%, #AEC2E1 100%);
+.mydp .headertodaybtn {
+    background: #FFF;
 }
 
 .mydp .header {
@@ -141,6 +139,16 @@
     height: 28px;
 }
 
+.mydp .caltable td div {
+    background-color: inherit;
+    height:18px;
+    vertical-align: middle;
+}
+
+.mydp .caltable td div span {
+    vertical-align: middle;
+}
+
 .mydp .inlinedp {
     position: relative;
 }
@@ -156,11 +164,15 @@
 .mydp .disabled {
     cursor: default !important;
     color: #CCC !important;
-    background: #FFE4E9 !important;
+    background: #FFE8EB !important;
 }
 
 .mydp .sunday {
     color: #C30000;
+}
+
+.mydp .sundayDim {
+    opacity: 0.5;
 }
 
 .mydp .currmonth {
@@ -176,10 +188,6 @@
     border: 1px solid #004198;
     background-color: #8EBFFF !important;
     border-radius: 0;
-}
-
-.mydp .caltable tbody .currmonth:hover {
-    background-color: #6AD0EB;
 }
 
 .mydp .selectmenu {
@@ -217,7 +225,7 @@
 }
 
 .mydp .headertodaybtn {
-    padding: 4px;
+    padding: 3px 4px;
     border-radius: 2px;
     cursor: pointer;
     font-size: 11px;
@@ -243,9 +251,7 @@
 }
 
 .mydp .btnclear:focus,
-.mydp .btnpicker:focus,
-.mydp .btnclear:hover,
-.mydp .btnpicker:hover {
+.mydp .btnpicker:focus {
     background: #ADD8E6;
 }
 
@@ -259,11 +265,6 @@
     color: #222;
     font-size: 16px;
     vertical-align: middle;
-}
-
-.mydp .icon-left:hover,
-.mydp .icon-right:hover {
-    color: #63B2CC;
 }
 
 .mydp table {

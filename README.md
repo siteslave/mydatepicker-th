@@ -1,9 +1,11 @@
-# mydatepicker v. 0.0.22
+# mydatepicker v. 0.0.25
 
 **Angular 2 date picker - Angular2 reusable UI component**
 
 ## Description
 Simple Angular2 date picker. Online demo is [here](http://kekeh.github.io/mydatepicker)
+
+This module uses version RC 7 of Angular 2.
 
 ## Getting Started
 1. Fork and clone this repo
@@ -17,7 +19,21 @@ To install this component to an external project, follow the procedure:
 
 1. Make sure you're using Webpack. You can check needed dependencies from the package.json file of this module.
 2. `npm install mydatepicker`.
-3. `import {MyDatePicker} from 'MyDatePicker/src/index';`
+3. Add *MyDatePickerModule* import to your @NgModule like example below
+    ```js
+    import { NgModule } from '@angular/core';
+    import { BrowserModule } from '@angular/platform-browser';
+    import { MyTestApp } from './my-test-app';
+    import { MyDatePickerModule } from 'mydatepicker/src/my-date-picker/my-date-picker.module';
+
+    @NgModule({
+        imports:      [ BrowserModule, MyDatePickerModule ],
+        declarations: [ MyTestApp ],
+        bootstrap:    [ MyTestApp ]
+    })
+    export class MyTestAppModule {}
+    ```
+
 4. Use the following snippet inside your template:
 
    ```html
@@ -43,7 +59,8 @@ To install this component to an external project, follow the procedure:
         height: '34px',
         width: '260px',
         inline: false,
-        disableUntil: {year: 2016, month: 8, day: 10}
+        disableUntil: {year: 2016, month: 8, day: 10},
+        selectionTxtFontSize: '16px'
     };
 ```
 
@@ -96,6 +113,12 @@ Bind to an object containing replacements for any of the following defaults:
   
 #### width
   `'100%'`
+
+#### selectionTxtFontSize
+  `'18px'`
+
+#### alignSelectorRight
+   `'false'`
 
 ### locale
 A two-letter ISO 639-1 language code can be provided as shorthand for several of

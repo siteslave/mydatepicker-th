@@ -6,7 +6,8 @@
     "module": "commonjs",
     "removeComments": true,
     "sourceMap": true,
-    "target": "es5"
+    "target": "es5",
+    "suppressImplicitAnyIndexErrors": true
   },
   "files": [
     "src/main.ts",
