@@ -75,13 +75,29 @@ export class MyDatePicker implements OnChanges {
     }
 
     setOptions():void {
-        let options = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'disableWeekends', 'height', 'width', 'selectionTxtFontSize', 'inline', 'alignSelectorRight'];
+        let options = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'disableWeekends', 'height', 'width', 'selectionTxtFontSize', 'inline', 'alignSelectorRight', 'enableInput'];
         for (let prop of options) {
             if (this.options && (this.options)[prop] !== undefined  && (this.options)[prop] instanceof Object) {
                 (this)[prop] = JSON.parse(JSON.stringify((this.options)[prop]));
             }
             else if(this.options && (this.options)[prop] !== undefined) {
                 (this)[prop] = (this.options)[prop];
+            }
+        }
+    }
+
+    getText(event) {
+        let timestamp = Date.parse(event.target.value), date: Date;
+
+        if (isNaN(timestamp) == false && event.target.value.length == 10) {
+            date = new Date(timestamp);
+            let m = date.getMonth() + 1;
+            let y = date.getFullYear();
+
+            if (this.options.dateFormat.substring(0, 2) === 'mm') {
+                this.selectDate({ day: date.getDate(), month: m, year: y });
+            } else {
+                this.selectDate({ day: m, month: date.getDate(), year: y });
             }
         }
     }
