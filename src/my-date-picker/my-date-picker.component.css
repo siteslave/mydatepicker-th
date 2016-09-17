@@ -42,9 +42,7 @@
     display: table-cell;
     position: absolute;
     width: 100%;
-    text-align: left;
     font-weight: bold;
-    padding: 0 64px 0 4px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
