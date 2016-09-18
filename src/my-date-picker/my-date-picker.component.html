@@ -4,10 +4,10 @@
                 [ngStyle]="{'height': height, 'line-height': height, 'font-size': selectionTxtFontSize, 'border': 'none', 'padding-right': selectionDayTxt.length>0 ? '60px' : '30px'}"
                 (keyup)="userDateInput($event)" [value]="selectionDayTxt">
         <span class="selbtngroup" [style.height]="height">
-            <button type="button" class="btnclear" *ngIf="selectionDayTxt.length>0" (click)="removeBtnClicked()" [hoverItem]="{prop: 'backgroundColor', value: true}">
+            <button type="button" class="btnclear" *ngIf="selectionDayTxt.length>0" (click)="removeBtnClicked()">
                 <span class="icon icon-cross" [ngStyle]="{'line-height': height}"></span>
             </button>
-            <button type="button" class="btnpicker" (click)="openBtnClicked()" [hoverItem]="{prop: 'backgroundColor', value: true}">
+            <button type="button" class="btnpicker" (click)="openBtnClicked()">
                 <span class="icon icon-calendar" [ngStyle]="{'line-height': height}"></span>
             </button>
         </span>
@@ -17,19 +17,19 @@
             <tr>
                 <td>
                     <div style="float:left">
-                        <div class="headerbtn" (click)="prevMonth()"><span class="icon icon-left" [hoverItem]="{prop: 'color', value: true}"></span></div>
+                        <div class="headerbtn" (click)="prevMonth()"><span class="icon icon-left"></span></div>
                         <div class="headermonthtxt"><span>{{visibleMonth.monthTxt}}</span></div>
-                        <div class="headerbtn" (click)="nextMonth()"><span class="icon icon-right" [hoverItem]="{prop: 'color', value: true}"></span></div>
+                        <div class="headerbtn" (click)="nextMonth()"><span class="icon icon-right"></span></div>
                     </div>
                 </td>
                 <td>
-                    <button type="button" class="headertodaybtn" (click)="todayClicked()" [hoverItem]="{prop: 'backgroundColor', value: true}">{{todayBtnTxt}}</button>
+                    <button type="button" class="headertodaybtn" (click)="todayClicked()">{{todayBtnTxt}}</button>
                 </td>
                 <td>
                     <div style="float:right">
-                        <div class="headerbtn" (click)="prevYear()"><span class="icon icon-left" [hoverItem]="{prop: 'color', value: true}"></span></div>
+                        <div class="headerbtn" (click)="prevYear()"><span class="icon icon-left"></span></div>
                         <div class="headeryeartxt"><span>{{visibleMonth.year}}</span></div>
-                        <div class="headerbtn" (click)="nextYear()"><span class="icon icon-right" [hoverItem]="{prop: 'color', value: true}"></span></div>
+                        <div class="headerbtn" (click)="nextYear()"><span class="icon icon-right"></span></div>
                     </div>
                 </td>
             </tr>
@@ -38,7 +38,7 @@
             <thead><tr><th *ngFor="let d of weekDays">{{d}}</th></tr></thead>
             <tbody>
             <tr *ngFor="let w of dates">
-                <td *ngFor="let d of w" [ngClass]="{'currmonth':d.cmo===CURR_MONTH&&!d.disabled, 'currday':d.currDay, 'selectedday':selectedDate.day===d.dateObj.day && selectedDate.month===d.dateObj.month && selectedDate.year===d.dateObj.year && d.cmo===CURR_MONTH, 'disabled': d.disabled}" (click)="$event.stopPropagation();!d.disabled && cellClicked(d)" [hoverItem]="{prop: 'backgroundColor', value: d.cmo===CURR_MONTH&&!d.disabled}">
+                <td *ngFor="let d of w" [ngClass]="{'currmonth':d.cmo===CURR_MONTH&&!d.disabled, 'currday':d.currDay, 'selectedday':selectedDate.day===d.dateObj.day && selectedDate.month===d.dateObj.month && selectedDate.year===d.dateObj.year && d.cmo===CURR_MONTH, 'disabled': d.disabled, 'tablesingleday': d.cmo===CURR_MONTH&&!d.disabled}" (click)="$event.stopPropagation();!d.disabled && cellClicked(d)">
                     <div [ngClass]="{'prevmonth':d.cmo===PREV_MONTH,'currmonth':d.cmo===CURR_MONTH,'nextmonth':d.cmo===NEXT_MONTH,'sunday':d.dayNbr === 0 && sunHighlight}">
                         <span [ngClass]="{'sundayDim': sunHighlight && d.dayNbr === 0 && (d.cmo===PREV_MONTH || d.cmo===NEXT_MONTH || d.disabled)}">{{d.dateObj.day}}</span>
                     </div>

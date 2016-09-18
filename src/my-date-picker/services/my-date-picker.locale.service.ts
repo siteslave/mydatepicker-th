@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {IMyLocales, IMyOptions} from './interfaces/index';
+import {IMyLocales, IMyOptions} from '../interfaces/index';
 
 @Injectable()
 export class LocaleService {

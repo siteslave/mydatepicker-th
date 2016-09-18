@@ -1,7 +1,7 @@
 import {Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ElementRef} from '@angular/core';
 import {IMyDate, IMyMonth, IMyWeek, IMyDayLabels, IMyMonthLabels} from './interfaces/index';
-import {LocaleService} from './my-date-picker.locale.service';
-import {DateValidatorService} from './my-date-picker.date.validator.service';
+import {LocaleService} from './services/my-date-picker.locale.service';
+import {DateValidatorService} from './services/my-date-picker.date.validator.service';
 
 declare var require:any;
 const myDpStyles: string = require('./my-date-picker.component.css');

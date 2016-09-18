@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {IMyDate} from './interfaces/index';
+import {IMyDate} from '../interfaces/my-date.interface';
 
 @Injectable()
 export class DateValidatorService {

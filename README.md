@@ -1,4 +1,4 @@
-# mydatepicker v. 0.0.27
+# mydatepicker v. 0.0.28
 
 **Angular 2 date picker - Angular2 reusable UI component**
 
@@ -124,7 +124,7 @@ the options listed above. Currently supported languages: en, fr, ja and fi.
 If the locale is used it overrides dayLabels, monthLabels, dateFormat, todayBtnTxt,
 firstDayOfWeek and sunHighlight properties from the options.
 
-* new locale data can be added to [this](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/my-date-picker.locale.service.ts) file.
+* new locale data can be added to [this](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/services/my-date-picker.locale.service.ts) file.
 
 
 ### selDate
