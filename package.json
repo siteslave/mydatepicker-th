@@ -1,6 +1,6 @@
 {
   "name": "mydatepicker",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "description": "Angular2 date picker",
   "keywords": [
     "Angular2",
@@ -33,24 +33,24 @@
   },
   "devDependencies": {
     "css-loader": "^0.23.1",
+    "es6-promise": "3.0.2",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.15.0",
     "null-loader": "^0.1.1",
+    "postcss-loader": "~0.9.1",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.5.2",
-    "to-string-loader": "^1.1.4",
+    "source-map-loader": "^0.1.5",
     "style-loader": "^0.13.1",
-    "postcss-loader": "~0.9.1",
+    "to-string-loader": "^1.1.4",
     "ts-loader": "^0.8.1",
     "typescript": "^1.8.10",
     "typings": "^1.0.4",
     "webpack": "^1.13.0",
-    "webpack-dev-server": "^1.14.1",
-    "webpack-merge": "^0.14.0",
-    "es6-promise": "3.0.2",
-    "source-map-loader": "^0.1.5",
-    "webpack-livereload-plugin": "~0.8.1"
+    "webpack-dev-server": "^1.16.0",
+    "webpack-livereload-plugin": "~0.8.1",
+    "webpack-merge": "^0.14.0"
   }
 }

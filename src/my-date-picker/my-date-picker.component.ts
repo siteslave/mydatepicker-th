@@ -28,6 +28,7 @@ export class MyDatePicker implements OnChanges {
     weekDays: Array<string> = [];
     dates: Array<Object> = [];
     selectionDayTxt: string = '';
+    invalidDate: boolean = false;
     dayIdx: number = 0;
     today: Date = null;
 
@@ -50,6 +51,8 @@ export class MyDatePicker implements OnChanges {
     disableWeekends: boolean = false;
     inline: boolean = false;
     alignSelectorRight: boolean = false;
+    indicateInvalidDate: boolean = true;
+    showDateFormatPlaceholder: boolean = false;
 
     constructor(public elem: ElementRef, private localeService: LocaleService, private dateValidatorService: DateValidatorService) {
         this.setLocaleOptions();
@@ -76,7 +79,7 @@ export class MyDatePicker implements OnChanges {
     }
 
     setOptions():void {
-        let options = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'disableWeekends', 'height', 'width', 'selectionTxtFontSize', 'inline', 'alignSelectorRight'];
+        let options = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'disableWeekends', 'height', 'width', 'selectionTxtFontSize', 'inline', 'alignSelectorRight', 'indicateInvalidDate', 'showDateFormatPlaceholder'];
         for (let prop of options) {
             if (this.options && (this.options)[prop] !== undefined  && (this.options)[prop] instanceof Object) {
                 (this)[prop] = JSON.parse(JSON.stringify((this.options)[prop]));
@@ -88,6 +91,7 @@ export class MyDatePicker implements OnChanges {
     }
 
     userDateInput(event:any):void {
+        this.invalidDate = false;
         if(event.target.value.length === 0) {
             this.removeBtnClicked();
         }
@@ -95,6 +99,9 @@ export class MyDatePicker implements OnChanges {
             let date:IMyDate = this.dateValidatorService.isDateValid(event.target.value, this.dateFormat);
             if(date.day !== 0 && date.month !== 0 && date.year !== 0) {
                 this.selectDate({ day: date.day, month: date.month, year: date.year });
+            }
+            else {
+                this.invalidDate = true;
             }
         }
     }
@@ -145,6 +152,7 @@ export class MyDatePicker implements OnChanges {
         this.selectionDayTxt = '';
         this.selectedDate = {year: 0, month: 0, day: 0};
         this.dateChanged.emit({date: {}, formatted: this.selectionDayTxt, epoc: 0});
+        this.invalidDate = false;
     }
 
     openBtnClicked():void {
@@ -244,6 +252,7 @@ export class MyDatePicker implements OnChanges {
         this.showSelector = false;
         let epoc = new Date(this.selectedDate.year, this.selectedDate.month, this.selectedDate.day, 0, 0, 0, 0).getTime() / 1000.0;
         this.dateChanged.emit({date: this.selectedDate, formatted: this.selectionDayTxt, epoc: epoc});
+        this.invalidDate = false;
     }
 
     preZero(val:string):string {
