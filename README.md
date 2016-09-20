@@ -5,19 +5,12 @@
 ## Description
 Simple Angular2 date picker. Online demo is [here](http://kekeh.github.io/mydatepicker)
 
-## Getting Started
-1. Fork and clone this repo
-2. npm install
-3. Open a terminal and type "npm start"
-4. Open "http://localhost:5000" to browser
-
 ## Installation
 
 To install this component to an external project, follow the procedure:
 
-1. You can check needed dependencies from the package.json file of this module.
-2. `npm install mydatepicker`.
-3. Add *MyDatePickerModule* import to your @NgModule like example below
+1. __npm install mydatepicker --save__
+2. Add __MyDatePickerModule__ import to your __@NgModule__ like example below
     ```js
     import { NgModule } from '@angular/core';
     import { BrowserModule } from '@angular/platform-browser';
@@ -32,7 +25,7 @@ To install this component to an external project, follow the procedure:
     export class MyTestAppModule {}
     ```
 
-4. Use the following snippet inside your template:
+3. Use the following snippet inside your template:
 
    ```html
    <my-date-picker [options]="myDatePickerOptions"
@@ -71,60 +64,31 @@ To install this component to an external project, follow the procedure:
 
 ## Usage
 
-All input properties are optional.
+### options attribute
 
-### options
-Bind to an object containing replacements for any of the following defaults:
+Bind to an object for any of the following properties:
 
-#### dayLabels
-  `{su: 'Sun', mo: 'Mon', tu: 'Tue', we: 'Wed', th: 'Thu', fr: 'Fri', sa: 'Sat'}`
+| Option        | Default       | Description  |
+| ------------- | ------------- | ----- |
+| __dayLabels__     | {su: 'Sun', mo: 'Mon', tu: 'Tue', we: 'Wed', th: 'Thu', fr: 'Fri', sa: 'Sat'} | Day labels visible on the selector. |
+| __monthLabels__   | { 1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun', 7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec' } | Month labels visible on the selector. |
+| __dateFormat__    | yyyy-mm-dd      | Date format on selection area and callback. |
+| __todayBtnTxt__   | Today      | Today button text. |
+| __firstDayOfWeek__   | mo | First day of week on calendar. One of the following: mo, tu, we, th, fr, sa, su |
+| __sunHighlight__   | true | Sunday red colored on calendar. |
+| __disableUntil__   | no default value | Disable dates backward starting from the given date. For example: {year: 2016, month: 6, day: 26} |
+| __disableSince__   | no default value | Disable dates forward starting from the given date. For example: {year: 2016, month: 7, day: 22} |
+| __disableWeekends__   | false | Disable weekends (Saturday and Sunday). |
+| __inline__   | false | Show mydatepicker in inline mode. |
+| __height__   | 34px | mydatepicker height without selector. Can be used if __inline = false__. |
+| __width__   | 100% | mydatepicker width. Can be used if __inline = false__. |
+| __selectionTxtFontSize__   | 18px | Selection area font size. Can be used if __inline = false__. |
+| __alignSelectorRight__   | false | Align selector right. Can be used if __inline = false__. |
+| __indicateInvalidDate__   | true | If user typed date is not same format as __dateFormat__, show red background in the selection area. Can be used if __inline = false__. |
+| __showDateFormatPlaceholder__   | false | Show value of __dateFormat__ as placeholder in the selection area if it is empty. Can be used if __inline = false__. |
   
-#### monthLabels
-  `{ 1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun', 7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec' }`
-    
-#### dateFormat
-  `'yyyy-mm-dd'`
-  
-#### todayBtnTxt
-  `'Today'`
-  
-#### firstDayOfWeek
-  `'mo'`
-  
-#### sunHighlight
-  `true`
-  
-#### disableUntil
-  `{year: 2016, month: 6, day: 26}`
-  
-#### disableSince
-  `{year: 2016, month: 7, day: 22}`
-  
-#### disableWeekends
-  `false`
+### locale attribute
 
-#### inline
-  `false`
-  
-#### height
-  `'34px'`
-  
-#### width
-  `'100%'`
-
-#### selectionTxtFontSize
-  `'18px'`
-
-#### alignSelectorRight
-   `'false'`
-
-#### indicateInvalidDate
-   `'true'`
-
-#### showDateFormatPlaceholder
-   `'false'`
-
-### locale
 A two-letter ISO 639-1 language code can be provided as shorthand for several of
 the options listed above. Currently supported languages: en, fr, ja and fi.
 If the locale is used it overrides dayLabels, monthLabels, dateFormat, todayBtnTxt,
@@ -133,16 +97,27 @@ firstDayOfWeek and sunHighlight properties from the options.
 * new locale data can be added to [this](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/services/my-date-picker.locale.service.ts) file.
 
 
-### selDate
-Provide the initially chosen date that will display both in the text input field
-and provide the default for the popped-up datepicker.
+### selDate attribute
 
-### defaultMonth
+Provide the initially chosen date that will display both in the text input field
+and provide the default for the popped-up selector.
+
+### defaultMonth attribute
+
 If `selDate` is not specified, when the datepicker is opened, it will
 ordinarily default to selecting the current date. If you would prefer
 a different year and month to be the default for a freshly chosen date
 picking operation, specify a `[defaultMonth]` in the same format as
 that for the datepicker options (`yyyy.mm` if not otherwise specified).
+
+## Development of this component
+
+To develop this component, follow the procedure:
+
+1. Fork and clone this repo
+2. npm install
+3. Open a terminal and type "npm start"
+4. Open "http://localhost:5000" to browser
 
 ## Demo
 Online demo is [here](http://kekeh.github.io/mydatepicker)
