@@ -1,4 +1,4 @@
-# mydatepicker v. 0.0.29
+# mydatepicker v. 0.0.30
 
 **Angular 2 date picker - Angular2 reusable UI component**
 
@@ -66,10 +66,11 @@ To install this component to an external project, follow the procedure:
 
 ### options attribute
 
-Bind to an object for any of the following properties:
+Value of the __options__ attribute is a javascript object. It can contain the following properties.
+
 
 | Option        | Default       | Description  |
-| ------------- | ------------- | ----- |
+| :------------- | :------------- | :----- |
 | __dayLabels__     | {su: 'Sun', mo: 'Mon', tu: 'Tue', we: 'Wed', th: 'Thu', fr: 'Fri', sa: 'Sat'} | Day labels visible on the selector. |
 | __monthLabels__   | { 1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun', 7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec' } | Month labels visible on the selector. |
 | __dateFormat__    | yyyy-mm-dd      | Date format on selection area and callback. |
@@ -90,12 +91,11 @@ Bind to an object for any of the following properties:
 ### locale attribute
 
 A two-letter ISO 639-1 language code can be provided as shorthand for several of
-the options listed above. Currently supported languages: en, fr, ja and fi.
-If the locale is used it overrides dayLabels, monthLabels, dateFormat, todayBtnTxt,
+the options listed above. Currently supported languages: __en__, __fr__, __ja__ and __fi__.
+If the __locale__ attribute is used it overrides dayLabels, monthLabels, dateFormat, todayBtnTxt,
 firstDayOfWeek and sunHighlight properties from the options.
 
 * new locale data can be added to [this](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/services/my-date-picker.locale.service.ts) file.
-
 
 ### selDate attribute
 
@@ -104,20 +104,20 @@ and provide the default for the popped-up selector.
 
 ### defaultMonth attribute
 
-If `selDate` is not specified, when the datepicker is opened, it will
+If __selDate__ is not specified, when the datepicker is opened, it will
 ordinarily default to selecting the current date. If you would prefer
 a different year and month to be the default for a freshly chosen date
-picking operation, specify a `[defaultMonth]` in the same format as
-that for the datepicker options (`yyyy.mm` if not otherwise specified).
+picking operation, specify a __[defaultMonth]__ in the same format as
+that for the datepicker options (__yyyy.mm__ if not otherwise specified).
 
 ## Development of this component
 
 To develop this component, follow the procedure:
 
 1. Fork and clone this repo
-2. npm install
-3. Open a terminal and type "npm start"
-4. Open "http://localhost:5000" to browser
+2. Execute __npm install__
+3. Open a terminal and type __npm start__
+4. Open __http://localhost:5000__ to browser
 
 ## Demo
 Online demo is [here](http://kekeh.github.io/mydatepicker)

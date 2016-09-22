@@ -51,16 +51,6 @@ module.exports = {
         app: [
             'webpack-dev-server/client?http://localhost:5000',
             'src/main'
-        ],
-        vendor: [
-            'es6-shim',
-            'reflect-metadata',
-            '@angular/common',
-            '@angular/core',
-            '@angular/platform-browser',
-            '@angular/platform-browser-dynamic',
-            'rxjs',
-            'zone.js'
         ]
     },
 
