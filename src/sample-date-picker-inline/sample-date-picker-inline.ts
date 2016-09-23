@@ -26,7 +26,7 @@ export class SampleDatePickerInline implements OnInit {
     private border: string = 'none';
     private locale:string = '';
 
-    private locales:Array<string> = new Array('en', 'fr', 'ja', 'fi');
+   private locales:Array<string> = new Array('en', 'fr', 'ja', 'fi', 'es');
     
     constructor() {
         let date = new Date();
