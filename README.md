@@ -1,4 +1,4 @@
-# mydatepicker v. 0.0.30
+# mydatepicker v. 0.0.31
 
 **Angular 2 date picker - Angular2 reusable UI component**
 
@@ -91,7 +91,7 @@ Value of the __options__ attribute is a javascript object. It can contain the fo
 ### locale attribute
 
 A two-letter ISO 639-1 language code can be provided as shorthand for several of
-the options listed above. Currently supported languages: __en__, __fr__, __ja__ and __fi__.
+the options listed above. Currently supported languages: __en__, __fr__, __ja__, __fi__ and __es__.
 If the __locale__ attribute is used it overrides dayLabels, monthLabels, dateFormat, todayBtnTxt,
 firstDayOfWeek and sunHighlight properties from the options.
 
