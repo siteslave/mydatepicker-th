@@ -4,15 +4,13 @@ var clean = require('gulp-clean');
 var replace = require('gulp-replace');
 var sequence = require('run-sequence');
 
-var str1 = 'declare var require: any;'
-var str2 = 'const myDpStyles: string = require(\'./my-date-picker.component.css\');';
-var str3 = 'const myDpTpl: string = require(\'./my-date-picker.component.html\')';
-var str4 = 'styles: [myDpStyles],';
-var str5 = 'template: myDpTpl,';
+var str1 = '//webpack1';
+var str2 = '//webpack2';
+var str3 = '/*';
+var str4 = '*/';
 
-var str6 = 'moduleId: __moduleName,';
-var str7 = 'styleUrls: [\'my-date-picker.component.css\'],';
-var str8 = 'templateUrl: \'my-date-picker.component.html\',';
+var systemjs1 = 'declare var __moduleName: string;';
+var systemjs2 = 'moduleId: __moduleName,\n\tstyleUrls: [\'my-date-picker.component.css\'],\n\ttemplateUrl: \'my-date-picker.component.html\',\n';
 
 var tsc = './node_modules/typescript/bin/tsc';
 var uglify = './node_modules/uglifyjs/bin/uglifyjs';
@@ -57,14 +55,10 @@ gulp.task('backup.component.tmp', function() {
 
 gulp.task('prepare.system.compile', function(){
     return gulp.src(['./src/my-date-picker/my-date-picker.component.ts'])
-        .pipe(replace(str1, '//' + str1))
-        .pipe(replace(str2, '//' + str2))
-        .pipe(replace(str3, '//' + str3))
-        .pipe(replace(str4, '//' + str4))
-        .pipe(replace(str5, '//' + str5))
-        .pipe(replace('//' + str6, str6))
-        .pipe(replace('//' + str7, str7))
-        .pipe(replace('//' + str8, str8))
+        .pipe(replace(str1, str3))
+        .pipe(replace(str2, str4))
+        .pipe(replace('//systemjs1', systemjs1))
+        .pipe(replace('//systemjs2', systemjs2))
         .pipe(gulp.dest(function(file) {
             return file.base;
         }));
@@ -83,7 +77,7 @@ gulp.task('delete.tmp', function () {
 });
 
 gulp.task('clean', function () {
-    return gulp.src(['./build', './tmp', './src/my-date-picker/*.js', './src/my-date-picker/*.js.map', './src/my-date-picker/services/*.js', './src/my-date-picker/services/*.js.map'], {read: false}).pipe(clean());
+    return gulp.src(['./build', './tmp'], {read: false}).pipe(clean());
 });
 
 gulp.task('all', function(cb) {

@@ -37,59 +37,59 @@ To install this component to an external project, follow the procedure:
                    (dateChanged)="onDateChanged($event)"></my-date-picker>
    ```
 
-* Mandatory attributes:
-  * [options]="myDatePickerOptions"
-  * (dateChanged)="onDateChanged($event)"
+    * Mandatory attributes:
+      * [options]="myDatePickerOptions"
+      * (dateChanged)="onDateChanged($event)"
 
-* Optional attributes:
-  * [selDate]="selectedDate" || [defaultMonth]="defaultMonth"
-  * [locale]="locale"
+    * Optional attributes:
+      * [selDate]="selectedDate" || [defaultMonth]="defaultMonth"
+      * [locale]="locale"
 
-* Example of the options data (not all properties listed):
-```js
-    myDatePickerOptions = {
-        todayBtnTxt: 'Today',
-        dateFormat: 'yyyy-mm-dd',
-        firstDayOfWeek: 'mo',
-        sunHighlight: true,
-        height: '34px',
-        width: '260px',
-        inline: false,
-        disableUntil: {year: 2016, month: 8, day: 10},
-        selectionTxtFontSize: '16px'
-    };
-```
+    * Example of the options data (not all properties listed):
+    ```js
+        myDatePickerOptions = {
+            todayBtnTxt: 'Today',
+            dateFormat: 'yyyy-mm-dd',
+            firstDayOfWeek: 'mo',
+            sunHighlight: true,
+            height: '34px',
+            width: '260px',
+            inline: false,
+            disableUntil: {year: 2016, month: 8, day: 10},
+            selectionTxtFontSize: '16px'
+        };
+    ```
 
-* Example of the date changed callback:
-```js
-    onDateChanged(event:any) {
-        console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
-    }
-```
-
-4. If you are using __systemjs__ package loader add the following mydatepicker definitions to the __System.config__:
-```js
-(function (global) {
-    System.config({
-        paths: {
-            'npm:': 'node_modules/'
-        },
-        map: {
-            // Other components are here...
-
-            'mydatepicker': 'npm:mydatepicker',
-        },
-        packages: {
-            // Other components are here...
-
-            mydatepicker: {
-                main: './dist/index.js',
-                defaultExtension: 'js'
-            }
+    * Example of the date changed callback:
+    ```js
+        onDateChanged(event:any) {
+            console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
         }
-    });
-})(this);
-```
+    ```
+
+4. If you are using __systemjs__ package loader add the following mydatepicker properties to the __System.config__:
+    ```js
+    (function (global) {
+        System.config({
+            paths: {
+                'npm:': 'node_modules/'
+            },
+            map: {
+                // Other components are here...
+
+                'mydatepicker': 'npm:mydatepicker',
+            },
+            packages: {
+                // Other components are here...
+
+                mydatepicker: {
+                    main: './dist/index.js',
+                    defaultExtension: 'js'
+                }
+            }
+        });
+    })(this);
+    ```
 
 ## Usage
 
@@ -141,12 +141,20 @@ that for the datepicker options (__yyyy.mm__ if not otherwise specified).
 
 ## Development of this component
 
-To develop this component, follow the procedure:
+At first fork and clone this repo
 
-1. Fork and clone this repo
-2. Execute __npm install__
-3. Open a terminal and type __npm start__
-4. Open __http://localhost:5000__ to browser
+Install all dependencies:
+
+1. __npm install__
+2. __npm install --global gulp-cli__
+
+Run sample application:
+
+1. Open a terminal and type __npm start__
+2. Open __http://localhost:5000__ to browser
+
+Build dist folder (systemjs version of the component):
+* __gulp all__
 
 ## Demo
 Online demo is [here](http://kekeh.github.io/mydatepicker)
