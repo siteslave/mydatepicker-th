@@ -1,4 +1,4 @@
-# mydatepicker v. 0.0.31
+# mydatepicker v. 0.0.32
 
 **Angular 2 date picker - Angular2 reusable UI component**
 
@@ -15,7 +15,12 @@ To install this component to an external project, follow the procedure:
     import { NgModule } from '@angular/core';
     import { BrowserModule } from '@angular/platform-browser';
     import { MyTestApp } from './my-test-app';
+
+    // If you are using webpack package loader import the MyDatePickerModule from here:
     import { MyDatePickerModule } from 'mydatepicker/src/my-date-picker/my-date-picker.module';
+
+    // If you are using systemjs package loader import the MyDatePickerModule from here:
+    import { MyDatePickerModule } from 'mydatepicker/dist/my-date-picker.module';
 
     @NgModule({
         imports:      [ BrowserModule, MyDatePickerModule ],
@@ -60,6 +65,30 @@ To install this component to an external project, follow the procedure:
     onDateChanged(event:any) {
         console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
     }
+```
+
+4. If you are using __systemjs__ package loader add the following mydatepicker definitions to the __System.config__:
+```js
+(function (global) {
+    System.config({
+        paths: {
+            'npm:': 'node_modules/'
+        },
+        map: {
+            // Other components are here...
+
+            'mydatepicker': 'npm:mydatepicker',
+        },
+        packages: {
+            // Other components are here...
+
+            mydatepicker: {
+                main: './dist/index.js',
+                defaultExtension: 'js'
+            }
+        }
+    });
+})(this);
 ```
 
 ## Usage

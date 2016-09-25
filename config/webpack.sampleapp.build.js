@@ -6,7 +6,7 @@ module.exports = {
     devtool: 'source-map',
 
     entry: {
-        'app': './src/main.ts'
+        'app': './sampleapp/main.ts'
     },
 
     resolve: {
@@ -40,13 +40,13 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: 'src/index.html'
+            template: 'sampleapp/index.html'
         })
     ],
 
     output: {
-        path: path.resolve('dist'),
-        publicPath: '/mydatepicker/dist/',
+        path: path.resolve('build'),
+        publicPath: '/mydatepicker/build/',
         filename: '[name].js',
         chunkFilename: '[id].chunk.js'
     },

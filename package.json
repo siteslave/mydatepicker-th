@@ -1,6 +1,6 @@
 {
   "name": "mydatepicker",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "description": "Angular2 date picker",
   "keywords": [
     "Angular2",
@@ -20,11 +20,13 @@
     "package.json",
     "README.md",
     "tsconfig.json",
-    "src/my-date-picker"
+    "src/my-date-picker",
+    "dist"
   ],
   "scripts": {
     "start": "webpack-dev-server --config config/webpack.dev.js --progress",
-    "build": "rimraf dist && webpack --config config/webpack.build.js --progress --profile --bail"
+    "build.dist": "gulp all",
+    "build.webpack.sampleapp": "rimraf build && webpack --config config/webpack.sampleapp.build.js --progress --profile --bail"
   },
   "dependencies": {
     "@angular/common": "2.0.0",
@@ -39,22 +41,29 @@
   },
   "devDependencies": {
     "@types/node": "^6.0.39",
+    "child_process": "^1.0.2",
     "core-js": "^2.4.1",
     "css-loader": "^0.23.1",
     "es6-promise": "3.0.2",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-replace": "^0.5.4",
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.15.0",
     "null-loader": "^0.1.1",
     "postcss-loader": "~0.9.1",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.5.2",
+    "run-sequence": "^1.2.2",
     "source-map-loader": "^0.1.5",
     "style-loader": "^0.13.1",
+    "systemjs-builder": "^0.15.31",
     "to-string-loader": "^1.1.4",
     "ts-loader": "^0.8.1",
     "typescript": "^1.8.10",
+    "uglifyjs": "^2.4.10",
     "webpack": "^1.13.0",
     "webpack-dev-server": "^1.16.0",
     "webpack-livereload-plugin": "~0.8.1",

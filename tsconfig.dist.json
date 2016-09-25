@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "system",
     "target": "es5",
-    "outDir": "build",
-    "rootDir": ".",
+    "declaration": true,
+    "rootDir": "./src/my-date-picker",
+    "outDir": "./dist",
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -15,9 +16,7 @@
   "exclude": [
     "node_modules"
   ],
-  "compileOnSave": false,
-  "buildOnSave": false,
-  "atom": {
-    "rewriteTsconfig": false
-  }
+  "files": [
+    "./src/my-date-picker/index.ts"
+  ]
 }

@@ -50,7 +50,7 @@ module.exports = {
     entry: {
         app: [
             'webpack-dev-server/client?http://localhost:5000',
-            'src/main'
+            'sampleapp/main'
         ]
     },
 
@@ -62,7 +62,7 @@ module.exports = {
             filename: 'index.html',
             hash: true,
             inject: 'body',
-            template: './src/index.html'
+            template: './sampleapp/index.html'
         }),
         new LiveReloadPlugin({
             appendScriptTag: true
@@ -82,7 +82,7 @@ module.exports = {
     },
 
     devServer: {
-        contentBase: './src',
+        contentBase: ['./src', './sampleapp'],
         historyApiFallback: true,
         port: 5000,
         publicPath: '/',

@@ -3,7 +3,9 @@ import {IMyDate, IMyMonth, IMyWeek, IMyDayLabels, IMyMonthLabels} from './interf
 import {LocaleService} from './services/my-date-picker.locale.service';
 import {DateValidatorService} from './services/my-date-picker.date.validator.service';
 
-declare var require:any;
+declare var __moduleName: string;
+
+declare var require: any;
 const myDpStyles: string = require('./my-date-picker.component.css');
 const myDpTpl: string = require('./my-date-picker.component.html');
 
@@ -11,6 +13,11 @@ const myDpTpl: string = require('./my-date-picker.component.html');
     selector: 'my-date-picker',
     styles: [myDpStyles],
     template: myDpTpl,
+
+    //moduleId: __moduleName,
+    //styleUrls: ['my-date-picker.component.css'],
+    //templateUrl: 'my-date-picker.component.html',
+
     providers: [LocaleService, DateValidatorService]
 })
 
