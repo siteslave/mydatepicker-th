@@ -2,7 +2,8 @@
   "compilerOptions": {
     "module": "system",
     "target": "es5",
-    "outFile": "./dist/mydatepicker.bundle.js",
+    "declaration": true,
+    "outFile": "./bundles/mydatepicker.js",
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

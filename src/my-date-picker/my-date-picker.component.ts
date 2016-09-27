@@ -3,24 +3,16 @@ import {IMyDate, IMyMonth, IMyWeek, IMyDayLabels, IMyMonthLabels} from './interf
 import {LocaleService} from './services/my-date-picker.locale.service';
 import {DateValidatorService} from './services/my-date-picker.date.validator.service';
 
-//systemjs1
-
-//webpack1
+//webpack1_
 declare var require: any;
 const myDpStyles: string = require('./my-date-picker.component.css');
 const myDpTpl: string = require('./my-date-picker.component.html');
-//webpack2
+//webpack2_
 
 @Component({
     selector: 'my-date-picker',
-
-    //webpack1
     styles: [myDpStyles],
     template: myDpTpl,
-    //webpack2
-
-    //systemjs2
-
     providers: [LocaleService, DateValidatorService]
 })
 

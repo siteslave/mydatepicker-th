@@ -211,10 +211,6 @@
 .mydp,
 .mydp .selector,
 .mydp .header,
-.mydp .footerarea,
-.mydp .table,
-.mydp .table th,
-.mydp .table td,
 .mydp .headertodaybtn,
 .mydp .caltable tbody {
     border: 1px solid #AAA;

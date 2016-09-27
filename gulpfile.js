@@ -3,23 +3,27 @@ var exec = require('child_process').exec;
 var clean = require('gulp-clean');
 var replace = require('gulp-replace');
 var sequence = require('run-sequence');
+var cleancss = require('gulp-clean-css');
+var htmlmin = require('gulp-htmlmin');
+var fs = require('fs');
 
-var str1 = '//webpack1';
-var str2 = '//webpack2';
+var str1 = '//webpack1_';
+var str2 = '//webpack2_';
 var str3 = '/*';
 var str4 = '*/';
-
-var systemjs1 = 'declare var __moduleName: string;';
-var systemjs2 = 'moduleId: __moduleName,\n\tstyleUrls: [\'my-date-picker.component.css\'],\n\ttemplateUrl: \'my-date-picker.component.html\',\n';
 
 var tsc = './node_modules/typescript/bin/tsc';
 var uglify = './node_modules/uglifyjs/bin/uglifyjs';
 
 /*
 *
-* Gulp tasks to build dist version.
+* Gulp tasks to build dist and bundle versions.
+*  - Minifies the css file.
+*  - Minifies the html template file.
+*  - Add html template and styles as inline templates to the my-date-picker.component.
+*  - Creates dist folder - contain javascript files of the component.
 *
- */
+*/
 
 gulp.task('tsc.compile.dist', function (cb) {
     exec(tsc + ' -p ./tsconfig.dist.json', function (err, stdout, stderr) {
@@ -30,35 +34,40 @@ gulp.task('tsc.compile.dist', function (cb) {
 });
 
 gulp.task('tsc.compile.bundle', function (cb) {
-    exec(tsc + ' -p ./tsconfig.bundle.json && ' + uglify + ' dist/mydatepicker.bundle.js --screw-ie8 --compress --mangle --output dist/mydatepicker.bundle.min.js', function (err, stdout, stderr) {
+    exec(tsc + ' -p ./tsconfig.bundle.json && ' + uglify + ' bundles/mydatepicker.js --screw-ie8 --compress --mangle --output bundles/mydatepicker.min.js', function (err, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
         cb(err);
     });
 });
 
-gulp.task('delete.unnecessary.files', function () {
-    return gulp.src([
-        './dist/interfaces',
-        './dist/services',
-        './dist/index.*',
-        ], {read: false}).pipe(clean());
-});
-
-gulp.task('copy.styles.template.dist', function() {
-    return gulp.src('./src/my-date-picker/my-date-picker.component.{html,css}').pipe(gulp.dest('./dist'));
-});
-
 gulp.task('backup.component.tmp', function() {
     return gulp.src('./src/my-date-picker/my-date-picker.component.ts').pipe(gulp.dest('./tmp'));
 });
 
-gulp.task('prepare.system.compile', function(){
+gulp.task('minify.css', function() {
+    return gulp.src('./src/my-date-picker/my-date-picker.component.css')
+        .pipe(cleancss({compatibility: 'ie8'}))
+        .pipe(gulp.dest('./tmp'));
+});
+
+gulp.task('minify.html', function() {
+    return gulp.src('./src/my-date-picker/my-date-picker.component.html')
+        .pipe(htmlmin({collapseWhitespace: true, caseSensitive: true}))
+        .pipe(gulp.dest('./tmp'));
+});
+
+gulp.task('prepare.system.compile', function() {
+    var styles = fs.readFileSync('./tmp/my-date-picker.component.css', 'utf-8');
+    var htmlTpl = fs.readFileSync('./tmp/my-date-picker.component.html', 'utf-8');
+
+    styles = styles.split('\\e').join('\\\\e');
+
     return gulp.src(['./src/my-date-picker/my-date-picker.component.ts'])
         .pipe(replace(str1, str3))
         .pipe(replace(str2, str4))
-        .pipe(replace('//systemjs1', systemjs1))
-        .pipe(replace('//systemjs2', systemjs2))
+        .pipe(replace('styles: [myDpStyles],', 'styles: [' + '`' + styles + '`' + '],'))
+        .pipe(replace('template: myDpTpl,', 'template: `' + htmlTpl + '`' + ','))
         .pipe(gulp.dest(function(file) {
             return file.base;
         }));
@@ -84,11 +93,10 @@ gulp.task('all', function(cb) {
     sequence(
         'clean',
         'backup.component.tmp',
+        'minify.css',
+        'minify.html',
         'prepare.system.compile',
         'tsc.compile.dist',
-        //'delete.unnecessary.files',
-        'copy.styles.template.dist',
-        //'tsc.compile.bundle',
         'delete.modified.component',
         'restore.original.component',
         'delete.tmp',
