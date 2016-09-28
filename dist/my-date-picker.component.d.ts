@@ -55,7 +55,6 @@ export declare class MyDatePicker implements OnChanges {
     todayClicked(): void;
     cellClicked(cell: any): void;
     selectDate(date: any): void;
-    getEpocTime(date: IMyDate): number;
     preZero(val: string): string;
     formatDate(val: any): string;
     monthText(m: number): string;

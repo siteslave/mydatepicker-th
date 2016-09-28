@@ -215,11 +215,8 @@ var MyDatePicker = (function () {
         this.selectedDate = { day: date.day, month: date.month, year: date.year };
         this.selectionDayTxt = this.formatDate(this.selectedDate);
         this.showSelector = false;
-        this.dateChanged.emit({ date: this.selectedDate, formatted: this.selectionDayTxt, epoc: this.getEpocTime(this.selectedDate) });
+        this.dateChanged.emit({ date: this.selectedDate, formatted: this.selectionDayTxt, epoc: Math.round(this.getTimeInMilliseconds(this.selectedDate) / 1000.0) });
         this.invalidDate = false;
-    };
-    MyDatePicker.prototype.getEpocTime = function (date) {
-        return Math.round(new Date(date.year, date.month - 1, date.day).getTime() / 1000.0);
     };
     MyDatePicker.prototype.preZero = function (val) {
         return parseInt(val) < 10 ? '0' + val : val;
