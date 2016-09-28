@@ -252,9 +252,13 @@ export class MyDatePicker implements OnChanges {
         this.selectedDate = {day: date.day, month: date.month, year: date.year};
         this.selectionDayTxt = this.formatDate(this.selectedDate);
         this.showSelector = false;
-        let epoc = new Date(this.selectedDate.year, this.selectedDate.month, this.selectedDate.day, 0, 0, 0, 0).getTime() / 1000.0;
-        this.dateChanged.emit({date: this.selectedDate, formatted: this.selectionDayTxt, epoc: epoc});
+        this.dateChanged.emit({date: this.selectedDate, formatted: this.selectionDayTxt, epoc: this.getEpocTime(this.selectedDate)});
         this.invalidDate = false;
+    }
+
+    getEpocTime(date:IMyDate):number {
+        // Returns epoc timestamp from given date
+        return Math.round(new Date(date.year, date.month - 1, date.day).getTime() / 1000.0);
     }
 
     preZero(val:string):string {
