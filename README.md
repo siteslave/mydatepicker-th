@@ -1,4 +1,4 @@
-# mydatepicker v. 0.0.34
+# mydatepicker v. 0.0.35
 
 **Angular 2 date picker - Angular2 reusable UI component**
 
@@ -153,7 +153,7 @@ Run sample application:
 1. Open a terminal and type __npm start__
 2. Open __http://localhost:5000__ to browser
 
-Build dist folder:
+Build dist folder (javascript version of the component):
 * __gulp all__
 
 ## Demo
