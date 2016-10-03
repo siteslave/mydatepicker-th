@@ -1,7 +1,7 @@
-import {Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ElementRef, ViewEncapsulation} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ElementRef, ViewEncapsulation, Renderer} from '@angular/core';
 import {IMyDate, IMyMonth, IMyWeek, IMyDayLabels, IMyMonthLabels} from './interfaces/index';
 import {LocaleService} from './services/my-date-picker.locale.service';
-import {DateValidatorService} from './services/my-date-picker.date.validator.service';
+import {ValidatorService} from './services/my-date-picker.validator.service';
 
 //webpack1_
 declare var require: any;
@@ -13,7 +13,7 @@ const myDpTpl: string = require('./my-date-picker.component.html');
     selector: 'my-date-picker',
     styles: [myDpStyles],
     template: myDpTpl,
-    providers: [LocaleService, DateValidatorService],
+    providers: [LocaleService, ValidatorService],
     encapsulation: ViewEncapsulation.None
 })
 
@@ -34,6 +34,11 @@ export class MyDatePicker implements OnChanges {
     invalidDate: boolean = false;
     dayIdx: number = 0;
     today: Date = null;
+
+    editMonth: boolean = false;
+    invalidMonth: boolean = false;
+    editYear: boolean = false;
+    invalidYear: boolean = false;
 
     PREV_MONTH: number = 1;
     CURR_MONTH: number = 2;
@@ -56,17 +61,25 @@ export class MyDatePicker implements OnChanges {
     alignSelectorRight: boolean = false;
     indicateInvalidDate: boolean = true;
     showDateFormatPlaceholder: boolean = false;
+    editableMonthAndYear: boolean = true;
+    minYear: number = 1000;
+    maxYear: number = 9999;
 
-    constructor(public elem: ElementRef, private localeService: LocaleService, private dateValidatorService: DateValidatorService) {
+    constructor(public elem: ElementRef, private renderer: Renderer, private localeService: LocaleService, private validatorService: ValidatorService) {
         this.setLocaleOptions();
 
         this.today = new Date();
-        let doc = document.getElementsByTagName('html')[0];
-        doc.addEventListener('click', (event) => {
+        renderer.listenGlobal('document', 'click', (event:any) => {
             if (this.showSelector && event.target && this.elem.nativeElement !== event.target && !this.elem.nativeElement.contains(event.target)) {
                 this.showSelector = false;
             }
-        }, false);
+            if(event.target && this.elem.nativeElement.contains(event.target)) {
+                this.editMonth = false;
+                this.editYear = false;
+                this.invalidMonth = false;
+                this.invalidYear = false;
+            }
+        });
     }
 
     setLocaleOptions():void {
@@ -82,7 +95,7 @@ export class MyDatePicker implements OnChanges {
     }
 
     setOptions():void {
-        let options = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'disableWeekends', 'height', 'width', 'selectionTxtFontSize', 'inline', 'alignSelectorRight', 'indicateInvalidDate', 'showDateFormatPlaceholder'];
+        let options = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'disableWeekends', 'height', 'width', 'selectionTxtFontSize', 'inline', 'alignSelectorRight', 'indicateInvalidDate', 'showDateFormatPlaceholder', 'editableMonthAndYear', 'minYear', 'maxYear'];
         for (let prop of options) {
             if (this.options && (this.options)[prop] !== undefined  && (this.options)[prop] instanceof Object) {
                 (this)[prop] = JSON.parse(JSON.stringify((this.options)[prop]));
@@ -90,6 +103,26 @@ export class MyDatePicker implements OnChanges {
             else if(this.options && (this.options)[prop] !== undefined) {
                 (this)[prop] = (this.options)[prop];
             }
+        }
+        if(this.minYear < 1000) {
+            this.minYear = 1000;
+        }
+        if(this.maxYear > 9999) {
+            this.minYear = 9999;
+        }
+    }
+
+    editMonthClicked(event:any):void {
+        event.stopPropagation();
+        if(this.editableMonthAndYear) {
+            this.editMonth = true;
+        }
+    }
+
+    editYearClicked(event:any):void {
+        event.stopPropagation();
+        if(this.editableMonthAndYear) {
+            this.editYear = true;
         }
     }
 
@@ -99,13 +132,49 @@ export class MyDatePicker implements OnChanges {
             this.removeBtnClicked();
         }
         else {
-            let date:IMyDate = this.dateValidatorService.isDateValid(event.target.value, this.dateFormat);
+            let date:IMyDate = this.validatorService.isDateValid(event.target.value, this.dateFormat, this.minYear, this.maxYear);
             if(date.day !== 0 && date.month !== 0 && date.year !== 0) {
                 this.selectDate({ day: date.day, month: date.month, year: date.year });
             }
             else {
                 this.invalidDate = true;
             }
+        }
+    }
+
+    userMonthInput(event:any):void {
+        if(event.keyCode === 37 || event.keyCode === 39) {
+            return;
+        }
+
+        this.invalidMonth = false;
+
+        let m = this.validatorService.isMonthLabelValid(event.target.value, this.monthLabels);
+        if (m !== -1) {
+            this.editMonth = false;
+            this.visibleMonth = {monthTxt: this.monthText(m), monthNbr: m, year: this.visibleMonth.year};
+            this.generateCalendar(m, this.visibleMonth.year);
+        }
+        else {
+            this.invalidMonth = true;
+        }
+    }
+
+    userYearInput(event:any):void {
+        if(event.keyCode === 37 || event.keyCode === 39) {
+            return;
+        }
+
+        this.invalidYear = false;
+
+        let y = this.validatorService.isYearLabelValid(Number(event.target.value), this.minYear, this.maxYear);
+        if (y !== -1) {
+            this.editYear = false;
+            this.visibleMonth = {monthTxt: this.visibleMonth.monthTxt, monthNbr: this.visibleMonth.monthNbr, year: y};
+            this.generateCalendar(this.visibleMonth.monthNbr, y);
+        }
+        else {
+            this.invalidYear = true;
         }
     }
 
@@ -213,11 +282,17 @@ export class MyDatePicker implements OnChanges {
     }
 
     prevYear():void {
+        if(this.visibleMonth.year - 1 < this.minYear) {
+            return;
+        }
         this.visibleMonth.year--;
         this.generateCalendar(this.visibleMonth.monthNbr, this.visibleMonth.year);
     }
 
     nextYear():void {
+        if(this.visibleMonth.year + 1 > this.maxYear) {
+            return;
+        }
         this.visibleMonth.year++;
         this.generateCalendar(this.visibleMonth.monthNbr, this.visibleMonth.year);
     }

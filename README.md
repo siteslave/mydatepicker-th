@@ -1,4 +1,4 @@
-# mydatepicker v. 0.0.35
+# mydatepicker v. 0.0.36
 
 **Angular 2 date picker - Angular2 reusable UI component**
 
@@ -106,6 +106,9 @@ Value of the __options__ attribute is a javascript object. It can contain the fo
 | __todayBtnTxt__   | Today      | Today button text. |
 | __firstDayOfWeek__   | mo | First day of week on calendar. One of the following: mo, tu, we, th, fr, sa, su |
 | __sunHighlight__   | true | Sunday red colored on calendar. |
+| __editableMonthAndYear__   | true | Is month and year labels editable or not. |
+| __minYear__   | 1000 | Minimum allowed year in calendar. Cannot set less tan 1000. |
+| __maxYear__   | 9999 | Maximum allowed year in calendar. Cannot set more than 9999. |
 | __disableUntil__   | no default value | Disable dates backward starting from the given date. For example: {year: 2016, month: 6, day: 26} |
 | __disableSince__   | no default value | Disable dates forward starting from the given date. For example: {year: 2016, month: 7, day: 22} |
 | __disableWeekends__   | false | Disable weekends (Saturday and Sunday). |

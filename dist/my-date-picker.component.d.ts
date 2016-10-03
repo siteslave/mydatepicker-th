@@ -1,11 +1,12 @@
-import { EventEmitter, OnChanges, SimpleChanges, ElementRef } from '@angular/core';
+import { EventEmitter, OnChanges, SimpleChanges, ElementRef, Renderer } from '@angular/core';
 import { IMyDate, IMyMonth, IMyDayLabels, IMyMonthLabels } from './interfaces/index';
 import { LocaleService } from './services/my-date-picker.locale.service';
-import { DateValidatorService } from './services/my-date-picker.date.validator.service';
+import { ValidatorService } from './services/my-date-picker.validator.service';
 export declare class MyDatePicker implements OnChanges {
     elem: ElementRef;
+    private renderer;
     private localeService;
-    private dateValidatorService;
+    private validatorService;
     options: any;
     locale: string;
     defaultMonth: string;
@@ -21,6 +22,10 @@ export declare class MyDatePicker implements OnChanges {
     invalidDate: boolean;
     dayIdx: number;
     today: Date;
+    editMonth: boolean;
+    invalidMonth: boolean;
+    editYear: boolean;
+    invalidYear: boolean;
     PREV_MONTH: number;
     CURR_MONTH: number;
     NEXT_MONTH: number;
@@ -40,10 +45,17 @@ export declare class MyDatePicker implements OnChanges {
     alignSelectorRight: boolean;
     indicateInvalidDate: boolean;
     showDateFormatPlaceholder: boolean;
-    constructor(elem: ElementRef, localeService: LocaleService, dateValidatorService: DateValidatorService);
+    editableMonthAndYear: boolean;
+    minYear: number;
+    maxYear: number;
+    constructor(elem: ElementRef, renderer: Renderer, localeService: LocaleService, validatorService: ValidatorService);
     setLocaleOptions(): void;
     setOptions(): void;
+    editMonthClicked(event: any): void;
+    editYearClicked(event: any): void;
     userDateInput(event: any): void;
+    userMonthInput(event: any): void;
+    userYearInput(event: any): void;
     parseOptions(): void;
     ngOnChanges(changes: SimpleChanges): void;
     removeBtnClicked(): void;

@@ -11,14 +11,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var common_1 = require('@angular/common');
 var core_1 = require('@angular/core');
 var my_date_picker_component_1 = require('./my-date-picker.component');
+var my_date_picker_input_directive_1 = require('./directives/my-date-picker.input.directive');
 var MyDatePickerModule = (function () {
     function MyDatePickerModule() {
     }
     MyDatePickerModule = __decorate([
         core_1.NgModule({
             imports: [common_1.CommonModule],
-            declarations: [my_date_picker_component_1.MyDatePicker],
-            exports: [my_date_picker_component_1.MyDatePicker]
+            declarations: [my_date_picker_component_1.MyDatePicker, my_date_picker_input_directive_1.InputFocusDirective],
+            exports: [my_date_picker_component_1.MyDatePicker, my_date_picker_input_directive_1.InputFocusDirective]
         }), 
         __metadata('design:paramtypes', [])
     ], MyDatePickerModule);

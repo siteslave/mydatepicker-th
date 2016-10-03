@@ -20,7 +20,9 @@ export class SampleDatePickerNormal implements OnInit {
         selectionTxtFontSize: '18px',
         alignSelectorRight: false,
         indicateInvalidDate: true,
-        showDateFormatPlaceholder: false
+        showDateFormatPlaceholder: false,
+        editableMonthAndYear: true,
+        minYear: 1900
     };
     private selectedDateNormal:string = '';
 

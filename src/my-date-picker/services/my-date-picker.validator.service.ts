@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {IMyDate} from '../interfaces/my-date.interface';
+import {IMyMonthLabels} from '../interfaces/my-month-labels.interface';
 
 @Injectable()
-export class DateValidatorService {
+export class ValidatorService {
 
-    isDateValid(date:string, dateFormat:string): IMyDate {
+    isDateValid(date:string, dateFormat:string, minYear:number, maxYear:number): IMyDate {
         let daysInMonth:Array<number> = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
         let returnDate:IMyDate = {day: 0, month: 0, year: 0};
@@ -33,7 +34,7 @@ export class DateValidatorService {
                 return returnDate;
             }
 
-            if(year < 1000 || year > 9999 || month < 1 || month > 12) {
+            if(year < minYear || year > maxYear || month < 1 || month > 12) {
                 return returnDate;
             }
 
@@ -49,5 +50,21 @@ export class DateValidatorService {
             return {day: day, month: month, year: year};
         }
         return returnDate;
+    }
+
+    isMonthLabelValid(monthLabel:string, monthLabels:IMyMonthLabels): number {
+        for (let key = 1; key <= 12; key++) {
+            if (monthLabel.toLowerCase() === monthLabels[key].toLowerCase()) {
+                return key;
+            }
+        }
+        return -1;
+    }
+
+    isYearLabelValid(yearLabel:number, minYear:number, maxYear:number): number {
+        if (yearLabel >= minYear && yearLabel <= maxYear) {
+            return yearLabel;
+        }
+        return -1;
     }
 }

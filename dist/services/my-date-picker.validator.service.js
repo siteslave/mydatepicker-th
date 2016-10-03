@@ -9,10 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var DateValidatorService = (function () {
-    function DateValidatorService() {
+var ValidatorService = (function () {
+    function ValidatorService() {
     }
-    DateValidatorService.prototype.isDateValid = function (date, dateFormat) {
+    ValidatorService.prototype.isDateValid = function (date, dateFormat, minYear, maxYear) {
         var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         var returnDate = { day: 0, month: 0, year: 0 };
         if (date.length !== 10) {
@@ -33,7 +33,7 @@ var DateValidatorService = (function () {
             if (day === 0 || month === 0 || year === 0) {
                 return returnDate;
             }
-            if (year < 1000 || year > 9999 || month < 1 || month > 12) {
+            if (year < minYear || year > maxYear || month < 1 || month > 12) {
                 return returnDate;
             }
             if (year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)) {
@@ -46,11 +46,25 @@ var DateValidatorService = (function () {
         }
         return returnDate;
     };
-    DateValidatorService = __decorate([
+    ValidatorService.prototype.isMonthLabelValid = function (monthLabel, monthLabels) {
+        for (var key = 1; key <= 12; key++) {
+            if (monthLabel.toLowerCase() === monthLabels[key].toLowerCase()) {
+                return key;
+            }
+        }
+        return -1;
+    };
+    ValidatorService.prototype.isYearLabelValid = function (yearLabel, minYear, maxYear) {
+        if (yearLabel >= minYear && yearLabel <= maxYear) {
+            return yearLabel;
+        }
+        return -1;
+    };
+    ValidatorService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [])
-    ], DateValidatorService);
-    return DateValidatorService;
+    ], ValidatorService);
+    return ValidatorService;
 }());
-exports.DateValidatorService = DateValidatorService;
-//# sourceMappingURL=my-date-picker.date.validator.service.js.map
+exports.ValidatorService = ValidatorService;
+//# sourceMappingURL=my-date-picker.validator.service.js.map
