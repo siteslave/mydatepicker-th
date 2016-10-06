@@ -1,9 +1,10 @@
 {
   "name": "mydatepicker",
-  "version": "0.0.36",
+  "version": "0.0.37",
   "description": "Angular2 date picker",
   "keywords": [
     "Angular2",
+    "datepicker",
     "date picker"
   ],
   "author": "kekeh",
@@ -45,10 +46,10 @@
     "child_process": "^1.0.2",
     "concurrently": "^3.0.0",
     "core-js": "^2.4.1",
-    "css-loader": "^0.23.1",
-    "es6-promise": "3.0.2",
+    "css-loader": "^0.25.0",
+    "es6-promise": "^4.0.5",
     "extract-text-webpack-plugin": "^1.0.1",
-    "file-loader": "^0.8.5",
+    "file-loader": "^0.9.0",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
     "gulp-clean-css": "^2.0.12",
@@ -64,7 +65,7 @@
     "karma-jasmine": "^1.0.2",
     "karma-jasmine-html-reporter": "^0.2.2",
     "null-loader": "^0.1.1",
-    "postcss-loader": "~0.9.1",
+    "postcss-loader": "~0.13.0",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.5.2",
     "run-sequence": "^1.2.2",
@@ -74,12 +75,12 @@
     "systemjs-builder": "^0.15.31",
     "to-string-loader": "^1.1.4",
     "ts-loader": "^0.8.1",
-    "typescript": "^1.8.10",
+    "typescript": "^2.0.3",
     "typings": "^1.4.0",
     "uglifyjs": "^2.4.10",
     "webpack": "^1.13.0",
     "webpack-dev-server": "^1.16.0",
-    "webpack-livereload-plugin": "~0.8.1",
+    "webpack-livereload-plugin": "~0.9.0",
     "webpack-merge": "^0.14.0"
   }
 }

@@ -73,11 +73,8 @@ export class MyDatePicker implements OnChanges {
             if (this.showSelector && event.target && this.elem.nativeElement !== event.target && !this.elem.nativeElement.contains(event.target)) {
                 this.showSelector = false;
             }
-            if(event.target && this.elem.nativeElement.contains(event.target)) {
-                this.editMonth = false;
-                this.editYear = false;
-                this.invalidMonth = false;
-                this.invalidYear = false;
+            if(this.editableMonthAndYear && event.target && this.elem.nativeElement.contains(event.target)) {
+                this.resetMonthYearEdit();
             }
         });
     }
@@ -110,6 +107,13 @@ export class MyDatePicker implements OnChanges {
         if(this.maxYear > 9999) {
             this.minYear = 9999;
         }
+    }
+
+    resetMonthYearEdit():void {
+        this.editMonth = false;
+        this.editYear = false;
+        this.invalidMonth = false;
+        this.invalidYear = false;
     }
 
     editMonthClicked(event:any):void {
@@ -309,7 +313,7 @@ export class MyDatePicker implements OnChanges {
     }
 
     cellClicked(cell:any):void {
-        // Cell clicked in the selector
+        // Cell clicked on the calendar
         if (cell.cmo === this.PREV_MONTH) {
             // Previous month of day
             this.prevMonth();
@@ -322,6 +326,7 @@ export class MyDatePicker implements OnChanges {
             // Next month of day
             this.nextMonth();
         }
+        this.resetMonthYearEdit();
     }
 
     selectDate(date:any):void {

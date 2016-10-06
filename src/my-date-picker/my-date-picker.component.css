@@ -75,7 +75,7 @@
     width: 30px;
     border: none;
     border-left: 1px solid #AAA;
-    padding: 0px;
+    padding: 0;
     cursor: pointer;
     outline: 0;
     font: inherit;
@@ -231,11 +231,12 @@
 }
 
 .mydp .headertodaybtn {
-    padding: 3px 4px;
+    padding: 0 4px;
     border-radius: 2px;
     cursor: pointer;
     font-size: 11px;
     min-width: 60px;
+    height: 22px;
 }
 
 .mydp button::-moz-focus-inner {
@@ -303,10 +304,14 @@
     border-radius: 2px;
 }
 
-.mydp .monthlabel:hover,
-.mydp .yearlabel:hover,
 .mydp .headerbtn span:hover {
     color: #8BDAF4;
+}
+
+.mydp .monthlabel:hover,
+.mydp .yearlabel:hover {
+    color: #8BDAF4;
+    font-weight: bold;
 }
 
 @font-face {

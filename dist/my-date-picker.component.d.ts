@@ -51,6 +51,7 @@ export declare class MyDatePicker implements OnChanges {
     constructor(elem: ElementRef, renderer: Renderer, localeService: LocaleService, validatorService: ValidatorService);
     setLocaleOptions(): void;
     setOptions(): void;
+    resetMonthYearEdit(): void;
     editMonthClicked(event: any): void;
     editYearClicked(event: any): void;
     userDateInput(event: any): void;
