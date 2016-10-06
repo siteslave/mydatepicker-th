@@ -21,6 +21,8 @@
     "package.json",
     "README.md",
     "src/my-date-picker",
+    "index.ts",
+    "index.js",
     "dist"
   ],
   "scripts": {

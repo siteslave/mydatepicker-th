@@ -15,11 +15,6 @@ To install this component to an external project, follow the procedure:
     import { NgModule } from '@angular/core';
     import { BrowserModule } from '@angular/platform-browser';
     import { MyTestApp } from './my-test-app';
-
-    // If you are using webpack package loader import the MyDatePickerModule from here:
-    import { MyDatePickerModule } from 'mydatepicker';
-
-    // If you are using systemjs package loader import the MyDatePickerModule from here:
     import { MyDatePickerModule } from 'mydatepicker';
 
     @NgModule({
@@ -83,7 +78,7 @@ To install this component to an external project, follow the procedure:
                 // Other components are here...
 
                 mydatepicker: {
-                    main: './dist/index.js',
+                    main: './index.js',
                     defaultExtension: 'js'
                 }
             }
