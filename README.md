@@ -17,10 +17,10 @@ To install this component to an external project, follow the procedure:
     import { MyTestApp } from './my-test-app';
 
     // If you are using webpack package loader import the MyDatePickerModule from here:
-    import { MyDatePickerModule } from 'mydatepicker/src/my-date-picker/my-date-picker.module';
+    import { MyDatePickerModule } from 'mydatepicker';
 
     // If you are using systemjs package loader import the MyDatePickerModule from here:
-    import { MyDatePickerModule } from 'mydatepicker/dist/my-date-picker.module';
+    import { MyDatePickerModule } from 'mydatepicker';
 
     @NgModule({
         imports:      [ BrowserModule, MyDatePickerModule ],
