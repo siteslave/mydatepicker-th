@@ -20,7 +20,14 @@
     "LICENSE",
     "package.json",
     "README.md",
-    "src/my-date-picker",
+    "src/my-date-picker/directives",
+    "src/my-date-picker/interfaces",
+    "src/my-date-picker/services",
+    "src/my-date-picker/index.ts",
+    "src/my-date-picker/my-date-picker.component.css",
+    "src/my-date-picker/my-date-picker.component.html",
+    "src/my-date-picker/my-date-picker.component.ts",
+    "src/my-date-picker/my-date-picker.module.ts",
     "index.ts",
     "index.js",
     "dist"
@@ -29,7 +36,7 @@
     "start": "webpack-dev-server --config config/webpack.dev.js --progress",
     "build.dist": "gulp all",
     "build.webpack.sampleapp": "rimraf build && webpack --config config/webpack.sampleapp.build.js --progress --profile --bail",
-    "test": "tsc && concurrently \"tsc -w\" \"karma start karma.conf.js\""
+    "test": "karma start config/karma.conf.js"
   },
   "dependencies": {
     "@angular/common": "~2.0.1",
@@ -66,6 +73,8 @@
     "karma-htmlfile-reporter": "^0.3.4",
     "karma-jasmine": "^1.0.2",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^1.8.0",
     "null-loader": "^0.1.1",
     "postcss-loader": "~0.13.0",
     "raw-loader": "^0.5.1",
