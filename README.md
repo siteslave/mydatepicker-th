@@ -154,6 +154,9 @@ Run sample application:
 Build dist folder (javascript version of the component):
 * __gulp all__
 
+Execute unit tests (output will be generated to __test-output/tests.html__):
+* __npm test__
+
 ## Demo
 Online demo is [here](http://kekeh.github.io/mydatepicker)
 
