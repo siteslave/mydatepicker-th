@@ -159,8 +159,6 @@ describe('MyDatePicker', () => {
 
         prevmonth.nativeElement.click();
 
-        expect(comp.visibleMonth.monthTxt).toBe('Dec');
-        expect(comp.visibleMonth.monthNbr).toBe(12);
         expect(comp.visibleMonth.year).toBe(2015);
     });
 
@@ -177,35 +175,29 @@ describe('MyDatePicker', () => {
 
         nextmonth.nativeElement.click();
 
-        expect(comp.visibleMonth.monthTxt).toBe('Jan');
-        expect(comp.visibleMonth.monthNbr).toBe(1);
         expect(comp.visibleMonth.year).toBe(2017);
     });
 
     it('select previous month from selector', () => {
-        comp.selectedMonth = {monthTxt: 'May', monthNbr: 5, year: 2016};
+        comp.selectedMonth = {monthTxt: '', monthNbr: 5, year: 2016};
 
         fixture.detectChanges();
         let btnpicker = getElement('.btnpicker');
         btnpicker.nativeElement.click();
 
+        comp.parseOptions();
+
         fixture.detectChanges();
-        let prevmonth = getElement('.caltable tbody tr td:first-child');
+        let prevmonth = getElement('.header tr td:first-child .headerbtn:first-child');
         expect(prevmonth).not.toBe(null);
 
         prevmonth.nativeElement.click();
-        setTimeout(function() {
-            expect(comp.visibleMonth.monthTxt).toBe('Apr');
-            expect(comp.visibleMonth.monthNbr).toBe(4);
-            expect(comp.visibleMonth.year).toBe(2016);
-        });
+        expect(comp.visibleMonth.monthNbr).toBe(4);
+        expect(comp.visibleMonth.monthTxt).toBe('Apr');
 
         prevmonth.nativeElement.click();
-        setTimeout(function() {
-            expect(comp.visibleMonth.monthTxt).toBe('Mar');
-            expect(comp.visibleMonth.monthNbr).toBe(3);
-            expect(comp.visibleMonth.year).toBe(2016);
-        });
+        expect(comp.visibleMonth.monthNbr).toBe(3);
+        expect(comp.visibleMonth.monthTxt).toBe('Mar');
     });
 
     it('select next month from selector', () => {
@@ -215,23 +207,19 @@ describe('MyDatePicker', () => {
         let btnpicker = getElement('.btnpicker');
         btnpicker.nativeElement.click();
 
+        comp.parseOptions();
+
         fixture.detectChanges();
-        let nextmonth = getElement('.nextmonth');
+        let nextmonth = getElement('.header tr td:first-child .headerbtn:last-child');
         expect(nextmonth).not.toBe(null);
 
         nextmonth.nativeElement.click();
-        setTimeout(function() {
-            expect(comp.visibleMonth.monthTxt).toBe('Jun');
-            expect(comp.visibleMonth.monthNbr).toBe(6);
-            expect(comp.visibleMonth.year).toBe(2016);
-        });
+        expect(comp.visibleMonth.monthNbr).toBe(6);
+        expect(comp.visibleMonth.monthTxt).toBe('Jun');
 
         nextmonth.nativeElement.click();
-        setTimeout(function() {
-            expect(comp.visibleMonth.monthTxt).toBe('Jul');
-            expect(comp.visibleMonth.monthNbr).toBe(7);
-            expect(comp.visibleMonth.year).toBe(2016);
-        });
+        expect(comp.visibleMonth.monthNbr).toBe(7);
+        expect(comp.visibleMonth.monthTxt).toBe('Jul');
     });
 
     it('select previous year', () => {
@@ -241,15 +229,17 @@ describe('MyDatePicker', () => {
         let btnpicker = getElement('.btnpicker');
         btnpicker.nativeElement.click();
 
+        comp.parseOptions();
+
         fixture.detectChanges();
         let prevyear = getElement('.header tr td:last-child .headerbtn:first-child');
         expect(prevyear).not.toBe(null);
 
         prevyear.nativeElement.click();
-
-        expect(comp.visibleMonth.monthTxt).toBe('May');
-        expect(comp.visibleMonth.monthNbr).toBe(5);
-        expect(comp.visibleMonth.year).toBe(2015);
+        fixture.detectChanges();
+        let yearLabel = getElement('.headeryeartxt span');
+        expect(yearLabel).not.toBe(null);
+        expect(yearLabel.nativeElement.textContent).toBe('2015');
     });
 
     it('select next year', () => {
@@ -259,15 +249,18 @@ describe('MyDatePicker', () => {
         let btnpicker = getElement('.btnpicker');
         btnpicker.nativeElement.click();
 
+        comp.parseOptions();
+
         fixture.detectChanges();
         let nextyear = getElement('.header tr td:last-child .headerbtn:last-child');
         expect(nextyear).not.toBe(null);
 
         nextyear.nativeElement.click();
 
-        expect(comp.visibleMonth.monthTxt).toBe('May');
-        expect(comp.visibleMonth.monthNbr).toBe(5);
-        expect(comp.visibleMonth.year).toBe(2017);
+        fixture.detectChanges();
+        let yearLabel = getElement('.headeryeartxt span');
+        expect(yearLabel).not.toBe(null);
+        expect(yearLabel.nativeElement.textContent).toBe('2017');
     });
 
     // options
@@ -313,6 +306,222 @@ describe('MyDatePicker', () => {
         }
     });
 
+    it('options date format', () => {
+        comp.dateFormat = 'dd.mm.yyyy';
+        comp.indicateInvalidDate = true;
+
+        comp.parseOptions();
+
+        let value = {target:{value:'2016-08-22'}};
+        comp.userDateInput(value);
+        expect(comp.invalidDate).toBe(true);
+
+        fixture.detectChanges();
+        let invaliddate = getElement('.invaliddate');
+        expect(invaliddate).not.toBe(null);
+
+        value = {target:{value:'2016-08-2'}};
+        comp.userDateInput(value);
+        expect(comp.invalidDate).toBe(true);
+
+        value = {target:{value:'16.09/2016'}};
+        comp.userDateInput(value);
+        expect(comp.invalidDate).toBe(true);
+
+        value = {target:{value:'2016-08-xx'}};
+        comp.userDateInput(value);
+        expect(comp.invalidDate).toBe(true);
+
+        value = {target:{value:'16.09.999'}};
+        comp.userDateInput(value);
+        expect(comp.invalidDate).toBe(true);
+
+        value = {target:{value:'16.09.19999'}};
+        comp.userDateInput(value);
+        expect(comp.invalidDate).toBe(true);
+
+        value = {target:{value:'16.09.2016'}};
+        comp.userDateInput(value);
+        expect(comp.invalidDate).toBe(false);
+    });
+
+    it('options today button text', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 1, year: 2016};
+        comp.todayBtnTxt = 'test text';
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let headertodaybtn = getElement('.headertodaybtn');
+        expect(headertodaybtn).not.toBe(null);
+        expect(headertodaybtn.nativeElement.textContent).toBe('test text');
+    });
+
+    it('options first day of week', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 5, year: 2016};
+        comp.firstDayOfWeek = 'tu';
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let first = getElement('.caltable thead tr th:first-child');
+        expect(first).not.toBe(null);
+        expect(first.nativeElement.textContent).toBe('Tue');
+
+        let last = getElement('.caltable thead tr th:last-child');
+        expect(last).not.toBe(null);
+        expect(last.nativeElement.textContent).toBe('Mon');
+    });
+
+    it('options sunday highlight', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 5, year: 2016};
+        comp.sunHighlight = true;
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let sunday = getElement('.sunday');
+        expect(sunday).not.toBe(null);
+
+        btnpicker.nativeElement.click();
+
+        comp.sunHighlight = false;
+
+        fixture.detectChanges();
+        btnpicker.nativeElement.click();
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        sunday = getElement('.sunday');
+        expect(sunday).toBe(null);
+    });
+
+    it('options editable month and year', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 5, year: 2016};
+        comp.editableMonthAndYear = true;
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let montlabel = getElement('.headermonthtxt span');
+        expect(montlabel).not.toBe(null);
+        montlabel.nativeElement.click();
+
+        fixture.detectChanges();
+        let monthinput = getElement('.monthinput');
+        expect(monthinput).not.toBe(null);
+
+        monthinput.nativeElement.value = 'jan';
+
+        comp.userMonthInput({target:{value:'jan'}});
+
+        fixture.detectChanges();
+        montlabel = getElement('.headermonthtxt span');
+        expect(montlabel).not.toBe(null);
+        expect(montlabel.nativeElement.textContent).toBe('Jan');
+
+
+        fixture.detectChanges();
+        let yearlabel = getElement('.headeryeartxt span');
+        expect(yearlabel).not.toBe(null);
+        yearlabel.nativeElement.click();
+
+        fixture.detectChanges();
+        let yearinput = getElement('.yearinput');
+        expect(yearinput).not.toBe(null);
+
+        yearinput.nativeElement.value = '2019';
+
+        comp.userYearInput({target:{value:'2019'}});
+
+        fixture.detectChanges();
+        yearlabel = getElement('.headeryeartxt span');
+        expect(yearlabel).not.toBe(null);
+        expect(yearlabel.nativeElement.textContent).toBe('2019');
+    });
+
+    it('options min year', () => {
+        comp.visibleMonth = {monthTxt: 'May', monthNbr: 5, year: 2016};
+        comp.minYear = 2000;
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let yearlabel = getElement('.headeryeartxt span');
+        expect(yearlabel).not.toBe(null);
+        yearlabel.nativeElement.click();
+
+        fixture.detectChanges();
+        let yearinput = getElement('.yearinput');
+        expect(yearinput).not.toBe(null);
+
+        comp.userYearInput({target:{value:1999}});
+
+        fixture.detectChanges();
+        let invalidyear = getElement('.invalidyear');
+        expect(invalidyear).not.toBe(null);
+
+        comp.userYearInput({target:{value:2000}});
+
+        fixture.detectChanges();
+        yearlabel = getElement('.headeryeartxt span');
+        expect(yearlabel).not.toBe(null);
+        expect(yearlabel.nativeElement.textContent).toBe('2000');
+    });
+
+    it('options max year', () => {
+        comp.visibleMonth = {monthTxt: 'May', monthNbr: 5, year: 2016};
+        comp.maxYear = 2020;
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let yearlabel = getElement('.headeryeartxt span');
+        expect(yearlabel).not.toBe(null);
+        yearlabel.nativeElement.click();
+
+        fixture.detectChanges();
+        let yearinput = getElement('.yearinput');
+        expect(yearinput).not.toBe(null);
+
+        comp.userYearInput({target:{value:2021}});
+
+        fixture.detectChanges();
+        let invalidyear = getElement('.invalidyear');
+        expect(invalidyear).not.toBe(null);
+
+        comp.userYearInput({target:{value:2020}});
+
+        fixture.detectChanges();
+        yearlabel = getElement('.headeryeartxt span');
+        expect(yearlabel).not.toBe(null);
+        expect(yearlabel.nativeElement.textContent).toBe('2020');
+    });
 
 });
 

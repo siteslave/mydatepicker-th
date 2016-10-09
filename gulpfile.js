@@ -6,14 +6,14 @@ var sequence = require('run-sequence');
 var cleancss = require('gulp-clean-css');
 var htmlmin = require('gulp-htmlmin');
 var fs = require('fs');
+var ts = require('gulp-typescript');
 
 var str1 = '//webpack1_';
 var str2 = '//webpack2_';
 var str3 = '/*';
 var str4 = '*/';
 
-var tsc = './node_modules/typescript/bin/tsc';
-var uglify = './node_modules/uglifyjs/bin/uglifyjs';
+var tsDistProject = ts.createProject('tsconfig.dist.json');
 
 /*
 *
@@ -26,19 +26,8 @@ var uglify = './node_modules/uglifyjs/bin/uglifyjs';
 */
 
 gulp.task('tsc.compile.dist', function (cb) {
-    exec(tsc + ' -p ./tsconfig.dist.json', function (err, stdout, stderr) {
-        console.log(stdout);
-        console.log(stderr);
-        cb(err);
-    });
-});
-
-gulp.task('tsc.compile.bundle', function (cb) {
-    exec(tsc + ' -p ./tsconfig.bundle.json && ' + uglify + ' bundles/mydatepicker.js --screw-ie8 --compress --mangle --output bundles/mydatepicker.min.js', function (err, stdout, stderr) {
-        console.log(stdout);
-        console.log(stderr);
-        cb(err);
-    });
+    var tsResult = tsDistProject.src().pipe(tsDistProject());
+    return tsResult.js.pipe(gulp.dest('dist'));
 });
 
 gulp.task('backup.component.tmp', function() {
