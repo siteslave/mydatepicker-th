@@ -264,7 +264,7 @@ describe('MyDatePicker', () => {
     });
 
     // options
-    it('options dayLabels', () => {
+    it('options - dayLabels', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 5, year: 2016};
         comp.dayLabels = {su: '1', mo: '2', tu: '3', we: '4', th: '5', fr: '6', sa: '7'};
         comp.firstDayOfWeek = 'su';
@@ -284,7 +284,7 @@ describe('MyDatePicker', () => {
         }
     });
 
-    it('options monthLabels', () => {
+    it('options - monthLabels', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 1, year: 2016};
         comp.monthLabels = { 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9', 10: '10', 11: '11', 12: '12' };
 
@@ -306,7 +306,7 @@ describe('MyDatePicker', () => {
         }
     });
 
-    it('options date format', () => {
+    it('options - date format', () => {
         comp.dateFormat = 'dd.mm.yyyy';
         comp.indicateInvalidDate = true;
 
@@ -345,7 +345,7 @@ describe('MyDatePicker', () => {
         expect(comp.invalidDate).toBe(false);
     });
 
-    it('options today button text', () => {
+    it('options - today button text', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 1, year: 2016};
         comp.todayBtnTxt = 'test text';
 
@@ -361,7 +361,7 @@ describe('MyDatePicker', () => {
         expect(headertodaybtn.nativeElement.textContent).toBe('test text');
     });
 
-    it('options first day of week', () => {
+    it('options - first day of week', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 5, year: 2016};
         comp.firstDayOfWeek = 'tu';
 
@@ -381,7 +381,7 @@ describe('MyDatePicker', () => {
         expect(last.nativeElement.textContent).toBe('Mon');
     });
 
-    it('options sunday highlight', () => {
+    it('options - sunday highlight', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 5, year: 2016};
         comp.sunHighlight = true;
 
@@ -409,7 +409,7 @@ describe('MyDatePicker', () => {
         expect(sunday).toBe(null);
     });
 
-    it('options editable month and year', () => {
+    it('options - editable month and year', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 5, year: 2016};
         comp.editableMonthAndYear = true;
 
@@ -457,7 +457,7 @@ describe('MyDatePicker', () => {
         expect(yearlabel.nativeElement.textContent).toBe('2019');
     });
 
-    it('options min year', () => {
+    it('options - min year', () => {
         comp.visibleMonth = {monthTxt: 'May', monthNbr: 5, year: 2016};
         comp.minYear = 2000;
 
@@ -490,7 +490,7 @@ describe('MyDatePicker', () => {
         expect(yearlabel.nativeElement.textContent).toBe('2000');
     });
 
-    it('options max year', () => {
+    it('options - max year', () => {
         comp.visibleMonth = {monthTxt: 'May', monthNbr: 5, year: 2016};
         comp.maxYear = 2020;
 
@@ -523,7 +523,7 @@ describe('MyDatePicker', () => {
         expect(yearlabel.nativeElement.textContent).toBe('2020');
     });
 
-    it('options disable until', () => {
+    it('options - disable until', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
         comp.disableUntil = {year: 2016, month: 10, day: 5};
 
@@ -561,7 +561,7 @@ describe('MyDatePicker', () => {
         expect(selection.nativeElement.value).toContain('2016-10-06');
     });
 
-    it('options disable since', () => {
+    it('options - disable since', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
         comp.disableSince = {year: 2016, month: 10, day: 30};
 
@@ -600,7 +600,7 @@ describe('MyDatePicker', () => {
         expect(selection.nativeElement.value).toContain('2016-10-06');
     });
 
-    it('options disable weekends', () => {
+    it('options - disable weekends', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
         comp.firstDayOfWeek = 'mo';
         comp.disableWeekends = true;
@@ -620,12 +620,20 @@ describe('MyDatePicker', () => {
         let firstDisabled = disabled[0];
         expect(firstDisabled.nativeElement.textContent.trim()).toBe('1');
 
+        let secondDisabled = disabled[1];
+        expect(secondDisabled.nativeElement.textContent.trim()).toBe('2');
+
         let lastDisabled = disabled[disabled.length - 1];
         expect(lastDisabled.nativeElement.textContent.trim()).toBe('6');
 
         fixture.detectChanges();
         firstDisabled.nativeElement.click();
         let selection = getElement('.selection');
+        expect(selection.nativeElement.value).toBe('');
+
+        fixture.detectChanges();
+        secondDisabled.nativeElement.click();
+        selection = getElement('.selection');
         expect(selection.nativeElement.value).toBe('');
 
         fixture.detectChanges();
@@ -638,6 +646,142 @@ describe('MyDatePicker', () => {
         fixture.detectChanges();
         selection = getElement('.selection');
         expect(selection.nativeElement.value).toContain('2016-10-03');
+    });
+
+    it('options - inline', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
+        comp.inline = true;
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let selector = getElement('.selector');
+        expect(selector).not.toBe(null);
+
+        fixture.detectChanges();
+        let selectiongroup = getElement('.selectiongroup');
+        expect(selectiongroup).toBe(null);
+    });
+
+    it('options - height', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
+        comp.height = '50px';
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        expect(de).not.toBe(null);
+        expect(de.styles['height']).toBe('50px');
+
+        fixture.detectChanges();
+        let selection = getElement('.selection');
+        expect(selection).not.toBe(null);
+        expect(selection.styles['height']).toBe('50px');
+    });
+
+    it('options - width', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
+        comp.width = '300px';
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        expect(de).not.toBe(null);
+        expect(de.styles['width']).toBe('300px');
+
+        comp.width = '20%';
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        expect(de).not.toBe(null);
+        expect(de.styles['width']).toBe('20%');
+    });
+
+    it('options - selection text font size', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
+        comp.selectionTxtFontSize = '10px';
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let selection = getElement('.selection');
+        expect(selection).not.toBe(null);
+        expect(selection.styles['font-size']).toBe('10px');
+    });
+
+    it('options - align selector right', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
+        comp.alignSelectorRight = true;
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let alignselectorright = getElement('.alignselectorright');
+        expect(alignselectorright).not.toBe(null);
+
+        comp.alignSelectorRight = false;
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        alignselectorright = getElement('.alignselectorright');
+        expect(alignselectorright).toBe(null);
+    });
+
+    it('options - indicate invalid date', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
+        comp.indicateInvalidDate = true;
+        comp.dateFormat = 'dd.mm.yyyy';
+
+        comp.parseOptions();
+
+        comp.userDateInput({target:{value:'2016-08-22'}});
+        fixture.detectChanges();
+        let invaliddate = getElement('.invaliddate');
+        expect(invaliddate).not.toBe(null);
+
+        comp.userDateInput({target:{value:'2016-08-xx'}});
+        fixture.detectChanges();
+        invaliddate = getElement('.invaliddate');
+        expect(invaliddate).not.toBe(null);
+
+        comp.userDateInput({target:{value:'2016-08-99'}});
+        fixture.detectChanges();
+        invaliddate = getElement('.invaliddate');
+        expect(invaliddate).not.toBe(null);
+
+        comp.userDateInput({target:{value:'10.10.2016'}});
+        fixture.detectChanges();
+        invaliddate = getElement('.invaliddate');
+        expect(invaliddate).toBe(null);
+    });
+
+    it('options - show date format in placeholder', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
+
+        comp.showDateFormatPlaceholder = true;
+        comp.dateFormat = 'dd.mm.yyyy';
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let selection = getElement('.selection');
+        expect(selection).not.toBe(null);
+        expect(selection.properties['placeholder']).toBe(comp.dateFormat);
+
+        comp.showDateFormatPlaceholder = false;
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        selection = getElement('.selection');
+        expect(selection).not.toBe(null);
+        expect(selection.properties['placeholder']).toBe('');
     });
 
 });
