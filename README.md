@@ -1,4 +1,4 @@
-# mydatepicker v. 0.0.37
+# mydatepicker v. 0.0.38
 
 **Angular 2 date picker - Angular2 reusable UI component**
 
@@ -139,7 +139,7 @@ that for the datepicker options (__yyyy.mm__ if not otherwise specified).
 
 ## Development of this component
 
-At first fork and clone this repo
+At first fork and clone this repo.
 
 Install all dependencies:
 
@@ -154,7 +154,7 @@ Run sample application:
 Build dist folder (javascript version of the component):
 * __gulp all__
 
-Execute unit tests (output will be generated to __test-output/tests.html__):
+Execute unit tests (output is generated to __test-output/tests.html__):
 * __npm test__
 
 ## Demo

@@ -523,6 +523,123 @@ describe('MyDatePicker', () => {
         expect(yearlabel.nativeElement.textContent).toBe('2020');
     });
 
+    it('options disable until', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
+        comp.disableUntil = {year: 2016, month: 10, day: 5};
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        comp.parseOptions();
+        comp.generateCalendar(10, 2016);
+
+        fixture.detectChanges();
+        let disabled = getElements('tr .disabled');
+        expect(disabled).not.toBe(null);
+        expect(disabled.length).toBe(10);
+
+        let firstDisabled = disabled[0];
+        expect(firstDisabled.nativeElement.textContent.trim()).toBe('26');
+
+        let lastDisabled = disabled[disabled.length - 1];
+        expect(lastDisabled.nativeElement.textContent.trim()).toBe('5');
+
+        fixture.detectChanges();
+        lastDisabled.nativeElement.click();
+        let selection = getElement('.selection');
+        expect(selection.nativeElement.value).toBe('');
+
+        fixture.detectChanges();
+        let selectableDays = getElements('.tablesingleday');
+        expect(selectableDays).not.toBe(null);
+        expect(selectableDays.length).toBe(26);
+
+        selectableDays[0].nativeElement.click();
+        fixture.detectChanges();
+        selection = getElement('.selection');
+        expect(selection.nativeElement.value).toContain('2016-10-06');
+    });
+
+    it('options disable since', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
+        comp.disableSince = {year: 2016, month: 10, day: 30};
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        comp.parseOptions();
+        comp.generateCalendar(10, 2016);
+
+        fixture.detectChanges();
+        let disabled = getElements('tr .disabled');
+        expect(disabled).not.toBe(null);
+        expect(disabled.length).toBe(8);
+
+        let firstDisabled = disabled[0];
+        expect(firstDisabled.nativeElement.textContent.trim()).toBe('30');
+
+        let lastDisabled = disabled[disabled.length - 1];
+        expect(lastDisabled.nativeElement.textContent.trim()).toBe('6');
+
+        fixture.detectChanges();
+        lastDisabled.nativeElement.click();
+        let selection = getElement('.selection');
+        expect(selection.nativeElement.value).toBe('');
+
+        fixture.detectChanges();
+        let selectableDays = getElements('.tablesingleday');
+        expect(selectableDays).not.toBe(null);
+        expect(selectableDays.length).toBe(29);
+
+        selectableDays[5].nativeElement.click();
+
+        fixture.detectChanges();
+        selection = getElement('.selection');
+        expect(selection.nativeElement.value).toContain('2016-10-06');
+    });
+
+    it('options disable weekends', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
+        comp.firstDayOfWeek = 'mo';
+        comp.disableWeekends = true;
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        comp.parseOptions();
+        comp.generateCalendar(10, 2016);
+
+        fixture.detectChanges();
+        let disabled = getElements('tr .disabled');
+        expect(disabled).not.toBe(null);
+        expect(disabled.length).toBe(12);
+
+        let firstDisabled = disabled[0];
+        expect(firstDisabled.nativeElement.textContent.trim()).toBe('1');
+
+        let lastDisabled = disabled[disabled.length - 1];
+        expect(lastDisabled.nativeElement.textContent.trim()).toBe('6');
+
+        fixture.detectChanges();
+        firstDisabled.nativeElement.click();
+        let selection = getElement('.selection');
+        expect(selection.nativeElement.value).toBe('');
+
+        fixture.detectChanges();
+        let selectableDays = getElements('.tablesingleday');
+        expect(selectableDays).not.toBe(null);
+        expect(selectableDays.length).toBe(21);
+
+        selectableDays[0].nativeElement.click();
+
+        fixture.detectChanges();
+        selection = getElement('.selection');
+        expect(selection.nativeElement.value).toContain('2016-10-03');
+    });
+
 });
 
 

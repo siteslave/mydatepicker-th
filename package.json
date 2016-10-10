@@ -1,6 +1,6 @@
 {
   "name": "mydatepicker",
-  "version": "0.0.37",
+  "version": "0.0.38",
   "description": "Angular2 date picker",
   "keywords": [
     "Angular2",
@@ -38,21 +38,19 @@
     "build.webpack.sampleapp": "rimraf build && webpack --config config/webpack.sampleapp.build.js --progress --profile --bail",
     "test": "karma start config/karma.conf.js"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "@angular/common": "~2.0.1",
     "@angular/compiler": "~2.0.1",
     "@angular/core": "~2.0.1",
     "@angular/platform-browser": "~2.0.1",
     "@angular/platform-browser-dynamic": "~2.0.1",
+    "rxjs": "5.0.0-beta.12",
+    "zone.js": "^0.6.25",
     "es6-shim": "~0.35.1",
     "reflect-metadata": "^0.1.8",
-    "rxjs": "5.0.0-beta.12",
-    "zone.js": "^0.6.25"
-  },
-  "devDependencies": {
     "@types/jasmine": "^2.2.34",
     "@types/node": "^6.0.39",
-    "child_process": "^1.0.2",
     "concurrently": "^3.0.0",
     "core-js": "^2.4.1",
     "css-loader": "^0.25.0",
@@ -86,12 +84,11 @@
     "systemjs": "0.19.39",
     "systemjs-builder": "^0.15.31",
     "to-string-loader": "^1.1.4",
-    "ts-loader": "^0.8.1",
+    "ts-loader": "^0.9.0",
     "typescript": "^2.0.3",
-    "typings": "^1.4.0",
-    "webpack": "^1.13.0",
-    "webpack-dev-server": "^1.16.0",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2",
     "webpack-livereload-plugin": "~0.9.0",
-    "webpack-merge": "^0.14.0"
+    "webpack-merge": "^0.14.1"
   }
 }

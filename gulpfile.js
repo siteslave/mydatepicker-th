@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-var exec = require('child_process').exec;
 var clean = require('gulp-clean');
 var replace = require('gulp-replace');
 var sequence = require('run-sequence');
