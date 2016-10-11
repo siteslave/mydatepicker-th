@@ -2,6 +2,10 @@
 
 **Angular 2 date picker - Angular2 reusable UI component**
 
+[![Build Status](https://travis-ci.org/kekeh/mydatepicker.svg?branch=master)](https://travis-ci.org/kekeh/mydatepicker)
+[![codecov](https://codecov.io/gh/kekeh/mydatepicker/branch/master/graph/badge.svg)](https://codecov.io/gh/kekeh/mydatepicker)
+
+
 ## Description
 Simple Angular2 date picker. Online demo is [here](http://kekeh.github.io/mydatepicker)
 

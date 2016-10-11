@@ -10,4 +10,6 @@ install:
 script:
 - gulp all
 - npm test
+after_success:
+- ./node_modules/.bin/codecov  -f test-output/coverage/json/coverage-final.json
 sudo: required

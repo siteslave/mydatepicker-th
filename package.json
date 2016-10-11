@@ -44,6 +44,7 @@
     "@angular/platform-browser-dynamic": "~2.0.1",
     "@types/jasmine": "^2.2.34",
     "@types/node": "^6.0.39",
+    "codecov": "^1.0.1",
     "concurrently": "^3.0.0",
     "core-js": "^2.4.1",
     "css-loader": "^0.25.0",
