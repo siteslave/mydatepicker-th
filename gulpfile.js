@@ -74,7 +74,7 @@ gulp.task('delete.tmp', function () {
 });
 
 gulp.task('clean', function () {
-    return gulp.src(['./build', './tmp'], {read: false}).pipe(clean());
+    return gulp.src(['./build', './tmp', './test-output'], {read: false}).pipe(clean());
 });
 
 gulp.task('all', function(cb) {

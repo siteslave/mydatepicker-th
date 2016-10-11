@@ -20,6 +20,17 @@ module.exports = {
                 test: /\.css$/,
                 loader: "to-string-loader!css-loader"
             }
+        ],
+        postLoaders: [
+            {
+                test: /\.ts$/,
+                loader: 'istanbul-instrumenter-loader',
+                exclude: [
+                    'sampleapp',
+                    'node_modules',
+                    /\.spec\.ts$/
+                ]
+            }
         ]
     }
 };

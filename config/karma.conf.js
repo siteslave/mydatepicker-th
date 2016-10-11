@@ -28,7 +28,12 @@ module.exports = function (config) {
             outputFile: '../test-output/tests.html'
         },
 
-        reporters: ['progress', 'html'],
+        coverageReporter: {
+            type: 'html',
+            dir: '../test-output/coverage'
+        },
+
+        reporters: ['progress', 'coverage', 'html'],
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
