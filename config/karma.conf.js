@@ -1,7 +1,7 @@
 var webpackConfig = require('./webpack.test');
 
 module.exports = function (config) {
-    var _config = {
+    config.set({
         basePath: '',
 
         frameworks: ['jasmine'],
@@ -33,6 +33,13 @@ module.exports = function (config) {
             dir: '../test-output/coverage'
         },
 
+        customLaunchers: {
+            Chrome_travis_ci: {
+                base: 'Chrome',
+                flags: ['--no-sandbox']
+            }
+        },
+
         reporters: ['progress', 'coverage', 'html'],
         port: 9876,
         colors: true,
@@ -40,7 +47,9 @@ module.exports = function (config) {
         autoWatch: false,
         browsers: ['Chrome'],
         singleRun: true
-    };
+    });
 
-    config.set(_config);
+    if(process.env.TRAVIS){
+        config.browsers = ['Chrome_travis_ci'];
+    }
 };
