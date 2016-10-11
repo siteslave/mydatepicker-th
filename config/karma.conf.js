@@ -33,23 +33,12 @@ module.exports = function (config) {
             dir: '../test-output/coverage'
         },
 
-        customLaunchers: {
-            Chrome_travis_ci: {
-                base: 'Chrome',
-                flags: ['--no-sandbox']
-            }
-        },
-
         reporters: ['progress', 'coverage', 'html'],
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: false,
-        browsers: ['Chrome'],
+        browsers: ['PhantomJS'],
         singleRun: true
     });
-
-    if(process.env.TRAVIS){
-        config.browsers = ['Chrome_travis_ci'];
-    }
 };

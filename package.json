@@ -13,9 +13,6 @@
     "type": "git",
     "url": "https://github.com/kekeh/mydatepicker.git"
   },
-  "engines": {
-    "node": ">=5.4"
-  },
   "files": [
     "LICENSE",
     "package.json",
@@ -65,12 +62,12 @@
     "istanbul-instrumenter-loader": "^1.0.0",
     "jasmine-core": "~2.5.2",
     "karma": "^1.3.0",
-    "karma-chrome-launcher": "^2.0.0",
     "karma-cli": "^1.0.1",
     "karma-coverage": "^1.1.1",
     "karma-htmlfile-reporter": "^0.3.4",
     "karma-jasmine": "^1.0.2",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-phantomjs-launcher": "^1.0.2",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.8.0",
     "null-loader": "^0.1.1",
