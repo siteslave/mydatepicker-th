@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+- "6"
+install:
+- npm install
+script:
+- gulp all
+- npm test
+notifications:
+  email: false
+sudo: false

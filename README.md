@@ -154,7 +154,7 @@ Run sample application:
 Build dist folder (javascript version of the component):
 * __gulp all__
 
-Execute unit tests and coverage (output is generated to __test-output__ folder):
+Execute unit tests and coverage (output is generated to the __test-output__ folder):
 * __npm test__
 
 ## Demo
