@@ -17,6 +17,11 @@
     "node_modules"
   ],
   "files": [
-    "./src/my-date-picker/index.ts"
+    "./src/my-date-picker/directives/*.ts",
+    "./src/my-date-picker/services/*.ts",
+    "./src/my-date-picker/interfaces/*.ts",
+    "./src/my-date-picker/index.ts",
+    "./src/my-date-picker/my-date-picker.component.ts",
+    "./src/my-date-picker/my-date-picker.module.ts"
   ]
 }

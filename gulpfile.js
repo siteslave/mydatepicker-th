@@ -6,6 +6,8 @@ var cleancss = require('gulp-clean-css');
 var htmlmin = require('gulp-htmlmin');
 var fs = require('fs');
 var ts = require('gulp-typescript');
+var merge = require('merge2');
+var sourcemaps = require('gulp-sourcemaps');
 
 var str1 = '//webpack1_';
 var str2 = '//webpack2_';
@@ -24,9 +26,13 @@ var tsDistProject = ts.createProject('tsconfig.dist.json');
 *
 */
 
-gulp.task('tsc.compile.dist', function (cb) {
-    var tsResult = tsDistProject.src().pipe(tsDistProject());
-    return tsResult.js.pipe(gulp.dest('dist'));
+gulp.task('tsc.compile.dist', function () {
+    var tsResult = tsDistProject.src().pipe(sourcemaps.init()).pipe(tsDistProject());
+    return merge([
+        tsResult.js.pipe(gulp.dest('dist')),
+        tsResult.js.pipe(sourcemaps.write('./', {includeContent: false})).pipe(gulp.dest('dist')),
+        tsResult.dts.pipe(gulp.dest('dist'))
+    ]);
 });
 
 gulp.task('backup.component.tmp', function() {
