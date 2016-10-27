@@ -42,6 +42,14 @@ export class LocaleService {
             todayBtnTxt: 'Hoy',
             firstDayOfWeek: 'mo',
             sunHighlight: true,
+        },
+       'hu': {
+            dayLabels: {su: 'Vas', mo: 'Hét', tu: 'Kedd', we: 'Sze', th: 'Csü', fr: 'Pén', sa: 'Szo'},
+            monthLabels: { 1: 'Jan', 2: 'Feb', 3: 'Már', 4: 'Ápr', 5: 'Máj', 6: 'Jún', 7: 'Júl', 8: 'Aug', 9: 'Szep', 10: 'Okt', 11: 'Nov', 12: 'Dec' },
+            dateFormat: 'yyyy-mm-dd',
+            todayBtnTxt: 'Ma',
+            firstDayOfWeek: 'mo',
+            sunHighlight: true
         }
     };
 
