@@ -282,6 +282,12 @@
     padding: 0;
 }
 
+.mydp table,
+.mydp th,
+.mydp td {
+    border: none;
+}
+
 .mydp .btnpicker:hover,
 .mydp .btnclear:hover,
 .mydp .headertodaybtn:hover,

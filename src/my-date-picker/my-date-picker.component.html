@@ -1,4 +1,4 @@
-<div class="mydp" [ngStyle]="{'height': height, 'width': width, 'border': inline ? 'none' : '1px solid #AAA'}">
+<div class="mydp" [ngStyle]="{'width': width, 'border': inline ? 'none' : '1px solid #AAA'}">
     <div class="selectiongroup" *ngIf="!inline">
         <input type="text" class="selection" maxlength="10" [ngClass]="{'invaliddate': invalidDate&&indicateInvalidDate}" placeholder="{{showDateFormatPlaceholder?dateFormat:''}}"
                 [ngStyle]="{'height': height, 'line-height': height, 'font-size': selectionTxtFontSize, 'border': 'none', 'padding-right': selectionDayTxt.length>0 ? '60px' : '30px'}"

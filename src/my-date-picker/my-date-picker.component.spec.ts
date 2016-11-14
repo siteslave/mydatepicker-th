@@ -672,10 +672,6 @@ describe('MyDatePicker', () => {
         comp.parseOptions();
 
         fixture.detectChanges();
-        expect(de).not.toBe(null);
-        expect(de.styles['height']).toBe('50px');
-
-        fixture.detectChanges();
         let selection = getElement('.selection');
         expect(selection).not.toBe(null);
         expect(selection.styles['height']).toBe('50px');
