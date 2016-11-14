@@ -76,10 +76,19 @@
     border: none;
     border-left: 1px solid #AAA;
     padding: 0;
-    cursor: pointer;
     outline: 0;
     font: inherit;
     -moz-user-select: none;
+}
+
+.mydp .btnpickerenabled,
+.mydp .btnclearenabled {
+    cursor: pointer;
+}
+
+.mydp .btnpickerdisabled,
+.mydp .btncleardisabled {
+    cursor: not-allowed;
 }
 
 .mydp .btnpicker,
@@ -288,8 +297,8 @@
     border: none;
 }
 
-.mydp .btnpicker:hover,
-.mydp .btnclear:hover,
+.mydp .btnpickerenabled:hover,
+.mydp .btnclearenabled:hover,
 .mydp .headertodaybtn:hover,
 .mydp .tablesingleday:hover {
     background-color: #8BDAF4;

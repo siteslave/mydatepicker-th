@@ -4,4 +4,9 @@
     </div>
     <my-date-picker [options]="myDatePickerNormalOptions" (dateChanged)="onDateChanged($event)"
                     [selDate]="selectedDateNormal"></my-date-picker>
+
+    <div style="margin-top: 20px">
+        <button style="cursor: pointer" type="button" (click)="clearDate()" [disabled]="selectedDateNormal===''">Clear Date</button>
+        <button style="cursor: pointer" type="button" (click)="enableDisable()">{{myDatePickerNormalOptions.componentDisabled ? 'Enable' : 'Disable'}}</button>
+    </div>
 </div>

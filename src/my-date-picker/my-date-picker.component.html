@@ -2,12 +2,12 @@
     <div class="selectiongroup" *ngIf="!inline">
         <input type="text" class="selection" maxlength="10" [ngClass]="{'invaliddate': invalidDate&&indicateInvalidDate}" placeholder="{{showDateFormatPlaceholder?dateFormat:''}}"
                 [ngStyle]="{'height': height, 'line-height': height, 'font-size': selectionTxtFontSize, 'border': 'none', 'padding-right': selectionDayTxt.length>0 ? '60px' : '30px'}"
-                (keyup)="userDateInput($event)" [value]="selectionDayTxt">
+                (keyup)="userDateInput($event)" [value]="selectionDayTxt" [readonly]="componentDisabled">
         <span class="selbtngroup" [style.height]="height">
-            <button type="button" class="btnclear" *ngIf="selectionDayTxt.length>0" (click)="removeBtnClicked()">
+            <button type="button" class="btnclear" *ngIf="selectionDayTxt.length>0" (click)="removeBtnClicked()" [ngClass]="{'btnclearenabled': !componentDisabled, 'btncleardisabled': componentDisabled}" [disabled]="componentDisabled">
                 <span class="icon icon-cross" [ngStyle]="{'line-height': height}"></span>
             </button>
-            <button type="button" class="btnpicker" (click)="openBtnClicked()">
+            <button type="button" class="btnpicker" (click)="openBtnClicked()" [ngClass]="{'btnpickerenabled': !componentDisabled, 'btnpickerdisabled': componentDisabled}" [disabled]="componentDisabled">
                 <span class="icon icon-calendar" [ngStyle]="{'line-height': height}"></span>
             </button>
         </span>

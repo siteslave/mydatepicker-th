@@ -19,7 +19,12 @@ To install this component to an external project, follow the procedure:
     import { NgModule } from '@angular/core';
     import { BrowserModule } from '@angular/platform-browser';
     import { MyTestApp } from './my-test-app';
+
+    // If you are using webpack package loader import the MyDatePickerModule from here:
     import { MyDatePickerModule } from 'mydatepicker';
+
+    // If you are using systemjs package loader import the MyDatePickerModule from here:
+    import { MyDatePickerModule } from 'mydatepicker/dist/my-date-picker.module';
 
     @NgModule({
         imports:      [ BrowserModule, MyDatePickerModule ],
@@ -82,7 +87,6 @@ To install this component to an external project, follow the procedure:
                 // Other components are here...
 
                 mydatepicker: {
-                    main: './index.js',
                     defaultExtension: 'js'
                 }
             }
@@ -118,6 +122,7 @@ Value of the __options__ attribute is a javascript object. It can contain the fo
 | __alignSelectorRight__   | false | Align selector right. Can be used if __inline = false__. |
 | __indicateInvalidDate__   | true | If user typed date is not same format as __dateFormat__, show red background in the selection area. Can be used if __inline = false__. |
 | __showDateFormatPlaceholder__   | false | Show value of __dateFormat__ as placeholder in the selection area if it is empty. Can be used if __inline = false__. |
+| __componentDisabled__   | false | Is selection area and buttons disabled or not. Can be used if __inline = false__. |
   
 ### locale attribute
 

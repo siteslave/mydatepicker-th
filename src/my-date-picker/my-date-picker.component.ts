@@ -64,6 +64,7 @@ export class MyDatePicker implements OnChanges {
     editableMonthAndYear: boolean = true;
     minYear: number = 1000;
     maxYear: number = 9999;
+    componentDisabled: boolean = false;
 
     constructor(public elem: ElementRef, private renderer: Renderer, private localeService: LocaleService, private validatorService: ValidatorService) {
         this.setLocaleOptions();
@@ -92,7 +93,7 @@ export class MyDatePicker implements OnChanges {
     }
 
     setOptions():void {
-        let options = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'disableWeekends', 'height', 'width', 'selectionTxtFontSize', 'inline', 'alignSelectorRight', 'indicateInvalidDate', 'showDateFormatPlaceholder', 'editableMonthAndYear', 'minYear', 'maxYear'];
+        let options = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'disableWeekends', 'height', 'width', 'selectionTxtFontSize', 'inline', 'alignSelectorRight', 'indicateInvalidDate', 'showDateFormatPlaceholder', 'editableMonthAndYear', 'minYear', 'maxYear', 'componentDisabled'];
         for (let prop of options) {
             if (this.options && (this.options)[prop] !== undefined  && (this.options)[prop] instanceof Object) {
                 (this)[prop] = JSON.parse(JSON.stringify((this.options)[prop]));
@@ -205,7 +206,12 @@ export class MyDatePicker implements OnChanges {
     ngOnChanges(changes: SimpleChanges):void {
         if (changes.hasOwnProperty('selDate')) {
             this.selectionDayTxt = changes['selDate'].currentValue;
-            this.selectedDate = this.parseSelectedDate(this.selectionDayTxt);
+            if(this.selectionDayTxt !== '') {
+                this.selectedDate = this.parseSelectedDate(this.selectionDayTxt);
+            }
+            else {
+                this.removeBtnClicked();
+            }
         }
 
         if (changes.hasOwnProperty('defaultMonth')) {

@@ -779,6 +779,29 @@ describe('MyDatePicker', () => {
         expect(selection.properties['placeholder']).toBe('');
     });
 
+    it('options - disable component', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
+        comp.options = {componentDisabled: true};
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+
+        btnpicker.nativeElement.click();
+        fixture.detectChanges();
+
+        let selector = getElement('.selector');
+        expect(selector).toBe(null);
+
+        fixture.detectChanges();
+        let selection = getElement('.selection');
+
+        selection.nativeElement.value = '2016-11-14';
+
+        fixture.detectChanges();
+        expect(selection.nativeElement.value).toContain('');
+    });
+
     it('locale - use fr locale', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 1, year: 2016};
         comp.locale = 'fr';

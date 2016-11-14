@@ -22,7 +22,8 @@ export class SampleDatePickerNormal implements OnInit {
         indicateInvalidDate: true,
         showDateFormatPlaceholder: false,
         editableMonthAndYear: true,
-        minYear: 1900
+        minYear: 1900,
+        componentDisabled: false
     };
     private selectedDateNormal:string = '';
 
@@ -31,6 +32,16 @@ export class SampleDatePickerNormal implements OnInit {
 
     constructor() {
         let date = new Date();
+    }
+
+    clearDate() {
+        this.selectedDateNormal = '';
+    }
+
+    enableDisable() {
+        let copy = Object.assign({}, this.myDatePickerNormalOptions);
+        copy.componentDisabled = !this.myDatePickerNormalOptions.componentDisabled;
+        this.myDatePickerNormalOptions = copy;
     }
 
     ngOnInit() {
@@ -42,6 +53,8 @@ export class SampleDatePickerNormal implements OnInit {
         if(event.formatted !== '') {
             this.selectedTextNormal = 'Formatted: ' + event.formatted + ' - epoc timestamp: ' + event.epoc;
             this.border = '1px solid #CCC';
+
+            this.selectedDateNormal = event.formatted;
         }
         else {
             this.selectedTextNormal = '';

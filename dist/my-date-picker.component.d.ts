@@ -48,6 +48,7 @@ export declare class MyDatePicker implements OnChanges {
     editableMonthAndYear: boolean;
     minYear: number;
     maxYear: number;
+    componentDisabled: boolean;
     constructor(elem: ElementRef, renderer: Renderer, localeService: LocaleService, validatorService: ValidatorService);
     setLocaleOptions(): void;
     setOptions(): void;
