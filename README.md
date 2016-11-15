@@ -133,7 +133,7 @@ If the __locale__ attribute is used it overrides dayLabels, monthLabels, dateFor
 firstDayOfWeek and sunHighlight properties from the options.
 
 * new locale data can be added to [this](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/services/my-date-picker.locale.service.ts)
-file. If you want add a new locale create a pull request.
+file. If you want to add a new locale create a pull request.
 
 ### selDate attribute
 
@@ -158,18 +158,18 @@ __08-2016__, __08/2016__.
 At first fork and clone this repo.
 
 Install all dependencies:
-1. __npm install__
-2. __npm install --global gulp-cli__
+ 1. __npm install__
+ 2. __npm install --global gulp-cli__
 
 Build dist folder (javascript version of the component):
-1. __gulp all__
+ 1. __gulp all__
 
 Execute unit tests and coverage (output is generated to the __test-output__ folder):
-1. __npm test__
+ 1. __npm test__
 
 Run sample application:
-1. Open a terminal and type __npm start__
-2. Open __http://localhost:5000__ to browser
+ 1. Open a terminal and type __npm start__
+ 2. Open __http://localhost:5000__ to browser
 
 ## Demo
 Online demo is [here](http://kekeh.github.io/mydatepicker)
