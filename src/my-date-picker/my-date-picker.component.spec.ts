@@ -602,6 +602,30 @@ describe('MyDatePicker', () => {
         expect(selection.nativeElement.value).toContain('2016-10-06');
     });
 
+    it('options - disable days one by one', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
+        comp.options = {disableDays: [{year: 2016, month: 10, day: 5}, {year: 2016, month: 10, day: 10}]};
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        comp.generateCalendar(10, 2016);
+
+        fixture.detectChanges();
+        let disabled = getElements('tr .disabled');
+        expect(disabled).not.toBe(null);
+        expect(disabled.length).toBe(2);
+
+        let firstDisabled = disabled[0];
+        expect(firstDisabled.nativeElement.textContent.trim()).toBe('5');
+
+        let lastDisabled = disabled[1];
+        expect(lastDisabled.nativeElement.textContent.trim()).toBe('10');
+    });
+
     it('options - disable weekends', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
         comp.options = {firstDayOfWeek: 'mo', disableWeekends: true};

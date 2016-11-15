@@ -47,6 +47,7 @@ var MyDatePicker = (function () {
         this.selectionTxtFontSize = '18px';
         this.disableUntil = { year: 0, month: 0, day: 0 };
         this.disableSince = { year: 0, month: 0, day: 0 };
+        this.disableDays = [];
         this.disableWeekends = false;
         this.inline = false;
         this.alignSelectorRight = false;
@@ -79,11 +80,17 @@ var MyDatePicker = (function () {
         }
     };
     MyDatePicker.prototype.setOptions = function () {
-        var options = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'disableWeekends', 'height', 'width', 'selectionTxtFontSize', 'inline', 'alignSelectorRight', 'indicateInvalidDate', 'showDateFormatPlaceholder', 'editableMonthAndYear', 'minYear', 'maxYear', 'componentDisabled'];
+        var options = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'disableDays', 'disableWeekends', 'height', 'width', 'selectionTxtFontSize', 'inline', 'alignSelectorRight', 'indicateInvalidDate', 'showDateFormatPlaceholder', 'editableMonthAndYear', 'minYear', 'maxYear', 'componentDisabled'];
         for (var _i = 0, options_1 = options; _i < options_1.length; _i++) {
             var prop = options_1[_i];
-            if (this.options && (this.options)[prop] !== undefined && (this.options)[prop] instanceof Object) {
-                (this)[prop] = JSON.parse(JSON.stringify((this.options)[prop]));
+            if (this.options && (this.options)[prop] !== undefined && (this.options)[prop] instanceof Array) {
+                for (var _a = 0, _b = (this.options)[prop]; _a < _b.length; _a++) {
+                    var val = _b[_a];
+                    this.disableDays.push(Object.assign({}, val));
+                }
+            }
+            else if (this.options && (this.options)[prop] !== undefined && (this.options)[prop] instanceof Object) {
+                (this)[prop] = Object.assign({}, (this.options)[prop]);
             }
             else if (this.options && (this.options)[prop] !== undefined) {
                 (this)[prop] = (this.options)[prop];
@@ -341,6 +348,12 @@ var MyDatePicker = (function () {
         if (this.disableWeekends) {
             var dayNbr = this.getDayNumber(date);
             if (dayNbr === 0 || dayNbr === 6) {
+                return true;
+            }
+        }
+        for (var _i = 0, _a = this.disableDays; _i < _a.length; _i++) {
+            var obj = _a[_i];
+            if (obj.year === date.year && obj.month === date.month && obj.day === date.day) {
                 return true;
             }
         }

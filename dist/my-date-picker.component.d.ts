@@ -40,6 +40,7 @@ export declare class MyDatePicker implements OnChanges {
     selectionTxtFontSize: string;
     disableUntil: IMyDate;
     disableSince: IMyDate;
+    disableDays: Array<IMyDate>;
     disableWeekends: boolean;
     inline: boolean;
     alignSelectorRight: boolean;

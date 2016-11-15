@@ -56,6 +56,7 @@ export class MyDatePicker implements OnChanges {
     selectionTxtFontSize: string = '18px';
     disableUntil: IMyDate = {year: 0, month: 0, day: 0};
     disableSince: IMyDate = {year: 0, month: 0, day: 0};
+    disableDays: Array<IMyDate> = [];
     disableWeekends: boolean = false;
     inline: boolean = false;
     alignSelectorRight: boolean = false;
@@ -93,10 +94,15 @@ export class MyDatePicker implements OnChanges {
     }
 
     setOptions():void {
-        let options = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'disableWeekends', 'height', 'width', 'selectionTxtFontSize', 'inline', 'alignSelectorRight', 'indicateInvalidDate', 'showDateFormatPlaceholder', 'editableMonthAndYear', 'minYear', 'maxYear', 'componentDisabled'];
+        let options = ['dayLabels', 'monthLabels', 'dateFormat', 'todayBtnTxt', 'firstDayOfWeek', 'sunHighlight', 'disableUntil', 'disableSince', 'disableDays', 'disableWeekends', 'height', 'width', 'selectionTxtFontSize', 'inline', 'alignSelectorRight', 'indicateInvalidDate', 'showDateFormatPlaceholder', 'editableMonthAndYear', 'minYear', 'maxYear', 'componentDisabled'];
         for (let prop of options) {
-            if (this.options && (this.options)[prop] !== undefined  && (this.options)[prop] instanceof Object) {
-                (this)[prop] = JSON.parse(JSON.stringify((this.options)[prop]));
+            if (this.options && (this.options)[prop] !== undefined  && (this.options)[prop] instanceof Array) {
+                for(let val of (this.options)[prop]) {
+                    this.disableDays.push(Object.assign({}, val));
+                }
+            }
+            else if (this.options && (this.options)[prop] !== undefined  && (this.options)[prop] instanceof Object) {
+                (this)[prop] = Object.assign({}, (this.options)[prop]);
             }
             else if(this.options && (this.options)[prop] !== undefined) {
                 (this)[prop] = (this.options)[prop];
@@ -403,6 +409,11 @@ export class MyDatePicker implements OnChanges {
         if(this.disableWeekends) {
             let dayNbr = this.getDayNumber(date);
             if(dayNbr === 0 || dayNbr === 6) {
+                return true;
+            }
+        }
+        for(let obj of this.disableDays) {
+            if(obj.year === date.year && obj.month === date.month && obj.day === date.day) {
                 return true;
             }
         }

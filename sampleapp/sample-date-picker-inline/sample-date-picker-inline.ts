@@ -18,7 +18,8 @@ export class SampleDatePickerInline implements OnInit {
         height: '34px',
         width: '260px',
         inline: true,
-        disableUntil: {year: 0, month: 0, day: 0}
+        disableUntil: {year: 0, month: 0, day: 0},
+        disableDays: [{year: 0, month: 0, day: 0}]
     };
     private selectedDateInline: string = '';
 
@@ -35,6 +36,9 @@ export class SampleDatePickerInline implements OnInit {
         // Disable dates from 5th backward
         date.setDate(date.getDate() - 5);
         this.myDatePickerInlineOptions.disableUntil = {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()};
+
+        // Disable next month 1st and 3rd days
+        this.myDatePickerInlineOptions.disableDays = [{year: date.getFullYear(), month: date.getMonth() + 2, day: 1}, {year: date.getFullYear(), month: date.getMonth() + 2, day: 3}];
     }
 
     ngOnInit() {
