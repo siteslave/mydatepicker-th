@@ -105,7 +105,7 @@ Value of the __options__ attribute is a javascript object. It can contain the fo
 | :------------- | :------------- | :----- |
 | __dayLabels__     | {su: 'Sun', mo: 'Mon', tu: 'Tue', we: 'Wed', th: 'Thu', fr: 'Fri', sa: 'Sat'} | Day labels visible on the selector. |
 | __monthLabels__   | { 1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun', 7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec' } | Month labels visible on the selector. |
-| __dateFormat__    | yyyy-mm-dd      | Date format on selection area and callback. |
+| __dateFormat__    | yyyy-mm-dd      | Date format on the selection area and the callback. For example: dd.mm.yyyy, yyyy-mm-dd, dd mmm yyyy (mmm = Month as a string) |
 | __todayBtnTxt__   | Today      | Today button text. |
 | __firstDayOfWeek__   | mo | First day of week on calendar. One of the following: mo, tu, we, th, fr, sa, su |
 | __sunHighlight__   | true | Sunday red colored on calendar. |
@@ -132,40 +132,44 @@ the options listed above. Currently supported languages: __en__, __fr__, __ja__,
 If the __locale__ attribute is used it overrides dayLabels, monthLabels, dateFormat, todayBtnTxt,
 firstDayOfWeek and sunHighlight properties from the options.
 
-* new locale data can be added to [this](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/services/my-date-picker.locale.service.ts) file.
+* new locale data can be added to [this](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/services/my-date-picker.locale.service.ts)
+file. If you want add a new locale create a pull request.
 
 ### selDate attribute
 
 Provide the initially chosen date that will display both in the text input field
-and provide the default for the popped-up selector.
+and provide the default for the popped-up selector. Must be in the same format as
+the __dateFormat__ option is.
 
 ### defaultMonth attribute
 
 If __selDate__ is not specified, when the datepicker is opened, it will
 ordinarily default to selecting the current date. If you would prefer
 a different year and month to be the default for a freshly chosen date
-picking operation, specify a __[defaultMonth]__ in the same format as
-that for the datepicker options (__yyyy.mm__ if not otherwise specified).
+picking operation, specify a __[defaultMonth]__ attribute.
+
+Value of the __[defaultMonth]__ attribute is a string which contain year number and
+month number separated by delimiter. The delimiter can be any special character.
+For example the value of the __[defaultMonth]__ attribute can be: __2016.08__,
+__08-2016__, __08/2016__.
 
 ## Development of this component
 
 At first fork and clone this repo.
 
 Install all dependencies:
-
 1. __npm install__
 2. __npm install --global gulp-cli__
 
-Run sample application:
-
-1. Open a terminal and type __npm start__
-2. Open __http://localhost:5000__ to browser
-
 Build dist folder (javascript version of the component):
-* __gulp all__
+1. __gulp all__
 
 Execute unit tests and coverage (output is generated to the __test-output__ folder):
-* __npm test__
+1. __npm test__
+
+Run sample application:
+1. Open a terminal and type __npm start__
+2. Open __http://localhost:5000__ to browser
 
 ## Demo
 Online demo is [here](http://kekeh.github.io/mydatepicker)

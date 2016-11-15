@@ -85,7 +85,7 @@ export class MyDatePicker implements OnChanges {
         let options = this.localeService.getLocaleOptions(this.locale);
         for (let prop in options) {
             if(options[prop] instanceof Object) {
-                (this)[prop] = JSON.parse(JSON.stringify(options[prop]));
+                (this)[prop] = Object.assign({}, options[prop]);
             }
             else {
                 (this)[prop] = options[prop];
@@ -143,7 +143,7 @@ export class MyDatePicker implements OnChanges {
             this.removeBtnClicked();
         }
         else {
-            let date:IMyDate = this.validatorService.isDateValid(event.target.value, this.dateFormat, this.minYear, this.maxYear);
+            let date:IMyDate = this.validatorService.isDateValid(event.target.value, this.dateFormat, this.minYear, this.maxYear, this.monthLabels);
             if(date.day !== 0 && date.month !== 0 && date.year !== 0) {
                 this.selectDate({ day: date.day, month: date.month, year: date.year });
             }
@@ -210,20 +210,6 @@ export class MyDatePicker implements OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges):void {
-        if (changes.hasOwnProperty('selDate')) {
-            this.selectionDayTxt = changes['selDate'].currentValue;
-            if(this.selectionDayTxt !== '') {
-                this.selectedDate = this.parseSelectedDate(this.selectionDayTxt);
-            }
-            else {
-                this.removeBtnClicked();
-            }
-        }
-
-        if (changes.hasOwnProperty('defaultMonth')) {
-            this.selectedMonth = this.parseSelectedMonth((changes['defaultMonth'].currentValue).toString());
-        }
-
         if (changes.hasOwnProperty('locale')) {
             this.locale = changes['locale'].currentValue;
         }
@@ -234,6 +220,20 @@ export class MyDatePicker implements OnChanges {
 
         this.weekDays.length = 0;
         this.parseOptions();
+
+        if (changes.hasOwnProperty('defaultMonth')) {
+            this.selectedMonth = this.parseSelectedMonth((changes['defaultMonth'].currentValue).toString());
+        }
+
+        if (changes.hasOwnProperty('selDate')) {
+            this.selectionDayTxt = changes['selDate'].currentValue;
+            if(this.selectionDayTxt !== '') {
+                this.selectedDate = this.parseSelectedDate(this.selectionDayTxt);
+            }
+            else {
+                this.removeBtnClicked();
+            }
+        }
     }
 
     removeBtnClicked():void {
@@ -355,13 +355,13 @@ export class MyDatePicker implements OnChanges {
     }
 
     formatDate(val:any):string {
-        return this.dateFormat.replace('yyyy', val.year)
-            .replace('mm', this.preZero(val.month))
-            .replace('dd', this.preZero(val.day));
+        // Returns formatted date string, if mmm is part of dateFormat returns month as a string
+        let formatted: string = this.dateFormat.replace('yyyy', val.year).replace('dd', this.preZero(val.day));
+        return this.dateFormat.indexOf('mmm') !== -1 ? formatted.replace('mmm', this.monthText(val.month)) : formatted.replace('mm', this.preZero(val.month));
     }
 
     monthText(m:number):string {
-        // Returns mont as a text
+        // Returns month as a text
         return this.monthLabels[m];
     }
 
@@ -483,27 +483,18 @@ export class MyDatePicker implements OnChanges {
     parseSelectedDate(ds:string): IMyDate {
         let date:IMyDate = {day: 0, month: 0, year: 0};
         if (ds !== '') {
-            let fmt = this.options && this.options.dateFormat !== undefined ? this.options.dateFormat : this.dateFormat;
-            let dpos = fmt.indexOf('dd');
-            if (dpos >= 0) {
-                date.day = parseInt(ds.substring(dpos, dpos + 2));
-            }
-            let mpos = fmt.indexOf('mm');
-            if (mpos >= 0) {
-                date.month = parseInt(ds.substring(mpos, mpos + 2));
-            }
-            let ypos = fmt.indexOf('yyyy');
-            if (ypos >= 0) {
-                date.year = parseInt(ds.substring(ypos, ypos + 4));
-            }
+            date.day = this.validatorService.parseDatePartNumber(this.dateFormat, ds, 'dd');
+
+            date.month = this.dateFormat.indexOf('mmm') !== -1
+                ? this.validatorService.parseDatePartMonthName(this.dateFormat, ds, 'mmm', this.monthLabels)
+                : this.validatorService.parseDatePartNumber(this.dateFormat, ds, 'mm');
+
+            date.year = this.validatorService.parseDatePartNumber(this.dateFormat, ds, 'yyyy');
         }
         return date;
     }
 
     parseSelectedMonth(ms:string): IMyMonth {
-        let split = ms.split(ms.match(/[^0-9]/)[0]);
-        return (parseInt(split[0]) > parseInt(split[1])) ?
-        {monthTxt: '', monthNbr: parseInt(split[1]), year: parseInt(split[0])} :
-        {monthTxt: '', monthNbr: parseInt(split[0]), year: parseInt(split[1])};
+        return this.validatorService.parseDefaultMonth(ms);
     }
 }

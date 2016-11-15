@@ -341,6 +341,18 @@ describe('MyDatePicker', () => {
         value = {target:{value:'16.09.2016'}};
         comp.userDateInput(value);
         expect(comp.invalidDate).toBe(false);
+
+        comp.options = {dateFormat: 'dd mmm yyyy', indicateInvalidDate: true};
+
+        comp.parseOptions();
+
+        value = {target:{value:'2016-08-22'}};
+        comp.userDateInput(value);
+        expect(comp.invalidDate).toBe(true);
+
+        value = {target:{value:'22 Aug 2016'}};
+        comp.userDateInput(value);
+        expect(comp.invalidDate).toBe(false);
     });
 
     it('options - today button text', () => {
