@@ -1,5 +1,5 @@
 import { EventEmitter, OnChanges, SimpleChanges, ElementRef, Renderer } from "@angular/core";
-import { IMyDate, IMyMonth, IMyDayLabels, IMyMonthLabels } from "./interfaces/index";
+import { IMyDate, IMyMonth, IMyOptions } from "./interfaces/index";
 import { LocaleService } from "./services/my-date-picker.locale.service";
 import { ValidatorService } from "./services/my-date-picker.validator.service";
 export declare class MyDatePicker implements OnChanges {
@@ -29,27 +29,7 @@ export declare class MyDatePicker implements OnChanges {
     PREV_MONTH: number;
     CURR_MONTH: number;
     NEXT_MONTH: number;
-    dayLabels: IMyDayLabels;
-    monthLabels: IMyMonthLabels;
-    dateFormat: string;
-    todayBtnTxt: string;
-    firstDayOfWeek: string;
-    sunHighlight: boolean;
-    height: string;
-    width: string;
-    selectionTxtFontSize: string;
-    disableUntil: IMyDate;
-    disableSince: IMyDate;
-    disableDays: Array<IMyDate>;
-    disableWeekends: boolean;
-    inline: boolean;
-    alignSelectorRight: boolean;
-    indicateInvalidDate: boolean;
-    showDateFormatPlaceholder: boolean;
-    editableMonthAndYear: boolean;
-    minYear: number;
-    maxYear: number;
-    componentDisabled: boolean;
+    opts: IMyOptions;
     constructor(elem: ElementRef, renderer: Renderer, localeService: LocaleService, validatorService: ValidatorService);
     setLocaleOptions(): void;
     setOptions(): void;

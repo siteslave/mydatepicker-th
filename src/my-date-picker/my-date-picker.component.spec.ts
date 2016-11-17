@@ -889,7 +889,7 @@ describe('MyDatePicker', () => {
         fixture.detectChanges();
         let selection = getElement('.selection');
         expect(selection).not.toBe(null);
-        expect(selection.properties['placeholder']).toBe(comp.dateFormat);
+        expect(selection.properties['placeholder']).toBe(comp.opts.dateFormat);
 
         comp.options = {showDateFormatPlaceholder: false, dateFormat: 'dd.mm.yyyy'};
 

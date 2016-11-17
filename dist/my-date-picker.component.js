@@ -36,34 +36,36 @@ var MyDatePicker = (function () {
         this.PREV_MONTH = 1;
         this.CURR_MONTH = 2;
         this.NEXT_MONTH = 3;
-        this.dayLabels = {};
-        this.monthLabels = {};
-        this.dateFormat = "";
-        this.todayBtnTxt = "";
-        this.firstDayOfWeek = "";
-        this.sunHighlight = true;
-        this.height = "34px";
-        this.width = "100%";
-        this.selectionTxtFontSize = "18px";
-        this.disableUntil = { year: 0, month: 0, day: 0 };
-        this.disableSince = { year: 0, month: 0, day: 0 };
-        this.disableDays = [];
-        this.disableWeekends = false;
-        this.inline = false;
-        this.alignSelectorRight = false;
-        this.indicateInvalidDate = true;
-        this.showDateFormatPlaceholder = false;
-        this.editableMonthAndYear = true;
-        this.minYear = 1000;
-        this.maxYear = 9999;
-        this.componentDisabled = false;
+        this.opts = {
+            dayLabels: {},
+            monthLabels: {},
+            dateFormat: "",
+            todayBtnTxt: "",
+            firstDayOfWeek: "",
+            sunHighlight: true,
+            disableUntil: { year: 0, month: 0, day: 0 },
+            disableSince: { year: 0, month: 0, day: 0 },
+            disableDays: [],
+            disableWeekends: false,
+            height: "34px",
+            width: "100%",
+            selectionTxtFontSize: "18px",
+            inline: false,
+            alignSelectorRight: false,
+            indicateInvalidDate: false,
+            showDateFormatPlaceholder: false,
+            editableMonthAndYear: true,
+            minYear: 1000,
+            maxYear: 9999,
+            componentDisabled: false
+        };
         this.setLocaleOptions();
         this.today = new Date();
         renderer.listenGlobal("document", "click", function (event) {
             if (_this.showSelector && event.target && _this.elem.nativeElement !== event.target && !_this.elem.nativeElement.contains(event.target)) {
                 _this.showSelector = false;
             }
-            if (_this.editableMonthAndYear && event.target && _this.elem.nativeElement.contains(event.target)) {
+            if (_this.opts.editableMonthAndYear && event.target && _this.elem.nativeElement.contains(event.target)) {
                 _this.resetMonthYearEdit();
             }
         });
@@ -72,21 +74,21 @@ var MyDatePicker = (function () {
         var _this = this;
         var opts = this.localeService.getLocaleOptions(this.locale);
         Object.keys(opts).forEach(function (k) {
-            (_this)[k] = opts[k];
+            _this.opts[k] = opts[k];
         });
     };
     MyDatePicker.prototype.setOptions = function () {
         var _this = this;
         if (this.options !== undefined) {
             Object.keys(this.options).forEach(function (k) {
-                (_this)[k] = _this.options[k];
+                _this.opts[k] = _this.options[k];
             });
         }
-        if (this.minYear < 1000) {
-            this.minYear = 1000;
+        if (this.opts.minYear < 1000) {
+            this.opts.minYear = 1000;
         }
-        if (this.maxYear > 9999) {
-            this.minYear = 9999;
+        if (this.opts.maxYear > 9999) {
+            this.opts.minYear = 9999;
         }
     };
     MyDatePicker.prototype.resetMonthYearEdit = function () {
@@ -97,13 +99,13 @@ var MyDatePicker = (function () {
     };
     MyDatePicker.prototype.editMonthClicked = function (event) {
         event.stopPropagation();
-        if (this.editableMonthAndYear) {
+        if (this.opts.editableMonthAndYear) {
             this.editMonth = true;
         }
     };
     MyDatePicker.prototype.editYearClicked = function (event) {
         event.stopPropagation();
-        if (this.editableMonthAndYear) {
+        if (this.opts.editableMonthAndYear) {
             this.editYear = true;
         }
     };
@@ -113,7 +115,7 @@ var MyDatePicker = (function () {
             this.removeBtnClicked();
         }
         else {
-            var date = this.validatorService.isDateValid(event.target.value, this.dateFormat, this.minYear, this.maxYear, this.monthLabels);
+            var date = this.validatorService.isDateValid(event.target.value, this.opts.dateFormat, this.opts.minYear, this.opts.maxYear, this.opts.monthLabels);
             if (date.day !== 0 && date.month !== 0 && date.year !== 0) {
                 this.selectDate({ day: date.day, month: date.month, year: date.year });
             }
@@ -127,7 +129,7 @@ var MyDatePicker = (function () {
             return;
         }
         this.invalidMonth = false;
-        var m = this.validatorService.isMonthLabelValid(event.target.value, this.monthLabels);
+        var m = this.validatorService.isMonthLabelValid(event.target.value, this.opts.monthLabels);
         if (m !== -1) {
             this.editMonth = false;
             this.visibleMonth = { monthTxt: this.monthText(m), monthNbr: m, year: this.visibleMonth.year };
@@ -142,7 +144,7 @@ var MyDatePicker = (function () {
             return;
         }
         this.invalidYear = false;
-        var y = this.validatorService.isYearLabelValid(Number(event.target.value), this.minYear, this.maxYear);
+        var y = this.validatorService.isYearLabelValid(Number(event.target.value), this.opts.minYear, this.opts.maxYear);
         if (y !== -1) {
             this.editYear = false;
             this.visibleMonth = { monthTxt: this.visibleMonth.monthTxt, monthNbr: this.visibleMonth.monthNbr, year: y };
@@ -158,15 +160,15 @@ var MyDatePicker = (function () {
             this.setLocaleOptions();
         }
         var days = ["su", "mo", "tu", "we", "th", "fr", "sa"];
-        this.dayIdx = days.indexOf(this.firstDayOfWeek);
+        this.dayIdx = days.indexOf(this.opts.firstDayOfWeek);
         if (this.dayIdx !== -1) {
             var idx = this.dayIdx;
             for (var i = 0; i < days.length; i++) {
-                this.weekDays.push(this.dayLabels[days[idx]]);
+                this.weekDays.push(this.opts.dayLabels[days[idx]]);
                 idx = days[idx] === "sa" ? 0 : idx + 1;
             }
         }
-        if (this.inline) {
+        if (this.opts.inline) {
             this.openBtnClicked();
         }
     };
@@ -200,7 +202,7 @@ var MyDatePicker = (function () {
     };
     MyDatePicker.prototype.openBtnClicked = function () {
         this.showSelector = !this.showSelector;
-        if (this.showSelector || this.inline) {
+        if (this.showSelector || this.opts.inline) {
             var y = 0, m = 0;
             if (this.selectedDate.year === 0 && this.selectedDate.month === 0 && this.selectedDate.day === 0) {
                 if (this.selectedMonth.year === 0 && this.selectedMonth.monthNbr === 0) {
@@ -216,7 +218,7 @@ var MyDatePicker = (function () {
                 y = this.selectedDate.year;
                 m = this.selectedDate.month;
             }
-            this.visibleMonth = { monthTxt: this.monthLabels[m], monthNbr: m, year: y };
+            this.visibleMonth = { monthTxt: this.opts.monthLabels[m], monthNbr: m, year: y };
             this.generateCalendar(m, y);
         }
     };
@@ -237,14 +239,14 @@ var MyDatePicker = (function () {
         this.generateCalendar(m, y);
     };
     MyDatePicker.prototype.prevYear = function () {
-        if (this.visibleMonth.year - 1 < this.minYear) {
+        if (this.visibleMonth.year - 1 < this.opts.minYear) {
             return;
         }
         this.visibleMonth.year--;
         this.generateCalendar(this.visibleMonth.monthNbr, this.visibleMonth.year);
     };
     MyDatePicker.prototype.nextYear = function () {
-        if (this.visibleMonth.year + 1 > this.maxYear) {
+        if (this.visibleMonth.year + 1 > this.opts.maxYear) {
             return;
         }
         this.visibleMonth.year++;
@@ -254,8 +256,8 @@ var MyDatePicker = (function () {
         var m = this.today.getMonth() + 1;
         var y = this.today.getFullYear();
         this.selectDate({ day: this.today.getDate(), month: m, year: y });
-        if (this.inline) {
-            this.visibleMonth = { monthTxt: this.monthLabels[m], monthNbr: m, year: y };
+        if (this.opts.inline) {
+            this.visibleMonth = { monthTxt: this.opts.monthLabels[m], monthNbr: m, year: y };
             this.generateCalendar(m, y);
         }
     };
@@ -286,11 +288,11 @@ var MyDatePicker = (function () {
         return parseInt(val) < 10 ? "0" + val : val;
     };
     MyDatePicker.prototype.formatDate = function (val) {
-        var formatted = this.dateFormat.replace("yyyy", val.year).replace("dd", this.preZero(val.day));
-        return this.dateFormat.indexOf("mmm") !== -1 ? formatted.replace("mmm", this.monthText(val.month)) : formatted.replace("mm", this.preZero(val.month));
+        var formatted = this.opts.dateFormat.replace("yyyy", val.year).replace("dd", this.preZero(val.day));
+        return this.opts.dateFormat.indexOf("mmm") !== -1 ? formatted.replace("mmm", this.monthText(val.month)) : formatted.replace("mm", this.preZero(val.month));
     };
     MyDatePicker.prototype.monthText = function (m) {
-        return this.monthLabels[m];
+        return this.opts.monthLabels[m];
     };
     MyDatePicker.prototype.monthStartIdx = function (y, m) {
         var d = new Date();
@@ -313,19 +315,19 @@ var MyDatePicker = (function () {
     };
     MyDatePicker.prototype.isDisabledDay = function (date) {
         var givenDate = this.getTimeInMilliseconds(date);
-        if (this.disableUntil.year !== 0 && this.disableUntil.month !== 0 && this.disableUntil.day !== 0 && givenDate <= this.getTimeInMilliseconds(this.disableUntil)) {
+        if (this.opts.disableUntil.year !== 0 && this.opts.disableUntil.month !== 0 && this.opts.disableUntil.day !== 0 && givenDate <= this.getTimeInMilliseconds(this.opts.disableUntil)) {
             return true;
         }
-        if (this.disableSince.year !== 0 && this.disableSince.month !== 0 && this.disableSince.day !== 0 && givenDate >= this.getTimeInMilliseconds(this.disableSince)) {
+        if (this.opts.disableSince.year !== 0 && this.opts.disableSince.month !== 0 && this.opts.disableSince.day !== 0 && givenDate >= this.getTimeInMilliseconds(this.opts.disableSince)) {
             return true;
         }
-        if (this.disableWeekends) {
+        if (this.opts.disableWeekends) {
             var dayNbr = this.getDayNumber(date);
             if (dayNbr === 0 || dayNbr === 6) {
                 return true;
             }
         }
-        for (var _i = 0, _a = this.disableDays; _i < _a.length; _i++) {
+        for (var _i = 0, _a = this.opts.disableDays; _i < _a.length; _i++) {
             var obj = _a[_i];
             if (obj.year === date.year && obj.month === date.month && obj.day === date.day) {
                 return true;
@@ -386,11 +388,11 @@ var MyDatePicker = (function () {
     MyDatePicker.prototype.parseSelectedDate = function (ds) {
         var date = { day: 0, month: 0, year: 0 };
         if (ds !== "") {
-            date.day = this.validatorService.parseDatePartNumber(this.dateFormat, ds, "dd");
-            date.month = this.dateFormat.indexOf("mmm") !== -1
-                ? this.validatorService.parseDatePartMonthName(this.dateFormat, ds, "mmm", this.monthLabels)
-                : this.validatorService.parseDatePartNumber(this.dateFormat, ds, "mm");
-            date.year = this.validatorService.parseDatePartNumber(this.dateFormat, ds, "yyyy");
+            date.day = this.validatorService.parseDatePartNumber(this.opts.dateFormat, ds, "dd");
+            date.month = this.opts.dateFormat.indexOf("mmm") !== -1
+                ? this.validatorService.parseDatePartMonthName(this.opts.dateFormat, ds, "mmm", this.opts.monthLabels)
+                : this.validatorService.parseDatePartNumber(this.opts.dateFormat, ds, "mm");
+            date.year = this.validatorService.parseDatePartNumber(this.opts.dateFormat, ds, "yyyy");
         }
         return date;
     };
@@ -421,7 +423,7 @@ var MyDatePicker = (function () {
         core_1.Component({
             selector: "my-date-picker",
             styles: [".mydp{min-width:100px;border-radius:2px;line-height:1.1;display:inline-block;position:relative}.mydp *{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;padding:0;margin:0}.mydp .selector{margin-top:2px;margin-left:-1px;position:absolute;width:262px;padding:3px;border-radius:2px;background-color:#DDD;z-index:100}.mydp .alignselectorright{right:-1px}.mydp .selectiongroup{position:relative;display:table;border:none;background-color:#FFF}.mydp .selection{background-color:#FFF;display:table-cell;position:absolute;width:100%;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center}.mydp .invaliddate,.mydp .invalidmonth,.mydp .invalidyear{background-color:#F1DEDE}.mydp ::-ms-clear{display:none}.mydp .headerbtn,.mydp .selbtngroup{display:table-cell;vertical-align:middle}.mydp .selbtngroup{position:relative;white-space:nowrap;width:1%;text-align:right;font-size:0}.mydp .btnclear,.mydp .btnpicker{height:100%;width:30px;border:none;border-left:1px solid #AAA;padding:0;outline:0;font:inherit;-moz-user-select:none}.mydp .btnclearenabled,.mydp .btnpickerenabled{cursor:pointer}.mydp .btncleardisabled,.mydp .btnpickerdisabled{cursor:not-allowed}.mydp .btnclear,.mydp .btnpicker,.mydp .headertodaybtn{background:#FFF}.mydp .header{width:100%;height:36px;margin-bottom:1px;background-color:#FAFAFA}.mydp .header td{vertical-align:middle;border:none}.mydp .currday div,.mydp .selectedday div{border:1px solid #004198}.mydp .header td:nth-child(1){font-size:16px;padding-left:4px}.mydp .header td:nth-child(2){text-align:center}.mydp .header td:nth-child(3){font-size:16px;padding-right:4px}.mydp .caltable{table-layout:fixed;width:100%;background-color:#FFF;font-size:14px}.mydp .caltable,.mydp .caltable td,.mydp .caltable th{border-collapse:collapse;color:#036;line-height:1.1}.mydp .caltable td,.mydp .caltable th{padding:5px;text-align:center}.mydp .caltable th{background-color:#DDD;font-size:12px;vertical-align:middle}.mydp .caltable td{cursor:pointer;font-weight:700;height:28px}.mydp .caltable td div{background-color:inherit;height:18px;vertical-align:middle}.mydp .caltable td div span{vertical-align:middle}.mydp .inlinedp{position:relative}.mydp .nextmonth,.mydp .prevmonth{color:#CCC}.mydp .disabled{cursor:default!important;color:#CCC!important;background:#FFEBE6!important}.mydp .sunday{color:#C30000}.mydp .sundayDim{opacity:.5}.mydp .currmonth{background-color:#F6F6F6;font-weight:700}.mydp .selectedday div{background-color:#8EBFFF!important;border-radius:0}.mydp .selectmenu{height:24px;width:60px}.mydp .headerbtn{background-color:#FAFAFA;cursor:pointer}.mydp,.mydp .caltable tbody,.mydp .header,.mydp .headertodaybtn,.mydp .monthinput,.mydp .selector,.mydp .yearinput{border:1px solid #AAA}.mydp .btnclear,.mydp .btnpicker,.mydp .headerbtn,.mydp .headermonthtxt,.mydp .headertodaybtn,.mydp .headeryeartxt,.mydp .selection{color:#000}.mydp .headertodaybtn{padding:0 4px;border-radius:2px;cursor:pointer;font-size:11px;min-width:60px;height:22px}.mydp button::-moz-focus-inner{border:0}.mydp .headermonthtxt,.mydp .headeryeartxt{min-width:40px;text-align:center;display:table-cell;vertical-align:middle;font-size:14px}.mydp .headermonthtxt span,.mydp .headeryeartxt span{vertical-align:middle}.mydp .btnclear:focus,.mydp .btnpicker:focus{background:#ADD8E6}.mydp .icon-calendar,.mydp .icon-cross{font-size:16px}.mydp .icon-left,.mydp .icon-right{color:#222;font-size:16px;vertical-align:middle}.mydp table{display:table}.mydp table td{padding:0}.mydp table,.mydp td,.mydp th{border:none}.mydp .btnclearenabled:hover,.mydp .btnpickerenabled:hover,.mydp .headertodaybtn:hover,.mydp .tablesingleday:hover{background-color:#8BDAF4}.mydp .monthlabel,.mydp .yearlabel{cursor:pointer}.mydp .monthinput,.mydp .yearinput{width:40px;height:22px;text-align:center;font-weight:700;outline:0;border-radius:2px}.mydp .headerbtn span:hover{color:#8BDAF4}.mydp .monthlabel:hover,.mydp .yearlabel:hover{color:#8BDAF4;font-weight:700}@font-face{font-family:mydatepicker;src:url(data:application/x-font-ttf;charset=utf-8;base64,AAEAAAALAIAAAwAwT1MvMg8SAssAAAC8AAAAYGNtYXDMUczTAAABHAAAAGxnYXNwAAAAEAAAAYgAAAAIZ2x5ZmFQ1q4AAAGQAAABbGhlYWQGZuTFAAAC/AAAADZoaGVhB4IDyQAAAzQAAAAkaG10eBYAAnAAAANYAAAAIGxvY2EBdAE0AAADeAAAABJtYXhwABUAPgAAA4wAAAAgbmFtZQ5R9RkAAAOsAAABnnBvc3QAAwAAAAAFTAAAACAAAwOaAZAABQAAApkCzAAAAI8CmQLMAAAB6wAzAQkAAAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAAAAAAAABAAADmBwPA/8AAQAPAAEAAAAABAAAAAAAAAAAAAAAgAAAAAAADAAAAAwAAABwAAQADAAAAHAADAAEAAAAcAAQAUAAAABAAEAADAAAAAQAg5gDmAuYF5gf//f//AAAAAAAg5gDmAuYF5gf//f//AAH/4xoEGgMaARoAAAMAAQAAAAAAAAAAAAAAAAAAAAAAAQAB//8ADwABAAAAAAAAAAAAAgAANzkBAAAAAAEAAAAAAAAAAAACAAA3OQEAAAAAAQAAAAAAAAAAAAIAADc5AQAAAAAMAEAAAAPAA4AABAAJAA4AEwAYAB0AIgAnACwAMQA2ADsAABMRMxEjFyE1IRUDITUhFQERMxEjJRUzNSMTFTM1IzMVMzUjMxUzNSMBFTM1IzMVMzUjMxUzNSMTFTM1I0Bzc0ADAP0AQAOA/IADDXNz/ZOAgCCAgMCAgMCAgP6AgIDAgIDAgIAggIADAP1AAsBzc3P9c3NzAwD9QALAgMDA/sCAgICAgID/AICAgICAgAJAwMAAAAAAAgBwADADkANQAAQACQAANwEnARcDATcBB+kCp3n9WXl5Aqd5/Vl5MAKnef1ZeQKn/Vl5Aqd5AAABAOAAAAMgA4AAAwAAAQMBJQMgA/3DASADgPyAAcPfAAEA4AAAAyADgAADAAA3EwEF4AMCPf7gAAOA/j3fAAAAAQAAAAEAAF0/BsNfDzz1AAsEAAAAAADRxFAkAAAAANHEUCQAAAAAA8ADgAAAAAgAAgAAAAAAAAABAAADwP/AAAAEAAAAAAADwAABAAAAAAAAAAAAAAAAAAAACAQAAAAAAAAAAAAAAAIAAAAEAABABAAAcAQAAOAEAADgAAAAAAAKABQAHgB6AJYApgC2AAAAAQAAAAgAPAAMAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA4ArgABAAAAAAABAAkAAAABAAAAAAACAAcAcgABAAAAAAADAAkAPAABAAAAAAAEAAkAhwABAAAAAAAFAAsAGwABAAAAAAAGAAkAVwABAAAAAAAKABoAogADAAEECQABABIACQADAAEECQACAA4AeQADAAEECQADABIARQADAAEECQAEABIAkAADAAEECQAFABYAJgADAAEECQAGABIAYAADAAEECQAKADQAvHZzZHBpY2tlcgB2AHMAZABwAGkAYwBrAGUAclZlcnNpb24gMS4wAFYAZQByAHMAaQBvAG4AIAAxAC4AMHZzZHBpY2tlcgB2AHMAZABwAGkAYwBrAGUAcnZzZHBpY2tlcgB2AHMAZABwAGkAYwBrAGUAclJlZ3VsYXIAUgBlAGcAdQBsAGEAcnZzZHBpY2tlcgB2AHMAZABwAGkAYwBrAGUAckZvbnQgZ2VuZXJhdGVkIGJ5IEljb01vb24uAEYAbwBuAHQAIABnAGUAbgBlAHIAYQB0AGUAZAAgAGIAeQAgAEkAYwBvAE0AbwBvAG4ALgAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=) format('truetype');font-weight:400;font-style:normal}.mydp .icon{font-family:mydatepicker;font-style:normal;font-weight:400;font-variant:normal;text-transform:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.mydp .icon-calendar:before{content:\"\\e600\"}.mydp .icon-cross:before{content:\"\\e602\"}.mydp .icon-left:before{content:\"\\e605\"}.mydp .icon-right:before{content:\"\\e607\"}"],
-            template: "<div class=\"mydp\" [ngStyle]=\"{'width': width, 'border': inline ? 'none' : '1px solid #AAA'}\"><div class=\"selectiongroup\" *ngIf=\"!inline\"><input type=\"text\" class=\"selection\" [attr.maxlength]=\"dateFormat.length\" [ngClass]=\"{'invaliddate': invalidDate&&indicateInvalidDate}\" placeholder=\"{{showDateFormatPlaceholder?dateFormat:''}}\" [ngStyle]=\"{'height': height, 'line-height': height, 'font-size': selectionTxtFontSize, 'border': 'none', 'padding-right': selectionDayTxt.length>0 ? '60px' : '30px'}\" (keyup)=\"userDateInput($event)\" [value]=\"selectionDayTxt\" [readonly]=\"componentDisabled\"> <span class=\"selbtngroup\" [style.height]=\"height\"><button type=\"button\" class=\"btnclear\" *ngIf=\"selectionDayTxt.length>0\" (click)=\"removeBtnClicked()\" [ngClass]=\"{'btnclearenabled': !componentDisabled, 'btncleardisabled': componentDisabled}\" [disabled]=\"componentDisabled\"><span class=\"icon icon-cross\" [ngStyle]=\"{'line-height': height}\"></span></button> <button type=\"button\" class=\"btnpicker\" (click)=\"openBtnClicked()\" [ngClass]=\"{'btnpickerenabled': !componentDisabled, 'btnpickerdisabled': componentDisabled}\" [disabled]=\"componentDisabled\"><span class=\"icon icon-calendar\" [ngStyle]=\"{'line-height': height}\"></span></button></span></div><div class=\"selector\" *ngIf=\"showSelector||inline\" [ngClass]=\"{'inlinedp': inline, 'alignselectorright': alignSelectorRight}\"><table class=\"header\"><tr><td><div style=\"float:left\"><div class=\"headerbtn\" (click)=\"prevMonth()\"><span class=\"icon icon-left\"></span></div><div class=\"headermonthtxt\"><input type=\"text\" *ngIf=\"editMonth\" class=\"monthinput\" maxlength=\"4\" [inputFocus] [value]=\"visibleMonth.monthTxt\" (keyup)=\"userMonthInput($event)\" (click)=\"$event.stopPropagation()\" [ngClass]=\"{'invalidmonth': invalidMonth}\"> <span [ngClass]=\"{'monthlabel': editableMonthAndYear}\" *ngIf=\"!editMonth\" (click)=\"editMonthClicked($event)\">{{visibleMonth.monthTxt}}</span></div><div class=\"headerbtn\" (click)=\"nextMonth()\"><span class=\"icon icon-right\"></span></div></div></td><td><button type=\"button\" class=\"headertodaybtn\" (click)=\"todayClicked()\">{{todayBtnTxt}}</button></td><td><div style=\"float:right\"><div class=\"headerbtn\" (click)=\"prevYear()\"><span class=\"icon icon-left\"></span></div><div class=\"headeryeartxt\"><input type=\"text\" *ngIf=\"editYear\" class=\"yearinput\" maxlength=\"4\" [inputFocus] [value]=\"visibleMonth.year\" (keyup)=\"userYearInput($event)\" (click)=\"$event.stopPropagation()\" [ngClass]=\"{'invalidyear': invalidYear}\"> <span [ngClass]=\"{'yearlabel': editableMonthAndYear}\" *ngIf=\"!editYear\" (click)=\"editYearClicked($event)\">{{visibleMonth.year}}</span></div><div class=\"headerbtn\" (click)=\"nextYear()\"><span class=\"icon icon-right\"></span></div></div></td></tr></table><table class=\"caltable\"><thead><tr><th *ngFor=\"let d of weekDays\">{{d}}</th></tr></thead><tbody><tr *ngFor=\"let w of dates\"><td *ngFor=\"let d of w\" [ngClass]=\"{'currmonth':d.cmo===CURR_MONTH&&!d.disabled, 'currday':d.currDay, 'selectedday':selectedDate.day===d.dateObj.day && selectedDate.month===d.dateObj.month && selectedDate.year===d.dateObj.year && d.cmo===CURR_MONTH, 'disabled': d.disabled, 'tablesingleday': d.cmo===CURR_MONTH&&!d.disabled}\" (click)=\"!d.disabled && cellClicked(d);$event.stopPropagation()\"><div [ngClass]=\"{'prevmonth':d.cmo===PREV_MONTH,'currmonth':d.cmo===CURR_MONTH,'nextmonth':d.cmo===NEXT_MONTH,'sunday':d.dayNbr === 0 && sunHighlight}\"><span [ngClass]=\"{'sundayDim': sunHighlight && d.dayNbr === 0 && (d.cmo===PREV_MONTH || d.cmo===NEXT_MONTH || d.disabled)}\">{{d.dateObj.day}}</span></div></td></tr></tbody></table></div></div>",
+            template: "<div class=\"mydp\" [ngStyle]=\"{'width': opts.width, 'border': opts.inline ? 'none' : '1px solid #AAA'}\"><div class=\"selectiongroup\" *ngIf=\"!opts.inline\"><input type=\"text\" class=\"selection\" [attr.maxlength]=\"opts.dateFormat.length\" [ngClass]=\"{'invaliddate': invalidDate&&opts.indicateInvalidDate}\" placeholder=\"{{opts.showDateFormatPlaceholder?opts.dateFormat:''}}\" [ngStyle]=\"{'height': opts.height, 'line-height': opts.height, 'font-size': opts.selectionTxtFontSize, 'border': 'none', 'padding-right': selectionDayTxt.length>0 ? '60px' : '30px'}\" (keyup)=\"userDateInput($event)\" [value]=\"selectionDayTxt\" [readonly]=\"opts.componentDisabled\"> <span class=\"selbtngroup\" [style.height]=\"opts.height\"><button type=\"button\" class=\"btnclear\" *ngIf=\"selectionDayTxt.length>0\" (click)=\"removeBtnClicked()\" [ngClass]=\"{'btnclearenabled': !opts.componentDisabled, 'btncleardisabled': opts.componentDisabled}\" [disabled]=\"opts.componentDisabled\"><span class=\"icon icon-cross\" [ngStyle]=\"{'line-height': opts.height}\"></span></button> <button type=\"button\" class=\"btnpicker\" (click)=\"openBtnClicked()\" [ngClass]=\"{'btnpickerenabled': !opts.componentDisabled, 'btnpickerdisabled': opts.componentDisabled}\" [disabled]=\"opts.componentDisabled\"><span class=\"icon icon-calendar\" [ngStyle]=\"{'line-height': opts.height}\"></span></button></span></div><div class=\"selector\" *ngIf=\"showSelector||opts.inline\" [ngClass]=\"{'inlinedp': opts.inline, 'alignselectorright': opts.alignSelectorRight}\"><table class=\"header\"><tr><td><div style=\"float:left\"><div class=\"headerbtn\" (click)=\"prevMonth()\"><span class=\"icon icon-left\"></span></div><div class=\"headermonthtxt\"><input type=\"text\" *ngIf=\"editMonth\" class=\"monthinput\" maxlength=\"4\" [inputFocus] [value]=\"visibleMonth.monthTxt\" (keyup)=\"userMonthInput($event)\" (click)=\"$event.stopPropagation()\" [ngClass]=\"{'invalidmonth': invalidMonth}\"> <span [ngClass]=\"{'monthlabel': opts.editableMonthAndYear}\" *ngIf=\"!editMonth\" (click)=\"editMonthClicked($event)\">{{visibleMonth.monthTxt}}</span></div><div class=\"headerbtn\" (click)=\"nextMonth()\"><span class=\"icon icon-right\"></span></div></div></td><td><button type=\"button\" class=\"headertodaybtn\" (click)=\"todayClicked()\">{{opts.todayBtnTxt}}</button></td><td><div style=\"float:right\"><div class=\"headerbtn\" (click)=\"prevYear()\"><span class=\"icon icon-left\"></span></div><div class=\"headeryeartxt\"><input type=\"text\" *ngIf=\"editYear\" class=\"yearinput\" maxlength=\"4\" [inputFocus] [value]=\"visibleMonth.year\" (keyup)=\"userYearInput($event)\" (click)=\"$event.stopPropagation()\" [ngClass]=\"{'invalidyear': invalidYear}\"> <span [ngClass]=\"{'yearlabel': opts.editableMonthAndYear}\" *ngIf=\"!editYear\" (click)=\"editYearClicked($event)\">{{visibleMonth.year}}</span></div><div class=\"headerbtn\" (click)=\"nextYear()\"><span class=\"icon icon-right\"></span></div></div></td></tr></table><table class=\"caltable\"><thead><tr><th *ngFor=\"let d of weekDays\">{{d}}</th></tr></thead><tbody><tr *ngFor=\"let w of dates\"><td *ngFor=\"let d of w\" [ngClass]=\"{'currmonth':d.cmo===CURR_MONTH&&!d.disabled, 'currday':d.currDay, 'selectedday':selectedDate.day===d.dateObj.day && selectedDate.month===d.dateObj.month && selectedDate.year===d.dateObj.year && d.cmo===CURR_MONTH, 'disabled': d.disabled, 'tablesingleday': d.cmo===CURR_MONTH&&!d.disabled}\" (click)=\"!d.disabled && cellClicked(d);$event.stopPropagation()\"><div [ngClass]=\"{'prevmonth':d.cmo===PREV_MONTH,'currmonth':d.cmo===CURR_MONTH,'nextmonth':d.cmo===NEXT_MONTH,'sunday':d.dayNbr === 0 && opts.sunHighlight}\"><span [ngClass]=\"{'sundayDim': opts.sunHighlight && d.dayNbr === 0 && (d.cmo===PREV_MONTH || d.cmo===NEXT_MONTH || d.disabled)}\">{{d.dateObj.day}}</span></div></td></tr></tbody></table></div></div>",
             providers: [my_date_picker_locale_service_1.LocaleService, my_date_picker_validator_service_1.ValidatorService],
             encapsulation: core_1.ViewEncapsulation.None
         }), 

@@ -45,27 +45,29 @@ export class MyDatePicker implements OnChanges {
     NEXT_MONTH: number = 3;
 
     // Default options
-    dayLabels: IMyDayLabels = {};
-    monthLabels: IMyMonthLabels = {};
-    dateFormat: string = "";
-    todayBtnTxt: string = "";
-    firstDayOfWeek: string = "";
-    sunHighlight: boolean = true;
-    height: string = "34px";
-    width: string = "100%";
-    selectionTxtFontSize: string = "18px";
-    disableUntil: IMyDate = {year: 0, month: 0, day: 0};
-    disableSince: IMyDate = {year: 0, month: 0, day: 0};
-    disableDays: Array<IMyDate> = [];
-    disableWeekends: boolean = false;
-    inline: boolean = false;
-    alignSelectorRight: boolean = false;
-    indicateInvalidDate: boolean = true;
-    showDateFormatPlaceholder: boolean = false;
-    editableMonthAndYear: boolean = true;
-    minYear: number = 1000;
-    maxYear: number = 9999;
-    componentDisabled: boolean = false;
+    opts: IMyOptions = {
+        dayLabels: <IMyDayLabels> {},
+        monthLabels: <IMyMonthLabels> {},
+        dateFormat: <string> "",
+        todayBtnTxt: <string> "",
+        firstDayOfWeek: <string> "",
+        sunHighlight: <boolean>true,
+        disableUntil: <IMyDate> {year: 0, month: 0, day: 0},
+        disableSince: <IMyDate> {year: 0, month: 0, day: 0},
+        disableDays: <Array<IMyDate>> [],
+        disableWeekends: <boolean> false,
+        height: <string> "34px",
+        width: <string> "100%",
+        selectionTxtFontSize: <string> "18px",
+        inline: <boolean> false,
+        alignSelectorRight: <boolean> false,
+        indicateInvalidDate: <boolean> false,
+        showDateFormatPlaceholder: <boolean> false,
+        editableMonthAndYear: <boolean> true,
+        minYear: <number> 1000,
+        maxYear: <number> 9999,
+        componentDisabled: <boolean> false
+    };
 
     constructor(public elem: ElementRef, private renderer: Renderer, private localeService: LocaleService, private validatorService: ValidatorService) {
         this.setLocaleOptions();
@@ -75,7 +77,7 @@ export class MyDatePicker implements OnChanges {
             if (this.showSelector && event.target && this.elem.nativeElement !== event.target && !this.elem.nativeElement.contains(event.target)) {
                 this.showSelector = false;
             }
-            if (this.editableMonthAndYear && event.target && this.elem.nativeElement.contains(event.target)) {
+            if (this.opts.editableMonthAndYear && event.target && this.elem.nativeElement.contains(event.target)) {
                 this.resetMonthYearEdit();
             }
         });
@@ -84,21 +86,21 @@ export class MyDatePicker implements OnChanges {
     setLocaleOptions(): void {
         let opts: IMyOptions = this.localeService.getLocaleOptions(this.locale);
         Object.keys(opts).forEach((k) => {
-            (this)[k] = opts[k];
+            (<IMyOptions>this.opts)[k] = opts[k];
         });
     }
 
     setOptions(): void {
         if (this.options !== undefined) {
             Object.keys(this.options).forEach((k) => {
-                (this)[k] = this.options[k];
+                (<IMyOptions>this.opts)[k] = this.options[k];
             });
         }
-        if (this.minYear < 1000) {
-            this.minYear = 1000;
+        if (this.opts.minYear < 1000) {
+            this.opts.minYear = 1000;
         }
-        if (this.maxYear > 9999) {
-            this.minYear = 9999;
+        if (this.opts.maxYear > 9999) {
+            this.opts.minYear = 9999;
         }
     }
 
@@ -111,14 +113,14 @@ export class MyDatePicker implements OnChanges {
 
     editMonthClicked(event: any): void {
         event.stopPropagation();
-        if (this.editableMonthAndYear) {
+        if (this.opts.editableMonthAndYear) {
             this.editMonth = true;
         }
     }
 
     editYearClicked(event: any): void {
         event.stopPropagation();
-        if (this.editableMonthAndYear) {
+        if (this.opts.editableMonthAndYear) {
             this.editYear = true;
         }
     }
@@ -129,7 +131,7 @@ export class MyDatePicker implements OnChanges {
             this.removeBtnClicked();
         }
         else {
-            let date: IMyDate = this.validatorService.isDateValid(event.target.value, this.dateFormat, this.minYear, this.maxYear, this.monthLabels);
+            let date: IMyDate = this.validatorService.isDateValid(event.target.value, this.opts.dateFormat, this.opts.minYear, this.opts.maxYear, this.opts.monthLabels);
             if (date.day !== 0 && date.month !== 0 && date.year !== 0) {
                 this.selectDate({day: date.day, month: date.month, year: date.year});
             }
@@ -146,7 +148,7 @@ export class MyDatePicker implements OnChanges {
 
         this.invalidMonth = false;
 
-        let m: number = this.validatorService.isMonthLabelValid(event.target.value, this.monthLabels);
+        let m: number = this.validatorService.isMonthLabelValid(event.target.value, this.opts.monthLabels);
         if (m !== -1) {
             this.editMonth = false;
             this.visibleMonth = {monthTxt: this.monthText(m), monthNbr: m, year: this.visibleMonth.year};
@@ -164,7 +166,7 @@ export class MyDatePicker implements OnChanges {
 
         this.invalidYear = false;
 
-        let y: number = this.validatorService.isYearLabelValid(Number(event.target.value), this.minYear, this.maxYear);
+        let y: number = this.validatorService.isYearLabelValid(Number(event.target.value), this.opts.minYear, this.opts.maxYear);
         if (y !== -1) {
             this.editYear = false;
             this.visibleMonth = {monthTxt: this.visibleMonth.monthTxt, monthNbr: this.visibleMonth.monthNbr, year: y};
@@ -182,15 +184,15 @@ export class MyDatePicker implements OnChanges {
         }
 
         let days: Array<string> = ["su", "mo", "tu", "we", "th", "fr", "sa"];
-        this.dayIdx = days.indexOf(this.firstDayOfWeek);
+        this.dayIdx = days.indexOf(this.opts.firstDayOfWeek);
         if (this.dayIdx !== -1) {
             let idx: number = this.dayIdx;
             for (let i = 0; i < days.length; i++) {
-                this.weekDays.push(this.dayLabels[days[idx]]);
+                this.weekDays.push(this.opts.dayLabels[days[idx]]);
                 idx = days[idx] === "sa" ? 0 : idx + 1;
             }
         }
-        if (this.inline) {
+        if (this.opts.inline) {
             this.openBtnClicked();
         }
     }
@@ -232,7 +234,7 @@ export class MyDatePicker implements OnChanges {
     openBtnClicked(): void {
         this.showSelector = !this.showSelector;
 
-        if (this.showSelector || this.inline) {
+        if (this.showSelector || this.opts.inline) {
             let y: number = 0, m: number = 0;
             if (this.selectedDate.year === 0 && this.selectedDate.month === 0 && this.selectedDate.day === 0) {
                 if (this.selectedMonth.year === 0 && this.selectedMonth.monthNbr === 0) {
@@ -248,7 +250,7 @@ export class MyDatePicker implements OnChanges {
                 m = this.selectedDate.month;
             }
             // Set current month
-            this.visibleMonth = {monthTxt: this.monthLabels[m], monthNbr: m, year: y};
+            this.visibleMonth = {monthTxt: this.opts.monthLabels[m], monthNbr: m, year: y};
 
             // Create current month
             this.generateCalendar(m, y);
@@ -278,7 +280,7 @@ export class MyDatePicker implements OnChanges {
     }
 
     prevYear(): void {
-        if (this.visibleMonth.year - 1 < this.minYear) {
+        if (this.visibleMonth.year - 1 < this.opts.minYear) {
             return;
         }
         this.visibleMonth.year--;
@@ -286,7 +288,7 @@ export class MyDatePicker implements OnChanges {
     }
 
     nextYear(): void {
-        if (this.visibleMonth.year + 1 > this.maxYear) {
+        if (this.visibleMonth.year + 1 > this.opts.maxYear) {
             return;
         }
         this.visibleMonth.year++;
@@ -298,8 +300,8 @@ export class MyDatePicker implements OnChanges {
         let m: number = this.today.getMonth() + 1;
         let y: number = this.today.getFullYear();
         this.selectDate({day: this.today.getDate(), month: m, year: y});
-        if (this.inline) {
-            this.visibleMonth = {monthTxt: this.monthLabels[m], monthNbr: m, year: y};
+        if (this.opts.inline) {
+            this.visibleMonth = {monthTxt: this.opts.monthLabels[m], monthNbr: m, year: y};
             this.generateCalendar(m, y);
         }
     }
@@ -340,13 +342,13 @@ export class MyDatePicker implements OnChanges {
 
     formatDate(val: any): string {
         // Returns formatted date string, if mmm is part of dateFormat returns month as a string
-        let formatted: string = this.dateFormat.replace("yyyy", val.year).replace("dd", this.preZero(val.day));
-        return this.dateFormat.indexOf("mmm") !== -1 ? formatted.replace("mmm", this.monthText(val.month)) : formatted.replace("mm", this.preZero(val.month));
+        let formatted: string = this.opts.dateFormat.replace("yyyy", val.year).replace("dd", this.preZero(val.day));
+        return this.opts.dateFormat.indexOf("mmm") !== -1 ? formatted.replace("mmm", this.monthText(val.month)) : formatted.replace("mm", this.preZero(val.month));
     }
 
     monthText(m: number): string {
         // Returns month as a text
-        return this.monthLabels[m];
+        return this.opts.monthLabels[m];
     }
 
     monthStartIdx(y: number, m: number): number {
@@ -379,19 +381,19 @@ export class MyDatePicker implements OnChanges {
     isDisabledDay(date: IMyDate): boolean {
         // Check is a given date <= disabledUntil or given date >= disabledSince or disabled weekend
         let givenDate: number = this.getTimeInMilliseconds(date);
-        if (this.disableUntil.year !== 0 && this.disableUntil.month !== 0 && this.disableUntil.day !== 0 && givenDate <= this.getTimeInMilliseconds(this.disableUntil)) {
+        if (this.opts.disableUntil.year !== 0 && this.opts.disableUntil.month !== 0 && this.opts.disableUntil.day !== 0 && givenDate <= this.getTimeInMilliseconds(this.opts.disableUntil)) {
             return true;
         }
-        if (this.disableSince.year !== 0 && this.disableSince.month !== 0 && this.disableSince.day !== 0 && givenDate >= this.getTimeInMilliseconds(this.disableSince)) {
+        if (this.opts.disableSince.year !== 0 && this.opts.disableSince.month !== 0 && this.opts.disableSince.day !== 0 && givenDate >= this.getTimeInMilliseconds(this.opts.disableSince)) {
             return true;
         }
-        if (this.disableWeekends) {
+        if (this.opts.disableWeekends) {
             let dayNbr = this.getDayNumber(date);
             if (dayNbr === 0 || dayNbr === 6) {
                 return true;
             }
         }
-        for (let obj of this.disableDays) {
+        for (let obj of this.opts.disableDays) {
             if (obj.year === date.year && obj.month === date.month && obj.day === date.day) {
                 return true;
             }
@@ -466,13 +468,13 @@ export class MyDatePicker implements OnChanges {
     parseSelectedDate(ds: string): IMyDate {
         let date: IMyDate = {day: 0, month: 0, year: 0};
         if (ds !== "") {
-            date.day = this.validatorService.parseDatePartNumber(this.dateFormat, ds, "dd");
+            date.day = this.validatorService.parseDatePartNumber(this.opts.dateFormat, ds, "dd");
 
-            date.month = this.dateFormat.indexOf("mmm") !== -1
-                ? this.validatorService.parseDatePartMonthName(this.dateFormat, ds, "mmm", this.monthLabels)
-                : this.validatorService.parseDatePartNumber(this.dateFormat, ds, "mm");
+            date.month = this.opts.dateFormat.indexOf("mmm") !== -1
+                ? this.validatorService.parseDatePartMonthName(this.opts.dateFormat, ds, "mmm", this.opts.monthLabels)
+                : this.validatorService.parseDatePartNumber(this.opts.dateFormat, ds, "mm");
 
-            date.year = this.validatorService.parseDatePartNumber(this.dateFormat, ds, "yyyy");
+            date.year = this.validatorService.parseDatePartNumber(this.opts.dateFormat, ds, "yyyy");
         }
         return date;
     }
