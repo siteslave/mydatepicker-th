@@ -1,6 +1,6 @@
-import { IMyDate } from '../interfaces/my-date.interface';
-import { IMyMonth } from '../interfaces/my-month.interface';
-import { IMyMonthLabels } from '../interfaces/my-month-labels.interface';
+import { IMyDate } from "../interfaces/my-date.interface";
+import { IMyMonth } from "../interfaces/my-month.interface";
+import { IMyMonthLabels } from "../interfaces/my-month-labels.interface";
 export declare class ValidatorService {
     isDateValid(date: string, dateFormat: string, minYear: number, maxYear: number, monthLabels: IMyMonthLabels): IMyDate;
     isMonthLabelValid(monthLabel: string, monthLabels: IMyMonthLabels): number;

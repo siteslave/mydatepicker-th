@@ -263,6 +263,96 @@ describe('MyDatePicker', () => {
         expect(yearLabel.nativeElement.textContent).toBe('2017');
     });
 
+    it('test calendar year 2016 month one by one - next month button', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 1, year: 2016};
+
+        comp.options = {firstDayOfWeek: 'mo'};
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        let monthlabel = getElement('.monthlabel');
+        expect(monthlabel).not.toBe(null);
+        expect(monthlabel.nativeElement.textContent.trim()).toBe('Jan');
+
+        fixture.detectChanges();
+        let yearlabel = getElement('.yearlabel');
+        expect(yearlabel).not.toBe(null);
+        expect(yearlabel.nativeElement.textContent.trim()).toBe('2016');
+
+        comp.generateCalendar(1, 2016);
+
+        let beginDate: Array<string> = ['28', '1', '29', '28', '25', '30', '27', '1', '29', '26', '31', '28'];
+        let endDate: Array<string> = ['7', '13', '10', '8', '5', '10', '7', '11', '9', '6', '11', '8'];
+
+        let i: number = 0;
+        do {
+            fixture.detectChanges();
+            let currmonth = getElements('.caltable tbody tr td');
+            expect(currmonth).not.toBe(null);
+            expect(currmonth.length).toBe(42);
+
+            expect(currmonth[0]).not.toBe(null);
+            expect(currmonth[0].nativeElement.textContent.trim()).toBe(beginDate[i]);
+
+            expect(currmonth[41]).not.toBe(null);
+            expect(currmonth[41].nativeElement.textContent.trim()).toBe(endDate[i]);
+
+            comp.nextMonth();
+
+            i++;
+        } while (i < 12)
+    });
+
+    it('test calendar year 2016 month one by one - previous month button', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 12, year: 2016};
+
+        comp.options = {firstDayOfWeek: 'mo'};
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        let monthlabel = getElement('.monthlabel');
+        expect(monthlabel).not.toBe(null);
+        expect(monthlabel.nativeElement.textContent.trim()).toBe('Dec');
+
+        fixture.detectChanges();
+        let yearlabel = getElement('.yearlabel');
+        expect(yearlabel).not.toBe(null);
+        expect(yearlabel.nativeElement.textContent.trim()).toBe('2016');
+
+        comp.generateCalendar(12, 2016);
+
+        let beginDate: Array<string> = ['28', '1', '29', '28', '25', '30', '27', '1', '29', '26', '31', '28'];
+        let endDate: Array<string> = ['7', '13', '10', '8', '5', '10', '7', '11', '9', '6', '11', '8'];
+
+        let i: number = 11;
+        do {
+            fixture.detectChanges();
+            let currmonth = getElements('.caltable tbody tr td');
+            expect(currmonth).not.toBe(null);
+            expect(currmonth.length).toBe(42);
+
+            expect(currmonth[0]).not.toBe(null);
+            expect(currmonth[0].nativeElement.textContent.trim()).toBe(beginDate[i]);
+
+            expect(currmonth[41]).not.toBe(null);
+            expect(currmonth[41].nativeElement.textContent.trim()).toBe(endDate[i]);
+
+            comp.prevMonth();
+
+            i--;
+        } while (i >= 0)
+    });
+
     // options
     it('options - dayLabels', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 5, year: 2016};
@@ -440,8 +530,6 @@ describe('MyDatePicker', () => {
         let monthinput = getElement('.monthinput');
         expect(monthinput).not.toBe(null);
 
-        monthinput.nativeElement.value = 'jan';
-
         comp.userMonthInput({target:{value:'jan'}});
 
         fixture.detectChanges();
@@ -458,8 +546,6 @@ describe('MyDatePicker', () => {
         fixture.detectChanges();
         let yearinput = getElement('.yearinput');
         expect(yearinput).not.toBe(null);
-
-        yearinput.nativeElement.value = '2019';
 
         comp.userYearInput({target:{value:'2019'}});
 

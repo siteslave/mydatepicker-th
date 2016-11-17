@@ -1,4 +1,4 @@
-import {IMyOptions} from "./my-options.interface";
+import { IMyOptions } from "./my-options.interface";
 
 export interface IMyLocales {
     [lang: string]: IMyOptions;

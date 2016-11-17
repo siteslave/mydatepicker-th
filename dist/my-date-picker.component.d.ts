@@ -1,7 +1,7 @@
-import { EventEmitter, OnChanges, SimpleChanges, ElementRef, Renderer } from '@angular/core';
-import { IMyDate, IMyMonth, IMyDayLabels, IMyMonthLabels } from './interfaces/index';
-import { LocaleService } from './services/my-date-picker.locale.service';
-import { ValidatorService } from './services/my-date-picker.validator.service';
+import { EventEmitter, OnChanges, SimpleChanges, ElementRef, Renderer } from "@angular/core";
+import { IMyDate, IMyMonth, IMyDayLabels, IMyMonthLabels } from "./interfaces/index";
+import { LocaleService } from "./services/my-date-picker.locale.service";
+import { ValidatorService } from "./services/my-date-picker.validator.service";
 export declare class MyDatePicker implements OnChanges {
     elem: ElementRef;
     private renderer;
@@ -80,6 +80,7 @@ export declare class MyDatePicker implements OnChanges {
     isDisabledDay(date: IMyDate): boolean;
     getTimeInMilliseconds(date: IMyDate): number;
     getDayNumber(date: IMyDate): number;
+    getDate(year: number, month: number, day: number): Date;
     sundayIdx(): number;
     generateCalendar(m: number, y: number): void;
     parseSelectedDate(ds: string): IMyDate;

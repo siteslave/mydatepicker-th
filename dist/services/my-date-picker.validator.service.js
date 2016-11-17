@@ -8,25 +8,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 var ValidatorService = (function () {
     function ValidatorService() {
     }
     ValidatorService.prototype.isDateValid = function (date, dateFormat, minYear, maxYear, monthLabels) {
         var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        var isMonthStr = dateFormat.indexOf('mmm') !== -1;
+        var isMonthStr = dateFormat.indexOf("mmm") !== -1;
         var returnDate = { day: 0, month: 0, year: 0 };
         if (date.length !== 10 && !isMonthStr || date.length !== 11 && isMonthStr) {
             return returnDate;
         }
-        var separator = dateFormat.replace(/[dmy]/g, '')[0];
+        var separator = dateFormat.replace(/[dmy]/g, "")[0];
         var parts = date.split(separator);
         if (parts.length !== 3) {
             return returnDate;
         }
-        var day = this.parseDatePartNumber(dateFormat, date, 'dd');
-        var month = isMonthStr ? this.parseDatePartMonthName(dateFormat, date, 'mmm', monthLabels) : this.parseDatePartNumber(dateFormat, date, 'mm');
-        var year = this.parseDatePartNumber(dateFormat, date, 'yyyy');
+        var day = this.parseDatePartNumber(dateFormat, date, "dd");
+        var month = isMonthStr ? this.parseDatePartMonthName(dateFormat, date, "mmm", monthLabels) : this.parseDatePartNumber(dateFormat, date, "mm");
+        var year = this.parseDatePartNumber(dateFormat, date, "yyyy");
         if (day !== -1 && month !== -1 && year !== -1) {
             if (year < minYear || year > maxYear || month < 1 || month > 12) {
                 return returnDate;
@@ -74,8 +74,8 @@ var ValidatorService = (function () {
         return -1;
     };
     ValidatorService.prototype.parseDefaultMonth = function (monthString) {
-        var month = { monthTxt: '', monthNbr: 0, year: 0 };
-        if (monthString !== '') {
+        var month = { monthTxt: "", monthNbr: 0, year: 0 };
+        if (monthString !== "") {
             var split = monthString.split(monthString.match(/[^0-9]/)[0]);
             month.monthNbr = split[0].length === 2 ? parseInt(split[0]) : parseInt(split[1]);
             month.year = split[0].length === 2 ? parseInt(split[1]) : parseInt(split[0]);

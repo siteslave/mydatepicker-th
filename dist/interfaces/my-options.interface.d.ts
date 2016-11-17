@@ -10,8 +10,17 @@ export interface IMyOptions {
     sunHighlight?: boolean;
     disabledUntil?: IMyDate;
     disabledSince?: IMyDate;
+    disableDays?: Array<string>;
     disableWeekends?: boolean;
     height?: string;
     width?: string;
+    selectionTxtFontSize?: string;
     inline?: boolean;
+    alignSelectorRight?: boolean;
+    indicateInvalidDate?: boolean;
+    showDateFormatPlaceholder?: boolean;
+    editableMonthAndYear?: boolean;
+    minYear?: number;
+    maxYear?: number;
+    componentDisabled?: boolean;
 }

@@ -8,19 +8,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 var InputFocusDirective = (function () {
     function InputFocusDirective(el, renderer) {
         this.el = el;
         this.renderer = renderer;
     }
     InputFocusDirective.prototype.ngOnInit = function () {
-        this.renderer.invokeElementMethod(this.el.nativeElement, 'focus', []);
+        this.renderer.invokeElementMethod(this.el.nativeElement, "focus", []);
     };
     InputFocusDirective = __decorate([
         core_1.Directive({
-            selector: '[inputFocus]',
-            inputs: ['inputFocus']
+            selector: "[inputFocus]",
+            inputs: ["inputFocus"]
         }), 
         __metadata('design:paramtypes', [core_1.ElementRef, core_1.Renderer])
     ], InputFocusDirective);
