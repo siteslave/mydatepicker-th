@@ -3,3 +3,4 @@ node_modules/
 typings/
 build/
 test-output/
+npmdist/

@@ -10,7 +10,8 @@ module.exports = {
         loaders: [
             {
                 test: /\.ts$/,
-                loader: 'ts'
+                loader: 'ts',
+                exclude: [/npmdist/]
             },
             {
                 test: /\.html$/,
@@ -28,6 +29,7 @@ module.exports = {
                 exclude: [
                     'sampleapp',
                     'node_modules',
+                    'npmdist',
                     /\.spec\.ts$/
                 ]
             }

@@ -13,7 +13,9 @@
     "suppressImplicitAnyIndexErrors": true
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "npmdist",
+    "dist"
   ],
   "compileOnSave": false,
   "buildOnSave": false,

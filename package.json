@@ -1,6 +1,6 @@
 {
   "name": "mydatepicker",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Angular2 date picker",
   "keywords": [
     "Angular2",
@@ -17,16 +17,9 @@
     "LICENSE",
     "package.json",
     "README.md",
-    "src/my-date-picker/directives",
-    "src/my-date-picker/interfaces",
-    "src/my-date-picker/services",
-    "src/my-date-picker/index.ts",
-    "src/my-date-picker/my-date-picker.component.css",
-    "src/my-date-picker/my-date-picker.component.html",
-    "src/my-date-picker/my-date-picker.component.ts",
-    "src/my-date-picker/my-date-picker.module.ts",
     "index.ts",
     "index.js",
+    "src",
     "dist"
   ],
   "scripts": {

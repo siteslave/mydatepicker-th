@@ -24,6 +24,7 @@ var tsDistProject = ts.createProject('tsconfig.dist.json');
 *  - Minifies the html template file.
 *  - Add html template and styles as inline templates to the my-date-picker.component.
 *  - Creates dist folder - contain javascript files of the component.
+*  - Creates npmdist folder - contain files needed to publish to npm.
 *
 */
 
@@ -40,6 +41,25 @@ gulp.task('backup.component.tmp', function() {
     return gulp.src('./src/my-date-picker/my-date-picker.component.ts').pipe(gulp.dest('./tmp'));
 });
 
+gulp.task('copy.src.to.npmdist.dir', function() {
+    return gulp.src(['./src/**/*.ts', '!./src/**/*spec.ts']).pipe(gulp.dest('./npmdist/src'));
+});
+
+gulp.task('copy.dist.to.npmdist.dir', function() {
+    return gulp.src('./dist/**/*.*').pipe(gulp.dest('./npmdist/dist'));
+});
+
+gulp.task('copy.root.files.to.npmdist.dir', function() {
+    return gulp.src(
+        [
+            './index.ts',
+            './index.js',
+            './LICENSE',
+            './package.json',
+            './README.md'
+        ]).pipe(gulp.dest('./npmdist'));
+});
+
 gulp.task('minify.css', function() {
     return gulp.src('./src/my-date-picker/my-date-picker.component.css')
         .pipe(cleancss({compatibility: 'ie8'}))
@@ -52,7 +72,7 @@ gulp.task('minify.html', function() {
         .pipe(gulp.dest('./tmp'));
 });
 
-gulp.task('prepare.system.compile', function() {
+gulp.task('inline.template.and.styles.to.component', function() {
     var styles = fs.readFileSync('./tmp/my-date-picker.component.css', 'utf-8');
     var htmlTpl = fs.readFileSync('./tmp/my-date-picker.component.html', 'utf-8');
 
@@ -81,7 +101,7 @@ gulp.task('delete.tmp', function () {
 });
 
 gulp.task('clean', function () {
-    return gulp.src(['./build', './tmp', './test-output'], {read: false}).pipe(clean());
+    return gulp.src(['./build', './tmp', './test-output', './npmdist'], {read: false}).pipe(clean());
 });
 
 gulp.task('tslint', function () {
@@ -106,8 +126,11 @@ gulp.task('all', function(cb) {
         'backup.component.tmp',
         'minify.css',
         'minify.html',
-        'prepare.system.compile',
+        'inline.template.and.styles.to.component',
         'tsc.compile.dist',
+        'copy.src.to.npmdist.dir',
+        'copy.dist.to.npmdist.dir',
+        'copy.root.files.to.npmdist.dir',
         'delete.modified.component',
         'restore.original.component',
         'delete.tmp',
