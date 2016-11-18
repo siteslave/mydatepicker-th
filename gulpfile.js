@@ -137,3 +137,17 @@ gulp.task('all', function(cb) {
         'tslint',
         cb);
 });
+
+gulp.task('build', function(cb) {
+    sequence(
+        'backup.component.tmp',
+        'minify.css',
+        'minify.html',
+        'inline.template.and.styles.to.component',
+        'tsc.compile.dist',
+        'delete.modified.component',
+        'restore.original.component',
+        'delete.tmp',
+        'tslint',
+        cb);
+});

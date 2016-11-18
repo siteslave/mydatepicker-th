@@ -161,7 +161,7 @@ Install all dependencies:
  1. __npm install__
  2. __npm install --global gulp-cli__
 
-Build dist folder (javascript version of the component):
+Build dist and npmdist folders and execute tslint:
  1. __gulp all__
 
 Execute unit tests and coverage (output is generated to the __test-output__ folder):
