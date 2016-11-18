@@ -32,12 +32,17 @@
       true,
       "spaces"
     ],
+    "curly": true,
+    "no-conditional-assignment": true,
     "no-duplicate-variable": true,
+    "no-empty": true,
     "no-eval": true,
     "no-internal-module": true,
     "no-trailing-whitespace": true,
     "no-unsafe-finally": true,
+    "no-use-before-declare": true,
     "no-var-keyword": true,
+    "radix": false,
     "one-line": [
       true,
       "check-open-brace",
