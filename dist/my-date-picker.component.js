@@ -115,7 +115,7 @@ var MyDatePicker = (function () {
             this.removeBtnClicked();
         }
         else {
-            var date = this.validatorService.isDateValid(event.target.value, this.opts.dateFormat, this.opts.minYear, this.opts.maxYear, this.opts.monthLabels);
+            var date = this.validatorService.isDateValid(event.target.value, this.opts.dateFormat, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.monthLabels);
             if (date.day !== 0 && date.month !== 0 && date.year !== 0) {
                 this.selectDate({ day: date.day, month: date.month, year: date.year });
             }
@@ -313,28 +313,6 @@ var MyDatePicker = (function () {
     MyDatePicker.prototype.isCurrDay = function (d, m, y, cmo) {
         return d === this.today.getDate() && m === this.today.getMonth() + 1 && y === this.today.getFullYear() && cmo === 2;
     };
-    MyDatePicker.prototype.isDisabledDay = function (date) {
-        var givenDate = this.getTimeInMilliseconds(date);
-        if (this.opts.disableUntil.year !== 0 && this.opts.disableUntil.month !== 0 && this.opts.disableUntil.day !== 0 && givenDate <= this.getTimeInMilliseconds(this.opts.disableUntil)) {
-            return true;
-        }
-        if (this.opts.disableSince.year !== 0 && this.opts.disableSince.month !== 0 && this.opts.disableSince.day !== 0 && givenDate >= this.getTimeInMilliseconds(this.opts.disableSince)) {
-            return true;
-        }
-        if (this.opts.disableWeekends) {
-            var dayNbr = this.getDayNumber(date);
-            if (dayNbr === 0 || dayNbr === 6) {
-                return true;
-            }
-        }
-        for (var _i = 0, _a = this.opts.disableDays; _i < _a.length; _i++) {
-            var obj = _a[_i];
-            if (obj.year === date.year && obj.month === date.month && obj.day === date.day) {
-                return true;
-            }
-        }
-        return false;
-    };
     MyDatePicker.prototype.getTimeInMilliseconds = function (date) {
         return this.getDate(date.year, date.month, date.day).getTime();
     };
@@ -361,13 +339,13 @@ var MyDatePicker = (function () {
                 var pm = dInPrevM - monthStart + 1;
                 for (var j = pm; j <= dInPrevM; j++) {
                     var date = { year: y, month: m - 1, day: j };
-                    week.push({ dateObj: date, cmo: cmo, currDay: this.isCurrDay(j, m, y, cmo), dayNbr: this.getDayNumber(date), disabled: this.isDisabledDay(date) });
+                    week.push({ dateObj: date, cmo: cmo, currDay: this.isCurrDay(j, m, y, cmo), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays) });
                 }
                 cmo = this.CURR_MONTH;
                 var daysLeft = 7 - week.length;
                 for (var j = 0; j < daysLeft; j++) {
                     var date = { year: y, month: m, day: dayNbr };
-                    week.push({ dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo), dayNbr: this.getDayNumber(date), disabled: this.isDisabledDay(date) });
+                    week.push({ dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays) });
                     dayNbr++;
                 }
             }
@@ -378,7 +356,7 @@ var MyDatePicker = (function () {
                         cmo = this.NEXT_MONTH;
                     }
                     var date = { year: y, month: cmo === this.CURR_MONTH ? m : m + 1, day: dayNbr };
-                    week.push({ dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo), dayNbr: this.getDayNumber(date), disabled: this.isDisabledDay(date) });
+                    week.push({ dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays) });
                     dayNbr++;
                 }
             }

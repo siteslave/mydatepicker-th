@@ -879,6 +879,191 @@ describe('MyDatePicker', () => {
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).toBe(null);
     });
+    
+    it('options - disableUntil input dates validation', ()=> {
+        comp.options = {
+            indicateInvalidDate: true, 
+            dateFormat: 'dd.mm.yyyy', 
+            disableUntil:{year: 2016, month: 11, day: 4}
+        };
+        
+        comp.parseOptions();
+        
+        comp.userDateInput({target:{value:'11.12.2015'}});
+        fixture.detectChanges();
+        let invaliddate = getElement('.invaliddate');
+        expect(invaliddate).not.toBe(null);
+
+        comp.userDateInput({target:{value:'11.06.2016'}});
+        fixture.detectChanges();
+        invaliddate = getElement('.invaliddate');
+        expect(invaliddate).not.toBe(null);
+
+        comp.userDateInput({target:{value:'04.11.2016'}});
+        fixture.detectChanges();
+        invaliddate = getElement('.invaliddate');
+        expect(invaliddate).not.toBe(null);
+
+        comp.userDateInput({target:{value:'05.11.2016'}});
+        fixture.detectChanges();
+        invaliddate = getElement('.invaliddate');
+        expect(invaliddate).toBe(null);
+
+        comp.options = {
+            indicateInvalidDate: true,
+            dateFormat: 'dd.mm.yyyy',
+            disableUntil:{year: 0, month: 0, day: 0}
+        };
+
+        comp.parseOptions();
+
+        comp.userDateInput({target:{value:'11.12.2015'}});
+        fixture.detectChanges();
+        invaliddate = getElement('.invaliddate');
+        expect(invaliddate).toBe(null);
+    });
+
+    it('options - disableSince input dates validation', ()=> {
+        comp.options = {
+            indicateInvalidDate: true,
+            dateFormat: 'dd.mm.yyyy',
+            disableSince:{year: 2016, month: 11, day: 22}
+        };
+
+        comp.parseOptions();
+
+        comp.userDateInput({target:{value:'08.12.2017'}});
+        fixture.detectChanges();
+        let invaliddate = getElement('.invaliddate');
+        expect(invaliddate).not.toBe(null);
+
+        comp.userDateInput({target:{value:'08.12.2016'}});
+        fixture.detectChanges();
+        invaliddate = getElement('.invaliddate');
+        expect(invaliddate).not.toBe(null);
+
+        comp.userDateInput({target:{value:'23.11.2016'}});
+        fixture.detectChanges();
+        invaliddate = getElement('.invaliddate');
+        expect(invaliddate).not.toBe(null);
+
+        comp.userDateInput({target:{value:'21.11.2016'}});
+        fixture.detectChanges();
+        invaliddate = getElement('.invaliddate');
+        expect(invaliddate).toBe(null);
+
+        comp.options = {
+            indicateInvalidDate: true,
+            dateFormat: 'dd.mm.yyyy',
+            disableSince:{year: 0, month: 0, day: 0}
+        };
+
+        comp.parseOptions();
+
+        comp.userDateInput({target:{value:'11.12.2015'}});
+        fixture.detectChanges();
+        invaliddate = getElement('.invaliddate');
+        expect(invaliddate).toBe(null);
+    });
+
+    it('options - disable weekends input date validation', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 11, year: 2016};
+        comp.options = {
+            indicateInvalidDate: true,
+            dateFormat: 'dd.mm.yyyy',
+            disableWeekends: true,
+            firstDayOfWeek: 'mo'
+        };
+
+        comp.parseOptions();
+
+        comp.userDateInput({target:{value:'05.11.2016'}});
+        fixture.detectChanges();
+        let invaliddate = getElement('.invaliddate');
+        expect(invaliddate).not.toBe(null);
+
+        comp.userDateInput({target:{value:'06.11.2016'}});
+        fixture.detectChanges();
+        invaliddate = getElement('.invaliddate');
+        expect(invaliddate).not.toBe(null);
+
+        comp.userDateInput({target:{value:'12.11.2016'}});
+        fixture.detectChanges();
+        invaliddate = getElement('.invaliddate');
+        expect(invaliddate).not.toBe(null);
+
+        comp.userDateInput({target:{value:'13.11.2016'}});
+        fixture.detectChanges();
+        invaliddate = getElement('.invaliddate');
+        expect(invaliddate).not.toBe(null);
+
+        comp.userDateInput({target:{value:'19.11.2016'}});
+        fixture.detectChanges();
+        invaliddate = getElement('.invaliddate');
+        expect(invaliddate).not.toBe(null);
+
+        comp.userDateInput({target:{value:'20.11.2016'}});
+        fixture.detectChanges();
+        invaliddate = getElement('.invaliddate');
+        expect(invaliddate).not.toBe(null);
+
+        comp.userDateInput({target:{value:'26.11.2016'}});
+        fixture.detectChanges();
+        invaliddate = getElement('.invaliddate');
+        expect(invaliddate).not.toBe(null);
+
+        comp.userDateInput({target:{value:'27.11.2016'}});
+        fixture.detectChanges();
+        invaliddate = getElement('.invaliddate');
+        expect(invaliddate).not.toBe(null);
+
+        comp.userDateInput({target:{value:'04.11.2016'}});
+        fixture.detectChanges();
+        invaliddate = getElement('.invaliddate');
+        expect(invaliddate).toBe(null);
+    });
+
+    it('options - disableDays input date validation', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 11, year: 2016};
+        comp.options = {
+            indicateInvalidDate: true,
+            dateFormat: 'dd.mm.yyyy',
+            disableDays: [
+                {year: 2016, month: 11, day: 1},
+                {year: 2016, month: 11, day: 3},
+                {year: 2016, month: 11, day: 5},
+                {year: 2016, month: 11, day: 7}
+            ],
+            firstDayOfWeek: 'mo'
+        };
+
+        comp.parseOptions();
+
+        comp.userDateInput({target:{value:'01.11.2016'}});
+        fixture.detectChanges();
+        let invaliddate = getElement('.invaliddate');
+        expect(invaliddate).not.toBe(null);
+
+        comp.userDateInput({target:{value:'03.11.2016'}});
+        fixture.detectChanges();
+        invaliddate = getElement('.invaliddate');
+        expect(invaliddate).not.toBe(null);
+
+        comp.userDateInput({target:{value:'05.11.2016'}});
+        fixture.detectChanges();
+        invaliddate = getElement('.invaliddate');
+        expect(invaliddate).not.toBe(null);
+
+        comp.userDateInput({target:{value:'07.11.2016'}});
+        fixture.detectChanges();
+        invaliddate = getElement('.invaliddate');
+        expect(invaliddate).not.toBe(null);
+
+        comp.userDateInput({target:{value:'02.11.2016'}});
+        fixture.detectChanges();
+        invaliddate = getElement('.invaliddate');
+        expect(invaliddate).toBe(null);
+    });
 
     it('options - show date format in placeholder', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};

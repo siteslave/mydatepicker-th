@@ -5,28 +5,34 @@ import { IMyMonthLabels } from "../interfaces/my-month-labels.interface";
 
 @Injectable()
 export class ValidatorService {
-    isDateValid(date: string, dateFormat: string, minYear: number, maxYear: number, monthLabels: IMyMonthLabels): IMyDate {
+    isDateValid(dateStr: string, dateFormat: string, minYear: number, maxYear: number, disableUntil: IMyDate, disableSince: IMyDate, disableWeekends: boolean, disableDays: Array<IMyDate>, monthLabels: IMyMonthLabels): IMyDate {
         let daysInMonth: Array<number> = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         let isMonthStr: boolean = dateFormat.indexOf("mmm") !== -1;
         let returnDate: IMyDate = {day: 0, month: 0, year: 0};
 
-        if (date.length !== 10 && !isMonthStr || date.length !== 11 && isMonthStr) {
+        if (dateStr.length !== 10 && !isMonthStr || dateStr.length !== 11 && isMonthStr) {
             return returnDate;
         }
 
         let separator: string = dateFormat.replace(/[dmy]/g, "")[0];
 
-        let parts: Array<string> = date.split(separator);
+        let parts: Array<string> = dateStr.split(separator);
         if (parts.length !== 3) {
             return returnDate;
         }
 
-        let day: number = this.parseDatePartNumber(dateFormat, date, "dd");
-        let month: number = isMonthStr ? this.parseDatePartMonthName(dateFormat, date, "mmm", monthLabels) : this.parseDatePartNumber(dateFormat, date, "mm");
-        let year: number = this.parseDatePartNumber(dateFormat, date, "yyyy");
+        let day: number = this.parseDatePartNumber(dateFormat, dateStr, "dd");
+        let month: number = isMonthStr ? this.parseDatePartMonthName(dateFormat, dateStr, "mmm", monthLabels) : this.parseDatePartNumber(dateFormat, dateStr, "mm");
+        let year: number = this.parseDatePartNumber(dateFormat, dateStr, "yyyy");
 
         if (day !== -1 && month !== -1 && year !== -1) {
             if (year < minYear || year > maxYear || month < 1 || month > 12) {
+                return returnDate;
+            }
+
+            let date: IMyDate = {year: year, month: month, day: day};
+
+            if (this.isDisabledDay(date, disableUntil, disableSince, disableWeekends, disableDays)) {
                 return returnDate;
             }
 
@@ -39,7 +45,7 @@ export class ValidatorService {
             }
 
             // Valid date
-            return {day: day, month: month, year: year};
+            return date;
         }
         return returnDate;
     }
@@ -88,5 +94,36 @@ export class ValidatorService {
             month.year = split[0].length === 2 ? parseInt(split[1]) : parseInt(split[0]);
         }
         return month;
+    }
+
+    isDisabledDay(date: IMyDate, disableUntil: IMyDate, disableSince: IMyDate, disableWeekends: boolean, disableDays: Array<IMyDate>): boolean {
+        let dateMs: number = this.getTimeInMilliseconds(date);
+        if (disableUntil.year !== 0 && disableUntil.month !== 0 && disableUntil.day !== 0 && dateMs <= this.getTimeInMilliseconds(disableUntil)) {
+            return true;
+        }
+        if (disableSince.year !== 0 && disableSince.month !== 0 && disableSince.day !== 0 && dateMs >= this.getTimeInMilliseconds(disableSince)) {
+            return true;
+        }
+        if (disableWeekends) {
+            let dayNbr = this.getDayNumber(date);
+            if (dayNbr === 0 || dayNbr === 6) {
+                return true;
+            }
+        }
+        for (let obj of disableDays) {
+            if (obj.year === date.year && obj.month === date.month && obj.day === date.day) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    getTimeInMilliseconds(date: IMyDate): number {
+        return new Date(date.year, date.month - 1, date.day, 0, 0, 0, 0).getTime();
+    }
+
+    getDayNumber(date: IMyDate): number {
+        let d: Date = new Date(date.year, date.month - 1, date.day, 0, 0, 0, 0);
+        return d.getDay();
     }
 }

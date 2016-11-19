@@ -57,7 +57,6 @@ export declare class MyDatePicker implements OnChanges {
     daysInMonth(m: number, y: number): number;
     daysInPrevMonth(m: number, y: number): number;
     isCurrDay(d: number, m: number, y: number, cmo: any): boolean;
-    isDisabledDay(date: IMyDate): boolean;
     getTimeInMilliseconds(date: IMyDate): number;
     getDayNumber(date: IMyDate): number;
     getDate(year: number, month: number, day: number): Date;
