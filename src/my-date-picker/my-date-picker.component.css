@@ -147,12 +147,12 @@
 .mydp .caltable th {
     background-color: #DDD;
     font-size: 12px;
+    font-weight: bold;
     vertical-align: middle;
 }
 
 .mydp .caltable td {
     cursor: pointer;
-    font-weight: bold;
     height: 28px;
 }
 
