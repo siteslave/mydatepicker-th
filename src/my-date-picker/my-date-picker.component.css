@@ -131,38 +131,37 @@
 }
 
 .mydp .caltable,
-.mydp .caltable th,
-.mydp .caltable td {
+.mydp .weekdaytitle,
+.mydp .daycell {
     border-collapse: collapse;
     color: #003366;
     line-height: 1.1;
 }
 
-.mydp .caltable th,
-.mydp .caltable td {
+.mydp .weekdaytitle,
+.mydp .daycell {
     padding: 5px;
     text-align: center;
 }
 
-.mydp .caltable th {
+.mydp .weekdaytitle {
     background-color: #DDD;
     font-size: 12px;
     font-weight: bold;
     vertical-align: middle;
 }
 
-.mydp .caltable td {
+.mydp .daycell {
     cursor: pointer;
     height: 28px;
 }
 
-.mydp .caltable td div {
+.mydp .daycell div {
     background-color: inherit;
-    height:18px;
     vertical-align: middle;
 }
 
-.mydp .caltable td div span {
+.mydp .daycell div span {
     vertical-align: middle;
 }
 
@@ -220,13 +219,16 @@
 }
 
 .mydp,
-.mydp .selector,
-.mydp .header,
 .mydp .headertodaybtn,
 .mydp .monthinput,
-.mydp .yearinput,
-.mydp .caltable tbody {
+.mydp .yearinput {
     border: 1px solid #AAA;
+}
+
+.mydp .selector,
+.mydp .header,
+.mydp .caltable tbody {
+    border: 1px solid #DDD;
 }
 
 .mydp .btnpicker,

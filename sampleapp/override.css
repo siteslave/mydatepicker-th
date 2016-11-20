@@ -1,0 +1,17 @@
+/*
+* Remove bolding of the fonts.
+*/
+.mydp .selection,
+.mydp .currmonth,
+.mydp .weekdaytitle,
+.mydp .monthinput,
+.mydp .yearinput {
+    font-weight: normal;
+}
+
+/*
+* Change color of the weekday font.
+*/
+.mydp .weekdaytitle {
+    color: #000;
+}

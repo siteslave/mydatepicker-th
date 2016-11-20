@@ -153,6 +153,19 @@ month number separated by delimiter. The delimiter can be any special character.
 For example the value of the __[defaultMonth]__ attribute can be: __2016.08__,
 __08-2016__, __08/2016__.
 
+### Change styles of the component
+
+The styles of the component can be changed by overriding the styles.
+
+Create a separate stylesheet file which contain the changed styles. Then import the stylesheet file in the place which
+is after the place where the component is loaded.
+
+The [sampleapp](https://github.com/kekeh/mydatepicker/tree/master/sampleapp) of the component contain an example:
+
+* [override.css](https://github.com/kekeh/mydatepicker/blob/master/sampleapp/override.css) contain the changed styles.
+* [index.html](https://github.com/kekeh/mydatepicker/blob/master/sampleapp/index.html) contain import of the override.css file.
+
+
 ## Development of this component
 
 At first fork and clone this repo.
