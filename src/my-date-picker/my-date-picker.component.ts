@@ -61,7 +61,7 @@ export class MyDatePicker implements OnChanges {
         selectionTxtFontSize: <string> "18px",
         inline: <boolean> false,
         alignSelectorRight: <boolean> false,
-        indicateInvalidDate: <boolean> false,
+        indicateInvalidDate: <boolean> true,
         showDateFormatPlaceholder: <boolean> false,
         editableMonthAndYear: <boolean> true,
         minYear: <number> 1000,

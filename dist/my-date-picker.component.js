@@ -52,7 +52,7 @@ var MyDatePicker = (function () {
             selectionTxtFontSize: "18px",
             inline: false,
             alignSelectorRight: false,
-            indicateInvalidDate: false,
+            indicateInvalidDate: true,
             showDateFormatPlaceholder: false,
             editableMonthAndYear: true,
             minYear: 1000,
