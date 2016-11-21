@@ -73,7 +73,7 @@ export class LocaleService {
             dateFormat: "dd.mm.yyyy",
             todayBtnTxt: "Сегодня",
             firstDayOfWeek: "mo",
-            sunHighlight: true,
+            sunHighlight: true
         }
     };
 
