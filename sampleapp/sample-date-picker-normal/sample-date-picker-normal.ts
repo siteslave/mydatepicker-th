@@ -39,7 +39,7 @@ export class SampleDatePickerNormal implements OnInit {
     }
 
     enableDisable() {
-        let copy = Object.assign({}, this.myDatePickerNormalOptions);
+        let copy = JSON.parse(JSON.stringify(this.myDatePickerNormalOptions));
         copy.componentDisabled = !this.myDatePickerNormalOptions.componentDisabled;
         this.myDatePickerNormalOptions = copy;
     }
