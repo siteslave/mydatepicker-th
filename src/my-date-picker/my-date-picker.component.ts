@@ -23,6 +23,7 @@ export class MyDatePicker implements OnChanges {
     @Input() defaultMonth: string;
     @Input() selDate: string;
     @Output() dateChanged: EventEmitter<Object> = new EventEmitter();
+    @Output() inputFieldChanged: EventEmitter<Object> = new EventEmitter();
 
     showSelector: boolean = false;
     visibleMonth: IMyMonth = {monthTxt: "", monthNbr: 0, year: 0};
@@ -139,6 +140,9 @@ export class MyDatePicker implements OnChanges {
                 this.invalidDate = true;
             }
         }
+        if (this.invalidDate) {
+            this.inputFieldChanged.emit({value: event.target.value, dateFormat: this.opts.dateFormat, valid: !(event.target.value.length === 0 || this.invalidDate)});
+        }
     }
 
     userMonthInput(event: any): void {
@@ -228,6 +232,7 @@ export class MyDatePicker implements OnChanges {
         this.selectionDayTxt = "";
         this.selectedDate = {year: 0, month: 0, day: 0};
         this.dateChanged.emit({date: {}, formatted: this.selectionDayTxt, epoc: 0});
+        this.inputFieldChanged.emit({value: '', dateFormat: this.opts.dateFormat, valid: false});
         this.invalidDate = false;
     }
 
@@ -332,6 +337,7 @@ export class MyDatePicker implements OnChanges {
             formatted: this.selectionDayTxt,
             epoc: Math.round(this.getTimeInMilliseconds(this.selectedDate) / 1000.0)
         });
+        this.inputFieldChanged.emit({value: this.selectionDayTxt, dateFormat: this.opts.dateFormat, valid: true});
         this.invalidDate = false;
     }
 

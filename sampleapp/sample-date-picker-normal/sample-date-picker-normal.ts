@@ -61,4 +61,8 @@ export class SampleDatePickerNormal implements OnInit {
             this.border = 'none';
         }
     }
+
+    onInputFieldChanged(event:any) {
+        console.log('onInputFieldChanged(): Value: ', event.value, ' - dateFormat: ', event.dateFormat, ' - valid: ', event.valid);
+    }
 }

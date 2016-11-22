@@ -19,6 +19,7 @@ var MyDatePicker = (function () {
         this.localeService = localeService;
         this.validatorService = validatorService;
         this.dateChanged = new core_1.EventEmitter();
+        this.inputFieldChanged = new core_1.EventEmitter();
         this.showSelector = false;
         this.visibleMonth = { monthTxt: "", monthNbr: 0, year: 0 };
         this.selectedMonth = { monthTxt: "", monthNbr: 0, year: 0 };
@@ -123,6 +124,9 @@ var MyDatePicker = (function () {
                 this.invalidDate = true;
             }
         }
+        if (this.invalidDate) {
+            this.inputFieldChanged.emit({ value: event.target.value, dateFormat: this.opts.dateFormat, valid: !(event.target.value.length === 0 || this.invalidDate) });
+        }
     };
     MyDatePicker.prototype.userMonthInput = function (event) {
         if (event.keyCode === 37 || event.keyCode === 39) {
@@ -198,6 +202,7 @@ var MyDatePicker = (function () {
         this.selectionDayTxt = "";
         this.selectedDate = { year: 0, month: 0, day: 0 };
         this.dateChanged.emit({ date: {}, formatted: this.selectionDayTxt, epoc: 0 });
+        this.inputFieldChanged.emit({ value: '', dateFormat: this.opts.dateFormat, valid: false });
         this.invalidDate = false;
     };
     MyDatePicker.prototype.openBtnClicked = function () {
@@ -282,6 +287,7 @@ var MyDatePicker = (function () {
             formatted: this.selectionDayTxt,
             epoc: Math.round(this.getTimeInMilliseconds(this.selectedDate) / 1000.0)
         });
+        this.inputFieldChanged.emit({ value: this.selectionDayTxt, dateFormat: this.opts.dateFormat, valid: true });
         this.invalidDate = false;
     };
     MyDatePicker.prototype.preZero = function (val) {
@@ -397,6 +403,10 @@ var MyDatePicker = (function () {
         core_1.Output(), 
         __metadata('design:type', core_1.EventEmitter)
     ], MyDatePicker.prototype, "dateChanged", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', core_1.EventEmitter)
+    ], MyDatePicker.prototype, "inputFieldChanged", void 0);
     MyDatePicker = __decorate([
         core_1.Component({
             selector: "my-date-picker",

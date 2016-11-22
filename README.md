@@ -48,6 +48,7 @@ To install this component to an external project, follow the procedure:
     * Optional attributes:
       * [selDate]="selectedDate" || [defaultMonth]="defaultMonth"
       * [locale]="locale"
+      * (inputFieldChanged)="onInputFieldChanged($event)"
 
     * Example of the options data (not all properties listed):
     ```js
@@ -64,12 +65,33 @@ To install this component to an external project, follow the procedure:
         };
     ```
 
-    * Example of the date changed callback:
-    ```js
-        onDateChanged(event:any) {
-            console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
-        }
-    ```
+    * dateChanged callback:
+      * called when the date is selected, removed or input field typing is valid
+      * event parameter:
+        * event.date: Date object in the following format: { day: 22, month: 11, year: 2016 }
+        * event.formatted: Date string in the same format as dateFormat option is: '2016-11-22'
+        * event.epoc: Epoc time stamp number: 1479765600
+
+      * Example of the dateChanged callback:
+      ```js
+      onDateChanged(event:any) {
+        console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
+      }
+      ```
+
+    * inputFieldChanged callback:
+      * called when the value changes in the input field
+      * event parameter:
+        * event.value: Date string in the same format as dateFormat option is. For example: '2016-11-22'
+        * event.dateFormat: Date format string in the same format as dateFormat option is. For example: 'yyyy-mm-dd'
+        * event.valid: Boolean value indicating is the typed value valid. For example: true
+
+      * Example of the input field changed callbac:
+      ```js
+      onInputFieldChanged(event:any) {
+        console.log('onInputFieldChanged(): Value: ', event.value, ' - dateFormat: ', event.dateFormat, ' - valid: ', event.valid);
+      }
+      ```
 
 4. If you are using __systemjs__ package loader add the following mydatepicker properties to the __System.config__:
     ```js
