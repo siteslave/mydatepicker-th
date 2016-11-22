@@ -164,7 +164,7 @@ __08-2016__, __08/2016__.
 ### inputFieldChanged callback:
   * called when the value change in the input field
   * event parameter:
-    * event.value: Date string in the same format as dateFormat option is. For example: '2016-11-22'
+    * event.value: Value of the input field. For example: '2016-11-22'
     * event.dateFormat: Date format string in the same format as dateFormat option is. For example: 'yyyy-mm-dd'
     * event.valid: Boolean value indicating is the typed value valid. For example: true
 
