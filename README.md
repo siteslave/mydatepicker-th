@@ -50,49 +50,6 @@ To install this component to an external project, follow the procedure:
       * [locale]="locale"
       * (inputFieldChanged)="onInputFieldChanged($event)"
 
-    * Example of the options data (not all properties listed):
-    ```js
-        myDatePickerOptions = {
-            todayBtnTxt: 'Today',
-            dateFormat: 'yyyy-mm-dd',
-            firstDayOfWeek: 'mo',
-            sunHighlight: true,
-            height: '34px',
-            width: '260px',
-            inline: false,
-            disableUntil: {year: 2016, month: 8, day: 10},
-            selectionTxtFontSize: '16px'
-        };
-    ```
-
-    * dateChanged callback:
-      * called when the date is selected, removed or input field typing is valid
-      * event parameter:
-        * event.date: Date object in the following format: { day: 22, month: 11, year: 2016 }
-        * event.formatted: Date string in the same format as dateFormat option is: '2016-11-22'
-        * event.epoc: Epoc time stamp number: 1479765600
-
-      * Example of the dateChanged callback:
-      ```js
-      onDateChanged(event:any) {
-        console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
-      }
-      ```
-
-    * inputFieldChanged callback:
-      * called when the value changes in the input field
-      * event parameter:
-        * event.value: Date string in the same format as dateFormat option is. For example: '2016-11-22'
-        * event.dateFormat: Date format string in the same format as dateFormat option is. For example: 'yyyy-mm-dd'
-        * event.valid: Boolean value indicating is the typed value valid. For example: true
-
-      * Example of the input field changed callbac:
-      ```js
-      onInputFieldChanged(event:any) {
-        console.log('onInputFieldChanged(): Value: ', event.value, ' - dateFormat: ', event.dateFormat, ' - valid: ', event.valid);
-      }
-      ```
-
 4. If you are using __systemjs__ package loader add the following mydatepicker properties to the __System.config__:
     ```js
     (function (global) {
@@ -146,7 +103,22 @@ Value of the __options__ attribute is a javascript object. It can contain the fo
 | __indicateInvalidDate__   | true | If user typed date is not same format as __dateFormat__, show red background in the selection area. Can be used if __inline = false__. |
 | __showDateFormatPlaceholder__   | false | Show value of __dateFormat__ as placeholder in the selection area if it is empty. Can be used if __inline = false__. |
 | __componentDisabled__   | false | Is selection area and buttons disabled or not. Can be used if __inline = false__. |
-  
+
+* Example of the options data (not all properties listed):
+```js
+  myDatePickerOptions = {
+      todayBtnTxt: 'Today',
+      dateFormat: 'yyyy-mm-dd',
+      firstDayOfWeek: 'mo',
+      sunHighlight: true,
+      height: '34px',
+      width: '260px',
+      inline: false,
+      disableUntil: {year: 2016, month: 8, day: 10},
+      selectionTxtFontSize: '16px'
+  };
+```
+
 ### locale attribute
 
 A two-letter ISO 639-1 language code can be provided as shorthand for several of
@@ -174,6 +146,34 @@ Value of the __[defaultMonth]__ attribute is a string which contain year number 
 month number separated by delimiter. The delimiter can be any special character.
 For example the value of the __[defaultMonth]__ attribute can be: __2016.08__,
 __08-2016__, __08/2016__.
+
+### dateChanged callback:
+  * called when the date is selected, removed or input field typing is valid
+  * event parameter:
+    * event.date: Date object in the following format: { day: 22, month: 11, year: 2016 }
+    * event.formatted: Date string in the same format as dateFormat option is: '2016-11-22'
+    * event.epoc: Epoc time stamp number: 1479765600
+
+  * Example of the dateChanged callback:
+  ```js
+  onDateChanged(event:any) {
+    console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
+  }
+  ```
+
+### inputFieldChanged callback:
+  * called when the value change in the input field
+  * event parameter:
+    * event.value: Date string in the same format as dateFormat option is. For example: '2016-11-22'
+    * event.dateFormat: Date format string in the same format as dateFormat option is. For example: 'yyyy-mm-dd'
+    * event.valid: Boolean value indicating is the typed value valid. For example: true
+
+  * Example of the input field changed callbac:
+  ```js
+  onInputFieldChanged(event:any) {
+    console.log('onInputFieldChanged(): Value: ', event.value, ' - dateFormat: ', event.dateFormat, ' - valid: ', event.valid);
+  }
+  ```
 
 ### Change styles of the component
 
