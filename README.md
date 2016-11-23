@@ -183,7 +183,7 @@ __08-2016__, __08/2016__.
     * event.month: Month number in calendar. For example: 11
     * event.first: First day of selected month and year. Object which contain day number and weekday string. For example: {number: 1, weekday: "tu"}
     * event.last: Last day of selected month and year. Object which contain day number and weekday string. For example: {number: 30, weekday: "we"}
-  * values of weekday are same as values of __firstDayOfWeek__ option
+  * values of the weekday property are same as values of the __firstDayOfWeek__ option
 
   * Example of the calendar view changed callback:
   ```js
