@@ -90,6 +90,14 @@ var LocaleService = (function () {
                 todayBtnTxt: "I dag",
                 firstDayOfWeek: "mo",
                 sunHighlight: false
+            },
+            "tr": {
+                dayLabels: { su: "Paz", mo: "Pzt", tu: "Sal", we: "Çar", th: "Per", fr: "Cum", sa: "Cmt" },
+                monthLabels: { 1: "Oca", 2: "Şub", 3: "Mar", 4: "Nis", 5: "May", 6: "Haz", 7: "Tem", 8: "Ağu", 9: "Eyl", 10: "Eki", 11: "Kas", 12: "Ara" },
+                dateFormat: "dd.mm.yyyy",
+                todayBtnTxt: "Bugün",
+                firstDayOfWeek: "mo",
+                sunHighlight: false
             }
         };
     }
