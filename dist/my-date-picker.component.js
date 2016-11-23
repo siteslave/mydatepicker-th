@@ -20,6 +20,7 @@ var MyDatePicker = (function () {
         this.validatorService = validatorService;
         this.dateChanged = new core_1.EventEmitter();
         this.inputFieldChanged = new core_1.EventEmitter();
+        this.calendarViewChanged = new core_1.EventEmitter();
         this.showSelector = false;
         this.visibleMonth = { monthTxt: "", monthNbr: 0, year: 0 };
         this.selectedMonth = { monthTxt: "", monthNbr: 0, year: 0 };
@@ -30,6 +31,7 @@ var MyDatePicker = (function () {
         this.invalidDate = false;
         this.dayIdx = 0;
         this.today = null;
+        this.weekDayOpts = ["su", "mo", "tu", "we", "th", "fr", "sa"];
         this.editMonth = false;
         this.invalidMonth = false;
         this.editYear = false;
@@ -163,13 +165,12 @@ var MyDatePicker = (function () {
         if (this.locale) {
             this.setLocaleOptions();
         }
-        var days = ["su", "mo", "tu", "we", "th", "fr", "sa"];
-        this.dayIdx = days.indexOf(this.opts.firstDayOfWeek);
+        this.dayIdx = this.weekDayOpts.indexOf(this.opts.firstDayOfWeek);
         if (this.dayIdx !== -1) {
             var idx = this.dayIdx;
-            for (var i = 0; i < days.length; i++) {
-                this.weekDays.push(this.opts.dayLabels[days[idx]]);
-                idx = days[idx] === "sa" ? 0 : idx + 1;
+            for (var i = 0; i < this.weekDayOpts.length; i++) {
+                this.weekDays.push(this.opts.dayLabels[this.weekDayOpts[idx]]);
+                idx = this.weekDayOpts[idx] === "sa" ? 0 : idx + 1;
             }
         }
         if (this.opts.inline) {
@@ -326,6 +327,9 @@ var MyDatePicker = (function () {
         var d = this.getDate(date.year, date.month, date.day);
         return d.getDay();
     };
+    MyDatePicker.prototype.getWeekday = function (date) {
+        return this.weekDayOpts[this.getDayNumber(date)];
+    };
     MyDatePicker.prototype.getDate = function (year, month, day) {
         return new Date(year, month - 1, day, 0, 0, 0, 0);
     };
@@ -368,6 +372,7 @@ var MyDatePicker = (function () {
             }
             this.dates.push(week);
         }
+        this.calendarViewChanged.emit({ year: y, month: m, first: { number: 1, weekday: this.getWeekday({ year: y, month: m, day: 1 }) }, last: { number: dInThisM, weekday: this.getWeekday({ year: y, month: m, day: dInThisM }) } });
     };
     MyDatePicker.prototype.parseSelectedDate = function (ds) {
         var date = { day: 0, month: 0, year: 0 };
@@ -407,6 +412,10 @@ var MyDatePicker = (function () {
         core_1.Output(), 
         __metadata('design:type', core_1.EventEmitter)
     ], MyDatePicker.prototype, "inputFieldChanged", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', core_1.EventEmitter)
+    ], MyDatePicker.prototype, "calendarViewChanged", void 0);
     MyDatePicker = __decorate([
         core_1.Component({
             selector: "my-date-picker",

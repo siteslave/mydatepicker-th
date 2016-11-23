@@ -14,6 +14,7 @@ export declare class MyDatePicker implements OnChanges {
     selDate: string;
     dateChanged: EventEmitter<Object>;
     inputFieldChanged: EventEmitter<Object>;
+    calendarViewChanged: EventEmitter<Object>;
     showSelector: boolean;
     visibleMonth: IMyMonth;
     selectedMonth: IMyMonth;
@@ -24,6 +25,7 @@ export declare class MyDatePicker implements OnChanges {
     invalidDate: boolean;
     dayIdx: number;
     today: Date;
+    weekDayOpts: Array<string>;
     editMonth: boolean;
     invalidMonth: boolean;
     editYear: boolean;
@@ -61,6 +63,7 @@ export declare class MyDatePicker implements OnChanges {
     isCurrDay(d: number, m: number, y: number, cmo: any): boolean;
     getTimeInMilliseconds(date: IMyDate): number;
     getDayNumber(date: IMyDate): number;
+    getWeekday(date: IMyDate): string;
     getDate(year: number, month: number, day: number): Date;
     sundayIdx(): number;
     generateCalendar(m: number, y: number): void;

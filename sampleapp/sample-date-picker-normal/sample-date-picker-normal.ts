@@ -65,4 +65,8 @@ export class SampleDatePickerNormal implements OnInit {
     onInputFieldChanged(event:any) {
         console.log('onInputFieldChanged(): Value: ', event.value, ' - dateFormat: ', event.dateFormat, ' - valid: ', event.valid);
     }
+
+    onCalendarViewChanged(event:any) {
+        console.log('onCalendarViewChanged(): Year: ', event.year, ' - month: ', event.month, ' - first: ', event.first, ' - last: ', event.last);
+    }
 }

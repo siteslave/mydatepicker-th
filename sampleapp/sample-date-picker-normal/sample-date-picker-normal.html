@@ -2,7 +2,7 @@
     <div style="padding:4px;border-radius:4px;margin-bottom:8px;float:right" [ngStyle]="{border: border}">
         {{selectedTextNormal}}
     </div>
-    <my-date-picker [options]="myDatePickerNormalOptions" (dateChanged)="onDateChanged($event)" (inputFieldChanged)="onInputFieldChanged($event)"
+    <my-date-picker [options]="myDatePickerNormalOptions" (dateChanged)="onDateChanged($event)" (inputFieldChanged)="onInputFieldChanged($event)" (calendarViewChanged)="onCalendarViewChanged($event)"
                     [selDate]="selectedDateNormal"></my-date-picker>
 
     <div style="margin-top: 20px">

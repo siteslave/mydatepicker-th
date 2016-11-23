@@ -49,6 +49,7 @@ To install this component to an external project, follow the procedure:
       * [selDate]="selectedDate" || [defaultMonth]="defaultMonth"
       * [locale]="locale"
       * (inputFieldChanged)="onInputFieldChanged($event)"
+      * (calendarViewChanged)="onCalendarViewChanged($event)"
 
 4. If you are using __systemjs__ package loader add the following mydatepicker properties to the __System.config__:
     ```js
@@ -168,10 +169,26 @@ __08-2016__, __08/2016__.
     * event.dateFormat: Date format string in the same format as dateFormat option is. For example: 'yyyy-mm-dd'
     * event.valid: Boolean value indicating is the typed value valid. For example: true
 
-  * Example of the input field changed callbac:
+  * Example of the input field changed callback:
   ```js
   onInputFieldChanged(event:any) {
     console.log('onInputFieldChanged(): Value: ', event.value, ' - dateFormat: ', event.dateFormat, ' - valid: ', event.valid);
+  }
+  ```
+
+### calendarViewChanged callback:
+  * called when the calendar view change (year or month change)
+  * event parameter:
+    * event.year: Year number in calendar. For example: 2016
+    * event.month: Month number in calendar. For example: 11
+    * event.first: First day of selected month and year. Object which contain day number and weekday string. For example: {number: 1, weekday: "tu"}
+    * event.last: Last day of selected month and year. Object which contain day number and weekday string. For example: {number: 30, weekday: "we"}
+  * values of weekday are same as values of __firstDayOfWeek__ option
+
+  * Example of the calendar view changed callback:
+  ```js
+  onCalendarViewChanged(event:any) {
+    console.log('onCalendarViewChanged(): Year: ', event.year, ' - month: ', event.month, ' - first: ', event.first, ' - last: ', event.last);
   }
   ```
 

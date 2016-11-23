@@ -24,6 +24,7 @@ export class MyDatePicker implements OnChanges {
     @Input() selDate: string;
     @Output() dateChanged: EventEmitter<Object> = new EventEmitter();
     @Output() inputFieldChanged: EventEmitter<Object> = new EventEmitter();
+    @Output() calendarViewChanged: EventEmitter<Object> = new EventEmitter();
 
     showSelector: boolean = false;
     visibleMonth: IMyMonth = {monthTxt: "", monthNbr: 0, year: 0};
@@ -35,6 +36,7 @@ export class MyDatePicker implements OnChanges {
     invalidDate: boolean = false;
     dayIdx: number = 0;
     today: Date = null;
+    weekDayOpts: Array<string> = ["su", "mo", "tu", "we", "th", "fr", "sa"];
 
     editMonth: boolean = false;
     invalidMonth: boolean = false;
@@ -186,14 +188,12 @@ export class MyDatePicker implements OnChanges {
         if (this.locale) {
             this.setLocaleOptions();
         }
-
-        let days: Array<string> = ["su", "mo", "tu", "we", "th", "fr", "sa"];
-        this.dayIdx = days.indexOf(this.opts.firstDayOfWeek);
+        this.dayIdx = this.weekDayOpts.indexOf(this.opts.firstDayOfWeek);
         if (this.dayIdx !== -1) {
             let idx: number = this.dayIdx;
-            for (let i = 0; i < days.length; i++) {
-                this.weekDays.push(this.opts.dayLabels[days[idx]]);
-                idx = days[idx] === "sa" ? 0 : idx + 1;
+            for (let i = 0; i < this.weekDayOpts.length; i++) {
+                this.weekDays.push(this.opts.dayLabels[this.weekDayOpts[idx]]);
+                idx = this.weekDayOpts[idx] === "sa" ? 0 : idx + 1;
             }
         }
         if (this.opts.inline) {
@@ -389,9 +389,14 @@ export class MyDatePicker implements OnChanges {
     }
 
     getDayNumber(date: IMyDate): number {
-        // Get day number: sun=0, mon=1, tue=2, wed=3 ...
+        // Get day number: su=0, mo=1, tu=2, we=3 ...
         let d: Date = this.getDate(date.year, date.month, date.day);
         return d.getDay();
+    }
+
+    getWeekday(date: IMyDate): string {
+        // Get weekday: su, mo, tu, we ...
+        return this.weekDayOpts[this.getDayNumber(date)];
     }
 
     getDate(year: number, month: number, day: number): Date {
@@ -446,6 +451,8 @@ export class MyDatePicker implements OnChanges {
             }
             this.dates.push(week);
         }
+        // Notify parent
+        this.calendarViewChanged.emit({year: y, month: m, first: {number: 1, weekday: this.getWeekday({year: y, month: m, day: 1})}, last: {number: dInThisM, weekday: this.getWeekday({year: y, month: m, day: dInThisM})}});
     }
 
     parseSelectedDate(ds: string): IMyDate {
