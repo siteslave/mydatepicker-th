@@ -3,7 +3,6 @@
     "module": "commonjs",
     "target": "es5",
     "outDir": "build",
-    "rootDir": ".",
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -16,6 +15,10 @@
     "node_modules",
     "npmdist",
     "dist"
+  ],
+  "include": [
+    "./src/**/*.ts",
+    "./sampleapp/**/*.ts"
   ],
   "compileOnSave": false,
   "buildOnSave": false,

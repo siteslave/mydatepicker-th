@@ -202,7 +202,7 @@ var MyDatePicker = (function () {
         this.selectionDayTxt = "";
         this.selectedDate = { year: 0, month: 0, day: 0 };
         this.dateChanged.emit({ date: {}, formatted: this.selectionDayTxt, epoc: 0 });
-        this.inputFieldChanged.emit({ value: '', dateFormat: this.opts.dateFormat, valid: false });
+        this.inputFieldChanged.emit({ value: "", dateFormat: this.opts.dateFormat, valid: false });
         this.invalidDate = false;
     };
     MyDatePicker.prototype.openBtnClicked = function () {

@@ -122,7 +122,7 @@ Value of the __options__ attribute is a javascript object. It can contain the fo
 ### locale attribute
 
 A two-letter ISO 639-1 language code can be provided as shorthand for several of
-the options listed above. Currently supported languages: __en__, __fr__, __ja__, __fi__, __es__, __hu__, __sv__, __nl__ and __ru__.
+the options listed above. Currently supported languages: __en__, __fr__, __ja__, __fi__, __es__, __hu__, __sv__, __nl__, __ru__ and __no__.
 If the __locale__ attribute is used it overrides dayLabels, monthLabels, dateFormat, todayBtnTxt,
 firstDayOfWeek and sunHighlight properties from the options.
 

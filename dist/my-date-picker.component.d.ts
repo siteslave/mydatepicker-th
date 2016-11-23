@@ -1,3 +1,4 @@
+/// <reference types="core-js" />
 import { EventEmitter, OnChanges, SimpleChanges, ElementRef, Renderer } from "@angular/core";
 import { IMyDate, IMyMonth, IMyOptions } from "./interfaces/index";
 import { LocaleService } from "./services/my-date-picker.locale.service";

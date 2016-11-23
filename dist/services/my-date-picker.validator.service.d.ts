@@ -1,3 +1,4 @@
+/// <reference types="core-js" />
 import { IMyDate } from "../interfaces/my-date.interface";
 import { IMyMonth } from "../interfaces/my-month.interface";
 import { IMyMonthLabels } from "../interfaces/my-month-labels.interface";

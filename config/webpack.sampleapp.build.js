@@ -6,6 +6,7 @@ module.exports = {
     devtool: 'source-map',
 
     entry: {
+        'vendor': './sampleapp/vendor.ts',
         'app': './sampleapp/main.ts'
     },
 
@@ -17,8 +18,8 @@ module.exports = {
         loaders: [
             {
                 test: /\.ts$/,
-                exclude: [/\.spec\.ts$/, /npmdist/],
-                loader: 'ts'
+                exclude: [/\.spec\.ts$/],
+                loaders: ['awesome-typescript-loader', 'angular2-template-loader']
             },
             {
                 test: /\.html$/,
@@ -36,7 +37,7 @@ module.exports = {
         new webpack.optimize.DedupePlugin(),
         new webpack.optimize.UglifyJsPlugin({ output: {comments: false}, mangle: { screw_ie8 : true, keep_fnames: true} }),
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['app']
+            name: ['app', 'vendor']
         }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
