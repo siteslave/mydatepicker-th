@@ -1,7 +1,7 @@
-import { ElementRef, Renderer, OnInit } from "@angular/core";
-export declare class InputFocusDirective implements OnInit {
+import { ElementRef, Renderer, AfterViewInit } from "@angular/core";
+export declare class InputFocusDirective implements AfterViewInit {
     private el;
     private renderer;
     constructor(el: ElementRef, renderer: Renderer);
-    ngOnInit(): void;
+    ngAfterViewInit(): void;
 }

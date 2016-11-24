@@ -14,13 +14,12 @@ var InputFocusDirective = (function () {
         this.el = el;
         this.renderer = renderer;
     }
-    InputFocusDirective.prototype.ngOnInit = function () {
+    InputFocusDirective.prototype.ngAfterViewInit = function () {
         this.renderer.invokeElementMethod(this.el.nativeElement, "focus", []);
     };
     InputFocusDirective = __decorate([
         core_1.Directive({
-            selector: "[inputFocus]",
-            inputs: ["inputFocus"]
+            selector: "[inputFocus]"
         }), 
         __metadata('design:paramtypes', [core_1.ElementRef, core_1.Renderer])
     ], InputFocusDirective);

@@ -19,7 +19,7 @@
                     <div style="float:left">
                         <div class="headerbtn" (click)="prevMonth()"><span class="icon icon-left"></span></div>
                         <div class="headermonthtxt">
-                            <input type="text" *ngIf="editMonth" class="monthinput" maxlength="4" [inputFocus] [value]="visibleMonth.monthTxt" (keyup)="userMonthInput($event)" (click)="$event.stopPropagation()" [ngClass]="{'invalidmonth': invalidMonth}">
+                            <input type="text" *ngIf="editMonth" class="monthinput" maxlength="4" inputFocus [value]="visibleMonth.monthTxt" (keyup)="userMonthInput($event)" (click)="$event.stopPropagation()" [ngClass]="{'invalidmonth': invalidMonth}">
                             <span [ngClass]="{'monthlabel': opts.editableMonthAndYear}" *ngIf="!editMonth" (click)="editMonthClicked($event)">{{visibleMonth.monthTxt}}</span>
                         </div>
                         <div class="headerbtn" (click)="nextMonth()"><span class="icon icon-right"></span></div>
@@ -32,7 +32,7 @@
                     <div style="float:right">
                         <div class="headerbtn" (click)="prevYear()"><span class="icon icon-left"></span></div>
                         <div class="headeryeartxt">
-                            <input type="text" *ngIf="editYear" class="yearinput" maxlength="4" [inputFocus] [value]="visibleMonth.year" (keyup)="userYearInput($event)" (click)="$event.stopPropagation()" [ngClass]="{'invalidyear': invalidYear}">
+                            <input type="text" *ngIf="editYear" class="yearinput" maxlength="4" inputFocus [value]="visibleMonth.year" (keyup)="userYearInput($event)" (click)="$event.stopPropagation()" [ngClass]="{'invalidyear': invalidYear}">
                             <span [ngClass]="{'yearlabel': opts.editableMonthAndYear}" *ngIf="!editYear" (click)="editYearClicked($event)">{{visibleMonth.year}}</span>
                         </div>
                         <div class="headerbtn" (click)="nextYear()"><span class="icon icon-right"></span></div>
