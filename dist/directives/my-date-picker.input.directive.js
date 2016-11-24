@@ -16,6 +16,8 @@ var InputFocusDirective = (function () {
     }
     InputFocusDirective.prototype.ngAfterViewInit = function () {
         this.renderer.invokeElementMethod(this.el.nativeElement, "focus", []);
+        var len = this.el.nativeElement.value.length;
+        this.el.nativeElement.setSelectionRange(len, len);
     };
     InputFocusDirective = __decorate([
         core_1.Directive({
