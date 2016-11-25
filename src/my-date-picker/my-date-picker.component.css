@@ -107,6 +107,7 @@
 .mydp .header td {
     vertical-align: middle;
     border: none;
+    line-height: 0;
 }
 
 .mydp .header td:nth-child(1) {

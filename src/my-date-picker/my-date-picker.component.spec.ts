@@ -511,6 +511,35 @@ describe('MyDatePicker', () => {
         expect(sunday).toBe(null);
     });
 
+    it('options - current day marked', () => {
+        comp.options = {markCurrentDay: true};
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        let currday = getElement('.currday');
+        expect(currday).not.toBe(null);
+
+        btnpicker.nativeElement.click();
+
+        comp.options = {markCurrentDay: false};
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        btnpicker.nativeElement.click();
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        currday = getElement('.currday');
+        expect(currday).toBe(null);
+    });
+
     it('options - editable month and year', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 5, year: 2016};
         comp.options = {editableMonthAndYear: true};

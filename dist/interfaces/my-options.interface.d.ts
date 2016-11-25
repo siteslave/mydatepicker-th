@@ -9,6 +9,7 @@ export interface IMyOptions {
     todayBtnTxt?: string;
     firstDayOfWeek?: string;
     sunHighlight?: boolean;
+    markCurrentDay?: boolean;
     disableUntil?: IMyDate;
     disableSince?: IMyDate;
     disableDays?: Array<IMyDate>;
