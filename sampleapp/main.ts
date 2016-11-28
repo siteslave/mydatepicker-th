@@ -9,7 +9,7 @@ import { SampleDatePickerModule } from './sample-date-picker-module';
 
 
 if (process.env.ENV === 'production') {
-     enableProdMode();
+    enableProdMode();
 }
 
 
