@@ -106,6 +106,14 @@ var LocaleService = (function () {
                 todayBtnTxt: "Hoje",
                 firstDayOfWeek: "su",
                 sunHighlight: true
+            },
+            "de": {
+                dayLabels: { su: "So", mo: "Mo", tu: "Di", we: "Mi", th: "Do", fr: "Fr", sa: "Sa" },
+                monthLabels: { 1: "Jan", 2: "Feb", 3: "Mär", 4: "Apr", 5: "Mai", 6: "Jun", 7: "Jul", 8: "Aug", 9: "Sep", 10: "Okt", 11: "Nov", 12: "Dez" },
+                dateFormat: "dd.mm.yyyy",
+                todayBtnTxt: "Heute",
+                firstDayOfWeek: "mo",
+                sunHighlight: true
             }
         };
     }
