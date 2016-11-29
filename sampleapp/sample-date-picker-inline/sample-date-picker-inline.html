@@ -1,12 +1,44 @@
 <div>
-    <div style="margin-bottom: 10px">
-        <span style="margin-right: 10px">Locale:</span>
-        <span>
-            <select style="padding: 2px;cursor: pointer;font-size: 11px;min-width: 60px;" (change)="onChangeLocale($event.target.value)">
-                <option *ngFor="let l of locales">{{l}}</option>
-            </select>
-        </span>
-    </div>
+    <ul>
+        <li>
+            <span style="margin-right: 10px">Locale:</span>
+            <span>
+                <select style="padding: 2px;cursor: pointer;font-size: 11px;min-width: 60px;" (change)="onChangeLocale($event.target.value)">
+                    <option *ngFor="let l of locales">{{l}}</option>
+                </select>
+            </span>
+        </li>
+        <li>
+            <label>
+                <span>Disable past dates starting from 5th of the current day:</span>
+                <input style="cursor: pointer" type="checkbox" (change)="onDisablePast($event.currentTarget.checked)" [checked]=false>
+            </label>
+        </li>
+        <li>
+            <label>
+                <span>Disable future dates starting from 5th of the current day:</span>
+                <input style="cursor: pointer" type="checkbox" (change)="onDisableFuture($event.currentTarget.checked)" [checked]=false>
+            </label>
+        </li>
+        <li>
+            <label>
+                <span>Disable the 1st and the 3rd dates from the next month:</span>
+                <input style="cursor: pointer"  type="checkbox" (change)="onDisableSingleDates($event.currentTarget.checked)" [checked]=false>
+            </label>
+        </li>
+        <li>
+            <label>
+                <span>Disable weekends:</span>
+                <input style="cursor: pointer"  type="checkbox" (change)="onDisableWeekends($event.currentTarget.checked)" [checked]=false>
+            </label>
+        </li>
+        <li>
+            <label>
+                <span>Mark current day:</span>
+                <input style="cursor: pointer"  type="checkbox" (change)="onMarkCurrentDay($event.currentTarget.checked)" [checked]=true>
+            </label>
+        </li>
+    </ul>
 
     <div style="padding:4px;border-radius:4px;margin-bottom:8px;float:right" [ngStyle]="{border: border}">
         {{selectedTextInline}}
