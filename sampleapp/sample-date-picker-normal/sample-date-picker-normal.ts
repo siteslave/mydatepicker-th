@@ -31,9 +31,7 @@ export class SampleDatePickerNormal implements OnInit {
     private selectedTextNormal: string = '';
     private border: string = 'none';
 
-    constructor() {
-        let date = new Date();
-    }
+    constructor() {}
 
     clearDate() {
         this.selectedDateNormal = '';

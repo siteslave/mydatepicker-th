@@ -47,6 +47,7 @@ export declare class MyDatePicker implements OnChanges {
     ngOnChanges(changes: SimpleChanges): void;
     removeBtnClicked(): void;
     openBtnClicked(): void;
+    setVisibleMonth(): void;
     prevMonth(): void;
     nextMonth(): void;
     prevYear(): void;

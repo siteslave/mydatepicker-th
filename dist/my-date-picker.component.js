@@ -174,9 +174,6 @@ var MyDatePicker = (function () {
                 idx = this.weekDayOpts[idx] === "sa" ? 0 : idx + 1;
             }
         }
-        if (this.opts.inline) {
-            this.openBtnClicked();
-        }
     };
     MyDatePicker.prototype.ngOnChanges = function (changes) {
         if (changes.hasOwnProperty("locale")) {
@@ -199,6 +196,9 @@ var MyDatePicker = (function () {
                 this.removeBtnClicked();
             }
         }
+        if (this.opts.inline) {
+            this.setVisibleMonth();
+        }
     };
     MyDatePicker.prototype.removeBtnClicked = function () {
         this.selectionDayTxt = "";
@@ -209,25 +209,28 @@ var MyDatePicker = (function () {
     };
     MyDatePicker.prototype.openBtnClicked = function () {
         this.showSelector = !this.showSelector;
-        if (this.showSelector || this.opts.inline) {
-            var y = 0, m = 0;
-            if (this.selectedDate.year === 0 && this.selectedDate.month === 0 && this.selectedDate.day === 0) {
-                if (this.selectedMonth.year === 0 && this.selectedMonth.monthNbr === 0) {
-                    y = this.today.getFullYear();
-                    m = this.today.getMonth() + 1;
-                }
-                else {
-                    y = this.selectedMonth.year;
-                    m = this.selectedMonth.monthNbr;
-                }
+        if (this.showSelector) {
+            this.setVisibleMonth();
+        }
+    };
+    MyDatePicker.prototype.setVisibleMonth = function () {
+        var y = 0, m = 0;
+        if (this.selectedDate.year === 0 && this.selectedDate.month === 0 && this.selectedDate.day === 0) {
+            if (this.selectedMonth.year === 0 && this.selectedMonth.monthNbr === 0) {
+                y = this.today.getFullYear();
+                m = this.today.getMonth() + 1;
             }
             else {
-                y = this.selectedDate.year;
-                m = this.selectedDate.month;
+                y = this.selectedMonth.year;
+                m = this.selectedMonth.monthNbr;
             }
-            this.visibleMonth = { monthTxt: this.opts.monthLabels[m], monthNbr: m, year: y };
-            this.generateCalendar(m, y);
         }
+        else {
+            y = this.selectedDate.year;
+            m = this.selectedDate.month;
+        }
+        this.visibleMonth = { monthTxt: this.opts.monthLabels[m], monthNbr: m, year: y };
+        this.generateCalendar(m, y);
     };
     MyDatePicker.prototype.prevMonth = function () {
         var d = this.getDate(this.visibleMonth.year, this.visibleMonth.monthNbr, 1);

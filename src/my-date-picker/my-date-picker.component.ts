@@ -197,9 +197,6 @@ export class MyDatePicker implements OnChanges {
                 idx = this.weekDayOpts[idx] === "sa" ? 0 : idx + 1;
             }
         }
-        if (this.opts.inline) {
-            this.openBtnClicked();
-        }
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -227,9 +224,13 @@ export class MyDatePicker implements OnChanges {
                 this.removeBtnClicked();
             }
         }
+        if (this.opts.inline) {
+            this.setVisibleMonth();
+        }
     }
 
     removeBtnClicked(): void {
+        // Remove selected date button clicked
         this.selectionDayTxt = "";
         this.selectedDate = {year: 0, month: 0, day: 0};
         this.dateChanged.emit({date: {}, formatted: this.selectionDayTxt, epoc: 0});
@@ -238,29 +239,33 @@ export class MyDatePicker implements OnChanges {
     }
 
     openBtnClicked(): void {
+        // Open selector button clicked
         this.showSelector = !this.showSelector;
-
-        if (this.showSelector || this.opts.inline) {
-            let y: number = 0, m: number = 0;
-            if (this.selectedDate.year === 0 && this.selectedDate.month === 0 && this.selectedDate.day === 0) {
-                if (this.selectedMonth.year === 0 && this.selectedMonth.monthNbr === 0) {
-                    y = this.today.getFullYear();
-                    m = this.today.getMonth() + 1;
-                } else {
-                    y = this.selectedMonth.year;
-                    m = this.selectedMonth.monthNbr;
-                }
-            }
-            else {
-                y = this.selectedDate.year;
-                m = this.selectedDate.month;
-            }
-            // Set current month
-            this.visibleMonth = {monthTxt: this.opts.monthLabels[m], monthNbr: m, year: y};
-
-            // Create current month
-            this.generateCalendar(m, y);
+        if (this.showSelector) {
+            this.setVisibleMonth();
         }
+    }
+
+    setVisibleMonth(): void {
+        // Sets visible month of calendar
+        let y: number = 0, m: number = 0;
+        if (this.selectedDate.year === 0 && this.selectedDate.month === 0 && this.selectedDate.day === 0) {
+            if (this.selectedMonth.year === 0 && this.selectedMonth.monthNbr === 0) {
+                y = this.today.getFullYear();
+                m = this.today.getMonth() + 1;
+            } else {
+                y = this.selectedMonth.year;
+                m = this.selectedMonth.monthNbr;
+            }
+        }
+        else {
+            y = this.selectedDate.year;
+            m = this.selectedDate.month;
+        }
+        this.visibleMonth = {monthTxt: this.opts.monthLabels[m], monthNbr: m, year: y};
+
+        // Create current month
+        this.generateCalendar(m, y);
     }
 
     prevMonth(): void {
