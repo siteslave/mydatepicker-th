@@ -21,6 +21,7 @@ export interface IMyOptions {
     alignSelectorRight?: boolean;
     indicateInvalidDate?: boolean;
     showDateFormatPlaceholder?: boolean;
+    editableDateField?: boolean;
     editableMonthAndYear?: boolean;
     minYear?: number;
     maxYear?: number;

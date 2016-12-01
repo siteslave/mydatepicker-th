@@ -37,9 +37,15 @@ export class SampleDatePickerNormal implements OnInit {
         this.selectedDateNormal = '';
     }
 
-    enableDisable() {
-        let copy = JSON.parse(JSON.stringify(this.myDatePickerNormalOptions));
-        copy.componentDisabled = !this.myDatePickerNormalOptions.componentDisabled;
+    onDisableComponent(checked: boolean) {
+        let copy = this.getCopyOfOptions();
+        copy.componentDisabled = checked;
+        this.myDatePickerNormalOptions = copy;
+    }
+
+    onEditableDateField(checked: boolean) {
+        let copy = this.getCopyOfOptions();
+        copy.editableDateField = checked;
         this.myDatePickerNormalOptions = copy;
     }
 
@@ -67,5 +73,9 @@ export class SampleDatePickerNormal implements OnInit {
 
     onCalendarViewChanged(event:any) {
         console.log('onCalendarViewChanged(): Year: ', event.year, ' - month: ', event.month, ' - first: ', event.first, ' - last: ', event.last);
+    }
+
+    getCopyOfOptions() {
+        return JSON.parse(JSON.stringify(this.myDatePickerNormalOptions));
     }
 }

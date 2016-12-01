@@ -1,4 +1,19 @@
 <div>
+    <ul>
+        <li>
+            <label>
+                <span>Disable component:</span>
+                <input style="cursor: pointer" type="checkbox" (change)="onDisableComponent($event.currentTarget.checked)" [checked]="false">
+            </label>
+        </li>
+        <li>
+            <label>
+                <span>Editable date field:</span>
+                <input style="cursor: pointer" type="checkbox" (change)="onEditableDateField($event.currentTarget.checked)" [checked]="true">
+            </label>
+        </li>
+    </ul>
+
     <div style="padding:4px;border-radius:4px;margin-bottom:8px;float:right" [ngStyle]="{border: border}">
         {{selectedTextNormal}}
     </div>
@@ -7,6 +22,5 @@
 
     <div style="margin-top: 20px">
         <button style="cursor: pointer" type="button" (click)="clearDate()" [disabled]="selectedDateNormal===''">Clear Date</button>
-        <button style="cursor: pointer" type="button" (click)="enableDisable()">{{myDatePickerNormalOptions.componentDisabled ? 'Enable' : 'Disable'}}</button>
     </div>
 </div>
