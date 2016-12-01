@@ -86,7 +86,8 @@ Value of the __options__ attribute is a javascript object. It can contain the fo
 | __dayLabels__     | {su: 'Sun', mo: 'Mon', tu: 'Tue', we: 'Wed', th: 'Thu', fr: 'Fri', sa: 'Sat'} | Day labels visible on the selector. |
 | __monthLabels__   | { 1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun', 7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec' } | Month labels visible on the selector. |
 | __dateFormat__    | yyyy-mm-dd      | Date format on the selection area and the callback. For example: dd.mm.yyyy, yyyy-mm-dd, dd mmm yyyy (mmm = Month as a text) |
-| __todayBtnTxt__   | Today      | Today button text. |
+| __todayBtnDisabled__   | false      | Show 'Today' button on calendar. |
+| __todayBtnTxt__   | Today      | Today button text. Can be used if __todayBtnDisabled = false__. |
 | __firstDayOfWeek__   | mo | First day of week on calendar. One of the following: mo, tu, we, th, fr, sa, su |
 | __sunHighlight__   | true | Sunday red colored on calendar. |
 | __markCurrentDay__   | true | Is current day (today) marked on calendar. |

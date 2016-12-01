@@ -25,7 +25,7 @@
                         <div class="headerbtn" (click)="nextMonth()"><span class="icon icon-right"></span></div>
                     </div>
                 </td>
-                <td>
+                <td *ngIf="!opts.todayBtnDisabled">
                     <button type="button" class="headertodaybtn" (click)="todayClicked()">{{opts.todayBtnTxt}}</button>
                 </td>
                 <td>
