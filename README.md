@@ -90,7 +90,6 @@ Value of the __options__ attribute is a javascript object. It can contain the fo
 | __firstDayOfWeek__   | mo | First day of week on calendar. One of the following: mo, tu, we, th, fr, sa, su |
 | __sunHighlight__   | true | Sunday red colored on calendar. |
 | __markCurrentDay__   | true | Is current day (today) marked on calendar. |
-| __editableDateField__   | true | Is selected date field editable or not. |
 | __editableMonthAndYear__   | true | Is month and year labels editable or not. |
 | __minYear__   | 1000 | Minimum allowed year in calendar. Cannot be less than 1000. |
 | __maxYear__   | 9999 | Maximum allowed year in calendar. Cannot be more than 9999. |
@@ -106,6 +105,7 @@ Value of the __options__ attribute is a javascript object. It can contain the fo
 | __indicateInvalidDate__   | true | If user typed date is not same format as __dateFormat__, show red background in the selection area. Can be used if __inline = false__. |
 | __showDateFormatPlaceholder__   | false | Show value of __dateFormat__ as placeholder in the selection area if it is empty. Can be used if __inline = false__. |
 | __componentDisabled__   | false | Is selection area and buttons disabled or not. Can be used if __inline = false__. |
+| __editableDateField__   | true | Is selected date field editable or not. Can be used if __inline = false__. |
 
 * Example of the options data (not all properties listed):
 ```js
