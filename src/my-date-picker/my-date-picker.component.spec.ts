@@ -445,6 +445,46 @@ describe('MyDatePicker', () => {
         expect(comp.invalidDate).toBe(false);
     });
 
+    it('options - show today button', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 1, year: 2016};
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        let headertodaybtn = getElement('.headertodaybtn');
+        expect(headertodaybtn).not.toBe(null);
+
+        btnpicker.nativeElement.click();
+
+        comp.options = {showTodayBtn: false};
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        headertodaybtn = getElement('.headertodaybtn');
+        expect(headertodaybtn).toBe(null);
+
+        btnpicker.nativeElement.click();
+
+        comp.options = {showTodayBtn: true};
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        headertodaybtn = getElement('.headertodaybtn');
+        expect(headertodaybtn).not.toBe(null);
+    });
+
     it('options - today button text', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 1, year: 2016};
         comp.options = {todayBtnTxt: 'test text'};
@@ -1136,6 +1176,31 @@ describe('MyDatePicker', () => {
 
         fixture.detectChanges();
         expect(selection.nativeElement.value).toContain('');
+    });
+
+    it('options - editable date field', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
+        comp.options = {editableDateField: false};
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let selection = getElement('.selection');
+
+        selection.nativeElement.value = '2016-11-14';
+
+        fixture.detectChanges();
+        expect(selection.nativeElement.value).toContain('');
+
+        comp.options = {editableDateField: true};
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        selection = getElement('.selection');
+
+        selection.nativeElement.value = '2016-11-14';
+
+        fixture.detectChanges();
+        expect(selection.nativeElement.value).toContain('2016-11-14');
     });
 
     it('locale - use fr locale', () => {

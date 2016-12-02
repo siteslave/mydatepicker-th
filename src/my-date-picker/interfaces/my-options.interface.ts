@@ -6,7 +6,7 @@ export interface IMyOptions {
     dayLabels?: IMyDayLabels;
     monthLabels?: IMyMonthLabels;
     dateFormat?: string;
-    todayBtnDisabled?: boolean,
+    showTodayBtn?: boolean;
     todayBtnTxt?: string;
     firstDayOfWeek?: string;
     sunHighlight?: boolean;

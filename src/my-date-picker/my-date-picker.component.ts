@@ -52,7 +52,7 @@ export class MyDatePicker implements OnChanges {
         dayLabels: <IMyDayLabels> {},
         monthLabels: <IMyMonthLabels> {},
         dateFormat: <string> "",
-        todayBtnDisabled: false,
+        showTodayBtn: <boolean> true,
         todayBtnTxt: <string> "",
         firstDayOfWeek: <string> "",
         sunHighlight: <boolean> true,

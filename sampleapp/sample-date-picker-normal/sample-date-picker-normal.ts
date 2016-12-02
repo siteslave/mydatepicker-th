@@ -49,6 +49,12 @@ export class SampleDatePickerNormal implements OnInit {
         this.myDatePickerNormalOptions = copy;
     }
 
+    onShowTodayButton(checked: boolean) {
+        let copy = this.getCopyOfOptions();
+        copy.showTodayBtn = checked;
+        this.myDatePickerNormalOptions = copy;
+    }
+
     ngOnInit() {
         console.log('onInit(): SampleDatePickerNormal');
     }
