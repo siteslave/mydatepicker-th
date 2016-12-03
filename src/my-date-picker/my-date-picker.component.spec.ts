@@ -793,6 +793,52 @@ describe('MyDatePicker', () => {
         expect(lastDisabled.nativeElement.textContent.trim()).toBe('10');
     });
 
+    it('options - disable today - today button disabled', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
+
+        let date = new Date();
+        comp.options = {disableDays: [{year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()}]};
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        comp.generateCalendar(10, 2016);
+
+        fixture.detectChanges();
+        let headertodaybtn = getElement('.headertodaybtn');
+        expect(headertodaybtn).not.toBe(null);
+        expect(headertodaybtn.properties['disabled']).toBe(true);
+
+        fixture.detectChanges();
+        headertodaybtn.nativeElement.click();
+        let selector = getElement('.selector');
+        expect(selector).not.toBe(null);
+
+        btnpicker.nativeElement.click();
+
+        comp.options = {disableDays: []};
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        btnpicker.nativeElement.click();
+        comp.generateCalendar(10, 2016);
+
+        fixture.detectChanges();
+        headertodaybtn = getElement('.headertodaybtn');
+        expect(headertodaybtn).not.toBe(null);
+        expect(headertodaybtn.properties['disabled']).toBe(false);
+
+        headertodaybtn.nativeElement.click();
+
+        fixture.detectChanges();
+        let selection = getElement('.selection');
+        expect(selection).not.toBe(null);
+        expect(selection.nativeElement.value).toBe(getDateString(date));
+    });
+
     it('options - disable weekends', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
         comp.options = {firstDayOfWeek: 'mo', disableWeekends: true};

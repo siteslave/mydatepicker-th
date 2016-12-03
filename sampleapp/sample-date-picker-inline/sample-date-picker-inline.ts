@@ -70,6 +70,15 @@ export class SampleDatePickerInline implements OnInit {
         this.myDatePickerInlineOptions = copy;
     }
 
+    onDisableToday(checked:boolean) {
+        let date = new Date();
+
+        // Disable/enable today
+        let copy = this.getCopyOfOptions();
+        copy.disableDays = checked ? [{year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()}] : [];
+        this.myDatePickerInlineOptions = copy;
+    }
+
     onDisableWeekends(checked:boolean) {
         // Disable/enable weekends
         let copy = this.getCopyOfOptions();

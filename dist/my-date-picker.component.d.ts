@@ -23,8 +23,8 @@ export declare class MyDatePicker implements OnChanges {
     dates: Array<Object>;
     selectionDayTxt: string;
     invalidDate: boolean;
+    disableTodayBtn: boolean;
     dayIdx: number;
-    today: Date;
     weekDayOpts: Array<string>;
     editMonth: boolean;
     invalidMonth: boolean;
@@ -43,11 +43,13 @@ export declare class MyDatePicker implements OnChanges {
     userDateInput(event: any): void;
     userMonthInput(event: any): void;
     userYearInput(event: any): void;
+    isTodayDisabled(): void;
     parseOptions(): void;
     ngOnChanges(changes: SimpleChanges): void;
     removeBtnClicked(): void;
     openBtnClicked(): void;
     setVisibleMonth(): void;
+    clearDate(): void;
     prevMonth(): void;
     nextMonth(): void;
     prevYear(): void;
@@ -62,6 +64,7 @@ export declare class MyDatePicker implements OnChanges {
     daysInMonth(m: number, y: number): number;
     daysInPrevMonth(m: number, y: number): number;
     isCurrDay(d: number, m: number, y: number, cmo: any): boolean;
+    getToday(): Date;
     getTimeInMilliseconds(date: IMyDate): number;
     getDayNumber(date: IMyDate): number;
     getWeekday(date: IMyDate): string;

@@ -28,6 +28,12 @@
         </li>
         <li>
             <label>
+                <span>Disable today:</span>
+                <input style="cursor: pointer"  type="checkbox" (change)="onDisableToday($event.currentTarget.checked)" [checked]="false">
+            </label>
+        </li>
+        <li>
+            <label>
                 <span>Disable weekends:</span>
                 <input style="cursor: pointer"  type="checkbox" (change)="onDisableWeekends($event.currentTarget.checked)" [checked]="false">
             </label>
