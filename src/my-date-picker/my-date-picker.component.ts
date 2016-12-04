@@ -185,9 +185,7 @@ export class MyDatePicker implements OnChanges {
     }
 
     isTodayDisabled(): void {
-        let today: Date = this.getToday();
-        let date: IMyDate = {year: today.getFullYear(), month: today.getMonth() + 1, day: today.getDate()};
-        this.disableTodayBtn = this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays);
+        this.disableTodayBtn = this.validatorService.isDisabledDay(this.getToday(), this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays);
     }
 
     parseOptions(): void {
@@ -254,9 +252,9 @@ export class MyDatePicker implements OnChanges {
         let y: number = 0, m: number = 0;
         if (this.selectedDate.year === 0 && this.selectedDate.month === 0 && this.selectedDate.day === 0) {
             if (this.selectedMonth.year === 0 && this.selectedMonth.monthNbr === 0) {
-                let today: Date = this.getToday();
-                y = today.getFullYear();
-                m = today.getMonth() + 1;
+                let today: IMyDate = this.getToday();
+                y = today.year;
+                m = today.month;
             } else {
                 y = this.selectedMonth.year;
                 m = this.selectedMonth.monthNbr;
@@ -325,13 +323,11 @@ export class MyDatePicker implements OnChanges {
 
     todayClicked(): void {
         // Today button clicked
-        let today: Date = this.getToday();
-        let m: number = today.getMonth() + 1;
-        let y: number = today.getFullYear();
-        this.selectDate({day: today.getDate(), month: m, year: y});
+        let today: IMyDate = this.getToday();
+        this.selectDate({day: today.day, month: today.month, year: today.year});
         if (this.opts.inline) {
-            this.visibleMonth = {monthTxt: this.opts.monthLabels[m], monthNbr: m, year: y};
-            this.generateCalendar(m, y);
+            this.visibleMonth = {monthTxt: this.opts.monthLabels[today.month], monthNbr: today.month, year: today.year};
+            this.generateCalendar(today.month, today.year);
         }
     }
 
@@ -400,14 +396,14 @@ export class MyDatePicker implements OnChanges {
         return this.daysInMonth(d.getMonth() + 1, d.getFullYear());
     }
 
-    isCurrDay(d: number, m: number, y: number, cmo: any): boolean {
-        // Check is a given date the current date
-        let today: Date = this.getToday();
-        return d === today.getDate() && m === today.getMonth() + 1 && y === today.getFullYear() && cmo === 2;
+    isCurrDay(d: number, m: number, y: number, cmo: number, today: IMyDate): boolean {
+        // Check is a given date the today
+        return d === today.day && m === today.month && y === today.year && cmo === this.CURR_MONTH;
     }
 
-    getToday(): Date {
-        return new Date();
+    getToday(): IMyDate {
+        let date: Date = new Date();
+        return {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()};
     }
 
     getTimeInMilliseconds(date: IMyDate): number {
@@ -426,6 +422,7 @@ export class MyDatePicker implements OnChanges {
     }
 
     getDate(year: number, month: number, day: number): Date {
+        // Creates a date object from given year, month and day
         return new Date(year, month - 1, day, 0, 0, 0, 0);
     }
 
@@ -436,6 +433,7 @@ export class MyDatePicker implements OnChanges {
 
     generateCalendar(m: number, y: number): void {
         this.dates.length = 0;
+        let today: IMyDate = this.getToday();
         let monthStart: number = this.monthStartIdx(y, m);
         let dInThisM: number = this.daysInMonth(m, y);
         let dInPrevM: number = this.daysInPrevMonth(m, y);
@@ -450,7 +448,7 @@ export class MyDatePicker implements OnChanges {
                 // Previous month
                 for (let j = pm; j <= dInPrevM; j++) {
                     let date: IMyDate = {year: y, month: m - 1, day: j};
-                    week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(j, m, y, cmo), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays)});
+                    week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(j, m, y, cmo, today), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays)});
                 }
 
                 cmo = this.CURR_MONTH;
@@ -458,7 +456,7 @@ export class MyDatePicker implements OnChanges {
                 let daysLeft: number = 7 - week.length;
                 for (let j = 0; j < daysLeft; j++) {
                     let date: IMyDate = {year: y, month: m, day: dayNbr};
-                    week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays)});
+                    week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo, today), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays)});
                     dayNbr++;
                 }
             }
@@ -471,7 +469,7 @@ export class MyDatePicker implements OnChanges {
                         cmo = this.NEXT_MONTH;
                     }
                     let date: IMyDate = {year: y, month: cmo === this.CURR_MONTH ? m : m + 1, day: dayNbr};
-                    week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays)});
+                    week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo, today), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays)});
                     dayNbr++;
                 }
             }

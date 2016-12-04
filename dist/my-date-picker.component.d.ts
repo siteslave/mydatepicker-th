@@ -63,8 +63,8 @@ export declare class MyDatePicker implements OnChanges {
     monthStartIdx(y: number, m: number): number;
     daysInMonth(m: number, y: number): number;
     daysInPrevMonth(m: number, y: number): number;
-    isCurrDay(d: number, m: number, y: number, cmo: any): boolean;
-    getToday(): Date;
+    isCurrDay(d: number, m: number, y: number, cmo: number, today: IMyDate): boolean;
+    getToday(): IMyDate;
     getTimeInMilliseconds(date: IMyDate): number;
     getDayNumber(date: IMyDate): number;
     getWeekday(date: IMyDate): string;

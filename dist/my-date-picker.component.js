@@ -163,9 +163,7 @@ var MyDatePicker = (function () {
         }
     };
     MyDatePicker.prototype.isTodayDisabled = function () {
-        var today = this.getToday();
-        var date = { year: today.getFullYear(), month: today.getMonth() + 1, day: today.getDate() };
-        this.disableTodayBtn = this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays);
+        this.disableTodayBtn = this.validatorService.isDisabledDay(this.getToday(), this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays);
     };
     MyDatePicker.prototype.parseOptions = function () {
         this.setOptions();
@@ -221,8 +219,8 @@ var MyDatePicker = (function () {
         if (this.selectedDate.year === 0 && this.selectedDate.month === 0 && this.selectedDate.day === 0) {
             if (this.selectedMonth.year === 0 && this.selectedMonth.monthNbr === 0) {
                 var today = this.getToday();
-                y = today.getFullYear();
-                m = today.getMonth() + 1;
+                y = today.year;
+                m = today.month;
             }
             else {
                 y = this.selectedMonth.year;
@@ -275,12 +273,10 @@ var MyDatePicker = (function () {
     };
     MyDatePicker.prototype.todayClicked = function () {
         var today = this.getToday();
-        var m = today.getMonth() + 1;
-        var y = today.getFullYear();
-        this.selectDate({ day: today.getDate(), month: m, year: y });
+        this.selectDate({ day: today.day, month: today.month, year: today.year });
         if (this.opts.inline) {
-            this.visibleMonth = { monthTxt: this.opts.monthLabels[m], monthNbr: m, year: y };
-            this.generateCalendar(m, y);
+            this.visibleMonth = { monthTxt: this.opts.monthLabels[today.month], monthNbr: today.month, year: today.year };
+            this.generateCalendar(today.month, today.year);
         }
     };
     MyDatePicker.prototype.cellClicked = function (cell) {
@@ -329,12 +325,12 @@ var MyDatePicker = (function () {
         d.setMonth(d.getMonth() - 1);
         return this.daysInMonth(d.getMonth() + 1, d.getFullYear());
     };
-    MyDatePicker.prototype.isCurrDay = function (d, m, y, cmo) {
-        var today = this.getToday();
-        return d === today.getDate() && m === today.getMonth() + 1 && y === today.getFullYear() && cmo === 2;
+    MyDatePicker.prototype.isCurrDay = function (d, m, y, cmo, today) {
+        return d === today.day && m === today.month && y === today.year && cmo === this.CURR_MONTH;
     };
     MyDatePicker.prototype.getToday = function () {
-        return new Date();
+        var date = new Date();
+        return { year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate() };
     };
     MyDatePicker.prototype.getTimeInMilliseconds = function (date) {
         return this.getDate(date.year, date.month, date.day).getTime();
@@ -354,6 +350,7 @@ var MyDatePicker = (function () {
     };
     MyDatePicker.prototype.generateCalendar = function (m, y) {
         this.dates.length = 0;
+        var today = this.getToday();
         var monthStart = this.monthStartIdx(y, m);
         var dInThisM = this.daysInMonth(m, y);
         var dInPrevM = this.daysInPrevMonth(m, y);
@@ -365,13 +362,13 @@ var MyDatePicker = (function () {
                 var pm = dInPrevM - monthStart + 1;
                 for (var j = pm; j <= dInPrevM; j++) {
                     var date = { year: y, month: m - 1, day: j };
-                    week.push({ dateObj: date, cmo: cmo, currDay: this.isCurrDay(j, m, y, cmo), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays) });
+                    week.push({ dateObj: date, cmo: cmo, currDay: this.isCurrDay(j, m, y, cmo, today), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays) });
                 }
                 cmo = this.CURR_MONTH;
                 var daysLeft = 7 - week.length;
                 for (var j = 0; j < daysLeft; j++) {
                     var date = { year: y, month: m, day: dayNbr };
-                    week.push({ dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays) });
+                    week.push({ dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo, today), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays) });
                     dayNbr++;
                 }
             }
@@ -382,7 +379,7 @@ var MyDatePicker = (function () {
                         cmo = this.NEXT_MONTH;
                     }
                     var date = { year: y, month: cmo === this.CURR_MONTH ? m : m + 1, day: dayNbr };
-                    week.push({ dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays) });
+                    week.push({ dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo, today), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays) });
                     dayNbr++;
                 }
             }
