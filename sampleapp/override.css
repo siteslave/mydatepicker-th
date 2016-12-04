@@ -1,6 +1,4 @@
 /*
-* Remove bolding of the fonts.
-*/
 .mydp .selection,
 .mydp .weekdaytitle,
 .mydp .monthinput,
@@ -8,9 +6,20 @@
     font-weight: normal;
 }
 
-/*
-* Change color of the weekday font.
-*/
+
 .mydp .weekdaytitle {
     color: #000;
 }
+
+
+.mydp,
+.mydp .selectiongroup,
+.mydp .selection,
+.mydp .selector {
+    border-radius: 4px;
+}
+
+.mydp .btnpicker {
+    border-radius: 0 4px 4px 0;
+}
+*/

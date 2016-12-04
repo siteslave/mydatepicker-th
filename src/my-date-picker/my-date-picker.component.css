@@ -74,7 +74,7 @@
     height: 100%;
     width: 30px;
     border: none;
-    border-left: 1px solid #AAA;
+    border-left: 1px solid #CCC;
     padding: 0;
     outline: 0;
     font: inherit;
@@ -225,13 +225,7 @@
 .mydp .headertodaybtn,
 .mydp .monthinput,
 .mydp .yearinput {
-    border: 1px solid #AAA;
-}
-
-.mydp .selector,
-.mydp .header,
-.mydp .caltable tbody {
-    border: 1px solid #DDD;
+    border: 1px solid #CCC;
 }
 
 .mydp .btnpicker,
