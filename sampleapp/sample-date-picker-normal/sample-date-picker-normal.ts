@@ -26,7 +26,7 @@ export class SampleDatePickerNormal implements OnInit {
         minYear: 1900,
         componentDisabled: false
     };
-    private selectedDateNormal:string = '';
+    private selectedDateNormal:string = null;
 
     private selectedTextNormal: string = '';
     private border: string = 'none';
