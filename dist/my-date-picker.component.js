@@ -190,7 +190,13 @@ var MyDatePicker = (function () {
         this.weekDays.length = 0;
         this.parseOptions();
         if (changes.hasOwnProperty("defaultMonth")) {
-            this.selectedMonth = this.parseSelectedMonth((changes["defaultMonth"].currentValue).toString());
+            var dm = changes["defaultMonth"].currentValue;
+            if (dm !== null && dm !== undefined && dm !== "") {
+                this.selectedMonth = this.parseSelectedMonth(dm);
+            }
+            else {
+                this.selectedMonth = { monthTxt: "", monthNbr: 0, year: 0 };
+            }
         }
         if (changes.hasOwnProperty("selDate")) {
             this.selectionDayTxt = changes["selDate"].currentValue;

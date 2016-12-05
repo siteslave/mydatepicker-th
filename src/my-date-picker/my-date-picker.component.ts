@@ -217,7 +217,13 @@ export class MyDatePicker implements OnChanges {
         this.parseOptions();
 
         if (changes.hasOwnProperty("defaultMonth")) {
-            this.selectedMonth = this.parseSelectedMonth((changes["defaultMonth"].currentValue).toString());
+            let dm: string = changes["defaultMonth"].currentValue;
+            if (dm !== null && dm !== undefined && dm !== "") {
+                this.selectedMonth = this.parseSelectedMonth(dm);
+            }
+            else {
+                this.selectedMonth = {monthTxt: "", monthNbr: 0, year: 0};
+            }
         }
 
         if (changes.hasOwnProperty("selDate")) {
