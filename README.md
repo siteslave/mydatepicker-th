@@ -155,13 +155,14 @@ __08-2016__, __08/2016__.
   * called when the date is selected, removed or input field typing is valid
   * event parameter:
     * event.date: Date object in the following format: { day: 22, month: 11, year: 2016 }
+    * event.jsdate: Javascript Date object
     * event.formatted: Date string in the same format as dateFormat option is: '2016-11-22'
     * event.epoc: Epoc time stamp number: 1479765600
 
   * Example of the dateChanged callback:
   ```js
   onDateChanged(event:any) {
-    console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
+    console.log('onDateChanged(): ', event.date, ' - jsdate: ', event.jsdate, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
   }
   ```
 

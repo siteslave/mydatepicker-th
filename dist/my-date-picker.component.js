@@ -243,7 +243,7 @@ var MyDatePicker = (function () {
     MyDatePicker.prototype.clearDate = function () {
         this.selectionDayTxt = "";
         this.selectedDate = { year: 0, month: 0, day: 0 };
-        this.dateChanged.emit({ date: {}, formatted: this.selectionDayTxt, epoc: 0 });
+        this.dateChanged.emit({ date: {}, jsdate: null, formatted: this.selectionDayTxt, epoc: 0 });
         this.inputFieldChanged.emit({ value: "", dateFormat: this.opts.dateFormat, valid: false });
         this.invalidDate = false;
     };
@@ -301,7 +301,7 @@ var MyDatePicker = (function () {
         this.selectedDate = { day: date.day, month: date.month, year: date.year };
         this.selectionDayTxt = this.formatDate(this.selectedDate);
         this.showSelector = false;
-        this.dateChanged.emit({ date: this.selectedDate, formatted: this.selectionDayTxt, epoc: Math.round(this.getTimeInMilliseconds(this.selectedDate) / 1000.0) });
+        this.dateChanged.emit({ date: this.selectedDate, jsdate: this.getDate(date.year, date.month, date.day), formatted: this.selectionDayTxt, epoc: Math.round(this.getTimeInMilliseconds(this.selectedDate) / 1000.0) });
         this.inputFieldChanged.emit({ value: this.selectionDayTxt, dateFormat: this.opts.dateFormat, valid: true });
         this.invalidDate = false;
     };

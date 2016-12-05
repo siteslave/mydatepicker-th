@@ -60,7 +60,7 @@ export class SampleDatePickerNormal implements OnInit {
     }
 
     onDateChanged(event:any) {
-        console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
+        console.log('onDateChanged(): ', event.date, ' - jsdate: ', event.jsdate, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
         if(event.formatted !== '') {
             this.selectedTextNormal = 'Formatted: ' + event.formatted + ' - epoc timestamp: ' + event.epoc;
             this.border = '1px solid #CCC';
