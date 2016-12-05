@@ -222,7 +222,7 @@ export class MyDatePicker implements OnChanges {
 
         if (changes.hasOwnProperty("selDate")) {
             this.selectionDayTxt = changes["selDate"].currentValue;
-            if (this.selectionDayTxt !== "") {
+            if (this.selectionDayTxt !== null && this.selectionDayTxt !== undefined && this.selectionDayTxt !== "") {
                 this.selectedDate = this.parseSelectedDate(this.selectionDayTxt);
             }
             else {
