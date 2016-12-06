@@ -94,7 +94,7 @@ export class SampleDatePickerInline implements OnInit {
     }
 
     onDateChanged(event:any) {
-        console.log('onDateChanged(): ', event.date, ' - jsdate: ', event.jsdate, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
+        console.log('onDateChanged(): ', event.date, ' - jsdate: ', new Date(event.jsdate).toLocaleString(), ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
         if(event.formatted !== '') {
             this.selectedTextInline = 'Formatted: ' + event.formatted + ' - epoc timestamp: ' + event.epoc;
             this.border = '1px solid #CCC';

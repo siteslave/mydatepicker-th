@@ -165,7 +165,7 @@ __08-2016__, __08/2016__.
   * Example of the dateChanged callback:
   ```js
   onDateChanged(event:any) {
-    console.log('onDateChanged(): ', event.date, ' - jsdate: ', event.jsdate, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
+    console.log('onDateChanged(): ', event.date, ' - jsdate: ', new Date(event.jsdate).toLocaleString(), ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
   }
   ```
 
