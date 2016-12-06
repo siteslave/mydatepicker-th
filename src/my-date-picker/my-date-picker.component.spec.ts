@@ -1355,16 +1355,49 @@ describe('MyDatePicker', () => {
         expect(invaliddate).toBe(null);
     });
 
-    it('selDate - initially selected date', () => {
-        comp.selectionDayTxt = '2017-10-11';
-        comp.selectedDate = comp.parseSelectedDate(comp.selectionDayTxt);
+    it('selDate - initially selected date - string', () => {
+        let date: string = '2017-10-11';
+        comp.selectedDate = comp.parseSelectedDate(date);
 
         comp.parseOptions();
 
         fixture.detectChanges();
         let selection = getElement('.selection');
         expect(selection).not.toBe(null);
-        expect(selection.nativeElement.value).toContain(comp.selectionDayTxt);
+        expect(selection.nativeElement.value).toContain('2017-10-11');
+
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        let selectedday = getElement('.selectedday div span');
+        expect(selectedday).not.toBe(null);
+        expect(selectedday.nativeElement.textContent).toContain('11');
+
+        fixture.detectChanges();
+        let monthLabel = getElement('.headermonthtxt span');
+        expect(monthLabel).not.toBe(null);
+        expect(monthLabel.nativeElement.textContent).toBe('Oct');
+
+        fixture.detectChanges();
+        let yearLabel = getElement('.headeryeartxt span');
+        expect(yearLabel).not.toBe(null);
+        expect(yearLabel.nativeElement.textContent).toBe('2017');
+    });
+
+    it('selDate - initially selected date - object', () => {
+        let date: Object = {year: 2017, month: 10, day: 11};
+        comp.selectedDate = comp.parseSelectedDate(date);
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let selection = getElement('.selection');
+        expect(selection).not.toBe(null);
+        expect(selection.nativeElement.value).toContain('2017-10-11');
+        expect(comp.selectionDayTxt).toContain('2017-10-11');
 
         fixture.detectChanges();
         let btnpicker = getElement('.btnpicker');

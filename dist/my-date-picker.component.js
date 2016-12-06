@@ -199,9 +199,9 @@ var MyDatePicker = (function () {
             }
         }
         if (changes.hasOwnProperty("selDate")) {
-            this.selectionDayTxt = changes["selDate"].currentValue;
-            if (this.selectionDayTxt !== null && this.selectionDayTxt !== undefined && this.selectionDayTxt !== "") {
-                this.selectedDate = this.parseSelectedDate(this.selectionDayTxt);
+            var sd = changes["selDate"].currentValue;
+            if (sd !== null && sd !== undefined && sd !== "" && Object.keys(sd).length !== 0) {
+                this.selectedDate = this.parseSelectedDate(sd);
             }
             else {
                 this.clearDate();
@@ -393,15 +393,20 @@ var MyDatePicker = (function () {
         }
         this.calendarViewChanged.emit({ year: y, month: m, first: { number: 1, weekday: this.getWeekday({ year: y, month: m, day: 1 }) }, last: { number: dInThisM, weekday: this.getWeekday({ year: y, month: m, day: dInThisM }) } });
     };
-    MyDatePicker.prototype.parseSelectedDate = function (ds) {
+    MyDatePicker.prototype.parseSelectedDate = function (selDate) {
         var date = { day: 0, month: 0, year: 0 };
-        if (ds !== "") {
-            date.day = this.validatorService.parseDatePartNumber(this.opts.dateFormat, ds, "dd");
+        if (typeof selDate === "string") {
+            var sd = selDate;
+            date.day = this.validatorService.parseDatePartNumber(this.opts.dateFormat, sd, "dd");
             date.month = this.opts.dateFormat.indexOf("mmm") !== -1
-                ? this.validatorService.parseDatePartMonthName(this.opts.dateFormat, ds, "mmm", this.opts.monthLabels)
-                : this.validatorService.parseDatePartNumber(this.opts.dateFormat, ds, "mm");
-            date.year = this.validatorService.parseDatePartNumber(this.opts.dateFormat, ds, "yyyy");
+                ? this.validatorService.parseDatePartMonthName(this.opts.dateFormat, sd, "mmm", this.opts.monthLabels)
+                : this.validatorService.parseDatePartNumber(this.opts.dateFormat, sd, "mm");
+            date.year = this.validatorService.parseDatePartNumber(this.opts.dateFormat, sd, "yyyy");
         }
+        else if (typeof selDate === "object") {
+            date = selDate;
+        }
+        this.selectionDayTxt = this.formatDate(date);
         return date;
     };
     MyDatePicker.prototype.parseSelectedMonth = function (ms) {

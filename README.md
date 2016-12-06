@@ -136,8 +136,11 @@ file. If you want to add a new locale create a pull request.
 ### selDate attribute
 
 Provide the initially chosen date that will display both in the text input field
-and provide the default for the popped-up selector. Must be in the same format as
-the __dateFormat__ option is.
+and provide the default for the popped-up selector.
+
+Type of the __selDate__ attribute can be a string or an [IMyDate](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/interfaces/my-date.interface.ts) object.
+  * the string must be in the same format as the __dateFormat__ option is. For example '2016-06-26'
+  * the object must be in the IMyDate format. For example: {year: 2016, month: 6, day: 26}
 
 ### defaultMonth attribute
 

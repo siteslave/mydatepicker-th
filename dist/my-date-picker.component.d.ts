@@ -71,6 +71,6 @@ export declare class MyDatePicker implements OnChanges {
     getDate(year: number, month: number, day: number): Date;
     sundayIdx(): number;
     generateCalendar(m: number, y: number): void;
-    parseSelectedDate(ds: string): IMyDate;
+    parseSelectedDate(selDate: any): IMyDate;
     parseSelectedMonth(ms: string): IMyMonth;
 }

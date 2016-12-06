@@ -21,7 +21,7 @@ export class SampleDatePickerInline implements OnInit {
         disableUntil: {year: 0, month: 0, day: 0},
         disableDays: [{year: 0, month: 0, day: 0}]
     };
-    private selectedDateInline: string = '';
+    private selectedDateInline: Object = {};
 
     private selectedTextInline: string = '';
     private border: string = 'none';
