@@ -4,8 +4,6 @@
     "target": "es5",
     "declaration": true,
     "rootDir": "./src/my-date-picker",
-    "outDir": "./dist",
-    "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
@@ -22,7 +20,6 @@
     "./src/my-date-picker/directives/*.ts",
     "./src/my-date-picker/services/*.ts",
     "./src/my-date-picker/interfaces/*.ts",
-    "./src/my-date-picker/index.ts",
     "./src/my-date-picker/my-date-picker.component.ts",
     "./src/my-date-picker/my-date-picker.module.ts"
   ]

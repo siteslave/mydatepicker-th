@@ -7,7 +7,6 @@ var htmlmin = require('gulp-htmlmin');
 var fs = require('fs');
 var ts = require('gulp-typescript');
 var merge = require('merge2');
-var sourcemaps = require('gulp-sourcemaps');
 var tslint = require('gulp-tslint');
 
 var str1 = '// webpack1_';
@@ -29,11 +28,10 @@ var tsDistProject = ts.createProject('tsconfig.dist.json');
 */
 
 gulp.task('tsc.compile.dist', function () {
-    var tsResult = tsDistProject.src().pipe(sourcemaps.init()).pipe(tsDistProject());
+    var tsResult = tsDistProject.src().pipe(tsDistProject());
     return merge([
-        tsResult.js.pipe(gulp.dest('dist')),
-        tsResult.js.pipe(sourcemaps.write('./', {includeContent: false})).pipe(gulp.dest('dist')),
-        tsResult.dts.pipe(gulp.dest('dist'))
+        tsResult.js.pipe(gulp.dest('tmp/dist')),
+        tsResult.dts.pipe(gulp.dest('tmp/dist'))
     ]);
 });
 
@@ -53,11 +51,24 @@ gulp.task('copy.root.files.to.npmdist.dir', function() {
     return gulp.src(
         [
             './index.ts',
-            './index.js',
             './LICENSE',
             './package.json',
             './README.md'
         ]).pipe(gulp.dest('./npmdist'));
+});
+
+gulp.task('copy.build.files.to.dist.dir', function() {
+    return gulp.src(
+        [
+            './tmp/dist/**/*.*',
+            '!./tmp/dist/interfaces/*.*',
+            '!./tmp/dist/directives/my-date-picker.input.directive.d.ts',
+            '!./tmp/dist/services/my-date-picker.locale.service.d.ts',
+            '!./tmp/dist/services/my-date-picker.validator.service.d.ts',
+            '!./tmp/dist/my-date-picker.component.d.ts',
+            '!./tmp/dist/index.d.ts',
+            '!./tmp/dist/index.js'
+        ]).pipe(gulp.dest('./dist'));
 });
 
 gulp.task('minify.css', function() {
@@ -128,23 +139,10 @@ gulp.task('all', function(cb) {
         'minify.html',
         'inline.template.and.styles.to.component',
         'tsc.compile.dist',
+        'copy.build.files.to.dist.dir',
         'copy.src.to.npmdist.dir',
         'copy.dist.to.npmdist.dir',
         'copy.root.files.to.npmdist.dir',
-        'delete.modified.component',
-        'restore.original.component',
-        'delete.tmp',
-        'tslint',
-        cb);
-});
-
-gulp.task('build', function(cb) {
-    sequence(
-        'backup.component.tmp',
-        'minify.css',
-        'minify.html',
-        'inline.template.and.styles.to.component',
-        'tsc.compile.dist',
         'delete.modified.component',
         'restore.original.component',
         'delete.tmp',

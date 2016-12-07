@@ -15,8 +15,6 @@ export class SampleDatePickerInline implements OnInit {
         dateFormat: 'yyyy-mm-dd',
         firstDayOfWeek: 'mo',
         sunHighlight: true,
-        height: '34px',
-        width: '260px',
         inline: true,
         disableUntil: {year: 0, month: 0, day: 0},
         disableDays: [{year: 0, month: 0, day: 0}]
@@ -94,7 +92,7 @@ export class SampleDatePickerInline implements OnInit {
     }
 
     onDateChanged(event:any) {
-        console.log('onDateChanged(): ', event.date, ' - jsdate: ', new Date(event.jsdate).toLocaleString(), ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
+        console.log('onDateChanged(): ', event.date, ' - jsdate: ', new Date(event.jsdate).toLocaleDateString(), ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
         if(event.formatted !== '') {
             this.selectedTextInline = 'Formatted: ' + event.formatted + ' - epoc timestamp: ' + event.epoc;
             this.border = '1px solid #CCC';
@@ -103,6 +101,10 @@ export class SampleDatePickerInline implements OnInit {
             this.selectedTextInline = '';
             this.border = 'none';
         }
+    }
+
+    onCalendarViewChanged(event:any) {
+        console.log('onCalendarViewChanged(): Year: ', event.year, ' - month: ', event.month, ' - first: ', event.first, ' - last: ', event.last);
     }
 
     getCopyOfOptions() {

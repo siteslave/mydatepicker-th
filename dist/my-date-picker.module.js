@@ -26,5 +26,3 @@ var MyDatePickerModule = (function () {
     return MyDatePickerModule;
 }());
 exports.MyDatePickerModule = MyDatePickerModule;
-
-//# sourceMappingURL=my-date-picker.module.js.map

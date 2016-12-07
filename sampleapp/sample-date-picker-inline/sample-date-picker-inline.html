@@ -49,6 +49,6 @@
     <div style="padding:4px;border-radius:4px;margin-bottom:8px;float:right" [ngStyle]="{border: border}">
         {{selectedTextInline}}
     </div>
-    <my-date-picker [options]="myDatePickerInlineOptions" (dateChanged)="onDateChanged($event)"
+    <my-date-picker [options]="myDatePickerInlineOptions" (dateChanged)="onDateChanged($event)" (calendarViewChanged)="onCalendarViewChanged($event)"
                     [selDate]="selectedDateInline" [locale]="locale"></my-date-picker>
 </div>

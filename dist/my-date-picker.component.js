@@ -140,8 +140,10 @@ var MyDatePicker = (function () {
         var m = this.validatorService.isMonthLabelValid(event.target.value, this.opts.monthLabels);
         if (m !== -1) {
             this.editMonth = false;
-            this.visibleMonth = { monthTxt: this.monthText(m), monthNbr: m, year: this.visibleMonth.year };
-            this.generateCalendar(m, this.visibleMonth.year);
+            if (m !== this.visibleMonth.monthNbr) {
+                this.visibleMonth = { monthTxt: this.monthText(m), monthNbr: m, year: this.visibleMonth.year };
+                this.generateCalendar(m, this.visibleMonth.year);
+            }
         }
         else {
             this.invalidMonth = true;
@@ -155,8 +157,10 @@ var MyDatePicker = (function () {
         var y = this.validatorService.isYearLabelValid(Number(event.target.value), this.opts.minYear, this.opts.maxYear);
         if (y !== -1) {
             this.editYear = false;
-            this.visibleMonth = { monthTxt: this.visibleMonth.monthTxt, monthNbr: this.visibleMonth.monthNbr, year: y };
-            this.generateCalendar(this.visibleMonth.monthNbr, y);
+            if (y !== this.visibleMonth.year) {
+                this.visibleMonth = { monthTxt: this.visibleMonth.monthTxt, monthNbr: this.visibleMonth.monthNbr, year: y };
+                this.generateCalendar(this.visibleMonth.monthNbr, y);
+            }
         }
         else {
             this.invalidYear = true;
@@ -199,12 +203,14 @@ var MyDatePicker = (function () {
             }
         }
         if (changes.hasOwnProperty("selDate")) {
-            var sd = changes["selDate"].currentValue;
-            if (sd !== null && sd !== undefined && sd !== "" && Object.keys(sd).length !== 0) {
-                this.selectedDate = this.parseSelectedDate(sd);
+            var sd = changes["selDate"];
+            if (sd.currentValue !== null && sd.currentValue !== undefined && sd.currentValue !== "" && Object.keys(sd.currentValue).length !== 0) {
+                this.selectedDate = this.parseSelectedDate(sd.currentValue);
             }
             else {
-                this.clearDate();
+                if (!sd.isFirstChange()) {
+                    this.clearDate();
+                }
             }
         }
         if (this.opts.inline) {
@@ -280,7 +286,7 @@ var MyDatePicker = (function () {
     MyDatePicker.prototype.todayClicked = function () {
         var today = this.getToday();
         this.selectDate({ day: today.day, month: today.month, year: today.year });
-        if (this.opts.inline) {
+        if (this.opts.inline && today.year !== this.visibleMonth.year || today.month !== this.visibleMonth.monthNbr) {
             this.visibleMonth = { monthTxt: this.opts.monthLabels[today.month], monthNbr: today.month, year: today.year };
             this.generateCalendar(today.month, today.year);
         }
@@ -453,5 +459,3 @@ var MyDatePicker = (function () {
     return MyDatePicker;
 }());
 exports.MyDatePicker = MyDatePicker;
-
-//# sourceMappingURL=my-date-picker.component.js.map

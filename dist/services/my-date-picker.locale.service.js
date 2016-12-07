@@ -130,5 +130,3 @@ var LocaleService = (function () {
     return LocaleService;
 }());
 exports.LocaleService = LocaleService;
-
-//# sourceMappingURL=my-date-picker.locale.service.js.map
