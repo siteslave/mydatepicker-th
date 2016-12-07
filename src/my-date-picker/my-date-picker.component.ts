@@ -149,7 +149,7 @@ export class MyDatePicker implements OnChanges {
     }
 
     userMonthInput(event: any): void {
-        if (event.keyCode === 37 || event.keyCode === 39) {
+        if (event.keyCode === 13 || event.keyCode === 37 || event.keyCode === 39) {
             return;
         }
 
@@ -169,7 +169,7 @@ export class MyDatePicker implements OnChanges {
     }
 
     userYearInput(event: any): void {
-        if (event.keyCode === 37 || event.keyCode === 39) {
+        if (event.keyCode === 13 || event.keyCode === 37 || event.keyCode === 39) {
             return;
         }
 
@@ -359,6 +359,12 @@ export class MyDatePicker implements OnChanges {
             this.nextMonth();
         }
         this.resetMonthYearEdit();
+    }
+
+    cellKeyDown(event: any, cell: any) {
+        if (event.keyCode === 13 && !cell.disabled) {
+            this.cellClicked(cell);
+        }
     }
 
     selectDate(date: any): void {

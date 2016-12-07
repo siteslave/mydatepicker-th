@@ -214,11 +214,22 @@
     width: 60px
 }
 
-.mydp .headerbtn {
+.mydp .headerbtncell {
     background-color: #FAFAFA;
     cursor: pointer;
     display: table-cell;
     vertical-align: middle;
+}
+
+.mydp .headerbtn,
+.mydp .headerlabelbtn {
+    background: #FFF;
+    border: none;
+    height: 16px;
+}
+
+.mydp .headerlabelbtn {
+    font-size: 14px;
 }
 
 .mydp,
@@ -259,14 +270,24 @@
     font-size: 14px;
 }
 
-.mydp .headermonthtxt span,
-.mydp .headeryeartxt span {
-    vertical-align: middle;
+.mydp .btnclear:focus,
+.mydp .btnpicker:focus,
+.mydp .headertodaybtn:focus {
+    background: #ADD8E6;
 }
 
-.mydp .btnclear:focus,
-.mydp .btnpicker:focus {
-    background: #ADD8E6;
+.mydp .headerbtn:focus span,
+.mydp .monthlabel:focus,
+.mydp .yearlabel:focus {
+    color: #ADD8E6;
+    outline: none;
+}
+.mydp .headerbtn:focus {
+    outline: none;
+}
+
+.mydp .daycell:focus {
+    outline: 1px solid #CCC;
 }
 
 .mydp .icon-calendar,
@@ -302,6 +323,7 @@
     background-color: #8BDAF4;
 }
 
+.mydp .headerbtn,
 .mydp .monthlabel,
 .mydp .yearlabel {
     cursor: pointer;
@@ -317,12 +339,9 @@
     border-radius: 2px;
 }
 
-.mydp .headerbtn span:hover {
-    color: #8BDAF4;
-}
-
-.mydp .monthlabel:hover,
-.mydp .yearlabel:hover {
+.mydp .headerbtn span:hover,
+.mydp .monthlabel span:hover,
+.mydp .yearlabel span:hover {
     color: #8BDAF4;
     font-weight: bold;
 }
