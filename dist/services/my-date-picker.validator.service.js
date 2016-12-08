@@ -115,10 +115,10 @@ var ValidatorService = (function () {
         var d = new Date(date.year, date.month - 1, date.day, 0, 0, 0, 0);
         return d.getDay();
     };
-    ValidatorService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], ValidatorService);
     return ValidatorService;
 }());
+ValidatorService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [])
+], ValidatorService);
 exports.ValidatorService = ValidatorService;

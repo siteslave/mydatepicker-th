@@ -19,12 +19,12 @@ var InputFocusDirective = (function () {
         var len = this.el.nativeElement.value.length;
         this.el.nativeElement.setSelectionRange(len, len);
     };
-    InputFocusDirective = __decorate([
-        core_1.Directive({
-            selector: "[inputFocus]"
-        }), 
-        __metadata('design:paramtypes', [core_1.ElementRef, core_1.Renderer])
-    ], InputFocusDirective);
     return InputFocusDirective;
 }());
+InputFocusDirective = __decorate([
+    core_1.Directive({
+        selector: "[inputFocus]"
+    }),
+    __metadata("design:paramtypes", [core_1.ElementRef, core_1.Renderer])
+], InputFocusDirective);
 exports.InputFocusDirective = InputFocusDirective;

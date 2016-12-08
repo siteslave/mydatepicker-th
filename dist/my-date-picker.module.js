@@ -15,14 +15,14 @@ var my_date_picker_input_directive_1 = require("./directives/my-date-picker.inpu
 var MyDatePickerModule = (function () {
     function MyDatePickerModule() {
     }
-    MyDatePickerModule = __decorate([
-        core_1.NgModule({
-            imports: [common_1.CommonModule],
-            declarations: [my_date_picker_component_1.MyDatePicker, my_date_picker_input_directive_1.InputFocusDirective],
-            exports: [my_date_picker_component_1.MyDatePicker, my_date_picker_input_directive_1.InputFocusDirective]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MyDatePickerModule);
     return MyDatePickerModule;
 }());
+MyDatePickerModule = __decorate([
+    core_1.NgModule({
+        imports: [common_1.CommonModule],
+        declarations: [my_date_picker_component_1.MyDatePicker, my_date_picker_input_directive_1.InputFocusDirective],
+        exports: [my_date_picker_component_1.MyDatePicker, my_date_picker_input_directive_1.InputFocusDirective]
+    }),
+    __metadata("design:paramtypes", [])
+], MyDatePickerModule);
 exports.MyDatePickerModule = MyDatePickerModule;

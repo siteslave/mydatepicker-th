@@ -123,10 +123,10 @@ var LocaleService = (function () {
         }
         return this.locales["en"];
     };
-    LocaleService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], LocaleService);
     return LocaleService;
 }());
+LocaleService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [])
+], LocaleService);
 exports.LocaleService = LocaleService;
