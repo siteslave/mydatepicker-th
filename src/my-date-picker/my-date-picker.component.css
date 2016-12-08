@@ -225,7 +225,11 @@
 .mydp .headerlabelbtn {
     background: #FFF;
     border: none;
-    height: 16px;
+    height: 18px;
+}
+
+.mydp .headerbtn {
+    width: 16px;
 }
 
 .mydp .headerlabelbtn {
@@ -276,7 +280,7 @@
     background: #ADD8E6;
 }
 
-.mydp .headerbtn:focus span,
+.mydp .headerbtn:focus,
 .mydp .monthlabel:focus,
 .mydp .yearlabel:focus {
     color: #ADD8E6;
@@ -339,11 +343,10 @@
     border-radius: 2px;
 }
 
-.mydp .headerbtn span:hover,
-.mydp .monthlabel span:hover,
-.mydp .yearlabel span:hover {
+.mydp .headerbtn:hover,
+.mydp .monthlabel:hover,
+.mydp .yearlabel:hover {
     color: #8BDAF4;
-    font-weight: bold;
 }
 
 @font-face {

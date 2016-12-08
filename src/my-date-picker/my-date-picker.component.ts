@@ -362,7 +362,8 @@ export class MyDatePicker implements OnChanges {
     }
 
     cellKeyDown(event: any, cell: any) {
-        if (event.keyCode === 13 && !cell.disabled) {
+        if ((event.keyCode === 13 || event.keyCode === 32) && !cell.disabled) {
+            event.preventDefault();
             this.cellClicked(cell);
         }
     }

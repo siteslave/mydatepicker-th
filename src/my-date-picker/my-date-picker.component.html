@@ -17,12 +17,12 @@
             <tr>
                 <td>
                     <div style="float:left">
-                        <div class="headerbtncell"><button type="button" class="headerbtn" (click)="prevMonth()"><span class="icon icon-left"></span></button></div>
+                        <div class="headerbtncell"><button type="button" class="headerbtn icon icon-left" (click)="prevMonth()"></button></div>
                         <div class="headermonthtxt">
                             <input type="text" *ngIf="editMonth" class="monthinput" maxlength="4" inputFocus [value]="visibleMonth.monthTxt" (keyup)="userMonthInput($event)" (click)="$event.stopPropagation()" [ngClass]="{'invalidmonth': invalidMonth}">
-                            <button class="headerlabelbtn" type="button" [ngClass]="{'monthlabel': opts.editableMonthAndYear}" *ngIf="!editMonth" (click)="opts.editableMonthAndYear&&editMonthClicked($event)" tabindex="{{opts.editableMonthAndYear?'0':'-1'}}"><span>{{visibleMonth.monthTxt}}</span></button>
+                            <button class="headerlabelbtn" type="button" [ngClass]="{'monthlabel': opts.editableMonthAndYear}" *ngIf="!editMonth" (click)="opts.editableMonthAndYear&&editMonthClicked($event)" tabindex="{{opts.editableMonthAndYear?'0':'-1'}}">{{visibleMonth.monthTxt}}</button>
                         </div>
-                        <div class="headerbtncell"><button type="button" class="headerbtn" (click)="nextMonth()"><span class="icon icon-right"></span></button></div>
+                        <div class="headerbtncell"><button type="button" class="headerbtn icon icon-right" (click)="nextMonth()"></button></div>
                     </div>
                 </td>
                 <td *ngIf="opts.showTodayBtn">
@@ -30,12 +30,12 @@
                 </td>
                 <td>
                     <div style="float:right">
-                        <div class="headerbtncell"><button type="button" class="headerbtn" (click)="prevYear()"><span class="icon icon-left"></span></button></div>
+                        <div class="headerbtncell"><button type="button" class="headerbtn icon icon-left" (click)="prevYear()"></button></div>
                         <div class="headeryeartxt">
                             <input type="text" *ngIf="editYear" class="yearinput" maxlength="4" inputFocus [value]="visibleMonth.year" (keyup)="userYearInput($event)" (click)="$event.stopPropagation()" [ngClass]="{'invalidyear': invalidYear}">
-                            <button class="headerlabelbtn" type="button" [ngClass]="{'yearlabel': opts.editableMonthAndYear}" *ngIf="!editYear" (click)="opts.editableMonthAndYear&&editYearClicked($event)" tabindex="{{opts.editableMonthAndYear?'0':'-1'}}"><span>{{visibleMonth.year}}</span></button>
+                            <button class="headerlabelbtn" type="button" [ngClass]="{'yearlabel': opts.editableMonthAndYear}" *ngIf="!editYear" (click)="opts.editableMonthAndYear&&editYearClicked($event)" tabindex="{{opts.editableMonthAndYear?'0':'-1'}}">{{visibleMonth.year}}</button>
                         </div>
-                        <div class="headerbtncell"><button type="button" class="headerbtn" (click)="nextYear()"><span class="icon icon-right"></span></button></div>
+                        <div class="headerbtncell"><button type="button" class="headerbtn icon icon-right" (click)="nextYear()"></button></div>
                     </div>
                 </td>
             </tr>
