@@ -114,6 +114,14 @@ var LocaleService = (function () {
                 todayBtnTxt: "Heute",
                 firstDayOfWeek: "mo",
                 sunHighlight: true
+            },
+            "it": {
+                dayLabels: { su: "Dom", mo: "Lun", tu: "Mar", we: "Mer", th: "Gio", fr: "Ven", sa: "Sab" },
+                monthLabels: { 1: "Gen", 2: "Feb", 3: "Mar", 4: "Apr", 5: "Mag", 6: "Giu", 7: "Lug", 8: "Ago", 9: "Set", 10: "Ott", 11: "Nov", 12: "Dic" },
+                dateFormat: "dd.mm.yyyy",
+                todayBtnTxt: "Oggi",
+                firstDayOfWeek: "mo",
+                sunHighlight: true
             }
         };
     }
