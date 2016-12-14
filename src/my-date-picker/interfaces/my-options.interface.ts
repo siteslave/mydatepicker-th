@@ -22,7 +22,7 @@ export interface IMyOptions {
     alignSelectorRight?: boolean;
     indicateInvalidDate?: boolean;
     showDateFormatPlaceholder?: boolean;
-    placeholder?: string;
+    customPlaceholderTxt?: string;
     editableDateField?: boolean;
     editableMonthAndYear?: boolean;
     minYear?: number;

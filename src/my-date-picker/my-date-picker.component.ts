@@ -68,7 +68,7 @@ export class MyDatePicker implements OnChanges {
         alignSelectorRight: <boolean> false,
         indicateInvalidDate: <boolean> true,
         showDateFormatPlaceholder: <boolean> false,
-        placeholder: <string> '',
+        customPlaceholderTxt: <string> "",
         editableDateField: <boolean> true,
         editableMonthAndYear: <boolean> true,
         minYear: <number> 1000,

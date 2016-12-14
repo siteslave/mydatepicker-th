@@ -15,7 +15,7 @@ export class SampleDatePickerNormal implements OnInit {
         dateFormat: 'dd mmm yyyy',
         firstDayOfWeek: 'mo',
         sunHighlight: true,
-        showCurrentDay: true,
+        markCurrentDay: true,
         height: '34px',
         width: '260px',
         selectionTxtFontSize: '18px',

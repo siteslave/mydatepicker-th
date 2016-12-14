@@ -104,7 +104,8 @@ Value of the __options__ attribute is a javascript object. It can contain the fo
 | __selectionTxtFontSize__   | 18px | Selection area font size. Can be used if __inline = false__. |
 | __alignSelectorRight__   | false | Align selector right. Can be used if __inline = false__. |
 | __indicateInvalidDate__   | true | If user typed date is not same format as __dateFormat__, show red background in the selection area. Can be used if __inline = false__. |
-| __showDateFormatPlaceholder__   | false | Show value of __dateFormat__ as placeholder in the selection area if it is empty. Can be used if __inline = false__. |
+| __showDateFormatPlaceholder__   | false | Show value of __dateFormat__ as placeholder in the selection area if a date is not selected. Can be used if __inline = false__. |
+| __customPlaceholderTxt__   | empty string | Show custom string in the selection area if a date is not selected. Can be used if __showDateFormatPlaceholder = false__ and __inline = false__. |
 | __componentDisabled__   | false | Is selection area and buttons disabled or not. Can be used if __inline = false__. |
 | __editableDateField__   | true | Is selected date field editable or not. Can be used if __inline = false__. |
 
