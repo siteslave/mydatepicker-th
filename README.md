@@ -231,11 +231,12 @@ The [sampleapp](https://github.com/kekeh/mydatepicker/tree/master/sampleapp) of 
   1. Open a terminal and type __npm start__
   2. Open __http://localhost:5000__ to browser
 
-* Build a local npm installation package (after the __gulp all__ command is executed):
-  1. __cd npmdist__
-  2. __npm pack__
+* Build a local npm installation package:
+  1. __gulp all__
+  2. __cd npmdist__
+  3. __npm pack__
     * local installation package is created. For example: __mydatepicker-1.0.38.tgz__
-    * install local npm package. For example: __npm install path_to_npmdist/mydatepicker-1.0.38.tgz__
+  4. install local npm package. For example: __npm install path_to_npmdist/mydatepicker-1.0.38.tgz__
 
 ## Demo
 Online demo is [here](http://kekeh.github.io/mydatepicker)
