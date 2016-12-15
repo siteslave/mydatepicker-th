@@ -108,7 +108,7 @@ Value of the __options__ attribute is a javascript object. It can contain the fo
 | __customPlaceholderTxt__   | empty string | Show custom string in the selection area if a date is not selected. Can be used if __showDateFormatPlaceholder = false__ and __inline = false__. |
 | __componentDisabled__   | false | Is selection area input field and buttons disabled or not (input disabled flag). Can be used if __inline = false__. |
 | __editableDateField__   | true | Is selection area input field editable or not (input readonly flag). Can be used if __inline = false__. |
-| __required__   | false | Is 'required' attribute added HTML input. |
+| __inputValueRequired__   | false | Is selection area input field value required or not (input required flag). Can be used if __inline = false__. |
 
 * Example of the options data (not all properties listed):
 ```js

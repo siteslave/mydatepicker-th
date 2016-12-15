@@ -1284,6 +1284,33 @@ describe('MyDatePicker', () => {
         expect(selection.nativeElement.value).toContain('2016-11-14');
     });
 
+    it('options - input field value required', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
+        comp.options = {};
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let selection = getElement('.selection');
+        expect(selection).not.toBe(null);
+        expect(selection.properties['required']).toBe(false);
+
+        comp.options = {inputValueRequired: true};
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        selection = getElement('.selection');
+        expect(selection).not.toBe(null);
+        expect(selection.properties['required']).toBe(true);
+
+        comp.options = {inputValueRequired: false};
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        selection = getElement('.selection');
+        expect(selection).not.toBe(null);
+        expect(selection.properties['required']).toBe(false);
+    });
+
     it('locale - use fr locale', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 1, year: 2016};
         comp.locale = 'fr';

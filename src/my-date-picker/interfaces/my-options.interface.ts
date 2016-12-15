@@ -28,5 +28,5 @@ export interface IMyOptions {
     minYear?: number;
     maxYear?: number;
     componentDisabled?: boolean;
-    required?: boolean;
+    inputValueRequired?: boolean;
 }

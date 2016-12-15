@@ -74,7 +74,7 @@ export class MyDatePicker implements OnChanges {
         minYear: <number> 1000,
         maxYear: <number> 9999,
         componentDisabled: <boolean> false,
-        required: <boolean> false
+        inputValueRequired: <boolean> false
     };
 
     constructor(public elem: ElementRef, private renderer: Renderer, private localeService: LocaleService, private validatorService: ValidatorService) {
