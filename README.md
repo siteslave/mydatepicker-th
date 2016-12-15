@@ -171,11 +171,11 @@ __08-2016__, __08/2016__.
   ```
 
 ### inputFieldChanged callback:
-  * called when the value change in the input field
+  * called when the value change in the input field, date is selected or date is cleared (can be used in validation, returns true or false indicating is date valid or not in the input field)
   * event parameter:
     * event.value: Value of the input field. For example: '2016-11-22'
     * event.dateFormat: Date format string in the same format as dateFormat option is. For example: 'yyyy-mm-dd'
-    * event.valid: Boolean value indicating is the typed value valid. For example: true
+    * event.valid: Boolean value indicating is the input field value valid or not. For example: true
 
   * Example of the input field changed callback:
   ```js
@@ -221,7 +221,7 @@ The [sampleapp](https://github.com/kekeh/mydatepicker/tree/master/sampleapp) of 
   1. __npm install__
   2. __npm install --global gulp-cli__
 
-* Build dist and npmdist folders and execute tslint:
+* Build __dist__ and __npmdist__ folders and execute __tslint__:
   1. __gulp all__
 
 * Execute unit tests and coverage (output is generated to the __test-output__ folder):
@@ -231,11 +231,11 @@ The [sampleapp](https://github.com/kekeh/mydatepicker/tree/master/sampleapp) of 
   1. Open a terminal and type __npm start__
   2. Open __http://localhost:5000__ to browser
 
-* Build local npm installation package:
+* Build a local npm installation package (after the __gulp all__ command is executed):
   1. __cd npmdist__
   2. __npm pack__
-    * local installation package is created from the content of the npmdist folder. For example: __mydatepicker-1.0.38.tgz__
-    * install local npm package: __npm install path_to_npmdist_folder/mydatepicker-1.0.38.tgz__
+    * local installation package is created. For example: __mydatepicker-1.0.38.tgz__
+    * install local npm package. For example: __npm install path_to_npmdist/mydatepicker-1.0.38.tgz__
 
 ## Demo
 Online demo is [here](http://kekeh.github.io/mydatepicker)
