@@ -106,8 +106,8 @@ Value of the __options__ attribute is a javascript object. It can contain the fo
 | __indicateInvalidDate__   | true | If user typed date is not same format as __dateFormat__, show red background in the selection area. Can be used if __inline = false__. |
 | __showDateFormatPlaceholder__   | false | Show value of __dateFormat__ as placeholder in the selection area if a date is not selected. Can be used if __inline = false__. |
 | __customPlaceholderTxt__   | empty string | Show custom string in the selection area if a date is not selected. Can be used if __showDateFormatPlaceholder = false__ and __inline = false__. |
-| __componentDisabled__   | false | Is selection area and buttons disabled or not. Can be used if __inline = false__. |
-| __editableDateField__   | true | Is selected date field editable or not. Can be used if __inline = false__. |
+| __componentDisabled__   | false | Is selection area input field and buttons disabled or not (input disabled flag). Can be used if __inline = false__. |
+| __editableDateField__   | true | Is selection area input field editable or not (input readonly flag). Can be used if __inline = false__. |
 
 * Example of the options data (not all properties listed):
 ```js
@@ -215,30 +215,38 @@ The [sampleapp](https://github.com/kekeh/mydatepicker/tree/master/sampleapp) of 
 
 ## Development of this component
 
-At first fork and clone this repo.
+* At first fork and clone this repo.
 
-Install all dependencies:
- 1. __npm install__
- 2. __npm install --global gulp-cli__
+* Install all dependencies:
+  1. __npm install__
+  2. __npm install --global gulp-cli__
 
-Build dist and npmdist folders and execute tslint:
- 1. __gulp all__
+* Build dist and npmdist folders and execute tslint:
+  1. __gulp all__
 
-Execute unit tests and coverage (output is generated to the __test-output__ folder):
- 1. __npm test__
+* Execute unit tests and coverage (output is generated to the __test-output__ folder):
+  1. __npm test__
 
-Run sample application:
- 1. Open a terminal and type __npm start__
- 2. Open __http://localhost:5000__ to browser
+* Run sample application:
+  1. Open a terminal and type __npm start__
+  2. Open __http://localhost:5000__ to browser
+
+* Build local npm installation package:
+  1. __cd npmdist__
+  2. __npm pack__
+    * local installation package is created from the content of the npmdist folder. For example: __mydatepicker-1.0.38.tgz__
+    * install local npm package: __npm install path_to_npmdist_folder/mydatepicker-1.0.38.tgz__
 
 ## Demo
 Online demo is [here](http://kekeh.github.io/mydatepicker)
 
 ## Compatibility (tested with)
 * Firefox (latest)
+* Chrome (latest)
 * Chromium (latest)
 * Edge
 * IE11
+* Safari
 
 ## License
 * License: MIT
