@@ -114,6 +114,14 @@ export class LocaleService {
             todayBtnTxt: "Oggi",
             firstDayOfWeek: "mo",
             sunHighlight: true
+        },
+        "pl": {
+            dayLabels: { su: "Nie", mo: "Pon", tu: "Wto", we: "Śro", th: "Czw", fr: "Pią", sa: "Sob" },
+            monthLabels: { 1: "Sty", 2: "Lut", 3: "Mar", 4: "Kwi", 5: "Maj", 6: "Cze", 7: "Lip", 8: "Sie", 9: "Wrz", 10: "Paź", 11: "Lis", 12: "Gru" },
+            dateFormat: "yyyy-mm-dd",
+            todayBtnTxt: "Dzisiaj",
+            firstDayOfWeek: "mo",
+            sunHighlight: true,
         }
     };
 
