@@ -39,7 +39,7 @@ var LocaleService = (function () {
                 dayLabels: { su: "Su", mo: "Ma", tu: "Ti", we: "Ke", th: "To", fr: "Pe", sa: "La" },
                 monthLabels: { 1: "Tam", 2: "Hel", 3: "Maa", 4: "Huh", 5: "Tou", 6: "Kes", 7: "Hei", 8: "Elo", 9: "Syy", 10: "Lok", 11: "Mar", 12: "Jou" },
                 dateFormat: "dd.mm.yyyy",
-                todayBtnTxt: "Tämä päivä",
+                todayBtnTxt: "Tänään",
                 firstDayOfWeek: "mo",
                 sunHighlight: true,
             },
@@ -122,6 +122,14 @@ var LocaleService = (function () {
                 todayBtnTxt: "Oggi",
                 firstDayOfWeek: "mo",
                 sunHighlight: true
+            },
+            "pl": {
+                dayLabels: { su: "Nie", mo: "Pon", tu: "Wto", we: "Śro", th: "Czw", fr: "Pią", sa: "Sob" },
+                monthLabels: { 1: "Sty", 2: "Lut", 3: "Mar", 4: "Kwi", 5: "Maj", 6: "Cze", 7: "Lip", 8: "Sie", 9: "Wrz", 10: "Paź", 11: "Lis", 12: "Gru" },
+                dateFormat: "yyyy-mm-dd",
+                todayBtnTxt: "Dzisiaj",
+                firstDayOfWeek: "mo",
+                sunHighlight: true,
             }
         };
     }

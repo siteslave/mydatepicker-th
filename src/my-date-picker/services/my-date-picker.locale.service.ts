@@ -31,7 +31,7 @@ export class LocaleService {
             dayLabels: {su: "Su", mo: "Ma", tu: "Ti", we: "Ke", th: "To", fr: "Pe", sa: "La"},
             monthLabels: {1: "Tam", 2: "Hel", 3: "Maa", 4: "Huh", 5: "Tou", 6: "Kes", 7: "Hei", 8: "Elo", 9: "Syy", 10: "Lok", 11: "Mar", 12: "Jou"},
             dateFormat: "dd.mm.yyyy",
-            todayBtnTxt: "Tämä päivä",
+            todayBtnTxt: "Tänään",
             firstDayOfWeek: "mo",
             sunHighlight: true,
         },
