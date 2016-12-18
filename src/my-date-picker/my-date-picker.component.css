@@ -24,7 +24,7 @@
     border-radius: 2px;
     background-color: #DDD;
     z-index: 100;
-    animation: selectorfadein 0.15s;
+    animation: selectorfadein 0.1s;
 }
 
 @keyframes selectorfadein {
@@ -210,14 +210,14 @@
     font-weight: bold;
 }
 
-.mydp .currday div {
-    border: 1px solid #004198;
+.mydp .currday {
+    text-decoration: underline;
 }
 
 .mydp .selectedday div {
     border: 1px solid #004198;
     background-color: #8EBFFF !important;
-    border-radius: 0;
+    border-radius: 2px;
 }
 
 .mydp .selectmenu {
