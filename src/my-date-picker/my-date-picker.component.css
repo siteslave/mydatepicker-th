@@ -24,6 +24,16 @@
     border-radius: 2px;
     background-color: #DDD;
     z-index: 100;
+    animation: selectorfadein 0.15s;
+}
+
+@keyframes selectorfadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .mydp .alignselectorright {

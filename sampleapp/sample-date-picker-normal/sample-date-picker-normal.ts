@@ -25,7 +25,7 @@ export class SampleDatePickerNormal implements OnInit {
         editableMonthAndYear: true,
         minYear: 1900,
         componentDisabled: false,
-        inputValueRequired: true
+        inputValueRequired: false
     };
     private selectedDateNormal:string = '';
 

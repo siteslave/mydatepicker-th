@@ -134,6 +134,7 @@ firstDayOfWeek and sunHighlight properties from the options.
 
 * new locale data can be added to [this](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/services/my-date-picker.locale.service.ts)
 file. If you want to add a new locale create a pull request.
+* locales can be tested [here](http://kekeh.github.io/mydatepicker/#inlinemode)
 
 ### selDate attribute
 
@@ -229,15 +230,17 @@ The [sampleapp](https://github.com/kekeh/mydatepicker/tree/master/sampleapp) of 
   1. __npm test__
 
 * Run sample application:
-  1. Open a terminal and type __npm start__
+  1. __npm start__
   2. Open __http://localhost:5000__ to browser
 
 * Build a local npm installation package:
   1. __gulp all__
   2. __cd npmdist__
   3. __npm pack__
-    * local installation package is created. For example: __mydatepicker-1.0.38.tgz__
-  4. install local npm package. For example: __npm install path_to_npmdist/mydatepicker-1.0.38.tgz__
+    * local installation package is created to the __npmdist__ folder. For example: __mydatepicker-1.1.1.tgz__
+
+* Install local npm package to your project:
+  1. __npm install path_to_npmdist/mydatepicker-1.1.1.tgz__
 
 ## Demo
 Online demo is [here](http://kekeh.github.io/mydatepicker)
