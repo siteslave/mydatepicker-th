@@ -288,6 +288,7 @@
     display: table-cell;
     vertical-align: middle;
     font-size: 14px;
+    height: 26px;
     width: 40px;
     max-width: 40px;
     overflow-x: hidden;

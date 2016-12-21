@@ -130,6 +130,14 @@ var LocaleService = (function () {
                 todayBtnTxt: "Dzisiaj",
                 firstDayOfWeek: "mo",
                 sunHighlight: true,
+            },
+            "my": {
+                dayLabels: { su: "တနင်္ဂနွေ", mo: "တနင်္လာ", tu: "အင်္ဂါ", we: "ဗုဒ္ဓဟူး", th: "ကြသပတေး", fr: "သောကြာ", sa: "စနေ" },
+                monthLabels: { 1: "ဇန်နဝါရီ", 2: "ဖေဖော်ဝါရီ", 3: "မတ်", 4: "ဧပြီ", 5: "မေ", 6: "ဇွန်", 7: "ဇူလိုင်", 8: "ဩဂုတ်", 9: "စက်တင်ဘာ", 10: "အောက်တိုဘာ", 11: "နိုဝင်ဘာ", 12: "ဒီဇင်ဘာ" },
+                dateFormat: "yyyy-mm-dd",
+                todayBtnTxt: "ယနေ့",
+                firstDayOfWeek: "mo",
+                sunHighlight: true,
             }
         };
     }
