@@ -162,6 +162,9 @@
     font-size: 12px;
     font-weight: bold;
     vertical-align: middle;
+    max-width: 36px;
+    overflow-x: hidden;
+    white-space: nowrap;
 }
 
 .mydp .daycell {
@@ -268,8 +271,11 @@
     padding: 0 4px;
     border-radius: 2px;
     font-size: 11px;
-    min-width: 60px;
     height: 22px;
+    min-width: 60px;
+    max-width: 70px;
+    overflow-x: hidden;
+    white-space: nowrap;
 }
 
 .mydp button::-moz-focus-inner {
@@ -278,11 +284,14 @@
 
 .mydp .headermonthtxt,
 .mydp .headeryeartxt {
-    min-width: 40px;
     text-align: center;
     display: table-cell;
     vertical-align: middle;
     font-size: 14px;
+    width: 40px;
+    max-width: 40px;
+    overflow-x: hidden;
+    white-space: nowrap;
 }
 
 .mydp .btnclear:focus,
