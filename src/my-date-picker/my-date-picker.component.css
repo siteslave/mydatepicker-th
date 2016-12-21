@@ -163,7 +163,7 @@
     font-weight: bold;
     vertical-align: middle;
     max-width: 36px;
-    overflow-x: hidden;
+    overflow: hidden;
     white-space: nowrap;
 }
 
@@ -274,7 +274,7 @@
     height: 22px;
     min-width: 60px;
     max-width: 70px;
-    overflow-x: hidden;
+    overflow: hidden;
     white-space: nowrap;
 }
 
@@ -291,7 +291,7 @@
     height: 26px;
     width: 40px;
     max-width: 40px;
-    overflow-x: hidden;
+    overflow: hidden;
     white-space: nowrap;
 }
 
