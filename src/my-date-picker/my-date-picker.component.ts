@@ -65,6 +65,7 @@ export class MyDatePicker implements OnChanges {
         width: <string> "100%",
         selectionTxtFontSize: <string> "18px",
         inline: <boolean> false,
+        showClearDateBtn: <boolean> true,
         alignSelectorRight: <boolean> false,
         indicateInvalidDate: <boolean> true,
         showDateFormatPlaceholder: <boolean> false,

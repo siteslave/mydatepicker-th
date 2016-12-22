@@ -19,6 +19,7 @@ export interface IMyOptions {
     width?: string;
     selectionTxtFontSize?: string;
     inline?: boolean;
+    showClearDateBtn?: boolean;
     alignSelectorRight?: boolean;
     indicateInvalidDate?: boolean;
     showDateFormatPlaceholder?: boolean;

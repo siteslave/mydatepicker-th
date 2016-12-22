@@ -99,6 +99,7 @@ Value of the __options__ attribute is a javascript object. It can contain the fo
 | __disableDays__   | no default value  | Disable single days one by one. Array of disabled days. For example: [{year: 2016, month: 11, day: 14}, {year: 2016, month: 1, day: 15] |
 | __disableWeekends__   | false | Disable weekends (Saturday and Sunday). |
 | __inline__   | false | Show mydatepicker in inline mode. |
+| __showClearDateBtn__   | true | Is clear date button shown or not. Can be used if __inline = false__. |
 | __height__   | 34px | mydatepicker height without selector. Can be used if __inline = false__. |
 | __width__   | 100% | mydatepicker width. Can be used if __inline = false__. |
 | __selectionTxtFontSize__   | 18px | Selection area font size. Can be used if __inline = false__. |
