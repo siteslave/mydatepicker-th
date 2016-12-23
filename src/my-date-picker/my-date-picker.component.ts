@@ -47,6 +47,9 @@ export class MyDatePicker implements OnChanges {
     CURR_MONTH: number = 2;
     NEXT_MONTH: number = 3;
 
+    MIN_YEAR: number = 1000;
+    MAX_YEAR: number = 9999;
+
     // Default options
     opts: IMyOptions = {
         dayLabels: <IMyDayLabels> {},
@@ -72,8 +75,8 @@ export class MyDatePicker implements OnChanges {
         customPlaceholderTxt: <string> "",
         editableDateField: <boolean> true,
         editableMonthAndYear: <boolean> true,
-        minYear: <number> 1000,
-        maxYear: <number> 9999,
+        minYear: <number> this.MIN_YEAR,
+        maxYear: <number> this.MAX_YEAR,
         componentDisabled: <boolean> false,
         inputValueRequired: <boolean> false
     };
@@ -103,11 +106,11 @@ export class MyDatePicker implements OnChanges {
                 (<IMyOptions>this.opts)[k] = this.options[k];
             });
         }
-        if (this.opts.minYear < 1000) {
-            this.opts.minYear = 1000;
+        if (this.opts.minYear < this.MIN_YEAR) {
+            this.opts.minYear = this.MIN_YEAR;
         }
-        if (this.opts.maxYear > 9999) {
-            this.opts.minYear = 9999;
+        if (this.opts.maxYear > this.MAX_YEAR) {
+            this.opts.maxYear = this.MAX_YEAR;
         }
     }
 

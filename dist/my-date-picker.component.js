@@ -39,6 +39,8 @@ var MyDatePicker = (function () {
         this.PREV_MONTH = 1;
         this.CURR_MONTH = 2;
         this.NEXT_MONTH = 3;
+        this.MIN_YEAR = 1000;
+        this.MAX_YEAR = 9999;
         this.opts = {
             dayLabels: {},
             monthLabels: {},
@@ -63,8 +65,8 @@ var MyDatePicker = (function () {
             customPlaceholderTxt: "",
             editableDateField: true,
             editableMonthAndYear: true,
-            minYear: 1000,
-            maxYear: 9999,
+            minYear: this.MIN_YEAR,
+            maxYear: this.MAX_YEAR,
             componentDisabled: false,
             inputValueRequired: false
         };
@@ -92,11 +94,11 @@ var MyDatePicker = (function () {
                 _this.opts[k] = _this.options[k];
             });
         }
-        if (this.opts.minYear < 1000) {
-            this.opts.minYear = 1000;
+        if (this.opts.minYear < this.MIN_YEAR) {
+            this.opts.minYear = this.MIN_YEAR;
         }
-        if (this.opts.maxYear > 9999) {
-            this.opts.minYear = 9999;
+        if (this.opts.maxYear > this.MAX_YEAR) {
+            this.opts.maxYear = this.MAX_YEAR;
         }
     };
     MyDatePicker.prototype.resetMonthYearEdit = function () {
