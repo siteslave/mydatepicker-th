@@ -30,4 +30,5 @@ export interface IMyOptions {
     maxYear?: number;
     componentDisabled?: boolean;
     inputValueRequired?: boolean;
+    showSelectorArrow?: boolean;
 }

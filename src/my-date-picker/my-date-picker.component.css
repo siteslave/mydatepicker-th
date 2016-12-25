@@ -36,6 +36,37 @@
     }
 }
 
+.mydp .selectorarrow {
+    background: #FAFAFA;
+    border: 1px solid #CCC;
+    margin-top: 12px;
+}
+
+.mydp .selectorarrow:after,
+.mydp .selectorarrow:before {
+    bottom: 100%;
+    left: 24px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+}
+
+.mydp .selectorarrow:after {
+    border-color: rgba(250, 250, 250, 0);
+    border-bottom-color: #FAFAFA;
+    border-width: 10px;
+    margin-left: -10px;
+}
+
+.mydp .selectorarrow:before {
+    border-color: rgba(204, 204, 204, 0);
+    border-bottom-color: #CCC;
+    border-width: 11px;
+    margin-left: -11px;
+}
+
 .mydp .alignselectorright {
     right: -1px;
 }

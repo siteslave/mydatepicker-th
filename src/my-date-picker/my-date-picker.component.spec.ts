@@ -1367,6 +1367,47 @@ describe('MyDatePicker', () => {
         expect(selection.properties['required']).toBe(false);
     });
 
+    it('options - show selector arrow', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
+        comp.options = {};
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        let selectorarrow = getElement('.selectorarrow');
+        expect(selectorarrow).not.toBe(null);
+        btnpicker.nativeElement.click();
+
+
+        comp.options = {showSelectorArrow: false};
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        selectorarrow = getElement('.selectorarrow');
+        expect(selectorarrow).toBe(null);
+        btnpicker.nativeElement.click();
+
+
+        comp.options = {showSelectorArrow: true};
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        selectorarrow = getElement('.selectorarrow');
+        expect(selectorarrow).not.toBe(null);
+        btnpicker.nativeElement.click();
+    });
+
     it('locale - use fr locale', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 1, year: 2016};
         comp.locale = 'fr';

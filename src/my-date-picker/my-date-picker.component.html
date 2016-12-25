@@ -12,7 +12,7 @@
             </button>
         </span>
     </div>
-    <div class="selector" *ngIf="showSelector||opts.inline" [ngClass]="{'inlinedp': opts.inline, 'alignselectorright': opts.alignSelectorRight}">
+    <div class="selector" *ngIf="showSelector||opts.inline" [ngClass]="{'inlinedp': opts.inline, 'alignselectorright': opts.alignSelectorRight, 'selectorarrow': opts.showSelectorArrow&&!opts.inline}">
         <table class="header">
             <tr>
                 <td>
