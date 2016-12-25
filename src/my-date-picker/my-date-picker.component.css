@@ -40,6 +40,7 @@
     background: #FAFAFA;
     border: 1px solid #CCC;
     margin-top: 12px;
+    padding: 0;
 }
 
 .mydp .selectorarrow:after,
