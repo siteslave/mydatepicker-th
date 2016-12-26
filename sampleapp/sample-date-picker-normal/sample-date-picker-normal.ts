@@ -17,7 +17,7 @@ export class SampleDatePickerNormal implements OnInit {
         sunHighlight: true,
         markCurrentDay: true,
         height: '34px',
-        width: '260px',
+        width: '210px',
         selectionTxtFontSize: '18px',
         alignSelectorRight: false,
         indicateInvalidDate: true,
