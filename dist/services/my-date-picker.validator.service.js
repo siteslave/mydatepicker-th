@@ -12,7 +12,7 @@ var core_1 = require("@angular/core");
 var ValidatorService = (function () {
     function ValidatorService() {
     }
-    ValidatorService.prototype.isDateValid = function (dateStr, dateFormat, minYear, maxYear, disableUntil, disableSince, disableWeekends, disableDays, monthLabels) {
+    ValidatorService.prototype.isDateValid = function (dateStr, dateFormat, minYear, maxYear, disableUntil, disableSince, disableWeekends, disableDays, disableDateRange, monthLabels) {
         var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         var isMonthStr = dateFormat.indexOf("mmm") !== -1;
         var returnDate = { day: 0, month: 0, year: 0 };
@@ -32,7 +32,7 @@ var ValidatorService = (function () {
                 return returnDate;
             }
             var date = { year: year, month: month, day: day };
-            if (this.isDisabledDay(date, disableUntil, disableSince, disableWeekends, disableDays)) {
+            if (this.isDisabledDay(date, disableUntil, disableSince, disableWeekends, disableDays, disableDateRange)) {
                 return returnDate;
             }
             if (year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)) {
@@ -86,12 +86,12 @@ var ValidatorService = (function () {
         }
         return month;
     };
-    ValidatorService.prototype.isDisabledDay = function (date, disableUntil, disableSince, disableWeekends, disableDays) {
+    ValidatorService.prototype.isDisabledDay = function (date, disableUntil, disableSince, disableWeekends, disableDays, disableDateRange) {
         var dateMs = this.getTimeInMilliseconds(date);
-        if (disableUntil.year !== 0 && disableUntil.month !== 0 && disableUntil.day !== 0 && dateMs <= this.getTimeInMilliseconds(disableUntil)) {
+        if (this.isInitializedDate(disableUntil) && dateMs <= this.getTimeInMilliseconds(disableUntil)) {
             return true;
         }
-        if (disableSince.year !== 0 && disableSince.month !== 0 && disableSince.day !== 0 && dateMs >= this.getTimeInMilliseconds(disableSince)) {
+        if (this.isInitializedDate(disableSince) && dateMs >= this.getTimeInMilliseconds(disableSince)) {
             return true;
         }
         if (disableWeekends) {
@@ -106,7 +106,13 @@ var ValidatorService = (function () {
                 return true;
             }
         }
+        if (this.isInitializedDate(disableDateRange.begin) && this.isInitializedDate(disableDateRange.end) && dateMs >= this.getTimeInMilliseconds(disableDateRange.begin) && dateMs <= this.getTimeInMilliseconds(disableDateRange.end)) {
+            return true;
+        }
         return false;
+    };
+    ValidatorService.prototype.isInitializedDate = function (date) {
+        return date.year !== 0 && date.month !== 0 && date.day !== 0;
     };
     ValidatorService.prototype.getTimeInMilliseconds = function (date) {
         return new Date(date.year, date.month - 1, date.day, 0, 0, 0, 0).getTime();

@@ -798,6 +798,47 @@ describe('MyDatePicker', () => {
         expect(lastDisabled.nativeElement.textContent.trim()).toBe('10');
     });
 
+    it('options - disable range', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
+        comp.options = {disableDateRange: {begin: {year: 2016, month: 10, day: 5}, end: {year: 2016, month: 10, day: 10}}};
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        comp.generateCalendar(10, 2016);
+
+        fixture.detectChanges();
+        let disabled = getElements('tr .disabled');
+        expect(disabled).not.toBe(null);
+        expect(disabled.length).toBe(6);
+
+        let firstDisabled = disabled[0];
+        expect(firstDisabled.nativeElement.textContent.trim()).toBe('5');
+
+        let lastDisabled = disabled[disabled.length - 1];
+        expect(lastDisabled.nativeElement.textContent.trim()).toBe('10');
+        btnpicker.nativeElement.click();
+
+
+        comp.options = {disableDateRange: {begin: {}, end: {}}};
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        comp.generateCalendar(10, 2016);
+
+        fixture.detectChanges();
+        disabled = getElements('tr .disabled');
+        expect(disabled).not.toBe(null);
+        expect(disabled.length).toBe(0);
+    });
+
     it('options - disable today - today button disabled', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
 

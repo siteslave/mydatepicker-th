@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
 import { IMyDate } from "../interfaces/my-date.interface";
+import { IMyDateRange } from "../interfaces/my-date-range.interface";
 import { IMyMonth } from "../interfaces/my-month.interface";
 import { IMyMonthLabels } from "../interfaces/my-month-labels.interface";
 
 @Injectable()
 export class ValidatorService {
-    isDateValid(dateStr: string, dateFormat: string, minYear: number, maxYear: number, disableUntil: IMyDate, disableSince: IMyDate, disableWeekends: boolean, disableDays: Array<IMyDate>, monthLabels: IMyMonthLabels): IMyDate {
+    isDateValid(dateStr: string, dateFormat: string, minYear: number, maxYear: number, disableUntil: IMyDate, disableSince: IMyDate, disableWeekends: boolean, disableDays: Array<IMyDate>, disableDateRange: IMyDateRange, monthLabels: IMyMonthLabels): IMyDate {
         let daysInMonth: Array<number> = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         let isMonthStr: boolean = dateFormat.indexOf("mmm") !== -1;
         let returnDate: IMyDate = {day: 0, month: 0, year: 0};
@@ -32,7 +33,7 @@ export class ValidatorService {
 
             let date: IMyDate = {year: year, month: month, day: day};
 
-            if (this.isDisabledDay(date, disableUntil, disableSince, disableWeekends, disableDays)) {
+            if (this.isDisabledDay(date, disableUntil, disableSince, disableWeekends, disableDays, disableDateRange)) {
                 return returnDate;
             }
 
@@ -96,12 +97,12 @@ export class ValidatorService {
         return month;
     }
 
-    isDisabledDay(date: IMyDate, disableUntil: IMyDate, disableSince: IMyDate, disableWeekends: boolean, disableDays: Array<IMyDate>): boolean {
+    isDisabledDay(date: IMyDate, disableUntil: IMyDate, disableSince: IMyDate, disableWeekends: boolean, disableDays: Array<IMyDate>, disableDateRange: IMyDateRange): boolean {
         let dateMs: number = this.getTimeInMilliseconds(date);
-        if (disableUntil.year !== 0 && disableUntil.month !== 0 && disableUntil.day !== 0 && dateMs <= this.getTimeInMilliseconds(disableUntil)) {
+        if (this.isInitializedDate(disableUntil) && dateMs <= this.getTimeInMilliseconds(disableUntil)) {
             return true;
         }
-        if (disableSince.year !== 0 && disableSince.month !== 0 && disableSince.day !== 0 && dateMs >= this.getTimeInMilliseconds(disableSince)) {
+        if (this.isInitializedDate(disableSince) && dateMs >= this.getTimeInMilliseconds(disableSince)) {
             return true;
         }
         if (disableWeekends) {
@@ -115,7 +116,15 @@ export class ValidatorService {
                 return true;
             }
         }
+
+        if (this.isInitializedDate(disableDateRange.begin) && this.isInitializedDate(disableDateRange.end) && dateMs >= this.getTimeInMilliseconds(disableDateRange.begin) && dateMs <= this.getTimeInMilliseconds(disableDateRange.end)) {
+            return true;
+        }
         return false;
+    }
+
+    isInitializedDate(date: IMyDate): boolean {
+        return date.year !== 0 && date.month !== 0 && date.day !== 0;
     }
 
     getTimeInMilliseconds(date: IMyDate): number {
