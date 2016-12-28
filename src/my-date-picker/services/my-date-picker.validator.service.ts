@@ -11,7 +11,7 @@ export class ValidatorService {
         let isMonthStr: boolean = dateFormat.indexOf("mmm") !== -1;
         let returnDate: IMyDate = {day: 0, month: 0, year: 0};
 
-        if (dateStr.length !== 10 && !isMonthStr || dateStr.length !== 11 && isMonthStr) {
+        if (dateStr.length !== dateFormat.length) {
             return returnDate;
         }
 

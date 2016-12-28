@@ -149,12 +149,15 @@ export class MyDatePicker implements OnChanges {
             }
             else {
                 this.invalidDate = true;
-                this.selectionDayTxt = event.target.value;
             }
         }
         if (this.invalidDate) {
             this.inputFieldChanged.emit({value: event.target.value, dateFormat: this.opts.dateFormat, valid: !(event.target.value.length === 0 || this.invalidDate)});
         }
+    }
+
+    lostFocusInput(event: any): void {
+        this.selectionDayTxt = event.target.value;
     }
 
     userMonthInput(event: any): void {

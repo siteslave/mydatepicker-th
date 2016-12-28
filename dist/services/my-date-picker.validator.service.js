@@ -16,7 +16,7 @@ var ValidatorService = (function () {
         var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         var isMonthStr = dateFormat.indexOf("mmm") !== -1;
         var returnDate = { day: 0, month: 0, year: 0 };
-        if (dateStr.length !== 10 && !isMonthStr || dateStr.length !== 11 && isMonthStr) {
+        if (dateStr.length !== dateFormat.length) {
             return returnDate;
         }
         var separator = dateFormat.replace(/[dmy]/g, "")[0];
