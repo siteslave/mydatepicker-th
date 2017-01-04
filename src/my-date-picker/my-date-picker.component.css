@@ -1,5 +1,5 @@
 .mydp {
-    min-width: 100px;
+    min-width: 30px;
     border-radius: 2px;
     line-height: 1.1;
     display: inline-block;
@@ -90,6 +90,7 @@
 }
 
 .mydp .selection {
+    outline: none;
     background-color: #FFF;
     display: table-cell;
     position: absolute;
