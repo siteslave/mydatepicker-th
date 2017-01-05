@@ -81,7 +81,7 @@ export class MyDatePicker implements OnChanges {
         componentDisabled: <boolean> false,
         inputValueRequired: <boolean> false,
         showSelectorArrow: <boolean> true,
-        showInput: <boolean> true
+        showInputField: <boolean> true
     };
 
     constructor(public elem: ElementRef, private renderer: Renderer, private localeService: LocaleService, private validatorService: ValidatorService) {
@@ -114,6 +114,18 @@ export class MyDatePicker implements OnChanges {
         }
         if (this.opts.maxYear > this.MAX_YEAR) {
             this.opts.maxYear = this.MAX_YEAR;
+        }
+    }
+
+    getComponentWidth(): string {
+        if (this.opts.showInputField) {
+            return this.opts.width;
+        }
+        else if (this.selectionDayTxt.length > 0 && this.opts.showClearDateBtn) {
+            return "60px";
+        }
+        else {
+            return "30px";
         }
     }
 

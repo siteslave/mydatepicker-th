@@ -28,7 +28,7 @@ export class SampleDatePickerNormal implements OnInit {
         inputValueRequired: false,
         showClearDateBtn: true,
         showSelectorArrow: true,
-        showInput: true
+        showInputField: true
     };
     private selectedDateNormal:string = '';
 
@@ -62,6 +62,12 @@ export class SampleDatePickerNormal implements OnInit {
     onShowClearDateButton(checked: boolean) {
         let copy = this.getCopyOfOptions();
         copy.showClearDateBtn = checked;
+        this.myDatePickerNormalOptions = copy;
+    }
+
+    onShowInputField(checked: boolean) {
+        let copy = this.getCopyOfOptions();
+        copy.showInputField = checked;
         this.myDatePickerNormalOptions = copy;
     }
 

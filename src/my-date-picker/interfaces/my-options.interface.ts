@@ -33,5 +33,5 @@ export interface IMyOptions {
     componentDisabled?: boolean;
     inputValueRequired?: boolean;
     showSelectorArrow?: boolean;
-    showInput?: boolean;
+    showInputField?: boolean;
 }

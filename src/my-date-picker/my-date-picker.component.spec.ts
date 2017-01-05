@@ -1449,6 +1449,32 @@ describe('MyDatePicker', () => {
         btnpicker.nativeElement.click();
     });
 
+    it('options - show input field', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
+        comp.options = {};
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let selection = getElement('.selection');
+        expect(selection).not.toBe(null);
+
+
+        comp.options = {showInputField: false};
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        selection = getElement('.selection');
+        expect(selection).toBe(null);
+
+
+        comp.options = {showInputField: true};
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        selection = getElement('.selection');
+        expect(selection).not.toBe(null);
+    });
+
     it('locale - use fr locale', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 1, year: 2016};
         comp.locale = 'fr';

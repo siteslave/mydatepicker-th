@@ -24,6 +24,12 @@
                 <input style="cursor: pointer" type="checkbox" (change)="onShowClearDateButton($event.currentTarget.checked)" [checked]="true">
             </label>
         </li>
+        <li>
+            <label>
+                <span>Show input field:</span>
+                <input style="cursor: pointer" type="checkbox" (change)="onShowInputField($event.currentTarget.checked)" [checked]="true">
+            </label>
+        </li>
     </ul>
 
     <table style="width: 100%">

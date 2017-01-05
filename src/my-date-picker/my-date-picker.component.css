@@ -126,11 +126,14 @@
     height: 100%;
     width: 30px;
     border: none;
-    border-left: 1px solid #CCC;
     padding: 0;
     outline: 0;
     font: inherit;
     -moz-user-select: none;
+}
+
+.mydp .btnleftborder {
+    border-left: 1px solid #CCC;
 }
 
 .mydp .btnpickerenabled,
