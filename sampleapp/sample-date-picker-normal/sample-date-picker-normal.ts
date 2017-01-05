@@ -27,7 +27,8 @@ export class SampleDatePickerNormal implements OnInit {
         componentDisabled: false,
         inputValueRequired: false,
         showClearDateBtn: true,
-        showSelectorArrow: true
+        showSelectorArrow: true,
+        showInput: true
     };
     private selectedDateNormal:string = '';
 
