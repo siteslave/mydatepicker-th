@@ -138,6 +138,14 @@ export class LocaleService {
             todayBtnTxt: "Dnes",
             firstDayOfWeek: "mo",
             sunHighlight: true,
+        },
+        "sl": {
+            dayLabels: { su: "Ned", mo: "Pon", tu: "Tor", we: "Sre", th: "Čet", fr: "Pet", sa: "Sob" },
+            monthLabels: { 1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "Maj", 6: "Jun", 7: "Jul", 8: "Avg", 9: "Sep", 10: "Okt", 11: "Nov", 12: "Dec" },
+            dateFormat: "dd. mm. yyyy",
+            todayBtnTxt: "Danes",
+            firstDayOfWeek: "mo",
+            sunHighlight: true,
         }
     };
 
