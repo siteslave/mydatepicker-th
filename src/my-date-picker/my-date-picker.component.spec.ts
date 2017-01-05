@@ -17,7 +17,7 @@ let PREVYEAR: string = '.header tr td:last-child div .headerbtncell:first-child 
 let NEXTYEAR: string = '.header tr td:last-child div .headerbtncell:last-child .headerbtn';
 
 function getDateString(date:any):string {
-    return date.getFullYear() + '-' + (date.getMonth() + 1 < 10 ? '0' + date.getMonth() + 1 : date.getMonth() + 1) + '-' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
+    return date.getFullYear() + '-' + ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
 }
 
 function getElement(id:string):DebugElement {
