@@ -42,6 +42,12 @@
                 <input style="cursor: pointer" type="checkbox" (change)="onOpenSelectorTopOfInput($event.currentTarget.checked)" [checked]="false">
             </label>
         </li>
+        <li>
+            <label>
+                <span>Show selector arrow:</span>
+                <input style="cursor: pointer" type="checkbox" (change)="onShowSelectorArrow($event.currentTarget.checked)" [checked]="true">
+            </label>
+        </li>
     </ul>
 
     <table style="width: 100%">
