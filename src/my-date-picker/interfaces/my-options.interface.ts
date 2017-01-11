@@ -23,6 +23,7 @@ export interface IMyOptions {
     inline?: boolean;
     showClearDateBtn?: boolean;
     alignSelectorRight?: boolean;
+    openSelectorTopOfInput?: boolean;
     indicateInvalidDate?: boolean;
     showDateFormatPlaceholder?: boolean;
     customPlaceholderTxt?: string;

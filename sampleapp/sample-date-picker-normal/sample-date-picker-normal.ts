@@ -20,6 +20,7 @@ export class SampleDatePickerNormal implements OnInit {
         width: '210px',
         selectionTxtFontSize: '18px',
         alignSelectorRight: false,
+        openSelectorTopOfInput: false,
         indicateInvalidDate: true,
         showDateFormatPlaceholder: true,
         editableMonthAndYear: true,
@@ -68,6 +69,18 @@ export class SampleDatePickerNormal implements OnInit {
     onShowInputField(checked: boolean) {
         let copy = this.getCopyOfOptions();
         copy.showInputField = checked;
+        this.myDatePickerNormalOptions = copy;
+    }
+
+    onAlignSelectorRight(checked: boolean) {
+        let copy = this.getCopyOfOptions();
+        copy.alignSelectorRight = checked;
+        this.myDatePickerNormalOptions = copy;
+    }
+
+    onOpenSelectorTopOfInput(checked: boolean) {
+        let copy = this.getCopyOfOptions();
+        copy.openSelectorTopOfInput = checked;
         this.myDatePickerNormalOptions = copy;
     }
 

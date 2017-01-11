@@ -101,10 +101,11 @@ Value of the __options__ attribute is a javascript object. It can contain the fo
 | __disableWeekends__   | false | Disable weekends (Saturday and Sunday). |
 | __inline__   | false | Show mydatepicker in inline mode. |
 | __showClearDateBtn__   | true | Is clear date button shown or not. Can be used if __inline = false__. |
-| __height__   | 34px | mydatepicker height without selector. Can be used if __inline = false__. |
+| __height__   | 34px | mydatepicker height in without selector. Can be used if __inline = false__. |
 | __width__   | 100% | mydatepicker width. Can be used if __inline = false__. |
 | __selectionTxtFontSize__   | 18px | Selection area font size. Can be used if __inline = false__. |
 | __alignSelectorRight__   | false | Align selector right. Can be used if __inline = false__. |
+| __openSelectorTopOfInput__   | false | Open selector top of input field. The selector arrow cannot be shown if this option is true. Can be used if __inline = false__. |
 | __indicateInvalidDate__   | true | If user typed date is not same format as __dateFormat__, show red background in the selection area. Can be used if __inline = false__. |
 | __showDateFormatPlaceholder__   | false | Show value of __dateFormat__ as placeholder in the selection area if a date is not selected. Can be used if __inline = false__. |
 | __customPlaceholderTxt__   | empty string | Show custom string in the selection area if a date is not selected. Can be used if __showDateFormatPlaceholder = false__ and __inline = false__. |

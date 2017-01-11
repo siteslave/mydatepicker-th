@@ -1070,6 +1070,49 @@ describe('MyDatePicker', () => {
         expect(alignselectorright).toBe(null);
     });
 
+    it('options - open selector top of input', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
+        comp.options = {openSelectorTopOfInput: true, height: '30px'};
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        let value: string = comp.getSelectorTopPosition();
+        expect(value).not.toBe(null);
+        expect(value).toBe('32px');
+
+        btnpicker.nativeElement.click();
+
+
+        comp.options = {openSelectorTopOfInput: false};
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        value = comp.getSelectorTopPosition();
+        expect(value).toBe(undefined);
+
+
+        btnpicker.nativeElement.click();
+
+        comp.options = {};
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        value = comp.getSelectorTopPosition();
+        expect(value).toBe(undefined);
+    });
+
     it('options - indicate invalid date', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
         comp.options = {indicateInvalidDate: true, dateFormat: 'dd.mm.yyyy'};

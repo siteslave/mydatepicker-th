@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ElementRef, ViewEncapsulation, Renderer } from "@angular/core";
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ElementRef, ViewChild, ViewEncapsulation, Renderer } from "@angular/core";
 import { IMyDate, IMyDateRange, IMyMonth, IMyWeek, IMyDayLabels, IMyMonthLabels, IMyOptions } from "./interfaces/index";
 import { LocaleService } from "./services/my-date-picker.locale.service";
 import { ValidatorService } from "./services/my-date-picker.validator.service";
@@ -25,6 +25,7 @@ export class MyDatePicker implements OnChanges {
     @Output() dateChanged: EventEmitter<Object> = new EventEmitter();
     @Output() inputFieldChanged: EventEmitter<Object> = new EventEmitter();
     @Output() calendarViewChanged: EventEmitter<Object> = new EventEmitter();
+    @ViewChild("mydpEl") mydpEl: ElementRef;
 
     showSelector: boolean = false;
     visibleMonth: IMyMonth = {monthTxt: "", monthNbr: 0, year: 0};
@@ -71,6 +72,7 @@ export class MyDatePicker implements OnChanges {
         inline: <boolean> false,
         showClearDateBtn: <boolean> true,
         alignSelectorRight: <boolean> false,
+        openSelectorTopOfInput: <boolean> false,
         indicateInvalidDate: <boolean> true,
         showDateFormatPlaceholder: <boolean> false,
         customPlaceholderTxt: <string> "",
@@ -126,6 +128,12 @@ export class MyDatePicker implements OnChanges {
         }
         else {
             return "30px";
+        }
+    }
+
+    getSelectorTopPosition(): string {
+        if (this.opts.openSelectorTopOfInput) {
+            return this.mydpEl.nativeElement.offsetHeight + "px";
         }
     }
 

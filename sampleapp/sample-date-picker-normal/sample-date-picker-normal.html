@@ -30,6 +30,18 @@
                 <input style="cursor: pointer" type="checkbox" (change)="onShowInputField($event.currentTarget.checked)" [checked]="true">
             </label>
         </li>
+        <li>
+            <label>
+                <span>Align selector right:</span>
+                <input style="cursor: pointer" type="checkbox" (change)="onAlignSelectorRight($event.currentTarget.checked)" [checked]="false">
+            </label>
+        </li>
+        <li>
+            <label>
+                <span>Open selector top of input field:</span>
+                <input style="cursor: pointer" type="checkbox" (change)="onOpenSelectorTopOfInput($event.currentTarget.checked)" [checked]="false">
+            </label>
+        </li>
     </ul>
 
     <table style="width: 100%">
