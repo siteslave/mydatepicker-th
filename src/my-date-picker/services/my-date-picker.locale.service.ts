@@ -115,6 +115,14 @@ export class LocaleService {
             firstDayOfWeek: "mo",
             sunHighlight: true
         },
+        "it-ch": {
+            dayLabels: { su: "Dom", mo: "Lun", tu: "Mar", we: "Mer", th: "Gio", fr: "Ven", sa: "Sab" },
+            monthLabels: { 1: "Gen", 2: "Feb", 3: "Mar", 4: "Apr", 5: "Mag", 6: "Giu", 7: "Lug", 8: "Ago", 9: "Set", 10: "Ott", 11: "Nov", 12: "Dic" },
+            dateFormat: "dd.mm.yyyy",
+            todayBtnTxt: "Oggi",
+            firstDayOfWeek: "mo",
+            sunHighlight: true
+        },
         "pl": {
             dayLabels: { su: "Nie", mo: "Pon", tu: "Wto", we: "Śro", th: "Czw", fr: "Pią", sa: "Sob" },
             monthLabels: { 1: "Sty", 2: "Lut", 3: "Mar", 4: "Kwi", 5: "Maj", 6: "Cze", 7: "Lip", 8: "Sie", 9: "Wrz", 10: "Paź", 11: "Lis", 12: "Gru" },
