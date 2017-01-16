@@ -35,7 +35,7 @@ export class LocaleService {
             firstDayOfWeek: "mo",
             sunHighlight: true,
         },
-       "es": {
+        "es": {
             dayLabels: {su: "Do", mo: "Lu", tu: "Ma", we: "Mi", th: "Ju", fr: "Vi", sa: "Sa"},
             monthLabels: {1: "Ene", 2: "Feb", 3: "Mar", 4: "Abr", 5: "May", 6: "Jun", 7: "Jul", 8: "Ago", 9: "Sep", 10: "Oct", 11: "Nov", 12: "Dic"},
             dateFormat: "dd.mm.yyyy",
@@ -43,7 +43,7 @@ export class LocaleService {
             firstDayOfWeek: "mo",
             sunHighlight: true,
         },
-       "hu": {
+        "hu": {
             dayLabels: {su: "Vas", mo: "Hét", tu: "Kedd", we: "Sze", th: "Csü", fr: "Pén", sa: "Szo"},
             monthLabels: { 1: "Jan", 2: "Feb", 3: "Már", 4: "Ápr", 5: "Máj", 6: "Jún", 7: "Júl", 8: "Aug", 9: "Szep", 10: "Okt", 11: "Nov", 12: "Dec" },
             dateFormat: "yyyy-mm-dd",
