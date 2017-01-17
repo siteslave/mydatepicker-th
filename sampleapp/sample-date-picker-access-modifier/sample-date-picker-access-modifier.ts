@@ -2,22 +2,19 @@ import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 
 declare var require:any;
-const rfSampleTpl: string = require('./sample-date-picker-access-modifier.html');
+const amSampleTpl: string = require('./sample-date-picker-access-modifier.html');
 
 @Component({
     selector: 'sample-date-picker-access-modifier',
-    template: rfSampleTpl
+    template: amSampleTpl
 })
 
 export class SampleDatePickerAccessModifier implements OnInit {
 
     private myDatePickerOptions = {
-        todayBtnTxt: 'Today',
         dateFormat: 'dd.mm.yyyy',
-        firstDayOfWeek: 'mo',
         height: '34px',
         width: '210px',
-        sunHighlight: true,
         inline: false
     };
 
@@ -25,8 +22,6 @@ export class SampleDatePickerAccessModifier implements OnInit {
 
     private model: string = '';   // not initial date set
     //private model: Object = {date: {year: 2018, month: 10, day: 9}};   // this example is initialized to specific date
-
-    private selDateRF: string = '';
 
     constructor(private formBuilder: FormBuilder) { }
 
@@ -38,8 +33,11 @@ export class SampleDatePickerAccessModifier implements OnInit {
         });
     }
 
-    submit() {
-        console.log('Value: ', this.myForm.controls['myDate'].value);
+    onSubmitNgModel() {
+        console.log('Value: ', this.model);
     }
 
+    onSubmitReactiveForms() {
+        console.log('Value: ', this.myForm.controls['myDate'].value);
+    }
 }

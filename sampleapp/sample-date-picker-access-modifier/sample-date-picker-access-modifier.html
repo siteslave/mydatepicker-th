@@ -1,23 +1,53 @@
-<table style="width: 100%">
+<style>
+    .table {
+        width: 100%;
+    }
+
+    .table .td {
+        width: 50%;
+        vertical-align: top;
+    }
+
+    .title {
+        margin-bottom: 10px;
+    }
+
+    .error {
+        width: 202px;
+        padding: 4px;
+        border: 1px solid #ebccd2;
+        color: #a94444;
+        background-color: #f2dede;
+        border-radius: 2px;
+    }
+</style>
+
+<table class="table">
     <tr>
-        <td style="width: 50%;vertical-align: top">
-            <div style="margin-bottom: 10px">ngModel</div>
+        <!-- ngModel example-->
+        <td class="td">
+            <div class="title">ngModel</div>
             <div>
-                <my-date-picker [options]="myDatePickerOptions" [(ngModel)]="model"></my-date-picker>
-                <div>
-                    <span>Value: {{model.formatted}}</span>
-                </div>
+                <form #f="ngForm" (ngSubmit)="onSubmitNgModel()" novalidate>
+                    <my-date-picker name="ngModelDate" [options]="myDatePickerOptions" [(ngModel)]="model" required></my-date-picker>
+                    <div>
+                        <button type="submit" [disabled]="!f.valid">Submit</button>
+                        <p class="error" *ngIf="!f.valid">Date is required!</p>
+                    </div>
+                </form>
             </div>
         </td>
 
-        <td style="width: 50%;vertical-align: top">
-            <div style="margin-bottom: 10px">Reactive forms</div>
+
+        <!-- Reactive forms example-->
+        <td class="td">
+            <div class="title">Reactive forms</div>
             <div>
-                <form [formGroup]="myForm" (ngSubmit)="submit()">
-                    <my-date-picker [options]="myDatePickerOptions" [selDate]="selDateRF" formControlName="myDate"></my-date-picker>
+                <form [formGroup]="myForm" (ngSubmit)="onSubmitReactiveForms()" novalidate>
+                    <my-date-picker name="reactiveFormsDate" [options]="myDatePickerOptions" formControlName="myDate"></my-date-picker>
                     <div>
-                        <button [disabled]="myForm.controls.myDate.errors">Submit</button>
-                        <p *ngIf="myForm.controls.myDate.errors">Date is required!</p>
+                        <button type="submit" [disabled]="myForm.controls.myDate.errors">Submit</button>
+                        <p class="error" *ngIf="myForm.controls.myDate.errors">Date is required!</p>
                     </div>
                 </form>
             </div>
