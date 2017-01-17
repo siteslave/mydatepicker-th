@@ -33,27 +33,42 @@ To install this component to an external project, follow the procedure:
     })
     export class MyTestAppModule {}
     ```
+3. Use one of the following three options
 
-3. Use the following snippet inside your template:
+  3.1 Callbacks
 
+  In this option the mydatepicker sends data back to host application using callbacks. [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-normal)
+  is an example application. It shows how to use callbacks.
+
+  To use callbacks define the application class as follows:
+   ```js
+   export class MyTestApp {
+
+       private myDatePickerOptions = {
+           // other options...
+           dateFormat: 'dd.mm.yyyy',
+       };
+
+       constructor() { }
+
+       // dateChanged callback function called when the user select the date. This is mandatory callback
+       // in this option. There are also optional inputFieldChanged and calendarViewChanged callbacks.
+       onDateChanged(event:any) {
+           // event properties are: event.date, event.jsdate, event.formatted and event.epoc
+       }
+
+   }
+   ```
+
+   Add the following snippet inside your template:
    ```html
    <my-date-picker [options]="myDatePickerOptions"
                    (dateChanged)="onDateChanged($event)"></my-date-picker>
    ```
 
-    * Mandatory attributes:
-      * [options]="myDatePickerOptions"
-      * (dateChanged)="onDateChanged($event)"
+  3.2 Reactive forms
 
-    * Optional attributes:
-      * [selDate]="selectedDate" || [defaultMonth]="defaultMonth"
-      * [locale]="locale"
-      * (inputFieldChanged)="onInputFieldChanged($event)"
-      * (calendarViewChanged)="onCalendarViewChanged($event)"
-
-4. Reactive Forms and ngModel
-
-  [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-access-modifier) is an example application. It shows how to use the __ngModel__ or the __formControlName__ attributes.
+  [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-access-modifier) is an example application. It shows how to use the __formControlName__.
 
   To use reactive forms define the application class as follows:
    ```js
@@ -84,12 +99,40 @@ To install this component to an external project, follow the procedure:
    Add the following snippet inside your template:
    ```html
     <form [formGroup]="myForm">
-        <my-date-picker [options]="myDatePickerOptions" formControlName="myDate"></my-date-picker>
+        <my-date-picker [options]="myDatePickerOptions"
+                        formControlName="myDate"></my-date-picker>
         <!-- other controls are here... -->
     </form>
    ```
 
-5. If you are using __systemjs__ package loader add the following mydatepicker properties to the __System.config__:
+  3.3 ngModel binding
+
+  [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-access-modifier) is an example application. It shows how to use the __ngModel__.
+
+  To use ngModel define the application class as follows:
+   ```js
+   export class MyTestApp {
+
+       private myDatePickerOptions = {
+           // other options...
+           dateFormat: 'dd.mm.yyyy',
+       };
+
+       // Initialized to specific date (09.10.2018). It is also possible to set initial
+       // date value using the selDate attribute.
+       private model: Object = {date: {year: 2018, month: 10, day: 9}};
+
+       constructor() { }
+   }
+   ```
+
+   Add the following snippet inside your template:
+   ```html
+   <my-date-picker [options]="myDatePickerOptions"
+                   [(ngModel)]="model"></my-date-picker>
+   ```
+
+4. If you are using __systemjs__ package loader add the following mydatepicker properties to the __System.config__:
     ```js
     (function (global) {
         System.config({
@@ -112,7 +155,7 @@ To install this component to an external project, follow the procedure:
     })(this);
     ```
 
-## Usage
+## Attributes
 
 ### options attribute
 
@@ -200,6 +243,8 @@ month number separated by delimiter. The delimiter can be any special character.
 For example the value of the __[defaultMonth]__ attribute can be: __2016.08__,
 __08-2016__, __08/2016__.
 
+## Callbacks
+
 ### dateChanged callback:
   * called when the date is selected, removed or input field typing is valid
   * event parameter:
@@ -245,7 +290,7 @@ __08-2016__, __08/2016__.
   }
   ```
 
-### Change styles of the component
+## Change styles of the component
 
 The styles of the component can be changed by overriding the styles.
 
