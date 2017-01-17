@@ -75,6 +75,14 @@ export class LocaleService {
             firstDayOfWeek: "mo",
             sunHighlight: true
         },
+        "uk": {
+            dayLabels: {su: "Нд", mo: "Пн", tu: "Вт", we: "Ср", th: "Чт", fr: "Пт", sa: "Сб"},
+            monthLabels: { 1: "Січ", 2: "Лют", 3: "Бер", 4: "Кві", 5: "Тра", 6: "Чер", 7: "Лип", 8: "Сер", 9: "Вер", 10: "Жов", 11: "Лис", 12: "Гру" },
+            dateFormat: "dd.mm.yyyy",
+            todayBtnTxt: "Сьогодні",
+            firstDayOfWeek: "mo",
+            sunHighlight: true
+        },
         "no": {
             dayLabels: {su: "Søn", mo: "Man", tu: "Tir", we: "Ons", th: "Tor", fr: "Fre", sa: "Lør"},
             monthLabels: { 1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "Mai", 6: "Jun", 7: "Jul", 8: "Aug", 9: "Sep", 10: "Okt", 11: "Nov", 12: "Des" },
