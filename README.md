@@ -51,7 +51,45 @@ To install this component to an external project, follow the procedure:
       * (inputFieldChanged)="onInputFieldChanged($event)"
       * (calendarViewChanged)="onCalendarViewChanged($event)"
 
-4. If you are using __systemjs__ package loader add the following mydatepicker properties to the __System.config__:
+4. Reactive Forms and ngModel
+
+  [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-access-modifier) is an example application. It shows how to use the __ngModel__ or the __formControlName__ attributes.
+
+  To use reactive forms define the application class as follows:
+   ```js
+   export class MyTestApp implements OnInit {
+
+       private myDatePickerOptions = {
+           // other options...
+           dateFormat: 'dd.mm.yyyy',
+       };
+
+       private myForm: FormGroup;
+
+       constructor(private formBuilder: FormBuilder) { }
+
+       ngOnInit() {
+           this.myForm = this.formBuilder.group({
+               // Empty string means no initial value. Can be also specific date for
+               // example: {date: {year: 2018, month: 10, day: 9}} which sets this date to initial
+               // date value. It is also possible to set initial date value using the selDate attribute.
+
+               myDate: ['', Validators.required]
+               // other controls are here...
+           });
+       }
+   }
+   ```
+
+   Add the following snippet inside your template:
+   ```html
+    <form [formGroup]="myForm">
+        <my-date-picker [options]="myDatePickerOptions" formControlName="myDate"></my-date-picker>
+        <!-- other controls are here... -->
+    </form>
+   ```
+
+5. If you are using __systemjs__ package loader add the following mydatepicker properties to the __System.config__:
     ```js
     (function (global) {
         System.config({

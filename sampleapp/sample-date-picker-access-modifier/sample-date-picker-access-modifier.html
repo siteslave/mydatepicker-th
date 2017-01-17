@@ -1,0 +1,26 @@
+<table style="width: 100%">
+    <tr>
+        <td style="width: 50%;vertical-align: top">
+            <div style="margin-bottom: 10px">ngModel</div>
+            <div>
+                <my-date-picker [options]="myDatePickerOptions" [(ngModel)]="model"></my-date-picker>
+                <div>
+                    <span>Value: {{model.formatted}}</span>
+                </div>
+            </div>
+        </td>
+
+        <td style="width: 50%;vertical-align: top">
+            <div style="margin-bottom: 10px">Reactive forms</div>
+            <div>
+                <form [formGroup]="myForm" (ngSubmit)="submit()">
+                    <my-date-picker [options]="myDatePickerOptions" [selDate]="selDateRF" formControlName="myDate"></my-date-picker>
+                    <div>
+                        <button [disabled]="myForm.controls.myDate.errors">Submit</button>
+                        <p *ngIf="myForm.controls.myDate.errors">Date is required!</p>
+                    </div>
+                </form>
+            </div>
+        </td>
+    </tr>
+</table>

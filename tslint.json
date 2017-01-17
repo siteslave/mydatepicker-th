@@ -35,7 +35,7 @@
     "curly": true,
     "no-conditional-assignment": true,
     "no-duplicate-variable": true,
-    "no-empty": true,
+    "no-empty": false,
     "no-eval": true,
     "no-internal-module": true,
     "no-trailing-whitespace": true,

@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ElementRef, ViewChild, ViewEncapsulation, Renderer } from "@angular/core";
-import { IMyDate, IMyDateRange, IMyMonth, IMyWeek, IMyDayLabels, IMyMonthLabels, IMyOptions } from "./interfaces/index";
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ElementRef, ViewChild, ViewEncapsulation, Renderer, forwardRef } from "@angular/core";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { IMyDate, IMyDateRange, IMyMonth, IMyWeek, IMyDayLabels, IMyMonthLabels, IMyOptions, IMyDateModel } from "./interfaces/index";
 import { LocaleService } from "./services/my-date-picker.locale.service";
 import { ValidatorService } from "./services/my-date-picker.validator.service";
 
@@ -9,15 +10,21 @@ const myDpStyles: string = require("./my-date-picker.component.css");
 const myDpTpl: string = require("./my-date-picker.component.html");
 // webpack2_
 
+export const MYDP_VALUE_ACCESSOR: any = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => MyDatePicker),
+    multi: true
+};
+
 @Component({
     selector: "my-date-picker",
     styles: [myDpStyles],
     template: myDpTpl,
-    providers: [LocaleService, ValidatorService],
+    providers: [LocaleService, ValidatorService, MYDP_VALUE_ACCESSOR],
     encapsulation: ViewEncapsulation.None
 })
 
-export class MyDatePicker implements OnChanges {
+export class MyDatePicker implements OnChanges, ControlValueAccessor {
     @Input() options: any;
     @Input() locale: string;
     @Input() defaultMonth: string;
@@ -26,6 +33,9 @@ export class MyDatePicker implements OnChanges {
     @Output() inputFieldChanged: EventEmitter<Object> = new EventEmitter();
     @Output() calendarViewChanged: EventEmitter<Object> = new EventEmitter();
     @ViewChild("mydpEl") mydpEl: ElementRef;
+
+    onChangeCb: (_: any) => void = () => { };
+    onTouchedCb: () => void = () => { };
 
     showSelector: boolean = false;
     visibleMonth: IMyMonth = {monthTxt: "", monthNbr: 0, year: 0};
@@ -166,7 +176,7 @@ export class MyDatePicker implements OnChanges {
         else {
             let date: IMyDate = this.validatorService.isDateValid(event.target.value, this.opts.dateFormat, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRange, this.opts.monthLabels);
             if (date.day !== 0 && date.month !== 0 && date.year !== 0) {
-                this.selectDate({day: date.day, month: date.month, year: date.year});
+                this.selectDate(date);
             }
             else {
                 this.invalidDate = true;
@@ -174,6 +184,7 @@ export class MyDatePicker implements OnChanges {
         }
         if (this.invalidDate) {
             this.inputFieldChanged.emit({value: event.target.value, dateFormat: this.opts.dateFormat, valid: !(event.target.value.length === 0 || this.invalidDate)});
+            this.onChangeCb("");
         }
     }
 
@@ -241,6 +252,21 @@ export class MyDatePicker implements OnChanges {
         }
     }
 
+    writeValue(value: Object): void {
+        if (value && value["date"]) {
+            this.selectedDate = this.parseSelectedDate(value["date"]);
+            this.onChangeCb(this.getDateModel(this.selectedDate));
+        }
+    }
+
+    registerOnChange(fn: any): void {
+        this.onChangeCb = fn;
+    }
+
+    registerOnTouched(fn: any): void {
+        this.onTouchedCb = fn;
+    }
+
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.hasOwnProperty("locale")) {
             this.locale = changes["locale"].currentValue;
@@ -267,6 +293,9 @@ export class MyDatePicker implements OnChanges {
             let sd: any = changes["selDate"];
             if (sd.currentValue !== null && sd.currentValue !== undefined && sd.currentValue !== "" && Object.keys(sd.currentValue).length !== 0) {
                 this.selectedDate = this.parseSelectedDate(sd.currentValue);
+                setTimeout(function() {
+                    this.onChangeCb(this.getDateModel(this.selectedDate));
+                }.bind(this));
             }
             else {
                 // Do not clear on init
@@ -322,6 +351,7 @@ export class MyDatePicker implements OnChanges {
         this.selectedDate = {year: 0, month: 0, day: 0};
         this.dateChanged.emit({date: {}, jsdate: null, formatted: this.selectionDayTxt, epoc: 0});
         this.inputFieldChanged.emit({value: "", dateFormat: this.opts.dateFormat, valid: false});
+        this.onChangeCb("");
         this.invalidDate = false;
     }
 
@@ -370,7 +400,7 @@ export class MyDatePicker implements OnChanges {
     todayClicked(): void {
         // Today button clicked
         let today: IMyDate = this.getToday();
-        this.selectDate({day: today.day, month: today.month, year: today.year});
+        this.selectDate(today);
         if (this.opts.inline && today.year !== this.visibleMonth.year || today.month !== this.visibleMonth.monthNbr) {
             this.visibleMonth = {monthTxt: this.opts.monthLabels[today.month], monthNbr: today.month, year: today.year};
             this.generateCalendar(today.month, today.year);
@@ -395,20 +425,28 @@ export class MyDatePicker implements OnChanges {
     }
 
     cellKeyDown(event: any, cell: any) {
+        // Cell keyboard handling
         if ((event.keyCode === 13 || event.keyCode === 32) && !cell.disabled) {
             event.preventDefault();
             this.cellClicked(cell);
         }
     }
 
-    selectDate(date: any): void {
-        // Date selected, notifies parent using callbacks
-        this.selectedDate = {day: date.day, month: date.month, year: date.year};
-        this.selectionDayTxt = this.formatDate(this.selectedDate);
+    selectDate(date: IMyDate): void {
+        // Date selected, notifies parent using callbacks and value accessor
+        let dateModel: IMyDateModel = this.getDateModel(date);
+        this.selectedDate = date;
+        this.selectionDayTxt = this.formatDate(date);
         this.showSelector = false;
-        this.dateChanged.emit({date: this.selectedDate, jsdate: this.getDate(date.year, date.month, date.day), formatted: this.selectionDayTxt, epoc: Math.round(this.getTimeInMilliseconds(this.selectedDate) / 1000.0)});
+        this.dateChanged.emit(dateModel);
         this.inputFieldChanged.emit({value: this.selectionDayTxt, dateFormat: this.opts.dateFormat, valid: true});
+        this.onChangeCb(dateModel);
         this.invalidDate = false;
+    }
+
+    getDateModel(date: IMyDate): IMyDateModel {
+        // Creates a date model object from the given parameter
+        return {date: date, jsdate: this.getDate(date.year, date.month, date.day), formatted: this.formatDate(date), epoc: Math.round(this.getTimeInMilliseconds(date) / 1000.0)};
     }
 
     preZero(val: string): string {

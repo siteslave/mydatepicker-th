@@ -1,6 +1,6 @@
 {
   "name": "mydatepicker",
-  "version": "1.1.16",
+  "version": "1.2.0",
   "description": "Angular2 date picker",
   "keywords": [
     "Angular2",
@@ -33,6 +33,7 @@
     "@angular/common": "~2.2.0",
     "@angular/compiler": "~2.2.0",
     "@angular/core": "~2.2.0",
+    "@angular/forms": "~2.2.0",
     "@angular/platform-browser": "~2.2.0",
     "@angular/platform-browser-dynamic": "~2.2.0",
     "@types/jasmine": "^2.5.38",
