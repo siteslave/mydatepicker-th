@@ -68,7 +68,8 @@ To install this component to an external project, follow the procedure:
 
   3.2 Reactive forms
 
-  [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-access-modifier) is an example application. It shows how to use the __formControlName__.
+  In this option the value accessor of reactive forms are used. [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-access-modifier)
+  is an example application. It shows how to use the __formControlName__.
 
   To use reactive forms define the application class as follows:
    ```js
@@ -98,8 +99,8 @@ To install this component to an external project, follow the procedure:
 
    Add the following snippet inside your template:
    ```html
-    <form [formGroup]="myForm">
-        <my-date-picker [options]="myDatePickerOptions"
+    <form [formGroup]="myForm" novalidate>
+        <my-date-picker name="mydate" [options]="myDatePickerOptions"
                         formControlName="myDate"></my-date-picker>
         <!-- other controls are here... -->
     </form>
@@ -107,7 +108,8 @@ To install this component to an external project, follow the procedure:
 
   3.3 ngModel binding
 
-  [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-access-modifier) is an example application. It shows how to use the __ngModel__.
+  In this option the ngModel binding is used. [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-access-modifier)
+  is an example application. It shows how to use the __ngModel__.
 
   To use ngModel define the application class as follows:
    ```js
@@ -128,8 +130,10 @@ To install this component to an external project, follow the procedure:
 
    Add the following snippet inside your template:
    ```html
-   <my-date-picker [options]="myDatePickerOptions"
-                   [(ngModel)]="model"></my-date-picker>
+   <form #myForm="ngForm" novalidate>
+        <my-date-picker name="mydate" [options]="myDatePickerOptions"
+                        [(ngModel)]="model" required></my-date-picker>
+   </form>
    ```
 
 4. If you are using __systemjs__ package loader add the following mydatepicker properties to the __System.config__:
