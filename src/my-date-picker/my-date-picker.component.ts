@@ -595,4 +595,12 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     parseSelectedMonth(ms: string): IMyMonth {
         return this.validatorService.parseDefaultMonth(ms);
     }
+
+    handleInputClick(event: MouseEvent): void {
+        if (!this.opts.editableDateField && this.opts.openSelectorOnInputClick) {
+            event.preventDefault();
+            this.openBtnClicked();
+        }
+    }
+
 }
