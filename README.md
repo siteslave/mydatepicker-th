@@ -14,8 +14,9 @@ Simple Angular2 date picker. Online demo is [here](http://kekeh.github.io/mydate
 To install this component to an external project, follow the procedure:
 
 1. __npm install mydatepicker --save__
-2. Add __MyDatePickerModule__ import to your __@NgModule__ like example below
-    ```js
+
+1. Add __MyDatePickerModule__ import to your __@NgModule__ like example below
+    ```ts
     import { NgModule } from '@angular/core';
     import { BrowserModule } from '@angular/platform-browser';
     import { MyTestApp } from './my-test-app';
@@ -33,110 +34,8 @@ To install this component to an external project, follow the procedure:
     })
     export class MyTestAppModule {}
     ```
-3. Use one of the following three options
 
-  3.1 Callbacks
-
-  In this option the mydatepicker sends data back to host application using callbacks. [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-normal)
-  is an example application. It shows how to use callbacks.
-
-  To use callbacks define the application class as follows:
-   ```js
-   export class MyTestApp {
-
-       private myDatePickerOptions = {
-           // other options...
-           dateFormat: 'dd.mm.yyyy',
-       };
-
-       constructor() { }
-
-       // dateChanged callback function called when the user select the date. This is mandatory callback
-       // in this option. There are also optional inputFieldChanged and calendarViewChanged callbacks.
-       onDateChanged(event:any) {
-           // event properties are: event.date, event.jsdate, event.formatted and event.epoc
-       }
-
-   }
-   ```
-
-   Add the following snippet inside your template:
-   ```html
-   <my-date-picker [options]="myDatePickerOptions"
-                   (dateChanged)="onDateChanged($event)"></my-date-picker>
-   ```
-
-  3.2 Reactive forms
-
-  In this option the value accessor of reactive forms are used. [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-access-modifier)
-  is an example application. It shows how to use the __formControlName__.
-
-  To use reactive forms define the application class as follows:
-   ```js
-   export class MyTestApp implements OnInit {
-
-       private myDatePickerOptions = {
-           // other options...
-           dateFormat: 'dd.mm.yyyy',
-       };
-
-       private myForm: FormGroup;
-
-       constructor(private formBuilder: FormBuilder) { }
-
-       ngOnInit() {
-           this.myForm = this.formBuilder.group({
-               // Empty string means no initial value. Can be also specific date for
-               // example: {date: {year: 2018, month: 10, day: 9}} which sets this date to initial
-               // date value. It is also possible to set initial date value using the selDate attribute.
-
-               myDate: ['', Validators.required]
-               // other controls are here...
-           });
-       }
-   }
-   ```
-
-   Add the following snippet inside your template:
-   ```html
-    <form [formGroup]="myForm" novalidate>
-        <my-date-picker name="mydate" [options]="myDatePickerOptions"
-                        formControlName="myDate"></my-date-picker>
-        <!-- other controls are here... -->
-    </form>
-   ```
-
-  3.3 ngModel binding
-
-  In this option the ngModel binding is used. [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-access-modifier)
-  is an example application. It shows how to use the __ngModel__.
-
-  To use ngModel define the application class as follows:
-   ```js
-   export class MyTestApp {
-
-       private myDatePickerOptions = {
-           // other options...
-           dateFormat: 'dd.mm.yyyy',
-       };
-
-       // Initialized to specific date (09.10.2018). It is also possible to set initial
-       // date value using the selDate attribute.
-       private model: Object = {date: {year: 2018, month: 10, day: 9}};
-
-       constructor() { }
-   }
-   ```
-
-   Add the following snippet inside your template:
-   ```html
-   <form #myForm="ngForm" novalidate>
-        <my-date-picker name="mydate" [options]="myDatePickerOptions"
-                        [(ngModel)]="model" required></my-date-picker>
-   </form>
-   ```
-
-4. If you are using __systemjs__ package loader add the following mydatepicker properties to the __System.config__:
+1. If you are using __systemjs__ package loader add the following mydatepicker properties to the __System.config__:
     ```js
     (function (global) {
         System.config({
@@ -158,6 +57,116 @@ To install this component to an external project, follow the procedure:
         });
     })(this);
     ```
+    
+## Usage
+
+Use one of the following three options.
+
+### Callbacks
+
+In this option the mydatepicker sends data back to host application using callbacks. [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-normal)
+is an example application. It shows how to use callbacks.
+
+To use callbacks define the application class as follows:
+  
+```js
+export class MyTestApp {
+
+    private myDatePickerOptions = {
+        // other options...
+        dateFormat: 'dd.mm.yyyy',
+    };
+
+    constructor() { }
+
+    // dateChanged callback function called when the user select the date. This is mandatory callback
+    // in this option. There are also optional inputFieldChanged and calendarViewChanged callbacks.
+    onDateChanged(event: any) {
+        // event properties are: event.date, event.jsdate, event.formatted and event.epoc
+    }
+}
+```
+
+Add the following snippet inside your template:
+
+```html
+<my-date-picker [options]="myDatePickerOptions"
+                (dateChanged)="onDateChanged($event)"></my-date-picker>
+```
+
+### Reactive forms
+
+In this option the value accessor of reactive forms are used. [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-access-modifier)
+is an example application. It shows how to use the __formControlName__.
+
+To use reactive forms define the application class as follows:
+
+```ts
+export class MyTestApp implements OnInit {
+
+    private myDatePickerOptions = {
+        // other options...
+        dateFormat: 'dd.mm.yyyy',
+    };
+
+    private myForm: FormGroup;
+
+    constructor(private formBuilder: FormBuilder) { }
+
+    ngOnInit() {
+        this.myForm = this.formBuilder.group({
+            // Empty string means no initial value. Can be also specific date for
+            // example: {date: {year: 2018, month: 10, day: 9}} which sets this date to initial
+            // date value. It is also possible to set initial date value using the selDate attribute.
+
+            myDate: ['', Validators.required]
+            // other controls are here...
+        });
+    }
+}
+```
+
+Add the following snippet inside your template:
+
+```html
+<form [formGroup]="myForm" novalidate>
+    <my-date-picker name="mydate" [options]="myDatePickerOptions"
+                    formControlName="myDate"></my-date-picker>
+  <!-- other controls are here... -->
+</form>
+```
+
+### ngModel binding
+
+In this option the ngModel binding is used. [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-access-modifier)
+is an example application. It shows how to use the __ngModel__.
+
+To use ngModel define the application class as follows:
+
+```ts
+export class MyTestApp {
+
+    private myDatePickerOptions = {
+        // other options...
+        dateFormat: 'dd.mm.yyyy',
+    };
+
+    // Initialized to specific date (09.10.2018). It is also possible to set initial
+    // date value using the selDate attribute.
+    private model: Object = { date: { year: 2018, month: 10, day: 9 } };
+
+    constructor() { }
+}
+```
+
+Add the following snippet inside your template:
+
+```html
+<form #myForm="ngForm" novalidate>
+    <my-date-picker name="mydate" [options]="myDatePickerOptions"
+                    [(ngModel)]="model" required></my-date-picker>
+</form>
+```
 
 ## Attributes
 
