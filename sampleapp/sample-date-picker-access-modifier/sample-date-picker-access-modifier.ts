@@ -42,7 +42,13 @@ export class SampleDatePickerAccessModifier implements OnInit {
     }
 
     setDate(): void {
-        let date = new Date();
+        // Set today using the setValue function
+        let date: Date = new Date();
         this.myForm.setValue({myDate: {date: {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()}}});
+    }
+
+    clearDate(): void {
+        // Clear the date using the setValue function
+        this.myForm.setValue({myDate: ''});
     }
 }

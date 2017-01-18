@@ -123,6 +123,17 @@ export class MyTestApp implements OnInit {
             // other controls are here...
         });
     }
+
+    setDate(): void {
+        // Set today date using the setValue function
+        let date = new Date();
+        this.myForm.setValue({myDate: {date: {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()}}});
+    }
+
+    clearDate(): void {
+        // Clear the date using the setValue function
+        this.myForm.setValue({myDate: ''});
+    }
 }
 ```
 

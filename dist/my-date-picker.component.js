@@ -223,8 +223,10 @@ var MyDatePicker = (function () {
     };
     MyDatePicker.prototype.writeValue = function (value) {
         if (value && value["date"]) {
-            this.selectedDate = this.parseSelectedDate(value["date"]);
-            this.onChangeCb(this.getDateModel(this.selectedDate));
+            this.selectDate(this.parseSelectedDate(value["date"]));
+        }
+        else if (value === "") {
+            this.clearDate();
         }
     };
     MyDatePicker.prototype.registerOnChange = function (fn) {
