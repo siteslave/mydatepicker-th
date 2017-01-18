@@ -33,11 +33,16 @@ export class SampleDatePickerAccessModifier implements OnInit {
         });
     }
 
-    onSubmitNgModel() {
+    onSubmitNgModel(): void {
         console.log('Value: ', this.model);
     }
 
-    onSubmitReactiveForms() {
+    onSubmitReactiveForms(): void {
         console.log('Value: ', this.myForm.controls['myDate'].value);
+    }
+
+    setDate(): void {
+        let date = new Date();
+        this.myForm.setValue({myDate: {date: {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()}}});
     }
 }

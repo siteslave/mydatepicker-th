@@ -47,6 +47,7 @@
                     <my-date-picker name="reactiveFormsDate" [options]="myDatePickerOptions" formControlName="myDate"></my-date-picker>
                     <div>
                         <button type="submit" [disabled]="myForm.controls.myDate.errors">Submit</button>
+                        <button type="button" (click)="setDate()">Set Today</button>
                         <p class="error" *ngIf="myForm.controls.myDate.errors">Date is required!</p>
                     </div>
                 </form>
