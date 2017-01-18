@@ -93,7 +93,8 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         componentDisabled: <boolean> false,
         inputValueRequired: <boolean> false,
         showSelectorArrow: <boolean> true,
-        showInputField: <boolean> true
+        showInputField: <boolean> true,
+        openSelectorOnInputClick: <boolean> false,
     };
 
     constructor(public elem: ElementRef, private renderer: Renderer, private localeService: LocaleService, private validatorService: ValidatorService) {
