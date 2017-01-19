@@ -29,7 +29,8 @@ export class SampleDatePickerNormal implements OnInit {
         inputValueRequired: false,
         showClearDateBtn: true,
         showSelectorArrow: true,
-        showInputField: true
+        showInputField: true,
+        openSelectorOnInputClick: false
     };
     private selectedDateNormal:string = '';
 
@@ -51,6 +52,7 @@ export class SampleDatePickerNormal implements OnInit {
     onEditableDateField(checked: boolean) {
         let copy = this.getCopyOfOptions();
         copy.editableDateField = checked;
+        copy.openSelectorOnInputClick = !checked;
         this.myDatePickerNormalOptions = copy;
     }
 

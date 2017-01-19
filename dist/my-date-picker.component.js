@@ -80,7 +80,8 @@ var MyDatePicker = (function () {
             componentDisabled: false,
             inputValueRequired: false,
             showSelectorArrow: true,
-            showInputField: true
+            showInputField: true,
+            openSelectorOnInputClick: false,
         };
         this.setLocaleOptions();
         renderer.listenGlobal("document", "click", function (event) {
