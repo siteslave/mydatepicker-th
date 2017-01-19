@@ -224,6 +224,7 @@ Value of the __options__ attribute is a javascript object. It can contain the fo
 | __inputValueRequired__   | false | Is selection area input field value required or not (input required flag). Can be used if __inline = false__. |
 | __showSelectorArrow__   | true | Is selector (calendar) arrow shown or not. Can be used if __inline = false__. |
 | __showInputField__   | true | Is selection area input field shown or not. If not, just show the icon. Can be used if __inline = false__. |
+| __openSelectorOnInputClick__   | false | Open selector when the input field is clicked. Can be used if __editableDateField = false__. |
 
 * Example of the options data (not all properties listed):
 ```js

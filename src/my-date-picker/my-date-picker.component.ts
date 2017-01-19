@@ -93,7 +93,8 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         componentDisabled: <boolean> false,
         inputValueRequired: <boolean> false,
         showSelectorArrow: <boolean> true,
-        showInputField: <boolean> true
+        showInputField: <boolean> true,
+        openSelectorOnInputClick: <boolean> false,
     };
 
     constructor(public elem: ElementRef, private renderer: Renderer, private localeService: LocaleService, private validatorService: ValidatorService) {
@@ -595,4 +596,12 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     parseSelectedMonth(ms: string): IMyMonth {
         return this.validatorService.parseDefaultMonth(ms);
     }
+
+    handleInputClick(event: MouseEvent): void {
+        if (!this.opts.editableDateField && this.opts.openSelectorOnInputClick) {
+            event.preventDefault();
+            this.openBtnClicked();
+        }
+    }
+
 }

@@ -35,4 +35,5 @@ export interface IMyOptions {
     inputValueRequired?: boolean;
     showSelectorArrow?: boolean;
     showInputField?: boolean;
+    openSelectorOnInputClick?: boolean;
 }
