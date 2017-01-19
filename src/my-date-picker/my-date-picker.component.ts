@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ElementRef, ViewChild, ViewEncapsulation, Renderer, forwardRef } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { IMyDate, IMyDateRange, IMyMonth, IMyWeek, IMyDayLabels, IMyMonthLabels, IMyOptions, IMyDateModel } from "./interfaces/index";
+import { IMyDate, IMyDateRange, IMyMonth, IMyWeek, IMyDayLabels, IMyMonthLabels, IMyOptions, IMyDateModel, IMyInputFieldChanged, IMyCalendarViewChanged } from "./interfaces/index";
 import { LocaleService } from "./services/my-date-picker.locale.service";
 import { ValidatorService } from "./services/my-date-picker.validator.service";
 
@@ -29,9 +29,9 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     @Input() locale: string;
     @Input() defaultMonth: string;
     @Input() selDate: string;
-    @Output() dateChanged: EventEmitter<Object> = new EventEmitter();
-    @Output() inputFieldChanged: EventEmitter<Object> = new EventEmitter();
-    @Output() calendarViewChanged: EventEmitter<Object> = new EventEmitter();
+    @Output() dateChanged: EventEmitter<IMyDateModel> = new EventEmitter<IMyDateModel>();
+    @Output() inputFieldChanged: EventEmitter<IMyInputFieldChanged> = new EventEmitter<IMyInputFieldChanged>();
+    @Output() calendarViewChanged: EventEmitter<IMyCalendarViewChanged> = new EventEmitter<IMyCalendarViewChanged>();
     @ViewChild("mydpEl") mydpEl: ElementRef;
 
     onChangeCb: (_: any) => void = () => { };
@@ -352,7 +352,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         // Clears the date and notifies parent using callbacks
         this.selectionDayTxt = "";
         this.selectedDate = {year: 0, month: 0, day: 0};
-        this.dateChanged.emit({date: {}, jsdate: null, formatted: this.selectionDayTxt, epoc: 0});
+        this.dateChanged.emit({date: this.selectedDate, jsdate: null, formatted: this.selectionDayTxt, epoc: 0});
         this.inputFieldChanged.emit({value: "", dateFormat: this.opts.dateFormat, valid: false});
         this.onChangeCb("");
         this.invalidDate = false;

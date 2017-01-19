@@ -304,7 +304,7 @@ var MyDatePicker = (function () {
     MyDatePicker.prototype.clearDate = function () {
         this.selectionDayTxt = "";
         this.selectedDate = { year: 0, month: 0, day: 0 };
-        this.dateChanged.emit({ date: {}, jsdate: null, formatted: this.selectionDayTxt, epoc: 0 });
+        this.dateChanged.emit({ date: this.selectedDate, jsdate: null, formatted: this.selectionDayTxt, epoc: 0 });
         this.inputFieldChanged.emit({ value: "", dateFormat: this.opts.dateFormat, valid: false });
         this.onChangeCb("");
         this.invalidDate = false;

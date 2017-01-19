@@ -275,13 +275,14 @@ __08-2016__, __08/2016__.
 
 ## Callbacks
 
-### dateChanged callback:
+### dateChanged callback
   * called when the date is selected, removed or input field typing is valid
   * event parameter:
     * event.date: Date object in the following format: { day: 22, month: 11, year: 2016 }
     * event.jsdate: Javascript Date object
     * event.formatted: Date string in the same format as dateFormat option is: '2016-11-22'
     * event.epoc: Epoc time stamp number: 1479765600
+  * event parameter type is defined [here](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/interfaces/my-date-model.interface.ts)
 
   * Example of the dateChanged callback:
   ```js
@@ -290,12 +291,13 @@ __08-2016__, __08/2016__.
   }
   ```
 
-### inputFieldChanged callback:
+### inputFieldChanged callback
   * called when the value change in the input field, date is selected or date is cleared (can be used in validation, returns true or false indicating is date valid or not in the input field)
   * event parameter:
     * event.value: Value of the input field. For example: '2016-11-22'
     * event.dateFormat: Date format string in the same format as dateFormat option is. For example: 'yyyy-mm-dd'
     * event.valid: Boolean value indicating is the input field value valid or not. For example: true
+  * event parameter type is defined [here](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/interfaces/my-input-field-changed.interface.ts)
 
   * Example of the input field changed callback:
   ```js
@@ -304,13 +306,14 @@ __08-2016__, __08/2016__.
   }
   ```
 
-### calendarViewChanged callback:
+### calendarViewChanged callback
   * called when the calendar view change (year or month change)
   * event parameter:
     * event.year: Year number in calendar. For example: 2016
     * event.month: Month number in calendar. For example: 11
     * event.first: First day of selected month and year. Object which contain day number and weekday string. For example: {number: 1, weekday: "tu"}
     * event.last: Last day of selected month and year. Object which contain day number and weekday string. For example: {number: 30, weekday: "we"}
+  * event parameter type is defined [here](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/interfaces/my-calendar-view-changed.interface.ts)
   * values of the weekday property are same as values of the __firstDayOfWeek__ option
 
   * Example of the calendar view changed callback:
