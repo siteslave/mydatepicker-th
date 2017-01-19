@@ -15,7 +15,7 @@ To install this component to an external project, follow the procedure:
 
 1. __npm install mydatepicker --save__
 
-1. Add __MyDatePickerModule__ import to your __@NgModule__ like example below
+2. Add __MyDatePickerModule__ import to your __@NgModule__ like example below
     ```ts
     import { NgModule } from '@angular/core';
     import { BrowserModule } from '@angular/platform-browser';
@@ -35,7 +35,7 @@ To install this component to an external project, follow the procedure:
     export class MyTestAppModule {}
     ```
 
-1. If you are using __systemjs__ package loader add the following mydatepicker properties to the __System.config__:
+3. If you are using __systemjs__ package loader add the following mydatepicker properties to the __System.config__:
     ```js
     (function (global) {
         System.config({
@@ -62,7 +62,7 @@ To install this component to an external project, follow the procedure:
 
 Use one of the following three options.
 
-### Callbacks
+### 1. Callbacks
 
 In this option the mydatepicker sends data back to host application using callbacks. [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-normal)
 is an example application. It shows how to use callbacks.
@@ -94,9 +94,9 @@ Add the following snippet inside your template:
                 (dateChanged)="onDateChanged($event)"></my-date-picker>
 ```
 
-### Reactive forms
+### 2. Reactive forms
 
-In this option the value accessor of reactive forms are used. [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-access-modifier)
+In this option the value accessor of reactive forms is used. [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-access-modifier)
 is an example application. It shows how to use the __formControlName__.
 
 To use reactive forms define the application class as follows:
@@ -117,7 +117,7 @@ export class MyTestApp implements OnInit {
         this.myForm = this.formBuilder.group({
             // Empty string means no initial value. Can be also specific date for
             // example: {date: {year: 2018, month: 10, day: 9}} which sets this date to initial
-            // date value. It is also possible to set initial date value using the selDate attribute.
+            // value. It is also possible to set initial date using the selDate attribute.
 
             myDate: ['', Validators.required]
             // other controls are here...
@@ -152,7 +152,7 @@ Add the following snippet inside your template:
 </form>
 ```
 
-### ngModel binding
+### 3. ngModel binding
 
 In this option the ngModel binding is used. [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-access-modifier)
 is an example application. It shows how to use the __ngModel__.
