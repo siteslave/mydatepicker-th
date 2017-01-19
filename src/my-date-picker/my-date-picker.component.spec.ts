@@ -1424,6 +1424,37 @@ describe('MyDatePicker', () => {
         expect(selection.nativeElement.value).toContain('2016-11-14');
     });
 
+    it('options - click input to open selector', () => {
+
+        let selection: DebugElement,
+            selector: DebugElement;
+
+        comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
+        comp.options = {editableDateField: true};
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        selection = getElement('.selection');
+
+        selection.nativeElement.click();
+
+        fixture.detectChanges();
+        selector = getElement('.selector');
+        expect(selector).toBe(null);
+
+        comp.options = {editableDateField: false, openSelectorOnInputClick: true};
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        selection = getElement('.selection');
+
+        selection.nativeElement.click();
+
+        fixture.detectChanges();
+        selector = getElement('.selector');
+        expect(selector).not.toBe(null);
+    });
+
     it('options - input field value required', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
         comp.options = {};
