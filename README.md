@@ -215,7 +215,8 @@ Value of the __options__ attribute is a javascript object. It can contain the fo
 | __maxYear__   | 9999 | Maximum allowed year in calendar. Cannot be more than 9999. |
 | __disableUntil__   | no default value | Disable dates backward starting from the given date. For example: {year: 2016, month: 6, day: 26} |
 | __disableSince__   | no default value | Disable dates forward starting from the given date. For example: {year: 2016, month: 7, day: 22} |
-| __disableDays__   | no default value  | Disable single days one by one. Array of disabled days. For example: [{year: 2016, month: 11, day: 14}, {year: 2016, month: 1, day: 15] |
+| __disableDays__   | no default value  | Disable single dates one by one. Array of disabled dates. For example: [{year: 2016, month: 11, day: 14}, {year: 2016, month: 1, day: 15] |
+| __enableDays__   | no default value  | Enable given dates one by one if the date is disabled. For example if you disable the date range and want to enable some dates in range. Array of enabled days. For example: [{year: 2016, month: 11, day: 14}, {year: 2016, month: 1, day: 15] |
 | __disableDateRange__   | no default value  | Disable a date range from begin to end. For example: {begin: {year: 2016, month: 11, day: 14}, end: {year: 2016, month: 11, day: 20} |
 | __disableWeekends__   | false | Disable weekends (Saturday and Sunday). |
 | __inline__   | false | Show mydatepicker in inline mode. |

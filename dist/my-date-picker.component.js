@@ -61,6 +61,7 @@ var MyDatePicker = (function () {
             disableUntil: { year: 0, month: 0, day: 0 },
             disableSince: { year: 0, month: 0, day: 0 },
             disableDays: [],
+            enableDays: [],
             disableDateRange: { begin: { year: 0, month: 0, day: 0 }, end: { year: 0, month: 0, day: 0 } },
             disableWeekends: false,
             height: "34px",
@@ -154,7 +155,7 @@ var MyDatePicker = (function () {
             this.clearDate();
         }
         else {
-            var date = this.validatorService.isDateValid(event.target.value, this.opts.dateFormat, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRange, this.opts.monthLabels);
+            var date = this.validatorService.isDateValid(event.target.value, this.opts.dateFormat, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRange, this.opts.monthLabels, this.opts.enableDays);
             if (date.day !== 0 && date.month !== 0 && date.year !== 0) {
                 this.selectDate(date);
             }
@@ -205,7 +206,7 @@ var MyDatePicker = (function () {
         }
     };
     MyDatePicker.prototype.isTodayDisabled = function () {
-        this.disableTodayBtn = this.validatorService.isDisabledDay(this.getToday(), this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRange);
+        this.disableTodayBtn = this.validatorService.isDisabledDay(this.getToday(), this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRange, this.opts.enableDays);
     };
     MyDatePicker.prototype.parseOptions = function () {
         this.setOptions();
@@ -441,13 +442,13 @@ var MyDatePicker = (function () {
                 var pm = dInPrevM - monthStart + 1;
                 for (var j = pm; j <= dInPrevM; j++) {
                     var date = { year: y, month: m - 1, day: j };
-                    week.push({ dateObj: date, cmo: cmo, currDay: this.isCurrDay(j, m, y, cmo, today), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRange) });
+                    week.push({ dateObj: date, cmo: cmo, currDay: this.isCurrDay(j, m, y, cmo, today), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRange, this.opts.enableDays) });
                 }
                 cmo = this.CURR_MONTH;
                 var daysLeft = 7 - week.length;
                 for (var j = 0; j < daysLeft; j++) {
                     var date = { year: y, month: m, day: dayNbr };
-                    week.push({ dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo, today), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRange) });
+                    week.push({ dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo, today), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRange, this.opts.enableDays) });
                     dayNbr++;
                 }
             }
@@ -458,7 +459,7 @@ var MyDatePicker = (function () {
                         cmo = this.NEXT_MONTH;
                     }
                     var date = { year: y, month: cmo === this.CURR_MONTH ? m : m + 1, day: dayNbr };
-                    week.push({ dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo, today), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRange) });
+                    week.push({ dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo, today), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRange, this.opts.enableDays) });
                     dayNbr++;
                 }
             }

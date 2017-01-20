@@ -6,7 +6,7 @@ import { IMyMonthLabels } from "../interfaces/my-month-labels.interface";
 
 @Injectable()
 export class ValidatorService {
-    isDateValid(dateStr: string, dateFormat: string, minYear: number, maxYear: number, disableUntil: IMyDate, disableSince: IMyDate, disableWeekends: boolean, disableDays: Array<IMyDate>, disableDateRange: IMyDateRange, monthLabels: IMyMonthLabels): IMyDate {
+    isDateValid(dateStr: string, dateFormat: string, minYear: number, maxYear: number, disableUntil: IMyDate, disableSince: IMyDate, disableWeekends: boolean, disableDays: Array<IMyDate>, disableDateRange: IMyDateRange, monthLabels: IMyMonthLabels, enableDays: Array<IMyDate>): IMyDate {
         let daysInMonth: Array<number> = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         let isMonthStr: boolean = dateFormat.indexOf("mmm") !== -1;
         let returnDate: IMyDate = {day: 0, month: 0, year: 0};
@@ -33,7 +33,7 @@ export class ValidatorService {
 
             let date: IMyDate = {year: year, month: month, day: day};
 
-            if (this.isDisabledDay(date, disableUntil, disableSince, disableWeekends, disableDays, disableDateRange)) {
+            if (this.isDisabledDay(date, disableUntil, disableSince, disableWeekends, disableDays, disableDateRange, enableDays)) {
                 return returnDate;
             }
 
@@ -97,7 +97,7 @@ export class ValidatorService {
         return month;
     }
 
-    isDisabledDay(date: IMyDate, disableUntil: IMyDate, disableSince: IMyDate, disableWeekends: boolean, disableDays: Array<IMyDate>, disableDateRange: IMyDateRange): boolean {
+    isDisabledDay(date: IMyDate, disableUntil: IMyDate, disableSince: IMyDate, disableWeekends: boolean, disableDays: Array<IMyDate>, disableDateRange: IMyDateRange, enableDays: Array<IMyDate>): boolean {
         let dateMs: number = this.getTimeInMilliseconds(date);
         if (this.isInitializedDate(disableUntil) && dateMs <= this.getTimeInMilliseconds(disableUntil)) {
             return true;
@@ -105,12 +105,20 @@ export class ValidatorService {
         if (this.isInitializedDate(disableSince) && dateMs >= this.getTimeInMilliseconds(disableSince)) {
             return true;
         }
+
+        for (let obj of enableDays) {
+            if (obj.year === date.year && obj.month === date.month && obj.day === date.day) {
+                return false;
+            }
+        }
+
         if (disableWeekends) {
             let dayNbr = this.getDayNumber(date);
             if (dayNbr === 0 || dayNbr === 6) {
                 return true;
             }
         }
+
         for (let obj of disableDays) {
             if (obj.year === date.year && obj.month === date.month && obj.day === date.day) {
                 return true;

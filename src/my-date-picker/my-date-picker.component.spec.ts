@@ -798,6 +798,48 @@ describe('MyDatePicker', () => {
         expect(lastDisabled.nativeElement.textContent.trim()).toBe('10');
     });
 
+    it('options - enable disabled days one by one', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 1, year: 2017};
+        comp.options = {
+            dateFormat: 'dd.mm.yyyy',
+            disableDateRange: {begin: {year: 2017, month: 1, day: 1}, end: {year: 2017, month: 1, day: 31}},
+            enableDays: [{year: 2017, month: 1, day: 5}, {year: 2017, month: 1, day: 6}, {year: 2017, month: 1, day: 7}, {year: 2017, month: 1, day: 8}]
+        };
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        comp.generateCalendar(1, 2017);
+
+        fixture.detectChanges();
+        let disabled = getElements('tr .disabled');
+        expect(disabled).not.toBe(null);
+        expect(disabled.length).toBe(27);
+
+        let firstDisabled = disabled[0];
+        expect(firstDisabled.nativeElement.textContent.trim()).toBe('1');
+
+        let lastDisabled = disabled[disabled.length - 1];
+        expect(lastDisabled.nativeElement.textContent.trim()).toBe('31');
+
+        fixture.detectChanges();
+        let alldates = getElements('.caltable .daycell');
+        expect(alldates).not.toBe(null);
+        expect(alldates.length).toBe(42);
+
+        fixture.detectChanges();
+        let firstEnabled = alldates[10];
+        firstEnabled.nativeElement.click();
+
+        fixture.detectChanges();
+        let selection = getElement('.selection');
+        expect(selection).not.toBe(null);
+        expect(selection.nativeElement.value).toBe('05.01.2017');
+    });
+
     it('options - disable range', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
         comp.options = {disableDateRange: {begin: {year: 2016, month: 10, day: 5}, end: {year: 2016, month: 10, day: 10}}};

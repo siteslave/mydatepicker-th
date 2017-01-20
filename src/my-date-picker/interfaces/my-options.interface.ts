@@ -15,6 +15,7 @@ export interface IMyOptions {
     disableUntil?: IMyDate;
     disableSince?: IMyDate;
     disableDays?: Array<IMyDate>;
+    enableDays?: Array<IMyDate>;
     disableDateRange?: IMyDateRange;
     disableWeekends?: boolean;
     height?: string;

@@ -12,7 +12,7 @@ var core_1 = require("@angular/core");
 var ValidatorService = (function () {
     function ValidatorService() {
     }
-    ValidatorService.prototype.isDateValid = function (dateStr, dateFormat, minYear, maxYear, disableUntil, disableSince, disableWeekends, disableDays, disableDateRange, monthLabels) {
+    ValidatorService.prototype.isDateValid = function (dateStr, dateFormat, minYear, maxYear, disableUntil, disableSince, disableWeekends, disableDays, disableDateRange, monthLabels, enableDays) {
         var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         var isMonthStr = dateFormat.indexOf("mmm") !== -1;
         var returnDate = { day: 0, month: 0, year: 0 };
@@ -32,7 +32,7 @@ var ValidatorService = (function () {
                 return returnDate;
             }
             var date = { year: year, month: month, day: day };
-            if (this.isDisabledDay(date, disableUntil, disableSince, disableWeekends, disableDays, disableDateRange)) {
+            if (this.isDisabledDay(date, disableUntil, disableSince, disableWeekends, disableDays, disableDateRange, enableDays)) {
                 return returnDate;
             }
             if (year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)) {
@@ -86,7 +86,7 @@ var ValidatorService = (function () {
         }
         return month;
     };
-    ValidatorService.prototype.isDisabledDay = function (date, disableUntil, disableSince, disableWeekends, disableDays, disableDateRange) {
+    ValidatorService.prototype.isDisabledDay = function (date, disableUntil, disableSince, disableWeekends, disableDays, disableDateRange, enableDays) {
         var dateMs = this.getTimeInMilliseconds(date);
         if (this.isInitializedDate(disableUntil) && dateMs <= this.getTimeInMilliseconds(disableUntil)) {
             return true;
@@ -94,14 +94,20 @@ var ValidatorService = (function () {
         if (this.isInitializedDate(disableSince) && dateMs >= this.getTimeInMilliseconds(disableSince)) {
             return true;
         }
+        for (var _i = 0, enableDays_1 = enableDays; _i < enableDays_1.length; _i++) {
+            var obj = enableDays_1[_i];
+            if (obj.year === date.year && obj.month === date.month && obj.day === date.day) {
+                return false;
+            }
+        }
         if (disableWeekends) {
             var dayNbr = this.getDayNumber(date);
             if (dayNbr === 0 || dayNbr === 6) {
                 return true;
             }
         }
-        for (var _i = 0, disableDays_1 = disableDays; _i < disableDays_1.length; _i++) {
-            var obj = disableDays_1[_i];
+        for (var _a = 0, disableDays_1 = disableDays; _a < disableDays_1.length; _a++) {
+            var obj = disableDays_1[_a];
             if (obj.year === date.year && obj.month === date.month && obj.day === date.day) {
                 return true;
             }
