@@ -2,7 +2,7 @@ import { IMyDate } from "./my-date.interface";
 
 export interface IMyDateModel {
     date: IMyDate;
-    jsdate: Object;
+    jsdate: Date;
     formatted: string;
     epoc: number;
 }

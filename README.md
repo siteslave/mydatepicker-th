@@ -7,7 +7,7 @@
 [![npm](https://img.shields.io/npm/v/mydatepicker.svg?maxAge=2592000?style=flat-square)](https://www.npmjs.com/package/mydatepicker)
 
 ## Description
-Simple Angular2 date picker. Online demo is [here](http://kekeh.github.io/mydatepicker)
+Highly configurable Angular2 date picker. Online demo is [here](http://kekeh.github.io/mydatepicker)
 
 ## Installation
 
