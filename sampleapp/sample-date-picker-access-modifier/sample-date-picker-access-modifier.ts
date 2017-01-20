@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {IMyOptions} from '../../src/my-date-picker/interfaces';
 
 declare var require:any;
 const amSampleTpl: string = require('./sample-date-picker-access-modifier.html');
@@ -11,7 +12,7 @@ const amSampleTpl: string = require('./sample-date-picker-access-modifier.html')
 
 export class SampleDatePickerAccessModifier implements OnInit {
 
-    private myDatePickerOptions = {
+    private myDatePickerOptions: IMyOptions = {
         dateFormat: 'dd.mm.yyyy',
         height: '34px',
         width: '210px',

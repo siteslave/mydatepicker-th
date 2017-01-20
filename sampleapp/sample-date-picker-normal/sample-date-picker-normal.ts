@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {IMyOptions, IMyDateModel, IMyInputFieldChanged, IMyCalendarViewChanged} from '../../src/my-date-picker/interfaces';
 
 declare var require:any;
 const normalSampleTpl: string = require('./sample-date-picker-normal.html');
@@ -10,7 +11,7 @@ const normalSampleTpl: string = require('./sample-date-picker-normal.html');
 
 export class SampleDatePickerNormal implements OnInit {
 
-    private myDatePickerNormalOptions = {
+    private myDatePickerNormalOptions: IMyOptions = {
         todayBtnTxt: 'Today',
         dateFormat: 'dd mmm yyyy',
         firstDayOfWeek: 'mo',
@@ -96,7 +97,7 @@ export class SampleDatePickerNormal implements OnInit {
         console.log('onInit(): SampleDatePickerNormal');
     }
 
-    onDateChanged(event:any) {
+    onDateChanged(event: IMyDateModel) {
         console.log('onDateChanged(): ', event.date, ' - jsdate: ', new Date(event.jsdate).toLocaleDateString(), ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
         if(event.formatted !== '') {
             this.selectedTextNormal = 'Formatted: ' + event.formatted + ' - epoc timestamp: ' + event.epoc;
@@ -110,11 +111,11 @@ export class SampleDatePickerNormal implements OnInit {
         }
     }
 
-    onInputFieldChanged(event:any) {
+    onInputFieldChanged(event: IMyInputFieldChanged) {
         console.log('onInputFieldChanged(): Value: ', event.value, ' - dateFormat: ', event.dateFormat, ' - valid: ', event.valid);
     }
 
-    onCalendarViewChanged(event:any) {
+    onCalendarViewChanged(event: IMyCalendarViewChanged) {
         console.log('onCalendarViewChanged(): Year: ', event.year, ' - month: ', event.month, ' - first: ', event.first, ' - last: ', event.last);
     }
 

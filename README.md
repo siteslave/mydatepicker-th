@@ -70,9 +70,12 @@ is an example application. It shows how to use callbacks.
 To use callbacks define the application class as follows:
   
 ```js
+import {IMyOptions, IMyDateModel} from 'mydatepicker';
+// other imports here...
+
 export class MyTestApp {
 
-    private myDatePickerOptions = {
+    private myDatePickerOptions: IMyOptions = {
         // other options...
         dateFormat: 'dd.mm.yyyy',
     };
@@ -81,7 +84,7 @@ export class MyTestApp {
 
     // dateChanged callback function called when the user select the date. This is mandatory callback
     // in this option. There are also optional inputFieldChanged and calendarViewChanged callbacks.
-    onDateChanged(event: any) {
+    onDateChanged(event: IMyDateModel) {
         // event properties are: event.date, event.jsdate, event.formatted and event.epoc
     }
 }
@@ -102,9 +105,12 @@ is an example application. It shows how to use the __formControlName__.
 To use reactive forms define the application class as follows:
 
 ```ts
+import {IMyOptions} from 'mydatepicker';
+// other imports here...
+
 export class MyTestApp implements OnInit {
 
-    private myDatePickerOptions = {
+    private myDatePickerOptions: IMyOptions = {
         // other options...
         dateFormat: 'dd.mm.yyyy',
     };
@@ -160,9 +166,12 @@ is an example application. It shows how to use the __ngModel__.
 To use ngModel define the application class as follows:
 
 ```ts
+import {IMyOptions} from 'mydatepicker';
+// other imports here...
+
 export class MyTestApp {
 
-    private myDatePickerOptions = {
+    private myDatePickerOptions: IMyOptions = {
         // other options...
         dateFormat: 'dd.mm.yyyy',
     };
@@ -227,8 +236,8 @@ Value of the __options__ attribute is a javascript object. It can contain the fo
 | __openSelectorOnInputClick__   | false | Open selector when the input field is clicked. Can be used if __inline = false and editableDateField = false__. |
 
 * Example of the options data (not all properties listed):
-```js
-  myDatePickerOptions = {
+```ts
+  myDatePickerOptions: IMyOptions = {
       todayBtnTxt: 'Today',
       dateFormat: 'yyyy-mm-dd',
       firstDayOfWeek: 'mo',
@@ -282,11 +291,11 @@ __08-2016__, __08/2016__.
     * event.jsdate: Javascript Date object
     * event.formatted: Date string in the same format as dateFormat option is: '2016-11-22'
     * event.epoc: Epoc time stamp number: 1479765600
-  * event parameter type is defined [here](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/interfaces/my-date-model.interface.ts)
+  * event parameter type is [IMyDateModel](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/interfaces/my-date-model.interface.ts)
 
   * Example of the dateChanged callback:
   ```js
-  onDateChanged(event:any) {
+  onDateChanged(event: IMyDateModel) {
     console.log('onDateChanged(): ', event.date, ' - jsdate: ', new Date(event.jsdate).toLocaleDateString(), ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
   }
   ```
@@ -297,11 +306,11 @@ __08-2016__, __08/2016__.
     * event.value: Value of the input field. For example: '2016-11-22'
     * event.dateFormat: Date format string in the same format as dateFormat option is. For example: 'yyyy-mm-dd'
     * event.valid: Boolean value indicating is the input field value valid or not. For example: true
-  * event parameter type is defined [here](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/interfaces/my-input-field-changed.interface.ts)
+  * event parameter type is [IMyInputFieldChanged](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/interfaces/my-input-field-changed.interface.ts)
 
   * Example of the input field changed callback:
   ```js
-  onInputFieldChanged(event:any) {
+  onInputFieldChanged(event: IMyInputFieldChanged) {
     console.log('onInputFieldChanged(): Value: ', event.value, ' - dateFormat: ', event.dateFormat, ' - valid: ', event.valid);
   }
   ```
@@ -313,12 +322,12 @@ __08-2016__, __08/2016__.
     * event.month: Month number in calendar. For example: 11
     * event.first: First day of selected month and year. Object which contain day number and weekday string. For example: {number: 1, weekday: "tu"}
     * event.last: Last day of selected month and year. Object which contain day number and weekday string. For example: {number: 30, weekday: "we"}
-  * event parameter type is defined [here](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/interfaces/my-calendar-view-changed.interface.ts)
+  * event parameter type is [IMyCalendarViewChanged](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/interfaces/my-calendar-view-changed.interface.ts)
   * values of the weekday property are same as values of the __firstDayOfWeek__ option
 
   * Example of the calendar view changed callback:
   ```js
-  onCalendarViewChanged(event:any) {
+  onCalendarViewChanged(event: IMyCalendarViewChanged) {
     console.log('onCalendarViewChanged(): Year: ', event.year, ' - month: ', event.month, ' - first: ', event.first, ' - last: ', event.last);
   }
   ```
