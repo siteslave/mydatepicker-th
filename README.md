@@ -197,7 +197,7 @@ Add the following snippet inside your template:
 
 ### options attribute
 
-Value of the __options__ attribute is a javascript object. It can contain the following properties.
+Value of the __options__ attribute is a type of [IMyOptions](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/interfaces/my-options.interface.ts). It can contain the following properties.
 
 
 | Option        | Default       | Description  |
@@ -255,7 +255,7 @@ Value of the __options__ attribute is a javascript object. It can contain the fo
 
 An ISO 639-1 language code can be provided as shorthand for several of the options listed above.
 Currently supported languages: __en__, __fr__, __ja__, __fi__, __es__, __hu__, __sv__, __nl__, __ru__, __uk__, __no__, __tr__,
-__pt-br__, __de__, __it__, __it-ch__, __pl__, __my__, __sk__ and __sl__. If the __locale__ attribute is used it overrides dayLabels, monthLabels, dateFormat, todayBtnTxt,
+__pt-br__, __de__, __it__, __it-ch__, __pl__, __my__, __sk__, __sl__ and __zh-cn__. If the __locale__ attribute is used it overrides dayLabels, monthLabels, dateFormat, todayBtnTxt,
 firstDayOfWeek and sunHighlight properties from the options.
 
 * new locale data can be added to [this](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/services/my-date-picker.locale.service.ts)
@@ -321,8 +321,8 @@ __08-2016__, __08/2016__.
   * event parameter:
     * event.year: Year number in calendar. For example: 2016
     * event.month: Month number in calendar. For example: 11
-    * event.first: First day of selected month and year. Object which contain day number and weekday string. For example: {number: 1, weekday: "tu"}
-    * event.last: Last day of selected month and year. Object which contain day number and weekday string. For example: {number: 30, weekday: "we"}
+    * event.first: First day of selected month and year. Type of [IMyWeekday](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/interfaces/my-weekday.interface.ts). For example: {number: 1, weekday: "tu"}
+    * event.last: Last day of selected month and year. Type of [IMyWeekday](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/interfaces/my-weekday.interface.ts). For example: {number: 30, weekday: "we"}
   * event parameter type is [IMyCalendarViewChanged](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/interfaces/my-calendar-view-changed.interface.ts)
   * values of the weekday property are same as values of the __firstDayOfWeek__ option
 

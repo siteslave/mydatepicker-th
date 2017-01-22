@@ -26,7 +26,7 @@ export class SampleDatePickerInline implements OnInit {
     private border: string = 'none';
     private locale:string = '';
 
-    private locales:Array<string> = new Array('en', 'fr', 'ja', 'fi', 'es', 'hu', 'sv', 'nl', 'ru', 'uk', 'no', 'tr', 'pt-br', 'de', 'it', 'it-ch', 'pl', 'my', 'sk', 'sl');
+    private locales:Array<string> = new Array('en', 'fr', 'ja', 'fi', 'es', 'hu', 'sv', 'nl', 'ru', 'uk', 'no', 'tr', 'pt-br', 'de', 'it', 'it-ch', 'pl', 'my', 'sk', 'sl', 'zh-cn');
     
     constructor() {}
 
@@ -45,7 +45,7 @@ export class SampleDatePickerInline implements OnInit {
         date.setDate(date.getDate() - 5);
 
         let copy = this.getCopyOfOptions();
-        copy.disableUntil = checked ? {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()} : {};
+        copy.disableUntil = checked ? {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()} : {year: 0, month: 0, day: 0};
         this.myDatePickerInlineOptions = copy;
     }
 
@@ -56,7 +56,7 @@ export class SampleDatePickerInline implements OnInit {
         date.setDate(date.getDate() + 5);
 
         let copy = this.getCopyOfOptions();
-        copy.disableSince = checked ? {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()} : {};
+        copy.disableSince = checked ? {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()} : {year: 0, month: 0, day: 0};
         this.myDatePickerInlineOptions = copy;
     }
 
@@ -90,7 +90,7 @@ export class SampleDatePickerInline implements OnInit {
 
         copy.disableDateRange = checked ? {
             begin: {year: bdate.getFullYear(), month: bdate.getMonth() + 1, day: bdate.getDate()},
-                end: {year: edate.getFullYear(), month: edate.getMonth() + 1, day: edate.getDate()}} : {begin: {}, end: {}};
+                end: {year: edate.getFullYear(), month: edate.getMonth() + 1, day: edate.getDate()}} : {begin: {year: 0, month: 0, day: 0}, end: {year: 0, month: 0, day: 0}};
         this.myDatePickerInlineOptions = copy;
     }
 
@@ -124,7 +124,7 @@ export class SampleDatePickerInline implements OnInit {
         console.log('onCalendarViewChanged(): Year: ', event.year, ' - month: ', event.month, ' - first: ', event.first, ' - last: ', event.last);
     }
 
-    getCopyOfOptions() {
+    getCopyOfOptions(): IMyOptions {
         return JSON.parse(JSON.stringify(this.myDatePickerInlineOptions));
     }
 

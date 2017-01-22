@@ -16,10 +16,6 @@
     "npmdist",
     "dist"
   ],
-  "include": [
-    "./src/**/*.ts",
-    "./sampleapp/**/*.ts"
-  ],
   "compileOnSave": false,
   "buildOnSave": false,
   "atom": {

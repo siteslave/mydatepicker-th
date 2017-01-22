@@ -5,9 +5,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 var core_1 = require("@angular/core");
 var LocaleService = (function () {
     function LocaleService() {
@@ -170,6 +167,14 @@ var LocaleService = (function () {
                 todayBtnTxt: "Danes",
                 firstDayOfWeek: "mo",
                 sunHighlight: true,
+            },
+            "zh-cn": {
+                dayLabels: { su: "日", mo: "一", tu: "二", we: "三", th: "四", fr: "五", sa: "六" },
+                monthLabels: { 1: "1月", 2: "2月", 3: "3月", 4: "4月", 5: "5月", 6: "6月", 7: "7月", 8: "8月", 9: "9月", 10: "10月", 11: "11月", 12: "12月" },
+                dateFormat: "yyyy-mm-dd",
+                todayBtnTxt: "今天",
+                firstDayOfWeek: "mo",
+                sunHighlight: true,
             }
         };
     }
@@ -182,7 +187,6 @@ var LocaleService = (function () {
     return LocaleService;
 }());
 LocaleService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [])
+    core_1.Injectable()
 ], LocaleService);
 exports.LocaleService = LocaleService;
