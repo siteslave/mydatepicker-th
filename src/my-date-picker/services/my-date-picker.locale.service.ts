@@ -162,6 +162,14 @@ export class LocaleService {
             todayBtnTxt: "Danes",
             firstDayOfWeek: "mo",
             sunHighlight: true,
+        },
+        "zh-CN":{
+            dayLabels: {su: "日", mo: "一", tu: "二", we: "三", th: "四", fr: "五", sa: "六"},
+            monthLabels: { 1: "1月", 2: "2月", 3: "3月", 4: "4月", 5: "5月", 6: "6月", 7: "7月", 8: "8月", 9: "9月", 10: "10月", 11: "11月", 12: "12月" },
+            dateFormat: "yyyy-mm-dd",
+            todayBtnTxt: "今天",
+            firstDayOfWeek: "mo",
+            sunHighlight: true,
         }
     };
 
