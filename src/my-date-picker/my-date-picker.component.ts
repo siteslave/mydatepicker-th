@@ -297,9 +297,9 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
             let sd: any = changes["selDate"];
             if (sd.currentValue !== null && sd.currentValue !== undefined && sd.currentValue !== "" && Object.keys(sd.currentValue).length !== 0) {
                 this.selectedDate = this.parseSelectedDate(sd.currentValue);
-                setTimeout(function() {
+                setTimeout(() => {
                     this.onChangeCb(this.getDateModel(this.selectedDate));
-                }.bind(this));
+                });
             }
             else {
                 // Do not clear on init

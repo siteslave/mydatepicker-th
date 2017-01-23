@@ -9,7 +9,8 @@
     "moduleResolution": "node",
     "removeComments": true,
     "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
+    "noImplicitThis": true
   },
   "exclude": [
     "node_modules",

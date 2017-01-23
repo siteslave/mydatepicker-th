@@ -238,6 +238,7 @@ var MyDatePicker = (function () {
         this.onTouchedCb = fn;
     };
     MyDatePicker.prototype.ngOnChanges = function (changes) {
+        var _this = this;
         if (changes.hasOwnProperty("locale")) {
             this.locale = changes["locale"].currentValue;
         }
@@ -260,8 +261,8 @@ var MyDatePicker = (function () {
             if (sd.currentValue !== null && sd.currentValue !== undefined && sd.currentValue !== "" && Object.keys(sd.currentValue).length !== 0) {
                 this.selectedDate = this.parseSelectedDate(sd.currentValue);
                 setTimeout(function () {
-                    this.onChangeCb(this.getDateModel(this.selectedDate));
-                }.bind(this));
+                    _this.onChangeCb(_this.getDateModel(_this.selectedDate));
+                });
             }
             else {
                 if (!sd.isFirstChange()) {
