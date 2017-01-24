@@ -46,8 +46,8 @@ module.exports = {
     ],
 
     output: {
-        path: path.resolve('build'),
-        publicPath: '/mydatepicker/build/',
+        path: path.resolve('build-sampleapp'),
+        publicPath: '/mydatepicker/build-sampleapp/',
         filename: '[name].js',
         chunkFilename: '[id].chunk.js'
     },

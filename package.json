@@ -1,6 +1,6 @@
 {
   "name": "mydatepicker",
-  "version": "1.2.9",
+  "version": "1.3.0",
   "description": "Angular2 date picker",
   "keywords": [
     "Angular2",
@@ -14,20 +14,22 @@
     "url": "https://github.com/kekeh/mydatepicker.git"
   },
   "files": [
+    "index.d.ts",
+    "index.js",
     "LICENSE",
     "package.json",
     "README.md",
-    "index.ts",
-    "src",
     "dist"
   ],
   "scripts": {
     "start": "webpack-dev-server --config config/webpack.dev.js --progress",
     "build.dist": "gulp all",
-    "build.webpack.sampleapp": "rimraf build && webpack --config config/webpack.sampleapp.build.js --progress --profile --bail",
+    "build.webpack.sampleapp": "rimraf build-sampleapp && webpack --config config/webpack.build.sampleapp.js --progress --profile --bail",
     "test": "karma start config/karma.conf.js",
     "tslint": "gulp tslint"
   },
+  "typings": "index.d.ts",
+  "module": "index.js",
   "dependencies": {},
   "devDependencies": {
     "@angular/common": "~2.2.4",

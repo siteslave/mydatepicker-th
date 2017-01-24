@@ -15,7 +15,7 @@
   "exclude": [
     "node_modules",
     "npmdist",
-    "dist"
+    "build"
   ],
   "files": [
     "./src/my-date-picker/directives/*.ts",
