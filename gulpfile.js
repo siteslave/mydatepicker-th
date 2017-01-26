@@ -7,6 +7,7 @@ var htmlmin = require('gulp-htmlmin');
 var fs = require('fs');
 var tslint = require('gulp-tslint');
 var shell = require('gulp-shell');
+var jeditor = require("gulp-json-editor");
 
 var str1 = '// webpack1_';
 var str2 = '// webpack2_';
@@ -82,11 +83,23 @@ gulp.task('copy.files.to.npmdist.root.dir', function() {
     return gulp.src(
         [
             './LICENSE',
-            './package.json',
-            './README.md',
-            './interface/index.d.ts',
-            './interface/index.js'
+            './package/README.md',
+            './package/index.d.ts',
+            './package/index.js'
         ]).pipe(gulp.dest('./npmdist'));
+});
+
+gulp.task('edit.package.json.and.copy.to.npmdist.root.dir', function () {
+    gulp.src("./package.json")
+        .pipe(jeditor(function(json) {
+            json.scripts = {};
+            json.devDependencies = {};
+            json.files = [
+                'index.d.ts', 'index.js', 'LICENSE', 'package.json', 'README.md', 'dist', 'bundles'
+            ];
+            return json;
+        }))
+        .pipe(gulp.dest("./npmdist"));
 });
 
 gulp.task('delete.modified.component', function () {
@@ -129,6 +142,7 @@ gulp.task('all', function(cb) {
         'delete.tmpbuild.folder',
         'build.bundle',
         'copy.files.to.npmdist.root.dir',
+        'edit.package.json.and.copy.to.npmdist.root.dir',
         'delete.modified.component',
         'restore.original.component',
         'delete.tmp',

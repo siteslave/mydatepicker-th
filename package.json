@@ -1,6 +1,6 @@
 {
   "name": "mydatepicker",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Angular2 date picker",
   "keywords": [
     "Angular2",
@@ -13,15 +13,6 @@
     "type": "git",
     "url": "https://github.com/kekeh/mydatepicker.git"
   },
-  "files": [
-    "index.d.ts",
-    "index.js",
-    "LICENSE",
-    "package.json",
-    "README.md",
-    "dist",
-    "bundles"
-  ],
   "scripts": {
     "start": "webpack-dev-server --config config/webpack.dev.js --progress",
     "build.dist": "gulp all",
@@ -62,6 +53,7 @@
     "gulp-clean": "0.3.2",
     "gulp-clean-css": "2.0.12",
     "gulp-htmlmin": "3.0.0",
+    "gulp-json-editor": "^2.2.1",
     "gulp-replace": "0.5.4",
     "gulp-shell": "^0.5.2",
     "gulp-tslint": "7.0.1",

@@ -344,7 +344,7 @@ The [sampleapp](https://github.com/kekeh/mydatepicker/tree/master/sampleapp) of 
   1. __npm install__
   2. __npm install --global gulp-cli__
 
-* Build __dist__ and __npmdist__ folders and execute __tslint__:
+* Build the __npmdist__ folder and execute __tslint__:
   1. __gulp all__
 
 * Execute unit tests and coverage (output is generated to the __test-output__ folder):
