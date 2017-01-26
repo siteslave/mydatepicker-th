@@ -4,3 +4,4 @@ typings/
 build-sampleapp/
 test-output/
 npmdist/
+.tmpbuild/

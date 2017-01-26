@@ -5,16 +5,13 @@ var sequence = require('run-sequence');
 var cleancss = require('gulp-clean-css');
 var htmlmin = require('gulp-htmlmin');
 var fs = require('fs');
-var ts = require('gulp-typescript');
-var merge = require('merge2');
 var tslint = require('gulp-tslint');
+var shell = require('gulp-shell');
 
 var str1 = '// webpack1_';
 var str2 = '// webpack2_';
 var str3 = '/*';
 var str4 = '*/';
-
-var tsDistProject = ts.createProject('tsconfig.dist.json');
 
 /*
 *
@@ -22,13 +19,12 @@ var tsDistProject = ts.createProject('tsconfig.dist.json');
 *  - Minifies the css file.
 *  - Minifies the html template file.
 *  - Add html template and styles as inline templates to the my-date-picker.component.
-*  - Creates build/dist folder - compiled component.
 *  - Creates npmdist folder - contain files needed to publish to npm.
 *
 */
 
 gulp.task('clean', function () {
-    return gulp.src(['./build-sampleapp', './tmp', './test-output', './npmdist'], {read: false}).pipe(clean());
+    return gulp.src(['./build-sampleapp', './tmp', './test-output', './.tmpbuild', './npmdist'], {read: false}).pipe(clean());
 });
 
 gulp.task('backup.component.tmp', function() {
@@ -63,32 +59,33 @@ gulp.task('inline.template.and.styles.to.component', function() {
         }));
 });
 
-gulp.task('tsc.compile.dist', function () {
-    var tsResult = tsDistProject.src().pipe(tsDistProject());
-    return merge([
-        tsResult.js.pipe(gulp.dest('tmp/dist')),
-        tsResult.dts.pipe(gulp.dest('tmp/dist'))
-    ]);
-});
+gulp.task('ngc.compile.publish', shell.task([
+    'npm run ngc'
+]));
 
-gulp.task('copy.tmp.files.to.build.dist.dir', function() {
+gulp.task('copy.build.to.npmdist.directory', function() {
     return gulp.src(
         [
-            './tmp/dist/**/*.*',
-            '!./tmp/dist/interfaces/*.js'
-        ]).pipe(gulp.dest('./build/dist'));
+            './.tmpbuild/dist/**/*.*'
+        ]).pipe(gulp.dest('./npmdist/dist/'));
 });
 
-gulp.task('copy.build.dist.to.npmdist.dir', function() {
-    return gulp.src('./build/**/*.*').pipe(gulp.dest('./npmdist'));
+gulp.task('delete.tmpbuild.folder', function () {
+    return gulp.src(['./.tmpbuild'], {read: false}).pipe(clean());
 });
 
-gulp.task('copy.root.files.to.npmdist.dir', function() {
+gulp.task('build.bundle', shell.task([
+    'npm run rollup'
+]));
+
+gulp.task('copy.files.to.npmdist.root.dir', function() {
     return gulp.src(
         [
             './LICENSE',
             './package.json',
-            './README.md'
+            './README.md',
+            './interface/index.d.ts',
+            './interface/index.js'
         ]).pipe(gulp.dest('./npmdist'));
 });
 
@@ -127,10 +124,11 @@ gulp.task('all', function(cb) {
         'minify.css',
         'minify.html',
         'inline.template.and.styles.to.component',
-        'tsc.compile.dist',
-        'copy.tmp.files.to.build.dist.dir',
-        'copy.build.dist.to.npmdist.dir',
-        'copy.root.files.to.npmdist.dir',
+        'ngc.compile.publish',
+        'copy.build.to.npmdist.directory',
+        'delete.tmpbuild.folder',
+        'build.bundle',
+        'copy.files.to.npmdist.root.dir',
         'delete.modified.component',
         'restore.original.component',
         'delete.tmp',
