@@ -15,7 +15,7 @@
   "exclude": [
     "node_modules",
     "npmdist",
-    "interface"
+    "package"
   ],
   "compileOnSave": false,
   "buildOnSave": false,
