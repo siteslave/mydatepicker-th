@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ElementRef, ViewChild, ViewEncapsulation, Renderer, forwardRef } from "@angular/core";
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ElementRef, ViewEncapsulation, Renderer, forwardRef } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { IMyDate, IMyDateRange, IMyMonth, IMyWeek, IMyDayLabels, IMyMonthLabels, IMyOptions, IMyDateModel, IMyInputFieldChanged, IMyCalendarViewChanged } from "./interfaces/index";
 import { LocaleService } from "./services/my-date-picker.locale.service";
@@ -32,7 +32,6 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     @Output() dateChanged: EventEmitter<IMyDateModel> = new EventEmitter<IMyDateModel>();
     @Output() inputFieldChanged: EventEmitter<IMyInputFieldChanged> = new EventEmitter<IMyInputFieldChanged>();
     @Output() calendarViewChanged: EventEmitter<IMyCalendarViewChanged> = new EventEmitter<IMyCalendarViewChanged>();
-    @ViewChild("mydpEl") mydpEl: ElementRef;
 
     onChangeCb: (_: any) => void = () => { };
     onTouchedCb: () => void = () => { };
@@ -145,7 +144,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
 
     getSelectorTopPosition(): string {
         if (this.opts.openSelectorTopOfInput) {
-            return this.mydpEl.nativeElement.offsetHeight + "px";
+            return this.elem.nativeElement.children[0].offsetHeight + "px";
         }
     }
 

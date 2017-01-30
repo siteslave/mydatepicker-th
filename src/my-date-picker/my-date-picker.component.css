@@ -95,7 +95,6 @@
     display: table-cell;
     position: absolute;
     width: 100%;
-    font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
