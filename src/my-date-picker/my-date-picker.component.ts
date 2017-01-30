@@ -29,6 +29,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     @Input() locale: string;
     @Input() defaultMonth: string;
     @Input() selDate: string;
+    @Input() placeholder: string;
     @Output() dateChanged: EventEmitter<IMyDateModel> = new EventEmitter<IMyDateModel>();
     @Output() inputFieldChanged: EventEmitter<IMyInputFieldChanged> = new EventEmitter<IMyInputFieldChanged>();
     @Output() calendarViewChanged: EventEmitter<IMyCalendarViewChanged> = new EventEmitter<IMyCalendarViewChanged>();
@@ -84,8 +85,6 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         alignSelectorRight: <boolean> false,
         openSelectorTopOfInput: <boolean> false,
         indicateInvalidDate: <boolean> true,
-        showDateFormatPlaceholder: <boolean> false,
-        customPlaceholderTxt: <string> "",
         editableDateField: <boolean> true,
         editableMonthAndYear: <boolean> true,
         minYear: <number> this.MIN_YEAR,
@@ -271,6 +270,10 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
+        if (changes.hasOwnProperty("placeholder")) {
+            this.placeholder = changes["placeholder"].currentValue;
+        }
+
         if (changes.hasOwnProperty("locale")) {
             this.locale = changes["locale"].currentValue;
         }

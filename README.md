@@ -217,8 +217,6 @@ Value of the __options__ attribute is a type of [IMyOptions](https://github.com/
 | __alignSelectorRight__   | false | Align selector right. Can be used if __inline = false__. |
 | __openSelectorTopOfInput__   | false | Open selector top of input field. The selector arrow cannot be shown if this option is true. Can be used if __inline = false__. |
 | __indicateInvalidDate__   | true | If user typed date is not same format as __dateFormat__, show red background in the selection area. Can be used if __inline = false__. |
-| __showDateFormatPlaceholder__   | false | Show value of __dateFormat__ as placeholder in the selection area if a date is not selected. Can be used if __inline = false__. |
-| __customPlaceholderTxt__   | empty string | Show custom string in the selection area if a date is not selected. Can be used if __showDateFormatPlaceholder = false__ and __inline = false__. |
 | __componentDisabled__   | false | Is selection area input field and buttons disabled or not (input disabled flag). Can be used if __inline = false__. |
 | __editableDateField__   | true | Is selection area input field editable or not (input readonly flag). Can be used if __inline = false__. |
 | __inputValueRequired__   | false | Is selection area input field value required or not (input required flag). Can be used if __inline = false__. |
@@ -272,6 +270,10 @@ Value of the __[defaultMonth]__ attribute is a string which contain year number 
 month number separated by delimiter. The delimiter can be any special character.
 For example the value of the __[defaultMonth]__ attribute can be: __2016.08__,
 __08-2016__, __08/2016__.
+
+### placeholder attribute
+
+Placeholder text in the input field.
 
 ## Callbacks
 

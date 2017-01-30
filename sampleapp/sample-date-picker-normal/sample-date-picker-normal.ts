@@ -23,7 +23,6 @@ export class SampleDatePickerNormal implements OnInit {
         alignSelectorRight: false,
         openSelectorTopOfInput: false,
         indicateInvalidDate: true,
-        showDateFormatPlaceholder: true,
         editableMonthAndYear: true,
         minYear: 1900,
         componentDisabled: false,
@@ -37,6 +36,8 @@ export class SampleDatePickerNormal implements OnInit {
 
     private selectedTextNormal: string = '';
     private border: string = 'none';
+
+    private placeholder: string = 'Select date';
 
     constructor() {}
 

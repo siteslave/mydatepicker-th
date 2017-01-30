@@ -54,7 +54,7 @@
         <tr>
             <td style="vertical-align: top">
                 <my-date-picker [options]="myDatePickerNormalOptions" (dateChanged)="onDateChanged($event)" (inputFieldChanged)="onInputFieldChanged($event)" (calendarViewChanged)="onCalendarViewChanged($event)"
-                                [selDate]="selectedDateNormal"></my-date-picker>
+                                [selDate]="selectedDateNormal" [placeholder]="placeholder"></my-date-picker>
             </td>
             <td style="vertical-align: top">
                 <div style="padding:4px;border-radius:4px;float:right" [ngStyle]="{border: border}">
