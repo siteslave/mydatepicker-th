@@ -76,7 +76,7 @@ gulp.task('delete.tmpbuild.folder', function () {
 });
 
 gulp.task('build.bundle', shell.task([
-    'npm run rollup'
+    'npm run bundle'
 ]));
 
 gulp.task('copy.files.to.npmdist.root.dir', function() {

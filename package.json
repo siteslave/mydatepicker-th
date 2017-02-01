@@ -1,6 +1,6 @@
 {
   "name": "mydatepicker",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Angular2 date picker",
   "keywords": [
     "Angular2",
@@ -20,7 +20,7 @@
     "test": "karma start config/karma.conf.js",
     "tslint": "gulp tslint",
     "ngc": "ngc -p tsconfig.publish.json",
-    "rollup": "rollup -c rollup.config.js"
+    "bundle": "rollup -c rollup.config.js && uglifyjs npmdist/bundles/mydatepicker.umd.js -c --screw-ie8 -o npmdist/bundles/mydatepicker.umd.min.js"
   },
   "main": "bundles/mydatepicker.umd.js",
   "typings": "index.d.ts",
@@ -85,6 +85,7 @@
     "to-string-loader": "1.1.4",
     "tslint": "4.0.2",
     "typescript": "2.0.3",
+    "uglifyjs": "2.4.10",
     "webpack": "1.13.3",
     "webpack-dev-server": "1.16.2",
     "webpack-livereload-plugin": "0.10.0",
