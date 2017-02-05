@@ -1,4 +1,5 @@
 export * from "./dist/my-date-picker.module";
+export * from "./dist/my-date-picker.component";
 export * from "./dist/interfaces/my-date.interface";
 export * from "./dist/interfaces/my-date-model.interface";
 export * from "./dist/interfaces/my-input-field-changed.interface";
