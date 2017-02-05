@@ -254,10 +254,10 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
 
     writeValue(value: Object): void {
         if (value && value["date"]) {
-            this.selectDate(this.parseSelectedDate(value["date"]));
+            this.updateDateValue(this.parseSelectedDate(value["date"]), false);
         }
         else if (value === "") {
-            this.clearDate();
+            this.updateDateValue({year: 0, month: 0, day: 0}, true);
         }
     }
 
@@ -351,16 +351,6 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         this.generateCalendar(m, y);
     }
 
-    clearDate(): void {
-        // Clears the date and notifies parent using callbacks
-        this.selectionDayTxt = "";
-        this.selectedDate = {year: 0, month: 0, day: 0};
-        this.dateChanged.emit({date: this.selectedDate, jsdate: null, formatted: this.selectionDayTxt, epoc: 0});
-        this.inputFieldChanged.emit({value: "", dateFormat: this.opts.dateFormat, valid: false});
-        this.onChangeCb("");
-        this.invalidDate = false;
-    }
-
     prevMonth(): void {
         // Previous month from calendar
         let d: Date = this.getDate(this.visibleMonth.year, this.visibleMonth.monthNbr, 1);
@@ -438,15 +428,28 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         }
     }
 
+    clearDate(): void {
+        // Clears the date and notifies parent using callbacks and value accessor
+        let date: IMyDate = {year: 0, month: 0, day: 0};
+        this.dateChanged.emit({date: date, jsdate: null, formatted: "", epoc: 0});
+        this.onChangeCb("");
+        this.updateDateValue(date, true);
+    }
+
     selectDate(date: IMyDate): void {
         // Date selected, notifies parent using callbacks and value accessor
         let dateModel: IMyDateModel = this.getDateModel(date);
-        this.selectedDate = date;
-        this.selectionDayTxt = this.formatDate(date);
         this.showSelector = false;
         this.dateChanged.emit(dateModel);
-        this.inputFieldChanged.emit({value: this.selectionDayTxt, dateFormat: this.opts.dateFormat, valid: true});
         this.onChangeCb(dateModel);
+        this.updateDateValue(date, false);
+    }
+
+    updateDateValue(date: IMyDate, clear: boolean): void {
+        // Updates date values
+        this.selectedDate = date;
+        this.selectionDayTxt = clear ? "" : this.formatDate(date);
+        this.inputFieldChanged.emit({value: this.selectionDayTxt, dateFormat: this.opts.dateFormat, valid: false});
         this.invalidDate = false;
     }
 

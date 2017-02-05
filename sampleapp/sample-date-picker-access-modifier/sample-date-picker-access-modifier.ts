@@ -39,13 +39,19 @@ export class SampleDatePickerAccessModifier implements OnInit {
     }
 
     onSubmitReactiveForms(): void {
-        console.log('Value: ', this.myForm.controls['myDate'].value, ' - Valid: ', this.myForm.controls['myDate'].valid);
+        console.log('Value: ', this.myForm.controls['myDate'].value, ' - Valid: ', this.myForm.controls['myDate'].valid, ' - Dirty: ', this.myForm.controls['myDate'].dirty);
     }
 
     setDate(): void {
         // Set today using the setValue function
         let date: Date = new Date();
         this.myForm.setValue({myDate: {date: {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()}}});
+    }
+
+    resetDate(): void {
+        // Reset date picker to specific date (today)
+        let date: Date = new Date();
+        this.myForm.reset({myDate: {date: {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()}}});
     }
 
     clearDate(): void {
