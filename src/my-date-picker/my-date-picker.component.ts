@@ -449,7 +449,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         // Updates date values
         this.selectedDate = date;
         this.selectionDayTxt = clear ? "" : this.formatDate(date);
-        this.inputFieldChanged.emit({value: this.selectionDayTxt, dateFormat: this.opts.dateFormat, valid: false});
+        this.inputFieldChanged.emit({value: this.selectionDayTxt, dateFormat: this.opts.dateFormat, valid: !clear});
         this.invalidDate = false;
     }
 
