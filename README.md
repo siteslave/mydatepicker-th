@@ -259,6 +259,8 @@ Type of the __selDate__ attribute can be a string or an [IMyDate](https://github
   * the string must be in the same format as the __dateFormat__ option is. For example '2016-06-26'
   * the object must be in the IMyDate format. For example: {year: 2016, month: 6, day: 26}
 
+[Here](https://github.com/kekeh/mydatepicker/wiki/Initialize-with-selDate-attribute) is an example on how to use this attribute.
+
 ### defaultMonth attribute
 
 If __selDate__ is not specified, when the datepicker is opened, it will
@@ -271,13 +273,15 @@ month number separated by delimiter. The delimiter can be any special character.
 For example the value of the __[defaultMonth]__ attribute can be: __2016.08__,
 __08-2016__, __08/2016__.
 
+[Here](https://github.com/kekeh/mydatepicker/wiki/Initialize-with-defaultMonth-attribute) is an example on how to use this attribute.
+
 ### placeholder attribute
 
-Placeholder text in the input field.
+Placeholder text in the input field. [Here](https://github.com/kekeh/mydatepicker/wiki/Set-placeholder) is an example on how to use this attribute.
 
 ### selector attribute
 
-Selector can be opened using this attribute. [Here](https://github.com/kekeh/mydatepicker/wiki/Open-selector-with-selector-attribute) is an example on how to use this attribute.
+Selector can be opened or closed using this attribute. [Here](https://github.com/kekeh/mydatepicker/wiki/Open-selector-with-selector-attribute) is an example on how to use this attribute.
 
 ## Callbacks
 

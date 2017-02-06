@@ -95,9 +95,9 @@ export class SampleDatePickerNormal implements OnInit {
         this.myDatePickerNormalOptions = copy;
     }
 
-    onOpenSelector(event: any) {
+    onToggleSelector(event: any) {
         event.stopPropagation();
-        // Increase value of selector by one in order the component detect change and the selector opens
+        // Increase value of selector by one in order the component detect change
         this.selector++;
     }
 

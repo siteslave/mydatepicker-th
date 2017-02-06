@@ -271,9 +271,8 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes.hasOwnProperty("selector") && changes["selector"].currentValue > 0 && !this.showSelector) {
-            this.showSelector = true;
-            this.setVisibleMonth();
+        if (changes.hasOwnProperty("selector") && changes["selector"].currentValue > 0) {
+            this.openBtnClicked();
         }
 
         if (changes.hasOwnProperty("placeholder")) {
