@@ -4,7 +4,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
 import {MyDatePicker} from './my-date-picker.component';
-import {InputFocusDirective} from './directives/my-date-picker.input.directive';
+import {FocusDirective} from './directives/my-date-picker.focus.directive';
 
 let comp: MyDatePicker;
 let fixture: ComponentFixture<MyDatePicker>;
@@ -31,7 +31,7 @@ function getElements(id:string):Array<DebugElement> {
 describe('MyDatePicker', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [MyDatePicker, InputFocusDirective],
+            declarations: [MyDatePicker, FocusDirective],
         });
 
         fixture = TestBed.createComponent(MyDatePicker);
