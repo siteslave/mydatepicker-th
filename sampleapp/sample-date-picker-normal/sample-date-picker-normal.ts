@@ -38,6 +38,7 @@ export class SampleDatePickerNormal implements OnInit {
     private border: string = 'none';
 
     private placeholder: string = 'Select date';
+    private selector: number = 0;
 
     constructor() {}
 
@@ -92,6 +93,12 @@ export class SampleDatePickerNormal implements OnInit {
         let copy = this.getCopyOfOptions();
         copy.showSelectorArrow = checked;
         this.myDatePickerNormalOptions = copy;
+    }
+
+    onOpenSelector(event: any) {
+        event.stopPropagation();
+        // Increase value of selector by one in order the component detect change and the selector opens
+        this.selector++;
     }
 
     ngOnInit() {

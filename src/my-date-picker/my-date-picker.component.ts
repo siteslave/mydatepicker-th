@@ -30,6 +30,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     @Input() defaultMonth: string;
     @Input() selDate: string;
     @Input() placeholder: string;
+    @Input() selector: number;
     @Output() dateChanged: EventEmitter<IMyDateModel> = new EventEmitter<IMyDateModel>();
     @Output() inputFieldChanged: EventEmitter<IMyInputFieldChanged> = new EventEmitter<IMyInputFieldChanged>();
     @Output() calendarViewChanged: EventEmitter<IMyCalendarViewChanged> = new EventEmitter<IMyCalendarViewChanged>();
@@ -270,6 +271,11 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
+        if (changes.hasOwnProperty("selector") && changes["selector"].currentValue > 0 && !this.showSelector) {
+            this.showSelector = true;
+            this.setVisibleMonth();
+        }
+
         if (changes.hasOwnProperty("placeholder")) {
             this.placeholder = changes["placeholder"].currentValue;
         }

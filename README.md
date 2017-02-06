@@ -275,6 +275,10 @@ __08-2016__, __08/2016__.
 
 Placeholder text in the input field.
 
+### selector attribute
+
+Selector can be opened using this attribute. [Here](https://github.com/kekeh/mydatepicker/wiki/Open-selector-with-selector-attribute) is an example on how to use this attribute.
+
 ## Callbacks
 
 ### dateChanged callback

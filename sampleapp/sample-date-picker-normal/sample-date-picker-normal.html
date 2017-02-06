@@ -48,13 +48,16 @@
                 <input style="cursor: pointer" type="checkbox" (change)="onShowSelectorArrow($event.currentTarget.checked)" [checked]="true">
             </label>
         </li>
+        <li>
+            <button style="cursor: pointer" type="button" (click)="onOpenSelector($event)">Open selector</button>
+        </li>
     </ul>
 
     <table style="width: 100%">
         <tr>
             <td style="vertical-align: top">
                 <my-date-picker [options]="myDatePickerNormalOptions" (dateChanged)="onDateChanged($event)" (inputFieldChanged)="onInputFieldChanged($event)" (calendarViewChanged)="onCalendarViewChanged($event)"
-                                [selDate]="selectedDateNormal" [placeholder]="placeholder"></my-date-picker>
+                                [selDate]="selectedDateNormal" [placeholder]="placeholder" [selector]="selector"></my-date-picker>
             </td>
             <td style="vertical-align: top">
                 <div style="padding:4px;border-radius:4px;float:right" [ngStyle]="{border: border}">
