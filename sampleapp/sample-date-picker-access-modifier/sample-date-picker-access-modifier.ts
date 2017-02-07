@@ -21,8 +21,10 @@ export class SampleDatePickerAccessModifier implements OnInit {
 
     private myForm: FormGroup;
 
-    private model: string = '';   // not initial date set
-    //private model: Object = {date: {year: 2018, month: 10, day: 9}};   // this example is initialized to specific date
+    //private model: string = '';   // not initial date set
+    private model: Object = {date: {year: 2018, month: 10, day: 9}};   // this example is initialized to specific date
+
+    private selector: number = 0;
 
     constructor(private formBuilder: FormBuilder) { }
 
@@ -36,6 +38,11 @@ export class SampleDatePickerAccessModifier implements OnInit {
 
     onSubmitNgModel(): void {
         console.log('Value: ', this.model);
+    }
+
+    toggleSelector(event: any): void {
+        event.stopPropagation();
+        this.selector++;
     }
 
     onSubmitReactiveForms(): void {
