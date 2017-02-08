@@ -36,8 +36,13 @@ export class SampleDatePickerAccessModifier implements OnInit {
         });
     }
 
+    // ngModel functions here
     onSubmitNgModel(): void {
         console.log('Value: ', this.model);
+    }
+
+    clearNgModelDate(): void {
+        this.model = '';
     }
 
     toggleSelector(event: any): void {
@@ -45,6 +50,8 @@ export class SampleDatePickerAccessModifier implements OnInit {
         this.selector++;
     }
 
+
+    // Reactive forms functions here
     onSubmitReactiveForms(): void {
         console.log('Value: ', this.myForm.controls['myDate'].value, ' - Valid: ', this.myForm.controls['myDate'].valid, ' - Dirty: ', this.myForm.controls['myDate'].dirty);
     }

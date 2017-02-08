@@ -1,11 +1,11 @@
 import { Directive, ElementRef, Renderer, AfterViewInit, Input } from "@angular/core";
 
 @Directive({
-    selector: "[focus]"
+    selector: "[mydpfocus]"
 })
 
 export class FocusDirective implements AfterViewInit {
-    @Input("focus") value: string;
+    @Input("mydpfocus") value: string;
 
     constructor(private el: ElementRef, private renderer: Renderer) {}
 

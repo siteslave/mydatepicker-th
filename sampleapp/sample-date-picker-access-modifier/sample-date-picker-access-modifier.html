@@ -36,6 +36,7 @@
                     <my-date-picker name="ngModelDate" [options]="myDatePickerOptions" [selector]="selector" [(ngModel)]="model" required></my-date-picker>
                     <div>
                         <button class="button" type="submit" [disabled]="!f.valid">Submit</button>
+                        <button class="button" type="button" (click)="clearNgModelDate()">Clear date</button>
                         <button class="button" type="button" (click)="toggleSelector($event)">Toggle selector</button>
                         <p class="error" *ngIf="!f.valid">Date is required!</p>
                     </div>
