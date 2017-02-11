@@ -4,10 +4,10 @@
                 [ngStyle]="{'height': opts.height, 'line-height': opts.height, 'font-size': opts.selectionTxtFontSize, 'border': 'none', 'padding-right': selectionDayTxt.length>0&&opts.showClearDateBtn ? '60px' : '30px'}"
                 (keyup)="userDateInput($event)" [value]="selectionDayTxt" (blur)="lostFocusInput($event)" [disabled]="opts.componentDisabled" [readonly]="!opts.editableDateField" [required]="opts.inputValueRequired" (click)="handleInputClick($event)">
         <div class="selbtngroup" [style.height]="opts.height">
-            <button type="button" aria-label="Clear Date" class="btnclear" *ngIf="selectionDayTxt.length>0&&opts.showClearDateBtn" (click)="removeBtnClicked()" [ngClass]="{'btnclearenabled': !opts.componentDisabled, 'btncleardisabled': opts.componentDisabled, 'btnleftborder': opts.showInputField}" [disabled]="opts.componentDisabled">
+            <button type="button" aria-label="Clear Date" class="btnclear" *ngIf="selectionDayTxt.length>0&&opts.showClearDateBtn" (click)="removeBtnClicked();$event.stopPropagation()" [ngClass]="{'btnclearenabled': !opts.componentDisabled, 'btncleardisabled': opts.componentDisabled, 'btnleftborder': opts.showInputField}" [disabled]="opts.componentDisabled">
                 <span class="icon icon-cross" [ngStyle]="{'line-height': opts.height}"></span>
             </button>
-            <button type="button" aria-label="Open Calendar" class="btnpicker" (click)="openBtnClicked()" [ngClass]="{'btnpickerenabled': !opts.componentDisabled, 'btnpickerdisabled': opts.componentDisabled, 'btnleftborder': opts.showInputField||selectionDayTxt.length>0&&opts.showClearDateBtn}" [disabled]="opts.componentDisabled">
+            <button type="button" aria-label="Open Calendar" class="btnpicker" (click)="openBtnClicked();$event.stopPropagation()" [ngClass]="{'btnpickerenabled': !opts.componentDisabled, 'btnpickerdisabled': opts.componentDisabled, 'btnleftborder': opts.showInputField||selectionDayTxt.length>0&&opts.showClearDateBtn}" [disabled]="opts.componentDisabled">
                 <span class="icon icon-calendar" [ngStyle]="{'line-height': opts.height}"></span>
             </button>
         </div>

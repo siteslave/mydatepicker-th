@@ -56,7 +56,8 @@
     <table style="width: 100%">
         <tr>
             <td style="vertical-align: top">
-                <my-date-picker [options]="myDatePickerNormalOptions" (dateChanged)="onDateChanged($event)" (inputFieldChanged)="onInputFieldChanged($event)" (calendarViewChanged)="onCalendarViewChanged($event)"
+                <my-date-picker [options]="myDatePickerNormalOptions"
+                                (dateChanged)="onDateChanged($event)" (inputFieldChanged)="onInputFieldChanged($event)" (calendarViewChanged)="onCalendarViewChanged($event)" (calendarToggle)="onCalendarToggle($event)"
                                 [selDate]="selectedDateNormal" [placeholder]="placeholder" [selector]="selector"></my-date-picker>
             </td>
             <td style="vertical-align: top">

@@ -9,6 +9,9 @@
 ## Description
 Highly configurable Angular2 date picker. Online demo is [here](http://kekeh.github.io/mydatepicker)
 
+If you want to set own styles to the input box, the calendar and the clear buttons you can try [this](https://github.com/kekeh/ngx-mydatepicker)
+attribute directive datepicker.
+
 ## Installation
 
 To install this component to an external project, follow the procedure:
@@ -331,6 +334,21 @@ Selector can be opened or closed using this attribute. [Here](https://github.com
   onCalendarViewChanged(event: IMyCalendarViewChanged) {
     console.log('onCalendarViewChanged(): Year: ', event.year, ' - month: ', event.month, ' - first: ', event.first, ' - last: ', event.last);
   }
+  ```
+
+### calendarToggle callback
+  * called when the calendar is opened or closed
+    * event: number from 1 to 4 indicating the reason of the event
+      * 1 = calendar opened
+      * 2 = calendar closed by date select
+      * 3 = calendar closed by calendar button
+      * 4 = calendar closed by outside click (document click)
+
+  * Example of the calendar toggle callback:
+  ```js
+    onCalendarToggle(event: number): void {
+        console.log('onCalendarClosed(): Reason: ', event);
+    }
   ```
 
 ## Change styles of the component

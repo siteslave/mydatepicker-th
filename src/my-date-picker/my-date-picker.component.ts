@@ -34,6 +34,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     @Output() dateChanged: EventEmitter<IMyDateModel> = new EventEmitter<IMyDateModel>();
     @Output() inputFieldChanged: EventEmitter<IMyInputFieldChanged> = new EventEmitter<IMyInputFieldChanged>();
     @Output() calendarViewChanged: EventEmitter<IMyCalendarViewChanged> = new EventEmitter<IMyCalendarViewChanged>();
+    @Output() calendarToggle: EventEmitter<number> = new EventEmitter<number>();
 
     onChangeCb: (_: any) => void = () => { };
     onTouchedCb: () => void = () => { };
@@ -102,6 +103,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         renderer.listenGlobal("document", "click", (event: any) => {
             if (this.showSelector && event.target && this.elem.nativeElement !== event.target && !this.elem.nativeElement.contains(event.target)) {
                 this.showSelector = false;
+                this.calendarToggle.emit(4);
             }
             if (this.opts.editableMonthAndYear && event.target && this.elem.nativeElement.contains(event.target)) {
                 this.resetMonthYearEdit();
@@ -330,6 +332,10 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         this.showSelector = !this.showSelector;
         if (this.showSelector) {
             this.setVisibleMonth();
+            this.calendarToggle.emit(1);
+        }
+        else {
+            this.calendarToggle.emit(3);
         }
     }
 
@@ -444,10 +450,13 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     selectDate(date: IMyDate): void {
         // Date selected, notifies parent using callbacks and value accessor
         let dateModel: IMyDateModel = this.getDateModel(date);
-        this.showSelector = false;
         this.dateChanged.emit(dateModel);
         this.onChangeCb(dateModel);
         this.updateDateValue(date, false);
+        if (this.showSelector) {
+            this.calendarToggle.emit(2);
+        }
+        this.showSelector = false;
     }
 
     updateDateValue(date: IMyDate, clear: boolean): void {
