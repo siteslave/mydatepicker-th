@@ -98,18 +98,19 @@ export class ValidatorService {
     }
 
     isDisabledDay(date: IMyDate, disableUntil: IMyDate, disableSince: IMyDate, disableWeekends: boolean, disableDays: Array<IMyDate>, disableDateRange: IMyDateRange, enableDays: Array<IMyDate>): boolean {
-        let dateMs: number = this.getTimeInMilliseconds(date);
-        if (this.isInitializedDate(disableUntil) && dateMs <= this.getTimeInMilliseconds(disableUntil)) {
-            return true;
-        }
-        if (this.isInitializedDate(disableSince) && dateMs >= this.getTimeInMilliseconds(disableSince)) {
-            return true;
-        }
-
         for (let obj of enableDays) {
             if (obj.year === date.year && obj.month === date.month && obj.day === date.day) {
                 return false;
             }
+        }
+
+        let dateMs: number = this.getTimeInMilliseconds(date);
+        if (this.isInitializedDate(disableUntil) && dateMs <= this.getTimeInMilliseconds(disableUntil)) {
+            return true;
+        }
+
+        if (this.isInitializedDate(disableSince) && dateMs >= this.getTimeInMilliseconds(disableSince)) {
+            return true;
         }
 
         if (disableWeekends) {
