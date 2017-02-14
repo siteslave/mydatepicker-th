@@ -629,6 +629,108 @@ describe('MyDatePicker', () => {
         expect(yearlabel.nativeElement.textContent).toBe('2019');
     });
 
+    it('options - show calendar if disabled', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 5, year: 2016};
+        comp.options = {
+            showCalendarIfDisabled: false,
+            disableUntil: {year: 2016, month: 4, day: 10}
+        };
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        let montlabel = getElement('.headermonthtxt .headerlabelbtn');
+        expect(montlabel).not.toBe(null);
+        expect(montlabel.nativeElement.textContent).toBe('May');
+
+        fixture.detectChanges();
+        let prevmonth = getElement(PREVMONTH);
+        expect(prevmonth).not.toBe(null);
+        prevmonth.nativeElement.click();
+
+        fixture.detectChanges();
+        montlabel = getElement('.headermonthtxt .headerlabelbtn');
+        expect(montlabel).not.toBe(null);
+        expect(montlabel.nativeElement.textContent).toBe('Apr');
+
+        fixture.detectChanges();
+        let headerbtndisabled = getElements('.headerbtndisabled');
+        expect(headerbtndisabled).not.toBe(null);
+        expect(headerbtndisabled.length).toBe(2);
+
+        prevmonth.nativeElement.click();
+
+        fixture.detectChanges();
+        montlabel = getElement('.headermonthtxt .headerlabelbtn');
+        expect(montlabel).not.toBe(null);
+        expect(montlabel.nativeElement.textContent).toBe('Apr');
+
+        fixture.detectChanges();
+        let prevyear = getElement(PREVYEAR);
+        expect(prevyear).not.toBe(null);
+        prevyear.nativeElement.click();
+
+        fixture.detectChanges();
+        let yearlabel = getElement('.headeryeartxt .headerlabelbtn');
+        expect(yearlabel).not.toBe(null);
+        expect(yearlabel.nativeElement.textContent).toBe('2016');
+
+        btnpicker.nativeElement.click();
+
+
+        comp.options = {
+            showCalendarIfDisabled: false,
+            disableSince: {year: 2016, month: 7, day: 10}
+        };
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        montlabel = getElement('.headermonthtxt .headerlabelbtn');
+        expect(montlabel).not.toBe(null);
+        expect(montlabel.nativeElement.textContent).toBe('May');
+
+        fixture.detectChanges();
+        let nextmonth = getElement(NEXTMONTH);
+        expect(nextmonth).not.toBe(null);
+        nextmonth.nativeElement.click();
+
+        fixture.detectChanges();
+        montlabel = getElement('.headermonthtxt .headerlabelbtn');
+        expect(montlabel).not.toBe(null);
+        expect(montlabel.nativeElement.textContent).toBe('Jun');
+
+        fixture.detectChanges();
+        headerbtndisabled = getElements('.headerbtndisabled');
+        expect(headerbtndisabled).not.toBe(null);
+        expect(headerbtndisabled.length).toBe(2);
+
+        prevmonth.nativeElement.click();
+
+        fixture.detectChanges();
+        montlabel = getElement('.headermonthtxt .headerlabelbtn');
+        expect(montlabel).not.toBe(null);
+        expect(montlabel.nativeElement.textContent).toBe('Jun');
+
+        fixture.detectChanges();
+        let nextyear = getElement(NEXTYEAR);
+        expect(nextyear).not.toBe(null);
+        nextyear.nativeElement.click();
+
+        fixture.detectChanges();
+        yearlabel = getElement('.headeryeartxt .headerlabelbtn');
+        expect(yearlabel).not.toBe(null);
+        expect(yearlabel.nativeElement.textContent).toBe('2016');
+    });
+
     it('options - min year', () => {
         comp.visibleMonth = {monthTxt: 'May', monthNbr: 5, year: 2016};
         comp.options = {minYear: 2000};

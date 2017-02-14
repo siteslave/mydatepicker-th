@@ -56,6 +56,11 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     editYear: boolean = false;
     invalidYear: boolean = false;
 
+    prevMonthDisabled: boolean = false;
+    nextMonthDisabled: boolean = false;
+    prevYearDisabled: boolean = false;
+    nextYearDisabled: boolean = false;
+
     PREV_MONTH: number = 1;
     CURR_MONTH: number = 2;
     NEXT_MONTH: number = 3;
@@ -89,6 +94,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         indicateInvalidDate: <boolean> true,
         editableDateField: <boolean> true,
         editableMonthAndYear: <boolean> true,
+        showCalendarIfDisabled: <boolean> true,
         minYear: <number> this.MIN_YEAR,
         maxYear: <number> this.MAX_YEAR,
         componentDisabled: <boolean> false,
@@ -392,18 +398,12 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
 
     prevYear(): void {
         // Previous year from calendar
-        if (this.visibleMonth.year - 1 < this.opts.minYear) {
-            return;
-        }
         this.visibleMonth.year--;
         this.generateCalendar(this.visibleMonth.monthNbr, this.visibleMonth.year);
     }
 
     nextYear(): void {
         // Next year from calendar
-        if (this.visibleMonth.year + 1 > this.opts.maxYear) {
-            return;
-        }
         this.visibleMonth.year++;
         this.generateCalendar(this.visibleMonth.monthNbr, this.visibleMonth.year);
     }
@@ -593,6 +593,9 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
             }
             this.dates.push(week);
         }
+
+        this.setHeaderBtnDisabledState(m, y);
+
         // Notify parent
         this.calendarViewChanged.emit({year: y, month: m, first: {number: 1, weekday: this.getWeekday({year: y, month: m, day: 1})}, last: {number: dInThisM, weekday: this.getWeekday({year: y, month: m, day: dInThisM})}});
     }
@@ -628,4 +631,37 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         }
     }
 
+    setHeaderBtnDisabledState(m: number, y: number): void {
+        let month: number = 0;
+        let year: number = 0;
+        let disabled: boolean = false;
+
+        if (!this.opts.showCalendarIfDisabled) {
+            month = m === 1 ? 12 : m - 1;
+            year = m === 1 ? y - 1 : y;
+            disabled = this.validatorService.isMonthDisabledByDisableUntil({year: year, month: month, day: this.daysInMonth(month, year)}, this.opts.disableUntil);
+        }
+        this.prevMonthDisabled = m === 1 && y === this.opts.minYear || disabled;
+
+        if (!this.opts.showCalendarIfDisabled) {
+            month = m;
+            year = y - 1;
+            disabled = this.validatorService.isMonthDisabledByDisableUntil({year: year, month: month, day: this.daysInMonth(month, year)}, this.opts.disableUntil);
+        }
+        this.prevYearDisabled = y - 1 < this.opts.minYear || disabled;
+
+        if (!this.opts.showCalendarIfDisabled) {
+            month = m === 12 ? 1 : m + 1;
+            year = m === 12 ? y + 1 : y;
+            disabled = this.validatorService.isMonthDisabledByDisableSince({year: year, month: month, day: 1}, this.opts.disableSince);
+        }
+        this.nextMonthDisabled = m === 12 && y === this.opts.maxYear || disabled;
+
+        if (!this.opts.showCalendarIfDisabled) {
+            month = m;
+            year = y + 1;
+            disabled = this.validatorService.isMonthDisabledByDisableSince({year: year, month: month, day: 1}, this.opts.disableSince);
+        }
+        this.nextYearDisabled = y + 1 > this.opts.maxYear || disabled;
+    }
 }

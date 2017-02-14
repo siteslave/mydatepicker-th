@@ -25,12 +25,16 @@ export class SampleDatePickerNormal implements OnInit {
         indicateInvalidDate: true,
         editableMonthAndYear: true,
         minYear: 1900,
+        maxYear: 2200,
         componentDisabled: false,
         inputValueRequired: false,
         showClearDateBtn: true,
         showSelectorArrow: true,
         showInputField: true,
-        openSelectorOnInputClick: false
+        openSelectorOnInputClick: false,
+        showCalendarIfDisabled: true,
+        disableUntil: {year: 2014, month: 11, day: 10},
+        disableSince: {year: 2019, month: 3, day: 10}
     };
     private selectedDateNormal:string = '';
 
@@ -92,6 +96,12 @@ export class SampleDatePickerNormal implements OnInit {
     onShowSelectorArrow(checked: boolean) {
         let copy = this.getCopyOfOptions();
         copy.showSelectorArrow = checked;
+        this.myDatePickerNormalOptions = copy;
+    }
+
+    onShowCalendarIfDisabled(checked: boolean) {
+        let copy = this.getCopyOfOptions();
+        copy.showCalendarIfDisabled= checked;
         this.myDatePickerNormalOptions = copy;
     }
 

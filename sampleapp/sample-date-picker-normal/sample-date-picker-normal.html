@@ -49,6 +49,12 @@
             </label>
         </li>
         <li>
+            <label>
+                <span>Show calendar if disabled:</span>
+                <input style="cursor: pointer" type="checkbox" (change)="onShowCalendarIfDisabled($event.currentTarget.checked)" [checked]="true">
+            </label>
+        </li>
+        <li>
             <button style="cursor: pointer" type="button" (click)="onToggleSelector($event)">Toggle selector</button>
         </li>
     </ul>

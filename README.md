@@ -204,6 +204,7 @@ Value of the __options__ attribute is a type of [IMyOptions](https://github.com/
 | __sunHighlight__   | true | Sunday red colored on calendar. |
 | __markCurrentDay__   | true | Is current day (today) marked on calendar. |
 | __editableMonthAndYear__   | true | Is month and year labels editable or not. |
+| __showCalendarIfDisabled__   | true | Allows show calendar with next buttons if the next month is disabled by disableSince or with previous buttons if the previous month is disabled by disableUntil |
 | __minYear__   | 1000 | Minimum allowed year in calendar. Cannot be less than 1000. |
 | __maxYear__   | 9999 | Maximum allowed year in calendar. Cannot be more than 9999. |
 | __disableUntil__   | no default value | Disable dates backward starting from the given date. For example: {year: 2016, month: 6, day: 26} |

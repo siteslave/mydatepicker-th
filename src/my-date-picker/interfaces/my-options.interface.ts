@@ -28,6 +28,7 @@ export interface IMyOptions {
     indicateInvalidDate?: boolean;
     editableDateField?: boolean;
     editableMonthAndYear?: boolean;
+    showCalendarIfDisabled?: boolean;
     minYear?: number;
     maxYear?: number;
     componentDisabled?: boolean;

@@ -145,14 +145,20 @@
 
 .mydp .btnpickerenabled,
 .mydp .btnclearenabled,
-.mydp .headertodaybtnenabled {
+.mydp .headertodaybtnenabled,
+.mydp .headerbtnenabled {
     cursor: pointer;
 }
 
 .mydp .btnpickerdisabled,
 .mydp .btncleardisabled,
-.mydp .headertodaybtndisabled {
+.mydp .headertodaybtndisabled,
+.mydp .headerbtndisabled {
     cursor: not-allowed;
+}
+
+.mydp .headerbtndisabled {
+    opacity: 0.4;
 }
 
 .mydp .btnpicker,
@@ -394,7 +400,6 @@
     background-color: #8BDAF4;
 }
 
-.mydp .headerbtn,
 .mydp .monthlabel,
 .mydp .yearlabel {
     cursor: pointer;
@@ -410,7 +415,7 @@
     border-radius: 2px;
 }
 
-.mydp .headerbtn:hover,
+.mydp .headerbtnenabled:hover,
 .mydp .monthlabel:hover,
 .mydp .yearlabel:hover {
     color: #8BDAF4;

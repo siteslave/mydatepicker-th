@@ -132,6 +132,14 @@ export class ValidatorService {
         return false;
     }
 
+    isMonthDisabledByDisableUntil(date: IMyDate, disableUntil: IMyDate): boolean {
+        return this.isInitializedDate(disableUntil) && this.getTimeInMilliseconds(date) <= this.getTimeInMilliseconds(disableUntil);
+    }
+
+    isMonthDisabledByDisableSince(date: IMyDate, disableSince: IMyDate): boolean {
+        return this.isInitializedDate(disableSince) && this.getTimeInMilliseconds(date) >= this.getTimeInMilliseconds(disableSince);
+    }
+
     isInitializedDate(date: IMyDate): boolean {
         return date.year !== 0 && date.month !== 0 && date.day !== 0;
     }
