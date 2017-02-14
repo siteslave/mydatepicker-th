@@ -94,7 +94,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         indicateInvalidDate: <boolean> true,
         editableDateField: <boolean> true,
         editableMonthAndYear: <boolean> true,
-        disableHeaderButtons: <boolean> false,
+        disableHeaderButtons: <boolean> true,
         minYear: <number> this.MIN_YEAR,
         maxYear: <number> this.MAX_YEAR,
         componentDisabled: <boolean> false,

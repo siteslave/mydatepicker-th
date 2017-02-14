@@ -32,7 +32,7 @@ export class SampleDatePickerNormal implements OnInit {
         showSelectorArrow: true,
         showInputField: true,
         openSelectorOnInputClick: false,
-        disableHeaderButtons: false,
+        disableHeaderButtons: true,
         disableUntil: {year: 2014, month: 11, day: 10},
         disableSince: {year: 2019, month: 3, day: 10}
     };
