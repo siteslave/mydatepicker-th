@@ -325,6 +325,10 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     removeBtnClicked(): void {
         // Remove date button clicked
         this.clearDate();
+        if (this.showSelector) {
+            this.calendarToggle.emit(3);
+        }
+        this.showSelector = false;
     }
 
     openBtnClicked(): void {
