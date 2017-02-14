@@ -94,7 +94,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         indicateInvalidDate: <boolean> true,
         editableDateField: <boolean> true,
         editableMonthAndYear: <boolean> true,
-        showCalendarIfDisabled: <boolean> true,
+        disableHeaderButtons: <boolean> false,
         minYear: <number> this.MIN_YEAR,
         maxYear: <number> this.MAX_YEAR,
         componentDisabled: <boolean> false,
@@ -632,36 +632,36 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     setHeaderBtnDisabledState(m: number, y: number): void {
-        let month: number = 0;
-        let year: number = 0;
-        let disabled: boolean = false;
+        if (this.opts.disableHeaderButtons) {
+            let month: number;
+            let year: number;
+            let disabled: boolean;
 
-        if (!this.opts.showCalendarIfDisabled) {
             month = m === 1 ? 12 : m - 1;
             year = m === 1 ? y - 1 : y;
             disabled = this.validatorService.isMonthDisabledByDisableUntil({year: year, month: month, day: this.daysInMonth(month, year)}, this.opts.disableUntil);
-        }
-        this.prevMonthDisabled = m === 1 && y === this.opts.minYear || disabled;
+            this.prevMonthDisabled = m === 1 && y === this.opts.minYear || disabled;
 
-        if (!this.opts.showCalendarIfDisabled) {
             month = m;
             year = y - 1;
             disabled = this.validatorService.isMonthDisabledByDisableUntil({year: year, month: month, day: this.daysInMonth(month, year)}, this.opts.disableUntil);
-        }
-        this.prevYearDisabled = y - 1 < this.opts.minYear || disabled;
+            this.prevYearDisabled = y - 1 < this.opts.minYear || disabled;
 
-        if (!this.opts.showCalendarIfDisabled) {
             month = m === 12 ? 1 : m + 1;
             year = m === 12 ? y + 1 : y;
             disabled = this.validatorService.isMonthDisabledByDisableSince({year: year, month: month, day: 1}, this.opts.disableSince);
-        }
-        this.nextMonthDisabled = m === 12 && y === this.opts.maxYear || disabled;
+            this.nextMonthDisabled = m === 12 && y === this.opts.maxYear || disabled;
 
-        if (!this.opts.showCalendarIfDisabled) {
             month = m;
             year = y + 1;
             disabled = this.validatorService.isMonthDisabledByDisableSince({year: year, month: month, day: 1}, this.opts.disableSince);
+            this.nextYearDisabled = y + 1 > this.opts.maxYear || disabled;
         }
-        this.nextYearDisabled = y + 1 > this.opts.maxYear || disabled;
+        else {
+            this.prevMonthDisabled = false;
+            this.nextMonthDisabled = false;
+            this.prevYearDisabled = false;
+            this.nextYearDisabled = false;
+        }
     }
 }

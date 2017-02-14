@@ -32,7 +32,7 @@ export class SampleDatePickerNormal implements OnInit {
         showSelectorArrow: true,
         showInputField: true,
         openSelectorOnInputClick: false,
-        showCalendarIfDisabled: true,
+        disableHeaderButtons: false,
         disableUntil: {year: 2014, month: 11, day: 10},
         disableSince: {year: 2019, month: 3, day: 10}
     };
@@ -99,9 +99,9 @@ export class SampleDatePickerNormal implements OnInit {
         this.myDatePickerNormalOptions = copy;
     }
 
-    onShowCalendarIfDisabled(checked: boolean) {
+    onDisableHeaderButtons(checked: boolean) {
         let copy = this.getCopyOfOptions();
-        copy.showCalendarIfDisabled= checked;
+        copy.disableHeaderButtons = checked;
         this.myDatePickerNormalOptions = copy;
     }
 

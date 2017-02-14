@@ -629,10 +629,10 @@ describe('MyDatePicker', () => {
         expect(yearlabel.nativeElement.textContent).toBe('2019');
     });
 
-    it('options - show calendar if disabled', () => {
+    it('options - disable header buttons', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 5, year: 2016};
         comp.options = {
-            showCalendarIfDisabled: false,
+            disableHeaderButtons: true,
             disableUntil: {year: 2016, month: 4, day: 10}
         };
 
@@ -683,7 +683,7 @@ describe('MyDatePicker', () => {
 
 
         comp.options = {
-            showCalendarIfDisabled: false,
+            disableHeaderButtons: true,
             disableSince: {year: 2016, month: 7, day: 10}
         };
 
