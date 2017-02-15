@@ -632,36 +632,19 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     setHeaderBtnDisabledState(m: number, y: number): void {
+        let dpm: boolean = false;
+        let dpy: boolean = false;
+        let dnm: boolean = false;
+        let dny: boolean = false;
         if (this.opts.disableHeaderButtons) {
-            let month: number;
-            let year: number;
-            let disabled: boolean;
-
-            month = m === 1 ? 12 : m - 1;
-            year = m === 1 ? y - 1 : y;
-            disabled = this.validatorService.isMonthDisabledByDisableUntil({year: year, month: month, day: this.daysInMonth(month, year)}, this.opts.disableUntil);
-            this.prevMonthDisabled = m === 1 && y === this.opts.minYear || disabled;
-
-            month = m;
-            year = y - 1;
-            disabled = this.validatorService.isMonthDisabledByDisableUntil({year: year, month: month, day: this.daysInMonth(month, year)}, this.opts.disableUntil);
-            this.prevYearDisabled = y - 1 < this.opts.minYear || disabled;
-
-            month = m === 12 ? 1 : m + 1;
-            year = m === 12 ? y + 1 : y;
-            disabled = this.validatorService.isMonthDisabledByDisableSince({year: year, month: month, day: 1}, this.opts.disableSince);
-            this.nextMonthDisabled = m === 12 && y === this.opts.maxYear || disabled;
-
-            month = m;
-            year = y + 1;
-            disabled = this.validatorService.isMonthDisabledByDisableSince({year: year, month: month, day: 1}, this.opts.disableSince);
-            this.nextYearDisabled = y + 1 > this.opts.maxYear || disabled;
+            dpm = this.validatorService.isMonthDisabledByDisableUntil({year: m === 1 ? y - 1 : y, month: m === 1 ? 12 : m - 1, day: this.daysInMonth(m === 1 ? 12 : m - 1, m === 1 ? y - 1 : y)}, this.opts.disableUntil);
+            dpy = this.validatorService.isMonthDisabledByDisableUntil({year: y - 1, month: m, day: this.daysInMonth(m, y - 1)}, this.opts.disableUntil);
+            dnm = this.validatorService.isMonthDisabledByDisableSince({year: m === 12 ? y + 1 : y, month: m === 12 ? 1 : m + 1, day: 1}, this.opts.disableSince);
+            dny = this.validatorService.isMonthDisabledByDisableSince({year: y + 1, month: m, day: 1}, this.opts.disableSince);
         }
-        else {
-            this.prevMonthDisabled = false;
-            this.nextMonthDisabled = false;
-            this.prevYearDisabled = false;
-            this.nextYearDisabled = false;
-        }
+        this.prevMonthDisabled = m === 1 && y === this.opts.minYear || dpm;
+        this.prevYearDisabled = y - 1 < this.opts.minYear || dpy;
+        this.nextMonthDisabled = m === 12 && y === this.opts.maxYear || dnm;
+        this.nextYearDisabled = y + 1 > this.opts.maxYear || dny;
     }
 }
