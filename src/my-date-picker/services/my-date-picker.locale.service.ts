@@ -178,6 +178,14 @@ export class LocaleService {
             todayBtnTxt: "今天",
             firstDayOfWeek: "mo",
             sunHighlight: true,
+        },
+        "ro": {
+            dayLabels: {su: "du", mo: "lu", tu: "ma", we: "mi", th: "jo", fr: "vi", sa: "sa"},
+            monthLabels: { 1: "ian", 2: "feb", 3: "mart", 4: "apr", 5: "mai", 6: "iun", 7: "iul", 8: "aug", 9: "sept", 10: "oct", 11: "nov", 12: "dec" },
+            dateFormat: "dd.mm.yyyy",
+            todayBtnTxt: "Astăzi",
+            firstDayOfWeek: "mo",
+            sunHighlight: true,
         }
     };
 
