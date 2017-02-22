@@ -213,7 +213,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
             this.editMonth = false;
             if (m !== this.visibleMonth.monthNbr) {
                 this.visibleMonth = {monthTxt: this.monthText(m), monthNbr: m, year: this.visibleMonth.year};
-                this.generateCalendar(m, this.visibleMonth.year);
+                this.generateCalendar(m, this.visibleMonth.year, true);
             }
         }
         else {
@@ -233,7 +233,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
             this.editYear = false;
             if (y !== this.visibleMonth.year) {
                 this.visibleMonth = {monthTxt: this.visibleMonth.monthTxt, monthNbr: this.visibleMonth.monthNbr, year: y};
-                this.generateCalendar(this.visibleMonth.monthNbr, y);
+                this.generateCalendar(this.visibleMonth.monthNbr, y, true);
             }
         }
         else {
@@ -326,6 +326,9 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         if (this.opts.inline) {
             this.setVisibleMonth();
         }
+        else if (this.showSelector) {
+            this.generateCalendar(this.visibleMonth.monthNbr, this.visibleMonth.year, false);
+        }
     }
 
     removeBtnClicked(): void {
@@ -369,7 +372,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         this.visibleMonth = {monthTxt: this.opts.monthLabels[m], monthNbr: m, year: y};
 
         // Create current month
-        this.generateCalendar(m, y);
+        this.generateCalendar(m, y, true);
     }
 
     prevMonth(): void {
@@ -381,7 +384,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         let m: number = d.getMonth() + 1;
 
         this.visibleMonth = {monthTxt: this.monthText(m), monthNbr: m, year: y};
-        this.generateCalendar(m, y);
+        this.generateCalendar(m, y, true);
     }
 
     nextMonth(): void {
@@ -393,19 +396,19 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         let m: number = d.getMonth() + 1;
 
         this.visibleMonth = {monthTxt: this.monthText(m), monthNbr: m, year: y};
-        this.generateCalendar(m, y);
+        this.generateCalendar(m, y, true);
     }
 
     prevYear(): void {
         // Previous year from calendar
         this.visibleMonth.year--;
-        this.generateCalendar(this.visibleMonth.monthNbr, this.visibleMonth.year);
+        this.generateCalendar(this.visibleMonth.monthNbr, this.visibleMonth.year, true);
     }
 
     nextYear(): void {
         // Next year from calendar
         this.visibleMonth.year++;
-        this.generateCalendar(this.visibleMonth.monthNbr, this.visibleMonth.year);
+        this.generateCalendar(this.visibleMonth.monthNbr, this.visibleMonth.year, true);
     }
 
     todayClicked(): void {
@@ -414,7 +417,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         this.selectDate(today);
         if (this.opts.inline && today.year !== this.visibleMonth.year || today.month !== this.visibleMonth.monthNbr) {
             this.visibleMonth = {monthTxt: this.opts.monthLabels[today.month], monthNbr: today.month, year: today.year};
-            this.generateCalendar(today.month, today.year);
+            this.generateCalendar(today.month, today.year, true);
         }
     }
 
@@ -549,7 +552,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         return this.dayIdx > 0 ? 7 - this.dayIdx : 0;
     }
 
-    generateCalendar(m: number, y: number): void {
+    generateCalendar(m: number, y: number, notifyChange: boolean): void {
         this.dates.length = 0;
         let today: IMyDate = this.getToday();
         let monthStart: number = this.monthStartIdx(y, m);
@@ -596,8 +599,10 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
 
         this.setHeaderBtnDisabledState(m, y);
 
-        // Notify parent
-        this.calendarViewChanged.emit({year: y, month: m, first: {number: 1, weekday: this.getWeekday({year: y, month: m, day: 1})}, last: {number: dInThisM, weekday: this.getWeekday({year: y, month: m, day: dInThisM})}});
+        if (notifyChange) {
+            // Notify parent
+            this.calendarViewChanged.emit({year: y, month: m, first: {number: 1, weekday: this.getWeekday({year: y, month: m, day: 1})}, last: {number: dInThisM, weekday: this.getWeekday({year: y, month: m, day: dInThisM})}});
+        }
     }
 
     parseSelectedDate(selDate: any): IMyDate {

@@ -289,7 +289,7 @@ describe('MyDatePicker', () => {
         expect(yearlabel).not.toBe(null);
         expect(yearlabel.nativeElement.textContent.trim()).toBe('2016');
 
-        comp.generateCalendar(1, 2016);
+        comp.generateCalendar(1, 2016, true);
 
         let beginDate: Array<string> = ['28', '1', '29', '28', '25', '30', '27', '1', '29', '26', '31', '28'];
         let endDate: Array<string> = ['7', '13', '10', '8', '5', '10', '7', '11', '9', '6', '11', '8'];
@@ -334,7 +334,7 @@ describe('MyDatePicker', () => {
         expect(yearlabel).not.toBe(null);
         expect(yearlabel.nativeElement.textContent.trim()).toBe('2016');
 
-        comp.generateCalendar(12, 2016);
+        comp.generateCalendar(12, 2016, true);
 
         let beginDate: Array<string> = ['28', '1', '29', '28', '25', '30', '27', '1', '29', '26', '31', '28'];
         let endDate: Array<string> = ['7', '13', '10', '8', '5', '10', '7', '11', '9', '6', '11', '8'];
@@ -807,7 +807,7 @@ describe('MyDatePicker', () => {
         let btnpicker = getElement('.btnpicker');
         btnpicker.nativeElement.click();
 
-        comp.generateCalendar(10, 2016);
+        comp.generateCalendar(10, 2016, true);
 
         fixture.detectChanges();
         let disabled = getElements('tr .disabled');
@@ -846,7 +846,7 @@ describe('MyDatePicker', () => {
         let btnpicker = getElement('.btnpicker');
         btnpicker.nativeElement.click();
 
-        comp.generateCalendar(10, 2016);
+        comp.generateCalendar(10, 2016, true);
 
         fixture.detectChanges();
         let disabled = getElements('tr .disabled');
@@ -886,7 +886,7 @@ describe('MyDatePicker', () => {
         let btnpicker = getElement('.btnpicker');
         btnpicker.nativeElement.click();
 
-        comp.generateCalendar(10, 2016);
+        comp.generateCalendar(10, 2016, true);
 
         fixture.detectChanges();
         let disabled = getElements('tr .disabled');
@@ -914,7 +914,7 @@ describe('MyDatePicker', () => {
         let btnpicker = getElement('.btnpicker');
         btnpicker.nativeElement.click();
 
-        comp.generateCalendar(1, 2017);
+        comp.generateCalendar(1, 2017, true);
 
         fixture.detectChanges();
         let disabled = getElements('tr .disabled');
@@ -952,7 +952,7 @@ describe('MyDatePicker', () => {
         let btnpicker = getElement('.btnpicker');
         btnpicker.nativeElement.click();
 
-        comp.generateCalendar(10, 2016);
+        comp.generateCalendar(10, 2016, true);
 
         fixture.detectChanges();
         let disabled = getElements('tr .disabled');
@@ -975,7 +975,7 @@ describe('MyDatePicker', () => {
         btnpicker = getElement('.btnpicker');
         btnpicker.nativeElement.click();
 
-        comp.generateCalendar(10, 2016);
+        comp.generateCalendar(10, 2016, true);
 
         fixture.detectChanges();
         disabled = getElements('tr .disabled');
@@ -995,7 +995,7 @@ describe('MyDatePicker', () => {
         let btnpicker = getElement('.btnpicker');
         btnpicker.nativeElement.click();
 
-        comp.generateCalendar(10, 2016);
+        comp.generateCalendar(10, 2016, true);
 
         fixture.detectChanges();
         let headertodaybtn = getElement('.headertodaybtn');
@@ -1014,7 +1014,7 @@ describe('MyDatePicker', () => {
 
         fixture.detectChanges();
         btnpicker.nativeElement.click();
-        comp.generateCalendar(10, 2016);
+        comp.generateCalendar(10, 2016, true);
 
         fixture.detectChanges();
         headertodaybtn = getElement('.headertodaybtn');
@@ -1039,7 +1039,7 @@ describe('MyDatePicker', () => {
         let btnpicker = getElement('.btnpicker');
         btnpicker.nativeElement.click();
 
-        comp.generateCalendar(10, 2016);
+        comp.generateCalendar(10, 2016, true);
 
         fixture.detectChanges();
         let disabled = getElements('tr .disabled');
