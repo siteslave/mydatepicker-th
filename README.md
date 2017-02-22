@@ -116,7 +116,7 @@ export class MyTestApp implements OnInit {
         this.myForm = this.formBuilder.group({
             // Empty string means no initial value. Can be also specific date for
             // example: {date: {year: 2018, month: 10, day: 9}} which sets this date to initial
-            // value. It is also possible to set initial date using the selDate attribute.
+            // value.
 
             myDate: ['', Validators.required]
             // other controls are here...
@@ -169,8 +169,7 @@ export class MyTestApp {
         dateFormat: 'dd.mm.yyyy',
     };
 
-    // Initialized to specific date (09.10.2018). It is also possible to set initial
-    // date value using the selDate attribute.
+    // Initialized to specific date (09.10.2018).
     private model: Object = { date: { year: 2018, month: 10, day: 9 } };
 
     constructor() { }
