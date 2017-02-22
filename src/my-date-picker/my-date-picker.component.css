@@ -278,11 +278,6 @@
     border-radius: 2px;
 }
 
-.mydp .selectmenu {
-    height: 24px;
-    width: 60px
-}
-
 .mydp .headerbtncell {
     background-color: #FAFAFA;
     display: table-cell;
