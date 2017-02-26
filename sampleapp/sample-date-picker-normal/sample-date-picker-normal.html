@@ -55,6 +55,12 @@
             </label>
         </li>
         <li>
+            <label>
+                <span>Input auto fill:</span>
+                <input style="cursor: pointer" type="checkbox" (change)="onInputAutoFill($event.currentTarget.checked)" [checked]="true">
+            </label>
+        </li>
+        <li>
             <button style="cursor: pointer" type="button" (click)="onToggleSelector($event)">Toggle selector</button>
         </li>
     </ul>

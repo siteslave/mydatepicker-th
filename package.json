@@ -1,6 +1,6 @@
 {
   "name": "mydatepicker",
-  "version": "1.6.18",
+  "version": "1.6.19",
   "description": "Angular2 date picker",
   "keywords": [
     "Angular2",
@@ -55,7 +55,7 @@
     "gulp-htmlmin": "3.0.0",
     "gulp-json-editor": "^2.2.1",
     "gulp-replace": "0.5.4",
-    "gulp-shell": "^0.5.2",
+    "gulp-shell": "0.5.2",
     "gulp-tslint": "7.0.1",
     "html-loader": "0.4.3",
     "html-webpack-plugin": "2.24.1",

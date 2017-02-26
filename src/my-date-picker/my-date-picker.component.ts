@@ -1,8 +1,8 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ElementRef, ViewEncapsulation, Renderer, forwardRef } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { IMyDate, IMyDateRange, IMyMonth, IMyWeek, IMyDayLabels, IMyMonthLabels, IMyOptions, IMyDateModel, IMyInputFieldChanged, IMyCalendarViewChanged } from "./interfaces/index";
+import { IMyDate, IMyDateRange, IMyMonth, IMyWeek, IMyDayLabels, IMyMonthLabels, IMyOptions, IMyDateModel, IMyInputAutoFill, IMyInputFieldChanged, IMyCalendarViewChanged } from "./interfaces/index";
 import { LocaleService } from "./services/my-date-picker.locale.service";
-import { ValidatorService } from "./services/my-date-picker.validator.service";
+import { UtilService } from "./services/my-date-picker.util.service";
 
 // webpack1_
 declare var require: any;
@@ -20,7 +20,7 @@ export const MYDP_VALUE_ACCESSOR: any = {
     selector: "my-date-picker",
     styles: [myDpStyles],
     template: myDpTpl,
-    providers: [LocaleService, ValidatorService, MYDP_VALUE_ACCESSOR],
+    providers: [LocaleService, UtilService, MYDP_VALUE_ACCESSOR],
     encapsulation: ViewEncapsulation.None
 })
 
@@ -50,6 +50,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     disableTodayBtn: boolean = false;
     dayIdx: number = 0;
     weekDayOpts: Array<string> = ["su", "mo", "tu", "we", "th", "fr", "sa"];
+    autoFillOpts: IMyInputAutoFill = {separator: "", formatParts: [], enabled: true};
 
     editMonth: boolean = false;
     invalidMonth: boolean = false;
@@ -102,9 +103,10 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         showSelectorArrow: <boolean> true,
         showInputField: <boolean> true,
         openSelectorOnInputClick: <boolean> false,
+        inputAutoFill: <boolean> true
     };
 
-    constructor(public elem: ElementRef, private renderer: Renderer, private localeService: LocaleService, private validatorService: ValidatorService) {
+    constructor(public elem: ElementRef, private renderer: Renderer, private localeService: LocaleService, private utilService: UtilService) {
         this.setLocaleOptions();
         renderer.listenGlobal("document", "click", (event: any) => {
             if (this.showSelector && event.target && this.elem.nativeElement !== event.target && !this.elem.nativeElement.contains(event.target)) {
@@ -136,6 +138,9 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         if (this.opts.maxYear > this.MAX_YEAR) {
             this.opts.maxYear = this.MAX_YEAR;
         }
+
+        let separator: string = this.utilService.getDateFormatSeparator(this.opts.dateFormat);
+        this.autoFillOpts = {separator: separator, formatParts: this.opts.dateFormat.split(separator), enabled: this.opts.inputAutoFill};
     }
 
     getComponentWidth(): string {
@@ -183,7 +188,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
             this.clearDate();
         }
         else {
-            let date: IMyDate = this.validatorService.isDateValid(event.target.value, this.opts.dateFormat, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRange, this.opts.monthLabels, this.opts.enableDays);
+            let date: IMyDate = this.utilService.isDateValid(event.target.value, this.opts.dateFormat, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRange, this.opts.monthLabels, this.opts.enableDays);
             if (date.day !== 0 && date.month !== 0 && date.year !== 0) {
                 this.selectDate(date);
             }
@@ -208,7 +213,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
 
         this.invalidMonth = false;
 
-        let m: number = this.validatorService.isMonthLabelValid(event.target.value, this.opts.monthLabels);
+        let m: number = this.utilService.isMonthLabelValid(event.target.value, this.opts.monthLabels);
         if (m !== -1) {
             this.editMonth = false;
             if (m !== this.visibleMonth.monthNbr) {
@@ -228,7 +233,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
 
         this.invalidYear = false;
 
-        let y: number = this.validatorService.isYearLabelValid(Number(event.target.value), this.opts.minYear, this.opts.maxYear);
+        let y: number = this.utilService.isYearLabelValid(Number(event.target.value), this.opts.minYear, this.opts.maxYear);
         if (y !== -1) {
             this.editYear = false;
             if (y !== this.visibleMonth.year) {
@@ -242,7 +247,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     isTodayDisabled(): void {
-        this.disableTodayBtn = this.validatorService.isDisabledDay(this.getToday(), this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRange, this.opts.enableDays);
+        this.disableTodayBtn = this.utilService.isDisabledDay(this.getToday(), this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRange, this.opts.enableDays);
     }
 
     parseOptions(): void {
@@ -569,7 +574,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
                 // Previous month
                 for (let j = pm; j <= dInPrevM; j++) {
                     let date: IMyDate = {year: y, month: m - 1, day: j};
-                    week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(j, m, y, cmo, today), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRange, this.opts.enableDays)});
+                    week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(j, m, y, cmo, today), dayNbr: this.getDayNumber(date), disabled: this.utilService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRange, this.opts.enableDays)});
                 }
 
                 cmo = this.CURR_MONTH;
@@ -577,7 +582,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
                 let daysLeft: number = 7 - week.length;
                 for (let j = 0; j < daysLeft; j++) {
                     let date: IMyDate = {year: y, month: m, day: dayNbr};
-                    week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo, today), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRange, this.opts.enableDays)});
+                    week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo, today), dayNbr: this.getDayNumber(date), disabled: this.utilService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRange, this.opts.enableDays)});
                     dayNbr++;
                 }
             }
@@ -590,7 +595,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
                         cmo = this.NEXT_MONTH;
                     }
                     let date: IMyDate = {year: y, month: cmo === this.CURR_MONTH ? m : m + 1, day: dayNbr};
-                    week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo, today), dayNbr: this.getDayNumber(date), disabled: this.validatorService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRange, this.opts.enableDays)});
+                    week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo, today), dayNbr: this.getDayNumber(date), disabled: this.utilService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRange, this.opts.enableDays)});
                     dayNbr++;
                 }
             }
@@ -610,13 +615,13 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         let date: IMyDate = {day: 0, month: 0, year: 0};
         if (typeof selDate === "string") {
             let sd: string = <string>selDate;
-            date.day = this.validatorService.parseDatePartNumber(this.opts.dateFormat, sd, "dd");
+            date.day = this.utilService.parseDatePartNumber(this.opts.dateFormat, sd, "dd");
 
             date.month = this.opts.dateFormat.indexOf("mmm") !== -1
-                ? this.validatorService.parseDatePartMonthName(this.opts.dateFormat, sd, "mmm", this.opts.monthLabels)
-                : this.validatorService.parseDatePartNumber(this.opts.dateFormat, sd, "mm");
+                ? this.utilService.parseDatePartMonthName(this.opts.dateFormat, sd, "mmm", this.opts.monthLabels)
+                : this.utilService.parseDatePartNumber(this.opts.dateFormat, sd, "mm");
 
-            date.year = this.validatorService.parseDatePartNumber(this.opts.dateFormat, sd, "yyyy");
+            date.year = this.utilService.parseDatePartNumber(this.opts.dateFormat, sd, "yyyy");
         }
         else if (typeof selDate === "object") {
             date = selDate;
@@ -626,7 +631,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     parseSelectedMonth(ms: string): IMyMonth {
-        return this.validatorService.parseDefaultMonth(ms);
+        return this.utilService.parseDefaultMonth(ms);
     }
 
     handleInputClick(event: MouseEvent): void {
@@ -642,10 +647,10 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         let dnm: boolean = false;
         let dny: boolean = false;
         if (this.opts.disableHeaderButtons) {
-            dpm = this.validatorService.isMonthDisabledByDisableUntil({year: m === 1 ? y - 1 : y, month: m === 1 ? 12 : m - 1, day: this.daysInMonth(m === 1 ? 12 : m - 1, m === 1 ? y - 1 : y)}, this.opts.disableUntil);
-            dpy = this.validatorService.isMonthDisabledByDisableUntil({year: y - 1, month: m, day: this.daysInMonth(m, y - 1)}, this.opts.disableUntil);
-            dnm = this.validatorService.isMonthDisabledByDisableSince({year: m === 12 ? y + 1 : y, month: m === 12 ? 1 : m + 1, day: 1}, this.opts.disableSince);
-            dny = this.validatorService.isMonthDisabledByDisableSince({year: y + 1, month: m, day: 1}, this.opts.disableSince);
+            dpm = this.utilService.isMonthDisabledByDisableUntil({year: m === 1 ? y - 1 : y, month: m === 1 ? 12 : m - 1, day: this.daysInMonth(m === 1 ? 12 : m - 1, m === 1 ? y - 1 : y)}, this.opts.disableUntil);
+            dpy = this.utilService.isMonthDisabledByDisableUntil({year: y - 1, month: m, day: this.daysInMonth(m, y - 1)}, this.opts.disableUntil);
+            dnm = this.utilService.isMonthDisabledByDisableSince({year: m === 12 ? y + 1 : y, month: m === 12 ? 1 : m + 1, day: 1}, this.opts.disableSince);
+            dny = this.utilService.isMonthDisabledByDisableSince({year: y + 1, month: m, day: 1}, this.opts.disableSince);
         }
         this.prevMonthDisabled = m === 1 && y === this.opts.minYear || dpm;
         this.prevYearDisabled = y - 1 < this.opts.minYear || dpy;

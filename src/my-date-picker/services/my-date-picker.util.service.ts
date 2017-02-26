@@ -5,17 +5,17 @@ import { IMyMonth } from "../interfaces/my-month.interface";
 import { IMyMonthLabels } from "../interfaces/my-month-labels.interface";
 
 @Injectable()
-export class ValidatorService {
+export class UtilService {
     isDateValid(dateStr: string, dateFormat: string, minYear: number, maxYear: number, disableUntil: IMyDate, disableSince: IMyDate, disableWeekends: boolean, disableDays: Array<IMyDate>, disableDateRange: IMyDateRange, monthLabels: IMyMonthLabels, enableDays: Array<IMyDate>): IMyDate {
-        let daysInMonth: Array<number> = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        let isMonthStr: boolean = dateFormat.indexOf("mmm") !== -1;
         let returnDate: IMyDate = {day: 0, month: 0, year: 0};
+        let daysInMonth: Array<number> = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        let isMonthStr: boolean = this.getDatePartIndex(dateFormat, "mmm") !== -1;
 
         if (dateStr.length !== dateFormat.length) {
             return returnDate;
         }
 
-        let separator: string = dateFormat.replace(/[dmy]/g, "")[0];
+        let separator: string = this.getDateFormatSeparator(dateFormat);
 
         let parts: Array<string> = dateStr.split(separator);
         if (parts.length !== 3) {
@@ -51,6 +51,10 @@ export class ValidatorService {
         return returnDate;
     }
 
+    getDateFormatSeparator(dateFormat: string): string {
+        return dateFormat.replace(/[dmy]/g, "")[0];
+    }
+
     isMonthLabelValid(monthLabel: string, monthLabels: IMyMonthLabels): number {
         for (let key = 1; key <= 12; key++) {
             if (monthLabel.toLowerCase() === monthLabels[key].toLowerCase()) {
@@ -68,7 +72,7 @@ export class ValidatorService {
     }
 
     parseDatePartNumber(dateFormat: string, dateString: string, datePart: string): number {
-        let pos: number = dateFormat.indexOf(datePart);
+        let pos: number = this.getDatePartIndex(dateFormat, datePart);
         if (pos !== -1) {
             let value: string = dateString.substring(pos, pos + datePart.length);
             if (!/^\d+$/.test(value)) {
@@ -80,11 +84,15 @@ export class ValidatorService {
     }
 
     parseDatePartMonthName(dateFormat: string, dateString: string, datePart: string, monthLabels: IMyMonthLabels): number {
-        let pos: number = dateFormat.indexOf(datePart);
+        let pos: number = this.getDatePartIndex(dateFormat, datePart);
         if (pos !== -1) {
             return this.isMonthLabelValid(dateString.substring(pos, pos + datePart.length), monthLabels);
         }
         return -1;
+    }
+
+    getDatePartIndex(dateFormat: string, datePart: string): number {
+        return dateFormat.indexOf(datePart);
     }
 
     parseDefaultMonth(monthString: string): IMyMonth {

@@ -36,4 +36,5 @@ export interface IMyOptions {
     showSelectorArrow?: boolean;
     showInputField?: boolean;
     openSelectorOnInputClick?: boolean;
+    inputAutoFill?: boolean;
 }
