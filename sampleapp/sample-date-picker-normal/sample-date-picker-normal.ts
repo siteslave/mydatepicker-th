@@ -33,9 +33,8 @@ export class SampleDatePickerNormal implements OnInit {
         showInputField: true,
         openSelectorOnInputClick: false,
         disableHeaderButtons: true,
-        disableUntil: {year: 2014, month: 11, day: 10},
-        disableSince: {year: 2019, month: 3, day: 10},
-        inputAutoFill: true
+        inputAutoFill: true,
+        showWeekNumbers: false
     };
     private selectedDateNormal:string = '';
 
@@ -109,6 +108,12 @@ export class SampleDatePickerNormal implements OnInit {
     onInputAutoFill(checked: boolean) {
         let copy = this.getCopyOfOptions();
         copy.inputAutoFill = checked;
+        this.myDatePickerNormalOptions = copy;
+    }
+
+    onShowWeekNumbers(checked: boolean) {
+        let copy = this.getCopyOfOptions();
+        copy.showWeekNumbers = checked;
         this.myDatePickerNormalOptions = copy;
     }
 

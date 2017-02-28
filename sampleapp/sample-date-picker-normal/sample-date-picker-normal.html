@@ -61,6 +61,12 @@
             </label>
         </li>
         <li>
+            <label>
+                <span>Show week numbers:</span>
+                <input style="cursor: pointer" type="checkbox" (change)="onShowWeekNumbers($event.currentTarget.checked)" [checked]="false">
+            </label>
+        </li>
+        <li>
             <button style="cursor: pointer" type="button" (click)="onToggleSelector($event)">Toggle selector</button>
         </li>
     </ul>

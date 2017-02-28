@@ -18,6 +18,7 @@ export interface IMyOptions {
     enableDays?: Array<IMyDate>;
     disableDateRange?: IMyDateRange;
     disableWeekends?: boolean;
+    showWeekNumbers?: boolean;
     height?: string;
     width?: string;
     selectionTxtFontSize?: string;

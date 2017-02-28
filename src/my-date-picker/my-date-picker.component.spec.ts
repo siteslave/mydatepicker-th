@@ -1683,6 +1683,78 @@ describe('MyDatePicker', () => {
         expect(selection.nativeElement.value).toBe('2016-01-09');
     });
 
+    it('options - show week numbers', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 1, year: 2017};
+        comp.options = {showWeekNumbers: false};
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        let weekdaytitleweeknbr = getElement('.weekdaytitleweeknbr');
+        expect(weekdaytitleweeknbr).toBe(null);
+
+        fixture.detectChanges();
+        let daycellweeknbr = getElements('.daycellweeknbr');
+        expect(daycellweeknbr.length).toBe(0);
+
+        btnpicker.nativeElement.click();
+
+
+        comp.options = {showWeekNumbers: true};
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        weekdaytitleweeknbr = getElement('.weekdaytitleweeknbr');
+        expect(weekdaytitleweeknbr).not.toBe(null);
+
+        fixture.detectChanges();
+        daycellweeknbr = getElements('.daycellweeknbr');
+        expect(daycellweeknbr.length).toBe(6);
+
+        expect(daycellweeknbr[0].nativeElement.textContent.trim()).toBe('52');
+        expect(daycellweeknbr[1].nativeElement.textContent.trim()).toBe('1');
+        expect(daycellweeknbr[2].nativeElement.textContent.trim()).toBe('2');
+        expect(daycellweeknbr[3].nativeElement.textContent.trim()).toBe('3');
+        expect(daycellweeknbr[4].nativeElement.textContent.trim()).toBe('4');
+        expect(daycellweeknbr[5].nativeElement.textContent.trim()).toBe('5');
+
+        fixture.detectChanges();
+        let prevyear = getElement(PREVYEAR);
+        expect(prevyear).not.toBe(null);
+        prevyear.nativeElement.click();
+
+        fixture.detectChanges();
+        daycellweeknbr = getElements('.daycellweeknbr');
+        expect(daycellweeknbr.length).toBe(6);
+
+        expect(daycellweeknbr[0].nativeElement.textContent.trim()).toBe('53');
+        expect(daycellweeknbr[1].nativeElement.textContent.trim()).toBe('1');
+        expect(daycellweeknbr[2].nativeElement.textContent.trim()).toBe('2');
+        expect(daycellweeknbr[3].nativeElement.textContent.trim()).toBe('3');
+        expect(daycellweeknbr[4].nativeElement.textContent.trim()).toBe('4');
+        expect(daycellweeknbr[5].nativeElement.textContent.trim()).toBe('5');
+
+        prevyear.nativeElement.click();
+
+        fixture.detectChanges();
+        daycellweeknbr = getElements('.daycellweeknbr');
+        expect(daycellweeknbr.length).toBe(6);
+
+        expect(daycellweeknbr[0].nativeElement.textContent.trim()).toBe('1');
+        expect(daycellweeknbr[1].nativeElement.textContent.trim()).toBe('2');
+        expect(daycellweeknbr[2].nativeElement.textContent.trim()).toBe('3');
+        expect(daycellweeknbr[3].nativeElement.textContent.trim()).toBe('4');
+        expect(daycellweeknbr[4].nativeElement.textContent.trim()).toBe('5');
+        expect(daycellweeknbr[5].nativeElement.textContent.trim()).toBe('6');
+    });
+
     it('locale - use fr locale', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 1, year: 2016};
         comp.locale = 'fr';

@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ElementRef, ViewEncapsulation, Renderer, forwardRef } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { IMyDate, IMyDateRange, IMyMonth, IMyWeek, IMyDayLabels, IMyMonthLabels, IMyOptions, IMyDateModel, IMyInputAutoFill, IMyInputFieldChanged, IMyCalendarViewChanged } from "./interfaces/index";
+import { IMyDate, IMyDateRange, IMyMonth, IMyCalendarDay, IMyWeek, IMyDayLabels, IMyMonthLabels, IMyOptions, IMyDateModel, IMyInputAutoFill, IMyInputFieldChanged, IMyCalendarViewChanged } from "./interfaces/index";
 import { LocaleService } from "./services/my-date-picker.locale.service";
 import { UtilService } from "./services/my-date-picker.util.service";
 
@@ -44,7 +44,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     selectedMonth: IMyMonth = {monthTxt: "", monthNbr: 0, year: 0};
     selectedDate: IMyDate = {year: 0, month: 0, day: 0};
     weekDays: Array<string> = [];
-    dates: Array<Object> = [];
+    dates: Array<IMyWeek> = [];
     selectionDayTxt: string = "";
     invalidDate: boolean = false;
     disableTodayBtn: boolean = false;
@@ -85,6 +85,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         enableDays: <Array<IMyDate>> [],
         disableDateRange: <IMyDateRange> {begin: <IMyDate> {year: 0, month: 0, day: 0}, end: <IMyDate> {year: 0, month: 0, day: 0}},
         disableWeekends: <boolean> false,
+        showWeekNumbers: <boolean> false,
         height: <string> "34px",
         width: <string> "100%",
         selectionTxtFontSize: <string> "18px",
@@ -567,7 +568,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         let dayNbr: number = 1;
         let cmo: number = this.PREV_MONTH;
         for (let i = 1; i < 7; i++) {
-            let week: IMyWeek[] = [];
+            let week: Array<IMyCalendarDay> = [];
             if (i === 1) {
                 // First week
                 let pm = dInPrevM - monthStart + 1;
@@ -599,7 +600,8 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
                     dayNbr++;
                 }
             }
-            this.dates.push(week);
+            let weekNbr: number = this.opts.showWeekNumbers  && this.opts.firstDayOfWeek === "mo" ? this.utilService.getWeekNumber(week[0].dateObj) : 0;
+            this.dates.push({week: week, weekNbr: weekNbr});
         }
 
         this.setHeaderBtnDisabledState(m, y);

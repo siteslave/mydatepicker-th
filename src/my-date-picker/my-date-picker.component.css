@@ -222,6 +222,11 @@
     white-space: nowrap;
 }
 
+.mydp .weekdaytitleweeknbr {
+    width: 20px;
+    border-right: 1px solid #BBB;
+}
+
 .mydp .daycell {
     cursor: pointer;
     height: 30px;
@@ -234,6 +239,13 @@
 
 .mydp .daycell div span {
     vertical-align: middle;
+}
+
+.mydp .daycellweeknbr {
+    font-size: 10px;
+    border-right: 1px solid #CCC;
+    cursor: default;
+    color: #000;
 }
 
 .mydp .inlinedp {

@@ -140,6 +140,12 @@ export class UtilService {
         return false;
     }
 
+    getWeekNumber(date: IMyDate): number {
+        let d: Date = new Date(date.year, date.month - 1, date.day, 0, 0, 0, 0);
+        d.setDate(d.getDate() + (d.getDay() === 0 ? -3 : 4 - d.getDay()));
+        return Math.round(((d.getTime() - new Date(d.getFullYear(), 0, 4).getTime()) / 86400000) / 7) + 1;
+    }
+
     isMonthDisabledByDisableUntil(date: IMyDate, disableUntil: IMyDate): boolean {
         return this.isInitializedDate(disableUntil) && this.getTimeInMilliseconds(date) <= this.getTimeInMilliseconds(disableUntil);
     }
