@@ -211,7 +211,7 @@ Value of the __options__ attribute is a type of [IMyOptions](https://github.com/
 | __disableDateRange__   | no default value  | Disable a date range from begin to end. For example: {begin: {year: 2016, month: 11, day: 14}, end: {year: 2016, month: 11, day: 20} |
 | __disableWeekends__   | false | Disable weekends (Saturday and Sunday). |
 | __disableHeaderButtons__   | true | Prevent to change the calendar view with header buttons if previous or next month are fully disabled by disableUntil or disableSince. |
-| __showWeekNumbers__   | false | Is week numbers visible or not on calendar. Can be used if __firstDayOfWeek = mo__. |
+| __showWeekNumbers__   | false | Are week numbers visible or not on calendar. Can be used if __firstDayOfWeek = mo__. |
 | __inline__   | false | Show mydatepicker in inline mode. |
 | __showClearDateBtn__   | true | Is clear date button shown or not. Can be used if __inline = false__. |
 | __height__   | 34px | mydatepicker height in without selector. Can be used if __inline = false__. |
