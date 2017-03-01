@@ -12,10 +12,6 @@ const inlineSampleTpl: string = require('./sample-date-picker-inline.html');
 export class SampleDatePickerInline implements OnInit {
 
     private myDatePickerInlineOptions: IMyOptions = {
-        todayBtnTxt: 'Today',
-        dateFormat: 'yyyy-mm-dd',
-        firstDayOfWeek: 'mo',
-        sunHighlight: true,
         inline: true,
         disableUntil: {year: 0, month: 0, day: 0},
         disableDays: [{year: 0, month: 0, day: 0}],
@@ -25,7 +21,7 @@ export class SampleDatePickerInline implements OnInit {
 
     private selectedTextInline: string = '';
     private border: string = 'none';
-    private locale:string = '';
+    private locale:string = 'en';
 
     private locales:Array<string> = new Array('en', 'fr', 'ja', 'fi', 'es', 'hu', 'sv', 'nl', 'ru', 'uk', 'no', 'tr', 'pt-br', 'de', 'it', 'it-ch', 'pl', 'my', 'sk', 'sl', 'zh-cn', 'he', 'ro');
     

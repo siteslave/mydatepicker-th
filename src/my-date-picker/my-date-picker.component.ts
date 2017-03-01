@@ -252,10 +252,10 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     parseOptions(): void {
-        this.setOptions();
         if (this.locale) {
             this.setLocaleOptions();
         }
+        this.setOptions();
         this.isTodayDisabled();
         this.dayIdx = this.weekDayOpts.indexOf(this.opts.firstDayOfWeek);
         if (this.dayIdx !== -1) {

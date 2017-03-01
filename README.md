@@ -245,10 +245,11 @@ Value of the __options__ attribute is a type of [IMyOptions](https://github.com/
 
 ### locale attribute
 
-An ISO 639-1 language code can be provided as shorthand for several of the options listed above.
+An ISO 639-1 language code can be provided as shorthand for the following options (dayLabels, monthLabels, dateFormat, todayBtnTxt, firstDayOfWeek and sunHighlight).
 Currently supported languages: __en__, __fr__, __ja__, __fi__, __es__, __hu__, __sv__, __nl__, __ru__, __uk__, __no__, __tr__,
-__pt-br__, __de__, __it__, __it-ch__, __pl__, __my__, __sk__, __sl__, __zh-cn__, __he__ and __ro__. If the __locale__ attribute is used it overrides dayLabels, monthLabels, dateFormat, todayBtnTxt,
-firstDayOfWeek and sunHighlight properties from the options.
+__pt-br__, __de__, __it__, __it-ch__, __pl__, __my__, __sk__, __sl__, __zh-cn__, __he__ and __ro__.
+
+The __locale__ options can be override by __options__ attribute.
 
 * new locale data can be added to [this](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/services/my-date-picker.locale.service.ts)
 file. If you want to add a new locale create a pull request.
