@@ -200,11 +200,13 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         if (this.invalidDate) {
             this.inputFieldChanged.emit({value: event.target.value, dateFormat: this.opts.dateFormat, valid: !(event.target.value.length === 0 || this.invalidDate)});
             this.onChangeCb("");
+            this.onTouchedCb();
         }
     }
 
     lostFocusInput(event: any): void {
         this.selectionDayTxt = event.target.value;
+        this.onTouchedCb();
     }
 
     userMonthInput(event: any): void {
@@ -457,6 +459,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         let date: IMyDate = {year: 0, month: 0, day: 0};
         this.dateChanged.emit({date: date, jsdate: null, formatted: "", epoc: 0});
         this.onChangeCb("");
+        this.onTouchedCb();
         this.updateDateValue(date, true);
     }
 
@@ -465,6 +468,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         let dateModel: IMyDateModel = this.getDateModel(date);
         this.dateChanged.emit(dateModel);
         this.onChangeCb(dateModel);
+        this.onTouchedCb();
         this.updateDateValue(date, false);
         if (this.showSelector) {
             this.calendarToggle.emit(2);
