@@ -22,7 +22,14 @@ export class SampleDatePickerAccessModifier implements OnInit {
     private myForm: FormGroup;
 
     //private model: string = '';   // not initial date set
-    private model: Object = {date: {year: 2018, month: 10, day: 9}};   // this example is initialized to specific date
+    //private model: Object = {date: {year: 2018, month: 10, day: 9}};   // this example is initialized to specific date
+
+    private model = {
+        mydate: <Object> {date: {year: 2018, month: 10, day: 9}},
+        property1: true,
+        property2: 'testing...'
+    };
+
 
     private selector: number = 0;
 
@@ -42,7 +49,7 @@ export class SampleDatePickerAccessModifier implements OnInit {
     }
 
     clearNgModelDate(): void {
-        this.model = '';
+        this.model.mydate = '';
     }
 
     toggleSelector(event: any): void {

@@ -33,7 +33,7 @@
             <div class="title">ngModel</div>
             <div>
                 <form #f="ngForm" (ngSubmit)="onSubmitNgModel()" novalidate>
-                    <my-date-picker name="ngModelDate" [options]="myDatePickerOptions" [selector]="selector" [(ngModel)]="model" required></my-date-picker>
+                    <my-date-picker name="ngModelDate" [options]="myDatePickerOptions" [selector]="selector" [(ngModel)]="model.mydate" required></my-date-picker>
                     <div>
                         <button class="button" type="submit" [disabled]="!f.valid">Submit</button>
                         <button class="button" type="button" (click)="clearNgModelDate()">Clear date</button>
