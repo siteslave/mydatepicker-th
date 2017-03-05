@@ -363,7 +363,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     setVisibleMonth(): void {
         // Sets visible month of calendar
         let y: number = 0, m: number = 0;
-        if (this.selectedDate.year === 0 && this.selectedDate.month === 0 && this.selectedDate.day === 0) {
+        if (!this.utilService.isInitializedDate(this.selectedDate)) {
             if (this.selectedMonth.year === 0 && this.selectedMonth.monthNbr === 0) {
                 let today: IMyDate = this.getToday();
                 y = today.year;
@@ -432,15 +432,20 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     cellClicked(cell: any): void {
         // Cell clicked on the calendar
         if (cell.cmo === this.PREV_MONTH) {
-            // Previous month of day
+            // Previous month day
             this.prevMonth();
         }
         else if (cell.cmo === this.CURR_MONTH) {
-            // Current month of day
-            this.selectDate(cell.dateObj);
+            // Current month day - if date is already selected clear it
+            if (cell.dateObj.year === this.selectedDate.year && cell.dateObj.month === this.selectedDate.month && cell.dateObj.day === this.selectedDate.day) {
+                this.clearDate();
+            }
+            else {
+                this.selectDate(cell.dateObj);
+            }
         }
         else if (cell.cmo === this.NEXT_MONTH) {
-            // Next month of day
+            // Next month day
             this.nextMonth();
         }
         this.resetMonthYearEdit();

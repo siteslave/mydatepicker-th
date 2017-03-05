@@ -92,6 +92,48 @@ describe('MyDatePicker', () => {
         expect(selection.nativeElement.value).toContain('');
     });
 
+    it('select/unselect current day from the selector', () => {
+        let date = new Date();
+        comp.selectedMonth = {monthTxt: '', monthNbr: date.getMonth() + 1, year: date.getFullYear()};
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        let currday = getElement('.currday');
+        expect(currday).not.toBe(null);
+
+        currday.nativeElement.click();
+
+        let dateStr = getDateString(date);
+        fixture.detectChanges();
+        let selection = getElement('.selection');
+        expect(selection.nativeElement.value).toContain(dateStr);
+
+        fixture.detectChanges();
+        btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+
+        fixture.detectChanges();
+        let selectedday = getElement('.selectedday');
+        expect(selectedday).not.toBe(null);
+
+        fixture.detectChanges();
+        currday = getElement('.currday');
+        expect(currday).not.toBe(null);
+        currday.nativeElement.click();
+
+        fixture.detectChanges();
+        selectedday = getElement('.selectedday');
+        expect(selectedday).toBe(null);
+
+        fixture.detectChanges();
+        selection = getElement('.selection');
+        expect(selection.nativeElement.value).toBe('');
+    });
+
     it('select today button', () => {
         let date = new Date();
 
@@ -1111,6 +1153,7 @@ describe('MyDatePicker', () => {
         let btnclear = getElement('.btnclear');
         expect(btnclear).not.toBe(null);
 
+        btnclear.nativeElement.click();
 
         comp.options = {showClearDateBtn: true};
         comp.parseOptions();
@@ -1128,6 +1171,8 @@ describe('MyDatePicker', () => {
         fixture.detectChanges();
         btnclear = getElement('.btnclear');
         expect(btnclear).not.toBe(null);
+        btnclear.nativeElement.click();
+
         btnclear.nativeElement.click();
 
 
