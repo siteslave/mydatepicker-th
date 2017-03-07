@@ -50,7 +50,7 @@ To install this component to an external project, follow the procedure:
         });
     })(this);
     ```
-    
+
 ## Usage
 
 Use one of the following three options.
@@ -61,7 +61,7 @@ In this option the mydatepicker sends data back to host application using callba
 is an example application. It shows how to use callbacks.
 
 To use callbacks define the application class as follows:
-  
+
 ```js
 import {IMyOptions, IMyDateModel} from 'mydatepicker';
 // other imports here...
@@ -247,7 +247,7 @@ Value of the __options__ attribute is a type of [IMyOptions](https://github.com/
 
 An ISO 639-1 language code can be provided as shorthand for the following options (dayLabels, monthLabels, dateFormat, todayBtnTxt, firstDayOfWeek and sunHighlight).
 Currently supported languages: __en__, __fr__, __ja__, __fi__, __es__, __hu__, __sv__, __nl__, __ru__, __uk__, __no__, __tr__,
-__pt-br__, __de__, __it__, __it-ch__, __pl__, __my__, __sk__, __sl__, __zh-cn__, __he__ and __ro__.
+__pt-br__, __de__, __it__, __it-ch__, __pl__, __my__, __sk__, __sl__, __zh-cn__, __he__, __ro__ and __ca__.
 
 The __locale__ options can be override by __options__ attribute.
 
