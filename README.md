@@ -227,6 +227,13 @@ Value of the __options__ attribute is a type of [IMyOptions](https://github.com/
 | __showInputField__   | true | Is selection area input field shown or not. If not, just show the icon. Can be used if __inline = false__. |
 | __openSelectorOnInputClick__   | false | Open selector when the input field is clicked. Can be used if __inline = false and editableDateField = false__. |
 | __inputAutoFill__   | true | Is auto fill used or not when typing to the input box. Can be used if __inline = false__. |
+| __ariaLabelInputField__   | Date input field | Aria label text of input field. |
+| __ariaLabelClearDate__   | Clear Date | Aria label text of clear date button. |
+| __ariaLabelOpenCalendar__   | Open Calendar | Aria label text of open calendar button. |
+| __ariaLabelPrevMonth__   | Previous Month | Aria label text of previous month button. |
+| __ariaLabelNextMonth__   | Next Month | Aria label text of next month button. |
+| __ariaLabelPrevYear__   | Previous Year | Aria label text of previous year button. |
+| __ariaLabelNextYear__   | Next Year | Aria label text of next year button. |
 
 * Example of the options data (not all properties listed):
 ```ts

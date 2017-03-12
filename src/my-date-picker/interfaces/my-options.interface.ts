@@ -38,4 +38,11 @@ export interface IMyOptions {
     showInputField?: boolean;
     openSelectorOnInputClick?: boolean;
     inputAutoFill?: boolean;
+    ariaLabelInputField?: string;
+    ariaLabelClearDate?: string;
+    ariaLabelOpenCalendar?: string;
+    ariaLabelPrevMonth?: string;
+    ariaLabelNextMonth?: string;
+    ariaLabelPrevYear?: string;
+    ariaLabelNextYear?: string;
 }

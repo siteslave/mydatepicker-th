@@ -1800,6 +1800,100 @@ describe('MyDatePicker', () => {
         expect(daycellweeknbr[5].nativeElement.textContent.trim()).toBe('6');
     });
 
+    it('options - aria label texts', () => {
+        comp.selectedDate = comp.parseSelectedDate('2017-10-11');
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        expect(btnpicker).not.toBe(null);
+        expect(btnpicker.nativeElement.attributes['aria-label'].textContent).toBe('Open Calendar');
+
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        let selection = getElement('.selection');
+        expect(selection).not.toBe(null);
+        expect(selection.nativeElement.attributes['aria-label'].textContent).toBe('Date input field');
+
+        fixture.detectChanges();
+        let btnclear = getElement('.btnclear');
+        expect(btnclear).not.toBe(null);
+        expect(btnclear.nativeElement.attributes['aria-label'].textContent).toBe('Clear Date');
+
+
+        fixture.detectChanges();
+        let prevmonth = getElement(PREVMONTH);
+        expect(prevmonth).not.toBe(null);
+        expect(prevmonth.nativeElement.attributes['aria-label'].textContent).toBe('Previous Month');
+
+        fixture.detectChanges();
+        let nextmonth = getElement(NEXTMONTH);
+        expect(nextmonth).not.toBe(null);
+        expect(nextmonth.nativeElement.attributes['aria-label'].textContent).toBe('Next Month');
+
+        fixture.detectChanges();
+        let prevyear = getElement(PREVYEAR);
+        expect(prevyear).not.toBe(null);
+        expect(prevyear.nativeElement.attributes['aria-label'].textContent).toBe('Previous Year');
+
+        fixture.detectChanges();
+        let nextyear = getElement(NEXTYEAR);
+        expect(nextyear).not.toBe(null);
+        expect(nextyear.nativeElement.attributes['aria-label'].textContent).toBe('Next Year');
+
+        btnpicker.nativeElement.click();
+
+        comp.options = {
+            ariaLabelInputField: 'text 1',
+            ariaLabelClearDate: 'text 2',
+            ariaLabelOpenCalendar: 'text 3',
+            ariaLabelPrevMonth: 'text 4',
+            ariaLabelNextMonth: 'text 5',
+            ariaLabelPrevYear: 'text 6',
+            ariaLabelNextYear: 'text 7'
+        };
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        btnpicker = getElement('.btnpicker');
+        expect(btnpicker).not.toBe(null);
+        expect(btnpicker.nativeElement.attributes['aria-label'].textContent).toBe(comp.options.ariaLabelOpenCalendar);
+
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        selection = getElement('.selection');
+        expect(selection).not.toBe(null);
+        expect(selection.nativeElement.attributes['aria-label'].textContent).toBe(comp.options.ariaLabelInputField);
+
+        fixture.detectChanges();
+        btnclear = getElement('.btnclear');
+        expect(btnclear).not.toBe(null);
+        expect(btnclear.nativeElement.attributes['aria-label'].textContent).toBe(comp.options.ariaLabelClearDate);
+
+
+        fixture.detectChanges();
+        prevmonth = getElement(PREVMONTH);
+        expect(prevmonth).not.toBe(null);
+        expect(prevmonth.nativeElement.attributes['aria-label'].textContent).toBe(comp.options.ariaLabelPrevMonth);
+
+        fixture.detectChanges();
+        nextmonth = getElement(NEXTMONTH);
+        expect(nextmonth).not.toBe(null);
+        expect(nextmonth.nativeElement.attributes['aria-label'].textContent).toBe(comp.options.ariaLabelNextMonth);
+
+        fixture.detectChanges();
+        prevyear = getElement(PREVYEAR);
+        expect(prevyear).not.toBe(null);
+        expect(prevyear.nativeElement.attributes['aria-label'].textContent).toBe(comp.options.ariaLabelPrevYear);
+
+        fixture.detectChanges();
+        nextyear = getElement(NEXTYEAR);
+        expect(nextyear).not.toBe(null);
+        expect(nextyear.nativeElement.attributes['aria-label'].textContent).toBe(comp.options.ariaLabelNextYear);
+    });
+
     it('locale - use fr locale', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 1, year: 2016};
         comp.locale = 'fr';

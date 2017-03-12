@@ -104,7 +104,14 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         showSelectorArrow: <boolean> true,
         showInputField: <boolean> true,
         openSelectorOnInputClick: <boolean> false,
-        inputAutoFill: <boolean> true
+        inputAutoFill: <boolean> true,
+        ariaLabelInputField: <string> "Date input field",
+        ariaLabelClearDate: <string> "Clear Date",
+        ariaLabelOpenCalendar: <string> "Open Calendar",
+        ariaLabelPrevMonth: <string> "Previous Month",
+        ariaLabelNextMonth: <string> "Next Month",
+        ariaLabelPrevYear: <string> "Previous Year",
+        ariaLabelNextYear: <string> "Next Year"
     };
 
     constructor(public elem: ElementRef, private renderer: Renderer, private localeService: LocaleService, private utilService: UtilService) {
