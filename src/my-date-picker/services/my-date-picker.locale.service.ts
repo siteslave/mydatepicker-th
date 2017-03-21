@@ -202,7 +202,15 @@ export class LocaleService {
             todayBtnTxt: "Hari ini",
             firstDayOfWeek: "su",
             sunHighlight: true
-        }
+        },
+        "en-au": {
+            dayLabels: {su: "Sun", mo: "Mon", tu: "Tue", we: "Wed", th: "Thu", fr: "Fri", sa: "Sat"},
+            monthLabels: { 1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "May", 6: "Jun", 7: "Jul", 8: "Aug", 9: "Sep", 10: "Oct", 11: "Nov", 12: "Dec" },
+            dateFormat: "dd/mm/yyyy",
+            todayBtnTxt: "Today",
+            firstDayOfWeek: "mo",
+            sunHighlight: true,
+        },        
     };
 
     getLocaleOptions(locale: string): IMyOptions {
