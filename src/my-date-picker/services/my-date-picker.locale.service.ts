@@ -210,7 +210,7 @@ export class LocaleService {
             todayBtnTxt: "Today",
             firstDayOfWeek: "mo",
             sunHighlight: true,
-        },        
+        }        
     };
 
     getLocaleOptions(locale: string): IMyOptions {
