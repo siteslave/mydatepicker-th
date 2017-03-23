@@ -209,8 +209,8 @@ export class LocaleService {
             dateFormat: "dd/mm/yyyy",
             todayBtnTxt: "Today",
             firstDayOfWeek: "mo",
-            sunHighlight: true,
-        }        
+            sunHighlight: true
+        }
     };
 
     getLocaleOptions(locale: string): IMyOptions {
