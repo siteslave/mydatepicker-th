@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ElementRef, ViewEncapsulation, Renderer, forwardRef } from "@angular/core";
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ElementRef, ViewEncapsulation, ChangeDetectorRef, Renderer, forwardRef } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { IMyDate, IMyDateRange, IMyMonth, IMyCalendarDay, IMyWeek, IMyDayLabels, IMyMonthLabels, IMyOptions, IMyDateModel, IMyInputAutoFill, IMyInputFieldChanged, IMyCalendarViewChanged } from "./interfaces/index";
 import { LocaleService } from "./services/my-date-picker.locale.service";
@@ -35,6 +35,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     @Output() inputFieldChanged: EventEmitter<IMyInputFieldChanged> = new EventEmitter<IMyInputFieldChanged>();
     @Output() calendarViewChanged: EventEmitter<IMyCalendarViewChanged> = new EventEmitter<IMyCalendarViewChanged>();
     @Output() calendarToggle: EventEmitter<number> = new EventEmitter<number>();
+    @Output() focusBlur: EventEmitter<number> = new EventEmitter<number>();
 
     onChangeCb: (_: any) => void = () => { };
     onTouchedCb: () => void = () => { };
@@ -114,7 +115,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         ariaLabelNextYear: <string> "Next Year"
     };
 
-    constructor(public elem: ElementRef, private renderer: Renderer, private localeService: LocaleService, private utilService: UtilService) {
+    constructor(public elem: ElementRef, private renderer: Renderer, private cdr: ChangeDetectorRef, private localeService: LocaleService, private utilService: UtilService) {
         this.setLocaleOptions();
         renderer.listenGlobal("document", "click", (event: any) => {
             if (this.showSelector && event.target && this.elem.nativeElement !== event.target && !this.elem.nativeElement.contains(event.target)) {
@@ -211,9 +212,14 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         }
     }
 
+    onFocusInput(): void {
+        this.focusBlur.emit(1);
+    }
+
     lostFocusInput(event: any): void {
         this.selectionDayTxt = event.target.value;
         this.onTouchedCb();
+        this.focusBlur.emit(2);
     }
 
     userMonthInput(event: any): void {
@@ -650,13 +656,6 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
 
     parseSelectedMonth(ms: string): IMyMonth {
         return this.utilService.parseDefaultMonth(ms);
-    }
-
-    handleInputClick(event: MouseEvent): void {
-        if (!this.opts.editableDateField && this.opts.openSelectorOnInputClick) {
-            event.preventDefault();
-            this.openBtnClicked();
-        }
     }
 
     setHeaderBtnDisabledState(m: number, y: number): void {
