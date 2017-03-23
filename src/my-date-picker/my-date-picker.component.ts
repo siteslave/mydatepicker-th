@@ -35,7 +35,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     @Output() inputFieldChanged: EventEmitter<IMyInputFieldChanged> = new EventEmitter<IMyInputFieldChanged>();
     @Output() calendarViewChanged: EventEmitter<IMyCalendarViewChanged> = new EventEmitter<IMyCalendarViewChanged>();
     @Output() calendarToggle: EventEmitter<number> = new EventEmitter<number>();
-    @Output() focusBlur: EventEmitter<number> = new EventEmitter<number>();
+    @Output() inputFocusBlur: EventEmitter<number> = new EventEmitter<number>();
 
     onChangeCb: (_: any) => void = () => { };
     onTouchedCb: () => void = () => { };
@@ -213,13 +213,13 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     onFocusInput(): void {
-        this.focusBlur.emit(1);
+        this.inputFocusBlur.emit(1);
     }
 
     lostFocusInput(event: any): void {
         this.selectionDayTxt = event.target.value;
         this.onTouchedCb();
-        this.focusBlur.emit(2);
+        this.inputFocusBlur.emit(2);
     }
 
     userMonthInput(event: any): void {
