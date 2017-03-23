@@ -360,18 +360,18 @@ Selector can be opened or closed using this attribute. [Here](https://github.com
     }
   ```
 
-  ### focusBlur callback
-    * called when the get ot lost focus
-      * event: number from 1 or 2 indicating the reason of the event
-        * 1 = focus to input box
-        * 2 = focus out of input box
+### focusBlur callback
+  * called when the get ot lost focus
+    * event: number from 1 or 2 indicating the reason of the event
+      * 1 = focus to input box
+      * 2 = focus out of input box
 
-    * Example of the focus blur callback:
-    ```js
-      onFocusBlur(event: number): void {
-          console.log('onFocusBlur(): Reason: ', event);
-      }
-    ```
+  * Example of the focus blur callback:
+  ```js
+    onFocusBlur(event: number): void {
+        console.log('onFocusBlur(): Reason: ', event);
+    }
+  ```
 
 ## Change styles of the component
 
