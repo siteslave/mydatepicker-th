@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {IMyOptions, IMyDateModel, IMyInputFieldChanged, IMyCalendarViewChanged} from '../../src/my-date-picker/interfaces';
+import {IMyOptions, IMyDateModel, IMyInputFieldChanged, IMyCalendarViewChanged, IMyInputFocusBlur} from '../../src/my-date-picker/interfaces';
 
 declare var require:any;
 const normalSampleTpl: string = require('./sample-date-picker-normal.html');
@@ -153,8 +153,8 @@ export class SampleDatePickerNormal implements OnInit {
         console.log('onCalendarToggle(): Value: ', event);
     }
 
-    onInputFocusBlur(event: number): void {
-        console.log('onInputFocusBlur(): Value: ', event);
+    onInputFocusBlur(event: IMyInputFocusBlur): void {
+        console.log('onInputFocusBlur(): Reason: ', event. reason, ' - Value: ', event.value);
     }
 
     getCopyOfOptions(): IMyOptions {

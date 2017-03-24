@@ -362,14 +362,17 @@ Selector can be opened or closed using this attribute. [Here](https://github.com
 
 ### inputFocusBlur callback
   * called when the input box get or lost focus
-    * event: number from 1 or 2 indicating the reason of the event
+  * event parameter:
+    * event.reason: Reason of the event:
       * 1 = focus to input box
       * 2 = focus out of input box
+    * event.value: Value of input box
+    * event parameter type is [IMyInputFocusBlur](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/interfaces/my-input-focus-blur.interface.ts)
 
   * Example of the input focus blur callback:
   ```js
-    oninputFocusBlur(event: number): void {
-        console.log('onFocusBlur(): Reason: ', event);
+    onInputFocusBlur(event: IMyInputFocusBlur): void {
+        console.log('onInputFocusBlur(): Reason: ', event. reason, ' - Value: ', event.value);
     }
   ```
 
