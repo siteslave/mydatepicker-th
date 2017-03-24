@@ -5,10 +5,10 @@
                 (keyup)="userDateInput($event)" [value]="selectionDayTxt" (focus)="onFocusInput($event)" (blur)="opts.editableDateField&&lostFocusInput($event)" [disabled]="opts.componentDisabled" [readonly]="!opts.editableDateField" [required]="opts.inputValueRequired">
         <div class="selbtngroup" [style.height]="opts.height">
             <button type="button" [attr.aria-label]="opts.ariaLabelClearDate" class="btnclear" *ngIf="selectionDayTxt.length>0&&opts.showClearDateBtn" (click)="removeBtnClicked()" [ngClass]="{'btnclearenabled': !opts.componentDisabled, 'btncleardisabled': opts.componentDisabled, 'btnleftborder': opts.showInputField}" [disabled]="opts.componentDisabled">
-                <span class="mydpicon icon-mydpremove" [ngStyle]="{'line-height': opts.height}"></span>
+                <span class="mydpicon icon-mydpremove"></span>
             </button>
             <button type="button" [attr.aria-label]="opts.ariaLabelOpenCalendar" class="btnpicker" (click)="openBtnClicked()" [ngClass]="{'btnpickerenabled': !opts.componentDisabled, 'btnpickerdisabled': opts.componentDisabled, 'btnleftborder': opts.showInputField||selectionDayTxt.length>0&&opts.showClearDateBtn}" [disabled]="opts.componentDisabled">
-                <span class="mydpicon icon-mydpcalendar" [ngStyle]="{'line-height': opts.height}"></span>
+                <span class="mydpicon icon-mydpcalendar"></span>
             </button>
         </div>
     </div>
