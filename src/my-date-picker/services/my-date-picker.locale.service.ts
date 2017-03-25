@@ -211,7 +211,7 @@ export class LocaleService {
             firstDayOfWeek: "mo",
             sunHighlight: true
         },
-        "am_ET": {
+        "am-et": {
             dayLabels: {su: "እሑድ", mo: "ሰኞ", tu: "ማክሰኞ", we: "ረቡዕ", th: "ሐሙስ", fr: "ዓርብ", sa: "ቅዳሜ"},
             monthLabels: { 1: "ጃንዩ", 2: "ፌብሩ", 3: "ማርች", 4: "ኤፕረ", 5: "ሜይ", 6: "ጁን", 7: "ጁላይ", 8: "ኦገስ", 9: "ሴፕቴ", 10: "ኦክተ", 11: "ኖቬም", 12: "ዲሴም" },
             dateFormat: "yyyy-mm-dd",
