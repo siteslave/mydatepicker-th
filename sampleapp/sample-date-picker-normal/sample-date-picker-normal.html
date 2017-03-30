@@ -74,10 +74,10 @@
     <table style="width: 100%">
         <tr>
             <td style="vertical-align: top">
-                <my-date-picker [options]="myDatePickerNormalOptions"
+                <my-date-picker [options]="myDatePickerNormalOptions" #mydp="mydatepicker"
                                 (dateChanged)="onDateChanged($event)" (inputFieldChanged)="onInputFieldChanged($event)"
                                 (calendarViewChanged)="onCalendarViewChanged($event)" (calendarToggle)="onCalendarToggle($event)" (inputFocusBlur)="onInputFocusBlur($event)"
-                                [selDate]="selectedDateNormal" [placeholder]="placeholder" [selector]="selector"></my-date-picker>
+                                [selDate]="selectedDateNormal" [placeholder]="placeholder"></my-date-picker>
             </td>
             <td style="vertical-align: top">
                 <div style="padding:4px;border-radius:4px;float:right" [ngStyle]="{border: border}">

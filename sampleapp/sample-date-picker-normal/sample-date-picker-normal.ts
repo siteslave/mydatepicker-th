@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {IMyOptions, IMyDateModel, IMyInputFieldChanged, IMyCalendarViewChanged, IMyInputFocusBlur} from '../../src/my-date-picker/interfaces';
+import {MyDatePicker} from '../../src/my-date-picker/my-date-picker.component';
 
 declare var require:any;
 const normalSampleTpl: string = require('./sample-date-picker-normal.html');
@@ -10,6 +11,8 @@ const normalSampleTpl: string = require('./sample-date-picker-normal.html');
 })
 
 export class SampleDatePickerNormal implements OnInit {
+
+    @ViewChild('mydp') mydp: MyDatePicker;
 
     private myDatePickerNormalOptions: IMyOptions = {
         todayBtnTxt: 'Today',
@@ -42,7 +45,6 @@ export class SampleDatePickerNormal implements OnInit {
     private border: string = 'none';
 
     private placeholder: string = 'Select date';
-    private selector: number = 0;
 
     constructor() {}
 
@@ -119,8 +121,7 @@ export class SampleDatePickerNormal implements OnInit {
 
     onToggleSelector(event: any) {
         event.stopPropagation();
-        // Increase value of selector by one in order the component detect change
-        this.selector++;
+        this.mydp.openBtnClicked();
     }
 
     ngOnInit() {

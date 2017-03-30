@@ -18,6 +18,7 @@ export const MYDP_VALUE_ACCESSOR: any = {
 
 @Component({
     selector: "my-date-picker",
+    exportAs: "mydatepicker",
     styles: [myDpStyles],
     template: myDpTpl,
     providers: [LocaleService, UtilService, MYDP_VALUE_ACCESSOR],
