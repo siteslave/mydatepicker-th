@@ -218,6 +218,14 @@ export class LocaleService {
             todayBtnTxt: "ዛሬ",
             firstDayOfWeek: "mo",
             sunHighlight: true
+        },
+        "cs": {
+            dayLabels: { su: "Ne", mo: "Po", tu: "Út", we: "St", th: "Čt", fr: "Pá", sa: "So" },
+            monthLabels: { 1: "Led", 2: "Úno", 3: "Bře", 4: "Dub", 5: "Kvě", 6: "Čvn", 7: "Čvc", 8: "Srp", 9: "Zář", 10: "Říj", 11: "Lis", 12: "Pro" },
+            dateFormat: "dd.mm.yyyy",
+            todayBtnTxt: "Dnes",
+            firstDayOfWeek: "mo",
+            sunHighlight: true,
         }
     };
 
