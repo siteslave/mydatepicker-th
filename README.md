@@ -208,7 +208,7 @@ Value of the __options__ attribute is a type of [IMyOptions](https://github.com/
 | __disableSince__   | no default value | [IMyDate](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/interfaces/my-date.interface.ts) | Disable dates forward starting from the given date. For example: {year: 2016, month: 7, day: 22} |
 | __disableDays__   | no default value  | Array<[IMyDate](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/interfaces/my-date.interface.ts)> | Disable single dates one by one. Array of disabled dates. For example: [{year: 2016, month: 11, day: 14}, {year: 2016, month: 1, day: 15}] |
 | __enableDays__   | no default value  | Array<[IMyDate](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/interfaces/my-date.interface.ts)> | Enable given dates one by one if the date is disabled. For example if you disable the date range and want to enable some dates in range. Array of enabled days. For example: [{year: 2016, month: 11, day: 14}, {year: 2016, month: 1, day: 15}] |
-| __disableDateRange__   | no default value | [IMyDateRange](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/interfaces/my-date-range.interface.ts) | Disable a date range from begin to end. For example: {begin: {year: 2016, month: 11, day: 14}, end: {year: 2016, month: 11, day: 20} |
+| __disableDateRanges__   | no default value | Array<[IMyDateRange](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/interfaces/my-date-range.interface.ts)> | Disable date ranges. For example: [{begin: {year: 2016, month: 11, day: 14}, end: {year: 2016, month: 11, day: 20}] |
 | __disableWeekends__   | false | boolean | Disable weekends (Saturday and Sunday). |
 | __disableHeaderButtons__   | true | boolean | Prevent to change the calendar view with header buttons if previous or next month are fully disabled by disableUntil or disableSince. |
 | __showWeekNumbers__   | false | boolean | Are week numbers visible or not on calendar. Can be used if __firstDayOfWeek = mo__. |
@@ -222,7 +222,6 @@ Value of the __options__ attribute is a type of [IMyOptions](https://github.com/
 | __indicateInvalidDate__   | true | boolean | If user typed date is not same format as __dateFormat__, show red background in the selection area. Can be used if __inline = false__. |
 | __componentDisabled__   | false | boolean | Is selection area input field and buttons disabled or not (input disabled flag). Can be used if __inline = false__. |
 | __editableDateField__   | true | boolean | Is selection area input field editable or not (input readonly flag). Can be used if __inline = false__. |
-| __inputValueRequired__   | false | boolean | Is selection area input field value required or not (input required flag). Can be used if __inline = false__. |
 | __showSelectorArrow__   | true | boolean | Is selector (calendar) arrow shown or not. Can be used if __inline = false__. |
 | __showInputField__   | true | boolean | Is selection area input field shown or not. If not, just show the icon. Can be used if __inline = false__. |
 | __openSelectorOnInputClick__   | false | boolean | Open selector when the input field is clicked. Can be used if __inline = false and editableDateField = false__. |

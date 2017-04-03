@@ -6,7 +6,7 @@ import { IMyMonthLabels } from "../interfaces/my-month-labels.interface";
 
 @Injectable()
 export class UtilService {
-    isDateValid(dateStr: string, dateFormat: string, minYear: number, maxYear: number, disableUntil: IMyDate, disableSince: IMyDate, disableWeekends: boolean, disableDays: Array<IMyDate>, disableDateRange: IMyDateRange, monthLabels: IMyMonthLabels, enableDays: Array<IMyDate>): IMyDate {
+    isDateValid(dateStr: string, dateFormat: string, minYear: number, maxYear: number, disableUntil: IMyDate, disableSince: IMyDate, disableWeekends: boolean, disableDays: Array<IMyDate>, disableDateRanges: Array<IMyDateRange>, monthLabels: IMyMonthLabels, enableDays: Array<IMyDate>): IMyDate {
         let returnDate: IMyDate = {day: 0, month: 0, year: 0};
         let daysInMonth: Array<number> = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         let isMonthStr: boolean = this.getDatePartIndex(dateFormat, "mmm") !== -1;
@@ -33,7 +33,7 @@ export class UtilService {
 
             let date: IMyDate = {year: year, month: month, day: day};
 
-            if (this.isDisabledDay(date, disableUntil, disableSince, disableWeekends, disableDays, disableDateRange, enableDays)) {
+            if (this.isDisabledDay(date, disableUntil, disableSince, disableWeekends, disableDays, disableDateRanges, enableDays)) {
                 return returnDate;
             }
 
@@ -105,9 +105,9 @@ export class UtilService {
         return month;
     }
 
-    isDisabledDay(date: IMyDate, disableUntil: IMyDate, disableSince: IMyDate, disableWeekends: boolean, disableDays: Array<IMyDate>, disableDateRange: IMyDateRange, enableDays: Array<IMyDate>): boolean {
-        for (let obj of enableDays) {
-            if (obj.year === date.year && obj.month === date.month && obj.day === date.day) {
+    isDisabledDay(date: IMyDate, disableUntil: IMyDate, disableSince: IMyDate, disableWeekends: boolean, disableDays: Array<IMyDate>, disableDateRanges: Array<IMyDateRange>, enableDays: Array<IMyDate>): boolean {
+        for (let e of enableDays) {
+            if (e.year === date.year && e.month === date.month && e.day === date.day) {
                 return false;
             }
         }
@@ -122,20 +122,22 @@ export class UtilService {
         }
 
         if (disableWeekends) {
-            let dayNbr = this.getDayNumber(date);
-            if (dayNbr === 0 || dayNbr === 6) {
+            let dn = this.getDayNumber(date);
+            if (dn === 0 || dn === 6) {
                 return true;
             }
         }
 
-        for (let obj of disableDays) {
-            if (obj.year === date.year && obj.month === date.month && obj.day === date.day) {
+        for (let d of disableDays) {
+            if (d.year === date.year && d.month === date.month && d.day === date.day) {
                 return true;
             }
         }
 
-        if (this.isInitializedDate(disableDateRange.begin) && this.isInitializedDate(disableDateRange.end) && dateMs >= this.getTimeInMilliseconds(disableDateRange.begin) && dateMs <= this.getTimeInMilliseconds(disableDateRange.end)) {
-            return true;
+        for (let d of disableDateRanges) {
+            if (this.isInitializedDate(d.begin) && this.isInitializedDate(d.end) && dateMs >= this.getTimeInMilliseconds(d.begin) && dateMs <= this.getTimeInMilliseconds(d.end)) {
+                return true;
+            }
         }
         return false;
     }

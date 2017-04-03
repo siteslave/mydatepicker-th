@@ -85,9 +85,7 @@ export class SampleDatePickerInline implements OnInit {
         bdate.setDate(bdate.getDate() - 3);
         edate.setDate(edate.getDate() + 3);
 
-        copy.disableDateRange = checked ? {
-            begin: {year: bdate.getFullYear(), month: bdate.getMonth() + 1, day: bdate.getDate()},
-                end: {year: edate.getFullYear(), month: edate.getMonth() + 1, day: edate.getDate()}} : {begin: {year: 0, month: 0, day: 0}, end: {year: 0, month: 0, day: 0}};
+        copy.disableDateRanges = checked ? [{begin: {year: bdate.getFullYear(), month: bdate.getMonth() + 1, day: bdate.getDate()}, end: {year: edate.getFullYear(), month: edate.getMonth() + 1, day: edate.getDate()}}] : [];
         this.myDatePickerInlineOptions = copy;
     }
 
