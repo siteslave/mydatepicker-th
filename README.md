@@ -55,15 +55,15 @@ To install this component to an external project, follow the procedure:
 
 Use one of the following three options.
 
-### 1. Callbacks
+### 1. ngModel binding
 
-In this option the mydatepicker sends data back to host application using callbacks. [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-normal)
-is an example application. It shows how to use callbacks.
+In this option the ngModel binding is used. [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-access-modifier)
+is an example application. It shows how to use the __ngModel__.
 
-To use callbacks define the application class as follows:
+To use ngModel define the application class as follows:
 
-```js
-import {IMyOptions, IMyDateModel} from 'mydatepicker';
+```ts
+import {IMyOptions} from 'mydatepicker';
 // other imports here...
 
 export class MyTestApp {
@@ -73,21 +73,20 @@ export class MyTestApp {
         dateFormat: 'dd.mm.yyyy',
     };
 
-    constructor() { }
+    // Initialized to specific date (09.10.2018).
+    private model: Object = { date: { year: 2018, month: 10, day: 9 } };
 
-    // dateChanged callback function called when the user select the date. This is mandatory callback
-    // in this option. There are also optional inputFieldChanged and calendarViewChanged callbacks.
-    onDateChanged(event: IMyDateModel) {
-        // event properties are: event.date, event.jsdate, event.formatted and event.epoc
-    }
+    constructor() { }
 }
 ```
 
 Add the following snippet inside your template:
 
 ```html
-<my-date-picker [options]="myDatePickerOptions"
-                (dateChanged)="onDateChanged($event)"></my-date-picker>
+<form #myForm="ngForm" novalidate>
+    <my-date-picker name="mydate" [options]="myDatePickerOptions"
+                    [(ngModel)]="model" required></my-date-picker>
+</form>
 ```
 
 ### 2. Reactive forms
@@ -151,15 +150,15 @@ Add the following snippet inside your template:
 </form>
 ```
 
-### 3. ngModel binding
+### 3. Callbacks
 
-In this option the ngModel binding is used. [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-access-modifier)
-is an example application. It shows how to use the __ngModel__.
+In this option the mydatepicker sends data back to host application using callbacks. [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-normal)
+is an example application. It shows how to use callbacks.
 
-To use ngModel define the application class as follows:
+To use callbacks define the application class as follows:
 
-```ts
-import {IMyOptions} from 'mydatepicker';
+```js
+import {IMyOptions, IMyDateModel} from 'mydatepicker';
 // other imports here...
 
 export class MyTestApp {
@@ -169,20 +168,21 @@ export class MyTestApp {
         dateFormat: 'dd.mm.yyyy',
     };
 
-    // Initialized to specific date (09.10.2018).
-    private model: Object = { date: { year: 2018, month: 10, day: 9 } };
-
     constructor() { }
+
+    // dateChanged callback function called when the user select the date. This is mandatory callback
+    // in this option. There are also optional inputFieldChanged and calendarViewChanged callbacks.
+    onDateChanged(event: IMyDateModel) {
+        // event properties are: event.date, event.jsdate, event.formatted and event.epoc
+    }
 }
 ```
 
 Add the following snippet inside your template:
 
 ```html
-<form #myForm="ngForm" novalidate>
-    <my-date-picker name="mydate" [options]="myDatePickerOptions"
-                    [(ngModel)]="model" required></my-date-picker>
-</form>
+<my-date-picker [options]="myDatePickerOptions"
+                (dateChanged)="onDateChanged($event)"></my-date-picker>
 ```
 
 ## Attributes
