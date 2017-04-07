@@ -67,6 +67,7 @@ gulp.task('ngc.compile.publish', shell.task([
 gulp.task('copy.build.to.npmdist.directory', function() {
     return gulp.src(
         [
+            '!./.tmpbuild/dist/*.spec.*',
             './.tmpbuild/dist/**/*.*'
         ]).pipe(gulp.dest('./npmdist/dist/'));
 });
