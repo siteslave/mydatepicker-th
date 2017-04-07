@@ -544,7 +544,7 @@ describe('MyDatePicker', () => {
         btnpicker.nativeElement.click();
 
         fixture.detectChanges();
-        let headertodaybtn = getElement('.headertodaybtn');
+        let headertodaybtn = getElement('.headertodaybtn span:last-child');
         expect(headertodaybtn).not.toBe(null);
         expect(headertodaybtn.nativeElement.textContent).toBe('test text');
     });
@@ -1987,7 +1987,7 @@ describe('MyDatePicker', () => {
         expect(monthLabel.nativeElement.textContent).toBe('Déc');
 
         fixture.detectChanges();
-        let headertodaybtn = getElement('.headertodaybtn');
+        let headertodaybtn = getElement('.headertodaybtn span:last-child');
         expect(headertodaybtn).not.toBe(null);
         expect(headertodaybtn.nativeElement.textContent).toBe('Aujourd\'hui');
 
@@ -2193,7 +2193,7 @@ describe('MyDatePicker', () => {
         expect(monthLabel.nativeElement.textContent).toBe('Des');
 
         fixture.detectChanges();
-        let headertodaybtn = getElement('.headertodaybtn');
+        let headertodaybtn = getElement('.headertodaybtn span:last-child');
         expect(headertodaybtn).not.toBe(null);
         expect(headertodaybtn.nativeElement.textContent).toBe('Hari ini');
 

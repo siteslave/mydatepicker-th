@@ -25,8 +25,11 @@
                         <div class="headerbtncell"><button type="button" [attr.aria-label]="opts.ariaLabelNextMonth" class="headerbtn mydpicon icon-mydpright" (click)="nextMonth()" [disabled]="nextMonthDisabled" [ngClass]="{'headerbtnenabled': !nextMonthDisabled, 'headerbtndisabled': nextMonthDisabled}"></button></div>
                     </div>
                 </td>
-                <td *ngIf="opts.showTodayBtn">
-                    <button type="button" class="headertodaybtn" (click)="todayClicked()" [disabled]="disableTodayBtn" [ngClass]="{'headertodaybtnenabled': !disableTodayBtn, 'headertodaybtndisabled': disableTodayBtn}">{{opts.todayBtnTxt}}</button>
+                <td>
+                    <button *ngIf="opts.showTodayBtn" type="button" class="headertodaybtn" (click)="todayClicked()" [disabled]="disableTodayBtn" [ngClass]="{'headertodaybtnenabled': !disableTodayBtn, 'headertodaybtndisabled': disableTodayBtn}">
+                        <span class="mydpicon icon-mydptoday"></span>
+                        <span>{{opts.todayBtnTxt}}</span>
+                    </button>
                 </td>
                 <td>
                     <div style="float:right">
