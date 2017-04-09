@@ -293,6 +293,7 @@ Placeholder text in the input field. [Here](https://github.com/kekeh/mydatepicke
 ### selector attribute
 
 Selector can be opened or closed using this attribute. [Here](https://github.com/kekeh/mydatepicker/wiki/Open-selector-with-selector-attribute) is an example on how to use this attribute.
+Another way is to call a function of mydatepicker. [Here](https://github.com/kekeh/mydatepicker/wiki/Calling-date-picker-function) is an example.
 
 ## Callbacks
 
