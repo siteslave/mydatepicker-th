@@ -16,6 +16,36 @@ export const MYDP_VALUE_ACCESSOR: any = {
     multi: true
 };
 
+enum CalToggle {
+    Open = 1,
+    CloseByDateSel = 2,
+    CloseByCalBtn = 3,
+    CloseByOutClick = 4
+}
+
+enum Year {
+    min = 1000,
+    max = 9999
+}
+
+enum InputFocusBlur {
+    focus = 1,
+    blur = 2
+}
+
+enum KeyCode {
+    enter = 13,
+    space = 32,
+    leftArrow = 37,
+    rigthArrow = 39
+}
+
+enum MonthId {
+    prev = 1,
+    curr = 2,
+    next = 3
+}
+
 @Component({
     selector: "my-date-picker",
     exportAs: "mydatepicker",
@@ -64,12 +94,9 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     prevYearDisabled: boolean = false;
     nextYearDisabled: boolean = false;
 
-    PREV_MONTH: number = 1;
-    CURR_MONTH: number = 2;
-    NEXT_MONTH: number = 3;
-
-    MIN_YEAR: number = 1000;
-    MAX_YEAR: number = 9999;
+    prevMonthId: number = MonthId.prev;
+    currMonthId: number = MonthId.curr;
+    nextMonthId: number = MonthId.next;
 
     // Default options
     opts: IMyOptions = {
@@ -99,8 +126,8 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         editableDateField: <boolean> true,
         editableMonthAndYear: <boolean> true,
         disableHeaderButtons: <boolean> true,
-        minYear: <number> this.MIN_YEAR,
-        maxYear: <number> this.MAX_YEAR,
+        minYear: <number> Year.min,
+        maxYear: <number> Year.max,
         componentDisabled: <boolean> false,
         inputValueRequired: <boolean> false,
         showSelectorArrow: <boolean> true,
@@ -121,7 +148,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         renderer.listenGlobal("document", "click", (event: any) => {
             if (this.showSelector && event.target && this.elem.nativeElement !== event.target && !this.elem.nativeElement.contains(event.target)) {
                 this.showSelector = false;
-                this.calendarToggle.emit(4);
+                this.calendarToggle.emit(CalToggle.CloseByOutClick);
             }
             if (this.opts.editableMonthAndYear && event.target && this.elem.nativeElement.contains(event.target)) {
                 this.resetMonthYearEdit();
@@ -142,11 +169,11 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
                 (<IMyOptions>this.opts)[k] = this.options[k];
             });
         }
-        if (this.opts.minYear < this.MIN_YEAR) {
-            this.opts.minYear = this.MIN_YEAR;
+        if (this.opts.minYear < Year.min) {
+            this.opts.minYear = Year.min;
         }
-        if (this.opts.maxYear > this.MAX_YEAR) {
-            this.opts.maxYear = this.MAX_YEAR;
+        if (this.opts.maxYear > Year.max) {
+            this.opts.maxYear = Year.max;
         }
 
         let separator: string = this.utilService.getDateFormatSeparator(this.opts.dateFormat);
@@ -214,17 +241,17 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     onFocusInput(event: any): void {
-        this.inputFocusBlur.emit({reason: 1, value: event.target.value});
+        this.inputFocusBlur.emit({reason: InputFocusBlur.focus, value: event.target.value});
     }
 
-    lostFocusInput(event: any): void {
+    onBlurInput(event: any): void {
         this.selectionDayTxt = event.target.value;
         this.onTouchedCb();
-        this.inputFocusBlur.emit({reason: 2, value: event.target.value});
+        this.inputFocusBlur.emit({reason: InputFocusBlur.blur, value: event.target.value});
     }
 
     userMonthInput(event: any): void {
-        if (event.keyCode === 13 || event.keyCode === 37 || event.keyCode === 39) {
+        if (event.keyCode === KeyCode.enter || event.keyCode === KeyCode.leftArrow || event.keyCode === KeyCode.rigthArrow) {
             return;
         }
 
@@ -244,7 +271,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     userYearInput(event: any): void {
-        if (event.keyCode === 13 || event.keyCode === 37 || event.keyCode === 39) {
+        if (event.keyCode === KeyCode.enter || event.keyCode === KeyCode.leftArrow || event.keyCode === KeyCode.rigthArrow) {
             return;
         }
 
@@ -357,7 +384,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         // Remove date button clicked
         this.clearDate();
         if (this.showSelector) {
-            this.calendarToggle.emit(3);
+            this.calendarToggle.emit(CalToggle.CloseByCalBtn);
         }
         this.showSelector = false;
     }
@@ -367,10 +394,10 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         this.showSelector = !this.showSelector;
         if (this.showSelector) {
             this.setVisibleMonth();
-            this.calendarToggle.emit(1);
+            this.calendarToggle.emit(CalToggle.Open);
         }
         else {
-            this.calendarToggle.emit(3);
+            this.calendarToggle.emit(CalToggle.CloseByCalBtn);
         }
     }
 
@@ -445,11 +472,11 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
 
     cellClicked(cell: any): void {
         // Cell clicked on the calendar
-        if (cell.cmo === this.PREV_MONTH) {
+        if (cell.cmo === this.prevMonthId) {
             // Previous month day
             this.prevMonth();
         }
-        else if (cell.cmo === this.CURR_MONTH) {
+        else if (cell.cmo === this.currMonthId) {
             // Current month day - if date is already selected clear it
             if (cell.dateObj.year === this.selectedDate.year && cell.dateObj.month === this.selectedDate.month && cell.dateObj.day === this.selectedDate.day) {
                 this.clearDate();
@@ -458,7 +485,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
                 this.selectDate(cell.dateObj);
             }
         }
-        else if (cell.cmo === this.NEXT_MONTH) {
+        else if (cell.cmo === this.nextMonthId) {
             // Next month day
             this.nextMonth();
         }
@@ -467,7 +494,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
 
     cellKeyDown(event: any, cell: any) {
         // Cell keyboard handling
-        if ((event.keyCode === 13 || event.keyCode === 32) && !cell.disabled) {
+        if ((event.keyCode === KeyCode.enter || event.keyCode === KeyCode.space) && !cell.disabled) {
             event.preventDefault();
             this.cellClicked(cell);
         }
@@ -490,7 +517,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         this.onTouchedCb();
         this.updateDateValue(date, false);
         if (this.showSelector) {
-            this.calendarToggle.emit(2);
+            this.calendarToggle.emit(CalToggle.CloseByDateSel);
         }
         this.showSelector = false;
     }
@@ -548,7 +575,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
 
     isCurrDay(d: number, m: number, y: number, cmo: number, today: IMyDate): boolean {
         // Check is a given date the today
-        return d === today.day && m === today.month && y === today.year && cmo === this.CURR_MONTH;
+        return d === today.day && m === today.month && y === today.year && cmo === this.currMonthId;
     }
 
     getToday(): IMyDate {
@@ -589,7 +616,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         let dInPrevM: number = this.daysInPrevMonth(m, y);
 
         let dayNbr: number = 1;
-        let cmo: number = this.PREV_MONTH;
+        let cmo: number = this.prevMonthId;
         for (let i = 1; i < 7; i++) {
             let week: Array<IMyCalendarDay> = [];
             if (i === 1) {
@@ -601,7 +628,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
                     week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(j, m, y, cmo, today), dayNbr: this.getDayNumber(date), disabled: this.utilService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRanges, this.opts.enableDays)});
                 }
 
-                cmo = this.CURR_MONTH;
+                cmo = this.currMonthId;
                 // Current month
                 let daysLeft: number = 7 - week.length;
                 for (let j = 0; j < daysLeft; j++) {
@@ -616,9 +643,9 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
                     if (dayNbr > dInThisM) {
                         // Next month
                         dayNbr = 1;
-                        cmo = this.NEXT_MONTH;
+                        cmo = this.nextMonthId;
                     }
-                    let date: IMyDate = {year: y, month: cmo === this.CURR_MONTH ? m : m + 1, day: dayNbr};
+                    let date: IMyDate = {year: y, month: cmo === this.currMonthId ? m : m + 1, day: dayNbr};
                     week.push({dateObj: date, cmo: cmo, currDay: this.isCurrDay(dayNbr, m, y, cmo, today), dayNbr: this.getDayNumber(date), disabled: this.utilService.isDisabledDay(date, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRanges, this.opts.enableDays)});
                     dayNbr++;
                 }
