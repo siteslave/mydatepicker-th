@@ -225,7 +225,7 @@ export class LocaleService {
             dateFormat: "dd.mm.yyyy",
             todayBtnTxt: "Dnes",
             firstDayOfWeek: "mo",
-            sunHighlight: true,
+            sunHighlight: true
         },
         "el": {
             dayLabels: { su: "Κυρ", mo: "Δευ", tu: "Τρι", we: "Τετ", th: "Πεμ", fr: "Παρ", sa: "Σαβ" },
@@ -233,7 +233,7 @@ export class LocaleService {
             dateFormat: "dd/mm/yyyy",
             todayBtnTxt: "Σήμερα",
             firstDayOfWeek: "mo",
-            sunHighlight: true,
+            sunHighlight: true
         }
     };
 

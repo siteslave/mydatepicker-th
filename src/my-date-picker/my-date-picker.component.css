@@ -422,7 +422,7 @@
     width: 40px;
     height: 22px;
     text-align: center;
-    font-weight: bold;
+    font-weight: normal;
     outline: none;
     border-radius: 2px;
 }
