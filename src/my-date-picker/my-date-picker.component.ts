@@ -251,7 +251,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     userMonthInput(event: any): void {
-        if (event.keyCode === KeyCode.enter || event.keyCode === KeyCode.leftArrow || event.keyCode === KeyCode.rigthArrow) {
+        if (this.preventUserInput(event)) {
             return;
         }
 
@@ -271,7 +271,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     userYearInput(event: any): void {
-        if (event.keyCode === KeyCode.enter || event.keyCode === KeyCode.leftArrow || event.keyCode === KeyCode.rigthArrow) {
+        if (this.preventUserInput(event)) {
             return;
         }
 
@@ -288,6 +288,10 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         else {
             this.invalidYear = true;
         }
+    }
+
+    preventUserInput(event: any): boolean {
+        return event.keyCode === KeyCode.enter || event.keyCode === KeyCode.leftArrow || event.keyCode === KeyCode.rigthArrow;
     }
 
     isTodayDisabled(): void {
