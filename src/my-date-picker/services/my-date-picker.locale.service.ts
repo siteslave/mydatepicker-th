@@ -226,6 +226,14 @@ export class LocaleService {
             todayBtnTxt: "Dnes",
             firstDayOfWeek: "mo",
             sunHighlight: true,
+        },
+        "el": {
+            dayLabels: { su: "Κυρ", mo: "Δευ", tu: "Τρι", we: "Τετ", th: "Πεμ", fr: "Παρ", sa: "Σαβ" },
+            monthLabels: { 1: "Ιαν", 2: "Φεβ", 3: "Μαρ", 4: "Απρ", 5: "Μαι", 6: "Ιουν", 7: "Ιουλ", 8: "Αυγ", 9: "Σεπ", 10: "Οκτ", 11: "Νοε", 12: "Δεκ" },
+            dateFormat: "dd/mm/yyyy",
+            todayBtnTxt: "Σήμερα",
+            firstDayOfWeek: "mo",
+            sunHighlight: true,
         }
     };
 
