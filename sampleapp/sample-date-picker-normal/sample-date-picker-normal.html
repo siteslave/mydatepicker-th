@@ -67,7 +67,7 @@
             </label>
         </li>
         <li>
-            <button style="cursor: pointer" type="button" (click)="onToggleSelector($event)">Toggle selector</button>
+            <button type="button" (click)="onToggleSelector($event)" [disabled]="disabled" [ngStyle]="{'cursor': disabled ? 'not-allowed' : 'pointer'}">Toggle selector</button>
         </li>
     </ul>
 
@@ -77,7 +77,7 @@
                 <my-date-picker [options]="myDatePickerNormalOptions" #mydp="mydatepicker"
                                 (dateChanged)="onDateChanged($event)" (inputFieldChanged)="onInputFieldChanged($event)"
                                 (calendarViewChanged)="onCalendarViewChanged($event)" (calendarToggle)="onCalendarToggle($event)" (inputFocusBlur)="onInputFocusBlur($event)"
-                                [selDate]="selectedDateNormal" [placeholder]="placeholder"></my-date-picker>
+                                [selDate]="selectedDateNormal" [placeholder]="placeholder" [disabled]="disabled"></my-date-picker>
             </td>
             <td style="vertical-align: top">
                 <div style="padding:4px;border-radius:4px;float:right" [ngStyle]="{border: border}">
@@ -88,6 +88,6 @@
     </table>
 
     <div style="margin-top: 20px">
-        <button style="cursor: pointer" type="button" (click)="clearDate()" [disabled]="selectedDateNormal===''">Clear Date</button>
+        <button type="button" (click)="clearDate()" [disabled]="selectedDateNormal===''||disabled" [ngStyle]="{'cursor': disabled ? 'not-allowed' : 'pointer'}">Clear Date</button>
     </div>
 </div>

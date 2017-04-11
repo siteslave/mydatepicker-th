@@ -56,12 +56,13 @@ enum MonthId {
 })
 
 export class MyDatePicker implements OnChanges, ControlValueAccessor {
-    @Input() options: any;
+    @Input() options: IMyOptions;
     @Input() locale: string;
     @Input() defaultMonth: string;
     @Input() selDate: string;
     @Input() placeholder: string;
     @Input() selector: number;
+    @Input() disabled: boolean;
     @Output() dateChanged: EventEmitter<IMyDateModel> = new EventEmitter<IMyDateModel>();
     @Output() inputFieldChanged: EventEmitter<IMyInputFieldChanged> = new EventEmitter<IMyInputFieldChanged>();
     @Output() calendarViewChanged: EventEmitter<IMyCalendarViewChanged> = new EventEmitter<IMyCalendarViewChanged>();
@@ -174,6 +175,9 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         }
         if (this.opts.maxYear > Year.max) {
             this.opts.maxYear = Year.max;
+        }
+        if (this.disabled !== undefined) {
+            this.opts.componentDisabled = this.disabled;
         }
 
         let separator: string = this.utilService.getDateFormatSeparator(this.opts.dateFormat);
@@ -342,6 +346,10 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
 
         if (changes.hasOwnProperty("locale")) {
             this.locale = changes["locale"].currentValue;
+        }
+
+        if (changes.hasOwnProperty("disabled")) {
+            this.disabled = changes["disabled"].currentValue;
         }
 
         if (changes.hasOwnProperty("options")) {

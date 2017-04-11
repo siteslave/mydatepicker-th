@@ -45,6 +45,7 @@ export class SampleDatePickerNormal implements OnInit {
     private border: string = 'none';
 
     private placeholder: string = 'Select date';
+    private disabled: boolean = false;
 
     constructor() {}
 
@@ -53,9 +54,7 @@ export class SampleDatePickerNormal implements OnInit {
     }
 
     onDisableComponent(checked: boolean) {
-        let copy = this.getCopyOfOptions();
-        copy.componentDisabled = checked;
-        this.myDatePickerNormalOptions = copy;
+        this.disabled = checked;
     }
 
     onEditableDateField(checked: boolean) {

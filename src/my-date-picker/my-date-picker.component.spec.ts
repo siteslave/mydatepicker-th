@@ -2090,6 +2090,52 @@ describe('MyDatePicker', () => {
         expect(yearLabel.nativeElement.textContent).toBe('2019');
     });
 
+    it('disabled - disable component', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
+        comp.disabled = true;
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+
+        btnpicker.nativeElement.click();
+        fixture.detectChanges();
+
+        let selector = getElement('.selector');
+        expect(selector).toBe(null);
+
+        fixture.detectChanges();
+        let selection = getElement('.selection');
+
+        selection.nativeElement.value = '2016-11-14';
+
+        fixture.detectChanges();
+        expect(selection.nativeElement.value).toContain('');
+
+
+        comp.disabled = false;
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        btnpicker = getElement('.btnpicker');
+
+        btnpicker.nativeElement.click();
+        fixture.detectChanges();
+
+        selector = getElement('.selector');
+        expect(selector).not.toBe(null);
+
+        fixture.detectChanges();
+        selection = getElement('.selection');
+
+        selection.nativeElement.value = '2016-11-14';
+
+        fixture.detectChanges();
+        expect(selection.nativeElement.value).toContain('2016-11-14');
+    });
+
     it('placeholder - placeholder text', () => {
         comp.placeholder = '';
 
@@ -2104,8 +2150,6 @@ describe('MyDatePicker', () => {
         selection = getElement('.selection');
         expect(selection).not.toBe(null);
         expect(selection.properties['placeholder']).toBe(comp.placeholder);
-
-
     });
 
     it('locale - use id locale', () => {

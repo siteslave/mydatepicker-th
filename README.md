@@ -220,7 +220,7 @@ Value of the __options__ attribute is a type of [IMyOptions](https://github.com/
 | __alignSelectorRight__   | false | boolean | Align selector right. Can be used if __inline = false__. |
 | __openSelectorTopOfInput__   | false | boolean | Open selector top of input field. The selector arrow cannot be shown if this option is true. Can be used if __inline = false__. |
 | __indicateInvalidDate__   | true | boolean | If user typed date is not same format as __dateFormat__, show red background in the selection area. Can be used if __inline = false__. |
-| __componentDisabled__   | false | boolean | Is selection area input field and buttons disabled or not (input disabled flag). Can be used if __inline = false__. |
+| __componentDisabled__   | false | boolean | Is selection area input field and buttons disabled or not (input disabled flag). You can also disable component by __disabled__ attribute. Can be used if __inline = false__. |
 | __editableDateField__   | true | boolean | Is selection area input field editable or not (input readonly flag). Can be used if __inline = false__. |
 | __showSelectorArrow__   | true | boolean | Is selector (calendar) arrow shown or not. Can be used if __inline = false__. |
 | __showInputField__   | true | boolean | Is selection area input field shown or not. If not, just show the icon. Can be used if __inline = false__. |
@@ -289,6 +289,10 @@ __08-2016__, __08/2016__.
 ### placeholder attribute
 
 Placeholder text in the input field. [Here](https://github.com/kekeh/mydatepicker/wiki/Set-placeholder) is an example on how to use this attribute.
+
+### disabled attribute
+
+Boolean value indicating is the component disabled or not. [Here](https://github.com/kekeh/mydatepicker/wiki/Disable-component-with-disabled-attribute) is an example on how to use this attribute.
 
 ### selector attribute
 
