@@ -216,7 +216,7 @@ Value of the __options__ attribute is a type of [IMyOptions](https://github.com/
 | __showClearDateBtn__   | true | boolean | Is clear date button shown or not. Can be used if __inline = false__. |
 | __height__   | 34px | string | mydatepicker height in without selector. Can be used if __inline = false__. |
 | __width__   | 100% | string | mydatepicker width. Can be used if __inline = false__. |
-| __selectionTxtFontSize__   | 18px | string | Selection area font size. Can be used if __inline = false__. |
+| __selectionTxtFontSize__   | 14px | string | Selection area font size. Can be used if __inline = false__. |
 | __alignSelectorRight__   | false | boolean | Align selector right. Can be used if __inline = false__. |
 | __openSelectorTopOfInput__   | false | boolean | Open selector top of input field. The selector arrow cannot be shown if this option is true. Can be used if __inline = false__. |
 | __indicateInvalidDate__   | true | boolean | If user typed date is not same format as __dateFormat__, show red background in the selection area. Can be used if __inline = false__. |

@@ -1,6 +1,5 @@
 .mydp {
     min-width: 30px;
-    border-radius: 2px;
     line-height: 1.1;
     display: inline-block;
     position: relative;
@@ -15,6 +14,39 @@
     margin: 0;
 }
 
+.mydp,
+.mydp .selectiongroup,
+.mydp .selection,
+.mydp .selector,
+.mydp .headertodaybtn {
+    border-radius: 4px;
+}
+
+.mydp .header {
+    border-radius: 4px 4px 0 0;
+}
+
+.mydp .caltable {
+    border-radius: 0 0 4px 4px;
+}
+
+.mydp .caltable tbody tr:nth-child(6) td:first-child {
+    border-bottom-left-radius: 4px;
+}
+
+.mydp .caltable tbody tr:nth-child(6) td:last-child {
+    border-bottom-right-radius: 4px;
+}
+
+.mydp .btnpicker {
+    border-radius: 0 4px 4px 0;
+}
+
+.mydp .btnleftborderradius {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
 .mydp .selector {
     margin-top: 2px;
     margin-left: -1px;
@@ -22,7 +54,6 @@
     width: 252px;
     padding: 0;
     border: 1px solid #CCC;
-    border-radius: 2px;
     z-index: 100;
     animation: selectorfadein 0.1s;
 }
@@ -106,8 +137,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    text-align: center;
+    padding-left: 6px;
     border: none;
+    color: #555;
 }
 
 .mydp .invaliddate,
@@ -132,7 +164,7 @@
 .mydp .btnpicker,
 .mydp .btnclear {
     height: 100%;
-    width: 30px;
+    width: 28px;
     border: none;
     padding: 0;
     outline: 0;
@@ -254,10 +286,7 @@
     margin-top: -1px;
 }
 
-.mydp .prevmonth {
-    color: #CCC;
-}
-
+.mydp .prevmonth,
 .mydp .nextmonth {
     color: #CCC;
 }
@@ -324,14 +353,12 @@
 .mydp .headerbtn,
 .mydp .headermonthtxt,
 .mydp .headeryeartxt,
-.mydp .headertodaybtn,
-.mydp .selection {
+.mydp .headertodaybtn {
     color: #000;
 }
 
 .mydp .headertodaybtn {
     padding: 0 4px;
-    border-radius: 4px;
     font-size: 11px;
     height: 22px;
     min-width: 60px;

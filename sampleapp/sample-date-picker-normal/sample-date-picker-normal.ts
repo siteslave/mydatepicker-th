@@ -22,7 +22,6 @@ export class SampleDatePickerNormal implements OnInit {
         markCurrentDay: true,
         height: '34px',
         width: '210px',
-        selectionTxtFontSize: '18px',
         alignSelectorRight: false,
         openSelectorTopOfInput: false,
         indicateInvalidDate: true,
