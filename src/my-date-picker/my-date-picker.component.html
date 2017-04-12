@@ -1,4 +1,4 @@
-<div class="mydp" [ngStyle]="{'width': getComponentWidth(), 'border': opts.inline ? 'none' : null}">
+<div class="mydp" [ngStyle]="{'width': opts.showInputField ? opts.width : null, 'border': opts.inline ? 'none' : null}">
     <div class="selectiongroup" *ngIf="!opts.inline">
         <input *ngIf="opts.showInputField" ngtype="text" class="selection" [attr.aria-label]="opts.ariaLabelInputField" (click)="opts.openSelectorOnInputClick&&!opts.editableDateField&&openBtnClicked()" [attr.maxlength]="opts.dateFormat.length" [ngClass]="{'invaliddate': invalidDate&&opts.indicateInvalidDate, 'inputnoteditable': opts.openSelectorOnInputClick&&!opts.editableDateField}"
                 placeholder="{{placeholder}}" [myinputautofill]="autoFillOpts" [ngStyle]="{'height': opts.height, 'font-size': opts.selectionTxtFontSize}" (keyup)="userDateInput($event)" [value]="selectionDayTxt"

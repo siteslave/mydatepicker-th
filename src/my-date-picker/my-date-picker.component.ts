@@ -184,18 +184,6 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         this.autoFillOpts = {separator: separator, formatParts: this.opts.dateFormat.split(separator), enabled: this.opts.inputAutoFill};
     }
 
-    getComponentWidth(): string {
-        if (this.opts.showInputField) {
-            return this.opts.width;
-        }
-        else if (this.selectionDayTxt.length > 0 && this.opts.showClearDateBtn) {
-            return "60px";
-        }
-        else {
-            return "30px";
-        }
-    }
-
     getSelectorTopPosition(): string {
         if (this.opts.openSelectorTopOfInput) {
             return this.elem.nativeElement.children[0].offsetHeight + "px";
