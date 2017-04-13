@@ -1080,6 +1080,76 @@ describe('MyDatePicker', () => {
         expect(selection.nativeElement.value).toBe(getDateString(date));
     });
 
+    it('options - mark dates', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 1, year: 2017};
+
+        comp.options = {markDates: [{dates: [{year: 2017, month: 1, day: 14}, {year: 2017, month: 1, day: 15}], color: 'red'}]};
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        let markdate = getElements('.markdate');
+        expect(markdate).not.toBe(null);
+        expect(markdate.length).toBe(2);
+
+        fixture.detectChanges();
+        btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+
+        comp.options = {markDates: []};
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        markdate = getElements('.markdate');
+        expect(markdate).not.toBe(null);
+        expect(markdate.length).toBe(0);
+    });
+
+    it('options - mark weekends', () => {
+        comp.selectedMonth = {monthTxt: '', monthNbr: 1, year: 2017};
+
+        comp.options = {markWeekends: {marked: true, color: 'red'}};
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        let markdate = getElements('.markdate');
+        expect(markdate).not.toBe(null);
+        expect(markdate.length).toBe(12);
+
+        fixture.detectChanges();
+        btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+
+        comp.options = {markWeekends: {marked: false, color: ''}};
+
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        markdate = getElements('.markdate');
+        expect(markdate).not.toBe(null);
+        expect(markdate.length).toBe(0);
+    });
+
     it('options - disable weekends', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
         comp.options = {firstDayOfWeek: 'mo', disableWeekends: true};

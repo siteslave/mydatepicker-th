@@ -10,3 +10,5 @@ export * from "./dist/interfaces/my-day-labels.interface";
 export * from "./dist/interfaces/my-month-labels.interface";
 export * from "./dist/interfaces/my-options.interface";
 export * from "./dist/interfaces/my-weekday.interface";
+export * from "./dist/interfaces/my-marked-date.interface";
+export * from "./dist/interfaces/my-marked-dates.interface";

@@ -264,12 +264,12 @@
     height: 30px;
 }
 
-.mydp .daycell div {
+.mydp .daycell .datevalue {
     background-color: inherit;
     vertical-align: middle;
 }
 
-.mydp .daycell div span {
+.mydp .daycell .datevalue span {
     vertical-align: middle;
 }
 
@@ -309,11 +309,18 @@
     font-weight: normal;
 }
 
+.mydp .markdate {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 4px;
+}
+
 .mydp .currday {
     text-decoration: underline;
 }
 
-.mydp .selectedday div {
+.mydp .selectedday .datevalue {
     border: 1px solid #004198;
     background-color: #8EBFFF !important;
     border-radius: 2px;

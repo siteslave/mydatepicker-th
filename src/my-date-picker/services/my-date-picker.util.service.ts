@@ -3,6 +3,8 @@ import { IMyDate } from "../interfaces/my-date.interface";
 import { IMyDateRange } from "../interfaces/my-date-range.interface";
 import { IMyMonth } from "../interfaces/my-month.interface";
 import { IMyMonthLabels } from "../interfaces/my-month-labels.interface";
+import { IMyMarkedDates } from "../interfaces/my-marked-dates.interface";
+import { IMyMarkedDate } from "../interfaces/my-marked-date.interface";
 
 @Injectable()
 export class UtilService {
@@ -140,6 +142,23 @@ export class UtilService {
             }
         }
         return false;
+    }
+
+    isMarkedDate(date: IMyDate, markedDates: Array<IMyMarkedDates>, markWeekends: IMyMarkedDate): IMyMarkedDate {
+        for (let md of markedDates) {
+            for (let d of md.dates) {
+                if (d.year === date.year && d.month === date.month && d.day === date.day) {
+                    return {marked: true, color: md.color};
+                }
+            }
+        }
+        if (markWeekends && markWeekends.marked) {
+            let dayNbr = this.getDayNumber(date);
+            if (dayNbr === 0 || dayNbr === 6) {
+                return {marked: true, color: markWeekends.color};
+            }
+        }
+        return {marked: false, color: ""};
     }
 
     getWeekNumber(date: IMyDate): number {

@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {IMyOptions, IMyDateModel, IMyInputFieldChanged, IMyCalendarViewChanged, IMyInputFocusBlur} from '../../src/my-date-picker/interfaces';
+import {IMyOptions, IMyDateModel, IMyInputFieldChanged, IMyCalendarViewChanged, IMyInputFocusBlur, IMyMarkedDate} from '../../src/my-date-picker/interfaces';
 import {MyDatePicker} from '../../src/my-date-picker/my-date-picker.component';
 
 declare var require:any;
@@ -36,7 +36,9 @@ export class SampleDatePickerNormal implements OnInit {
         openSelectorOnInputClick: false,
         disableHeaderButtons: true,
         inputAutoFill: true,
-        showWeekNumbers: false
+        showWeekNumbers: false,
+        markDates: [],
+        markWeekends: <IMyMarkedDate>{}
     };
     private selectedDateNormal:string = '';
 
@@ -114,6 +116,19 @@ export class SampleDatePickerNormal implements OnInit {
     onShowWeekNumbers(checked: boolean) {
         let copy = this.getCopyOfOptions();
         copy.showWeekNumbers = checked;
+        this.myDatePickerNormalOptions = copy;
+    }
+
+    onMarkToday(checked: boolean): void {
+        let d: Date = new Date();
+        let copy = this.getCopyOfOptions();
+        copy.markDates = checked ? [{dates: [{year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate()}], color: '#C30000'}] : [];
+        this.myDatePickerNormalOptions = copy;
+    }
+
+    onMarkWeekends(checked: boolean): void {
+        let copy = this.getCopyOfOptions();
+        copy.markWeekends = checked ? {marked: true, color: 'blue'} : {marked: false, color: ''};
         this.myDatePickerNormalOptions = copy;
     }
 
