@@ -433,9 +433,12 @@
 
 .mydp .btnpickerenabled:hover,
 .mydp .btnclearenabled:hover,
-.mydp .headertodaybtnenabled:hover,
+.mydp .headertodaybtnenabled:hover {
+    background-color: #E6E6E6;
+}
+
 .mydp .tablesingleday:hover {
-    background-color: #8BDAF4;
+    background-color: #DDD;
 }
 
 .mydp .monthlabel,
@@ -457,7 +460,7 @@
 .mydp .headerbtnenabled:hover,
 .mydp .monthlabel:hover,
 .mydp .yearlabel:hover {
-    color: #8BDAF4;
+    color: #777;
 }
 
 @font-face {
