@@ -50,7 +50,8 @@
             <div class="title">Reactive forms</div>
             <div>
                 <form [formGroup]="myForm" (ngSubmit)="onSubmitReactiveForms()" novalidate>
-                    <my-date-picker name="reactiveFormsDate" [options]="myDatePickerOptions" formControlName="myDate"></my-date-picker>
+                    <my-date-picker name="reactiveFormsDate" [options]="myDatePickerOptions" formControlName="myDate"
+                                    (inputFieldChanged)="onInputFieldChanged($event)"></my-date-picker>
                     <div>
                         <button class="button" type="submit" [disabled]="myForm.controls.myDate.errors">Submit</button>
                         <button class="button" type="button" (click)="setDate()">Set Today</button>

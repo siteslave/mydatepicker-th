@@ -16,35 +16,11 @@ export const MYDP_VALUE_ACCESSOR: any = {
     multi: true
 };
 
-enum CalToggle {
-    Open = 1,
-    CloseByDateSel = 2,
-    CloseByCalBtn = 3,
-    CloseByOutClick = 4
-}
-
-enum Year {
-    min = 1000,
-    max = 9999
-}
-
-enum InputFocusBlur {
-    focus = 1,
-    blur = 2
-}
-
-enum KeyCode {
-    enter = 13,
-    space = 32,
-    leftArrow = 37,
-    rigthArrow = 39
-}
-
-enum MonthId {
-    prev = 1,
-    curr = 2,
-    next = 3
-}
+enum CalToggle {Open = 1, CloseByDateSel = 2, CloseByCalBtn = 3, CloseByOutClick = 4}
+enum Year {min = 1000, max = 9999}
+enum InputFocusBlur {focus = 1, blur = 2}
+enum KeyCode {enter = 13, space = 32}
+enum MonthId {prev = 1, curr = 2, next = 3}
 
 @Component({
     selector: "my-date-picker",
@@ -132,7 +108,6 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         minYear: <number> Year.min,
         maxYear: <number> Year.max,
         componentDisabled: <boolean> false,
-        inputValueRequired: <boolean> false,
         showSelectorArrow: <boolean> true,
         showInputField: <boolean> true,
         openSelectorOnInputClick: <boolean> false,
@@ -213,13 +188,13 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         }
     }
 
-    userDateInput(event: any): void {
+    onUserDateInput(value: string): void {
         this.invalidDate = false;
-        if (event.target.value.length === 0) {
+        if (value.length === 0) {
             this.clearDate();
         }
         else {
-            let date: IMyDate = this.utilService.isDateValid(event.target.value, this.opts.dateFormat, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRanges, this.opts.monthLabels, this.opts.enableDays);
+            let date: IMyDate = this.utilService.isDateValid(value, this.opts.dateFormat, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDays, this.opts.disableDateRanges, this.opts.monthLabels, this.opts.enableDays);
             if (date.day !== 0 && date.month !== 0 && date.year !== 0) {
                 this.selectDate(date);
             }
@@ -228,7 +203,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
             }
         }
         if (this.invalidDate) {
-            this.inputFieldChanged.emit({value: event.target.value, dateFormat: this.opts.dateFormat, valid: !(event.target.value.length === 0 || this.invalidDate)});
+            this.inputFieldChanged.emit({value: value, dateFormat: this.opts.dateFormat, valid: !(value.length === 0 || this.invalidDate)});
             this.onChangeCb("");
             this.onTouchedCb();
         }
@@ -244,14 +219,9 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         this.inputFocusBlur.emit({reason: InputFocusBlur.blur, value: event.target.value});
     }
 
-    userMonthInput(event: any): void {
-        if (this.preventUserInput(event)) {
-            return;
-        }
-
+    onUserMonthInput(value: string): void {
         this.invalidMonth = false;
-
-        let m: number = this.utilService.isMonthLabelValid(event.target.value, this.opts.monthLabels);
+        let m: number = this.utilService.isMonthLabelValid(value, this.opts.monthLabels);
         if (m !== -1) {
             this.editMonth = false;
             if (m !== this.visibleMonth.monthNbr) {
@@ -264,14 +234,9 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         }
     }
 
-    userYearInput(event: any): void {
-        if (this.preventUserInput(event)) {
-            return;
-        }
-
+    onUserYearInput(value: string): void {
         this.invalidYear = false;
-
-        let y: number = this.utilService.isYearLabelValid(Number(event.target.value), this.opts.minYear, this.opts.maxYear);
+        let y: number = this.utilService.isYearLabelValid(Number(value), this.opts.minYear, this.opts.maxYear);
         if (y !== -1) {
             this.editYear = false;
             if (y !== this.visibleMonth.year) {
@@ -282,10 +247,6 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         else {
             this.invalidYear = true;
         }
-    }
-
-    preventUserInput(event: any): boolean {
-        return event.keyCode === KeyCode.enter || event.keyCode === KeyCode.leftArrow || event.keyCode === KeyCode.rigthArrow;
     }
 
     isTodayDisabled(): void {

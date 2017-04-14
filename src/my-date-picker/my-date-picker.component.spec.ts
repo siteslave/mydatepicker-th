@@ -1,11 +1,13 @@
 ///<reference path="../../node_modules/@types/jasmine/index.d.ts"/>
 
+import {FormsModule} from "@angular/forms";
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
 import {MyDatePicker} from './my-date-picker.component';
 import {FocusDirective} from './directives/my-date-picker.focus.directive';
 import {InputAutoFillDirective} from './directives/my-date-picker.input.auto.fill.directive';
+
 
 let comp: MyDatePicker;
 let fixture: ComponentFixture<MyDatePicker>;
@@ -32,6 +34,7 @@ function getElements(id:string):Array<DebugElement> {
 describe('MyDatePicker', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
+            imports: [FormsModule],
             declarations: [MyDatePicker, FocusDirective, InputAutoFillDirective],
         });
 
@@ -448,48 +451,39 @@ describe('MyDatePicker', () => {
 
         comp.parseOptions();
 
-        let value = {target:{value:'2016-08-22'}};
-        comp.userDateInput(value);
+        comp.onUserDateInput('2016-08-22');
         expect(comp.invalidDate).toBe(true);
 
         fixture.detectChanges();
         let invaliddate = getElement('.invaliddate');
         expect(invaliddate).not.toBe(null);
 
-        value = {target:{value:'2016-08-2'}};
-        comp.userDateInput(value);
+        comp.onUserDateInput('2016-08-2');
         expect(comp.invalidDate).toBe(true);
 
-        value = {target:{value:'16.09/2016'}};
-        comp.userDateInput(value);
+        comp.onUserDateInput('16.09/2016');
         expect(comp.invalidDate).toBe(true);
 
-        value = {target:{value:'2016-08-xx'}};
-        comp.userDateInput(value);
+        comp.onUserDateInput('2016-08-xx');
         expect(comp.invalidDate).toBe(true);
 
-        value = {target:{value:'16.09.999'}};
-        comp.userDateInput(value);
+        comp.onUserDateInput('16.09.999');
         expect(comp.invalidDate).toBe(true);
 
-        value = {target:{value:'16.09.19999'}};
-        comp.userDateInput(value);
+        comp.onUserDateInput('16.09.19999');
         expect(comp.invalidDate).toBe(true);
 
-        value = {target:{value:'16.09.2016'}};
-        comp.userDateInput(value);
+        comp.onUserDateInput('16.09.2016');
         expect(comp.invalidDate).toBe(false);
 
         comp.options = {dateFormat: 'dd mmm yyyy', indicateInvalidDate: true};
 
         comp.parseOptions();
 
-        value = {target:{value:'2016-08-22'}};
-        comp.userDateInput(value);
+        comp.onUserDateInput('2016-08-22');
         expect(comp.invalidDate).toBe(true);
 
-        value = {target:{value:'22 Aug 2016'}};
-        comp.userDateInput(value);
+        comp.onUserDateInput('22 Aug 2016');
         expect(comp.invalidDate).toBe(false);
     });
 
@@ -647,7 +641,7 @@ describe('MyDatePicker', () => {
         let monthinput = getElement('.monthinput');
         expect(monthinput).not.toBe(null);
 
-        comp.userMonthInput({target:{value:'jan'}});
+        comp.onUserMonthInput('jan');
 
         fixture.detectChanges();
         montlabel = getElement('.headermonthtxt .headerlabelbtn');
@@ -664,7 +658,7 @@ describe('MyDatePicker', () => {
         let yearinput = getElement('.yearinput');
         expect(yearinput).not.toBe(null);
 
-        comp.userYearInput({target:{value:'2019'}});
+        comp.onUserYearInput('2019');
 
         fixture.detectChanges();
         yearlabel = getElement('.headeryeartxt .headerlabelbtn');
@@ -793,13 +787,13 @@ describe('MyDatePicker', () => {
         let yearinput = getElement('.yearinput');
         expect(yearinput).not.toBe(null);
 
-        comp.userYearInput({target:{value:1999}});
+        comp.onUserYearInput('1999');
 
         fixture.detectChanges();
         let invalidyear = getElement('.invalidyear');
         expect(invalidyear).not.toBe(null);
 
-        comp.userYearInput({target:{value:2000}});
+        comp.onUserYearInput('2000');
 
         fixture.detectChanges();
         yearlabel = getElement('.headeryeartxt .headerlabelbtn');
@@ -826,13 +820,13 @@ describe('MyDatePicker', () => {
         let yearinput = getElement('.yearinput');
         expect(yearinput).not.toBe(null);
 
-        comp.userYearInput({target:{value:2021}});
+        comp.onUserYearInput('2021');
 
         fixture.detectChanges();
         let invalidyear = getElement('.invalidyear');
         expect(invalidyear).not.toBe(null);
 
-        comp.userYearInput({target:{value:2020}});
+        comp.onUserYearInput('2020');
 
         fixture.detectChanges();
         yearlabel = getElement('.headeryeartxt .headerlabelbtn');
@@ -1387,22 +1381,22 @@ describe('MyDatePicker', () => {
 
         comp.parseOptions();
 
-        comp.userDateInput({target:{value:'2016-08-22'}});
+        comp.onUserDateInput('2016-08-22');
         fixture.detectChanges();
         let invaliddate = getElement('.invaliddate');
         expect(invaliddate).not.toBe(null);
 
-        comp.userDateInput({target:{value:'2016-08-xx'}});
+        comp.onUserDateInput('2016-08-xx');
         fixture.detectChanges();
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).not.toBe(null);
 
-        comp.userDateInput({target:{value:'2016-08-99'}});
+        comp.onUserDateInput('2016-08-99');
         fixture.detectChanges();
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).not.toBe(null);
 
-        comp.userDateInput({target:{value:'10.10.2016'}});
+        comp.onUserDateInput('10.10.2016');
         fixture.detectChanges();
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).toBe(null);
@@ -1417,22 +1411,22 @@ describe('MyDatePicker', () => {
         
         comp.parseOptions();
         
-        comp.userDateInput({target:{value:'11.12.2015'}});
+        comp.onUserDateInput('11.12.2015');
         fixture.detectChanges();
         let invaliddate = getElement('.invaliddate');
         expect(invaliddate).not.toBe(null);
 
-        comp.userDateInput({target:{value:'11.06.2016'}});
+        comp.onUserDateInput('11.06.2016');
         fixture.detectChanges();
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).not.toBe(null);
 
-        comp.userDateInput({target:{value:'04.11.2016'}});
+        comp.onUserDateInput('04.11.2016');
         fixture.detectChanges();
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).not.toBe(null);
 
-        comp.userDateInput({target:{value:'05.11.2016'}});
+        comp.onUserDateInput('05.11.2016');
         fixture.detectChanges();
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).toBe(null);
@@ -1445,7 +1439,7 @@ describe('MyDatePicker', () => {
 
         comp.parseOptions();
 
-        comp.userDateInput({target:{value:'11.12.2015'}});
+        comp.onUserDateInput('11.12.2015');
         fixture.detectChanges();
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).toBe(null);
@@ -1460,22 +1454,22 @@ describe('MyDatePicker', () => {
 
         comp.parseOptions();
 
-        comp.userDateInput({target:{value:'08.12.2017'}});
+        comp.onUserDateInput('08.12.2017');
         fixture.detectChanges();
         let invaliddate = getElement('.invaliddate');
         expect(invaliddate).not.toBe(null);
 
-        comp.userDateInput({target:{value:'08.12.2016'}});
+        comp.onUserDateInput('08.12.2016');
         fixture.detectChanges();
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).not.toBe(null);
 
-        comp.userDateInput({target:{value:'23.11.2016'}});
+        comp.onUserDateInput('23.11.2016');
         fixture.detectChanges();
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).not.toBe(null);
 
-        comp.userDateInput({target:{value:'21.11.2016'}});
+        comp.onUserDateInput('21.11.2016');
         fixture.detectChanges();
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).toBe(null);
@@ -1488,7 +1482,7 @@ describe('MyDatePicker', () => {
 
         comp.parseOptions();
 
-        comp.userDateInput({target:{value:'11.12.2015'}});
+        comp.onUserDateInput('11.12.2015');
         fixture.detectChanges();
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).toBe(null);
@@ -1505,47 +1499,47 @@ describe('MyDatePicker', () => {
 
         comp.parseOptions();
 
-        comp.userDateInput({target:{value:'05.11.2016'}});
+        comp.onUserDateInput('05.11.2016');
         fixture.detectChanges();
         let invaliddate = getElement('.invaliddate');
         expect(invaliddate).not.toBe(null);
 
-        comp.userDateInput({target:{value:'06.11.2016'}});
+        comp.onUserDateInput('06.11.2016');
         fixture.detectChanges();
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).not.toBe(null);
 
-        comp.userDateInput({target:{value:'12.11.2016'}});
+        comp.onUserDateInput('12.11.2016');
         fixture.detectChanges();
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).not.toBe(null);
 
-        comp.userDateInput({target:{value:'13.11.2016'}});
+        comp.onUserDateInput('13.11.2016');
         fixture.detectChanges();
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).not.toBe(null);
 
-        comp.userDateInput({target:{value:'19.11.2016'}});
+        comp.onUserDateInput('19.11.2016');
         fixture.detectChanges();
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).not.toBe(null);
 
-        comp.userDateInput({target:{value:'20.11.2016'}});
+        comp.onUserDateInput('20.11.2016');
         fixture.detectChanges();
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).not.toBe(null);
 
-        comp.userDateInput({target:{value:'26.11.2016'}});
+        comp.onUserDateInput('26.11.2016');
         fixture.detectChanges();
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).not.toBe(null);
 
-        comp.userDateInput({target:{value:'27.11.2016'}});
+        comp.onUserDateInput('27.11.2016');
         fixture.detectChanges();
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).not.toBe(null);
 
-        comp.userDateInput({target:{value:'04.11.2016'}});
+        comp.onUserDateInput('04.11.2016');
         fixture.detectChanges();
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).toBe(null);
@@ -1567,27 +1561,27 @@ describe('MyDatePicker', () => {
 
         comp.parseOptions();
 
-        comp.userDateInput({target:{value:'01.11.2016'}});
+        comp.onUserDateInput('01.11.2016');
         fixture.detectChanges();
         let invaliddate = getElement('.invaliddate');
         expect(invaliddate).not.toBe(null);
 
-        comp.userDateInput({target:{value:'03.11.2016'}});
+        comp.onUserDateInput('03.11.2016');
         fixture.detectChanges();
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).not.toBe(null);
 
-        comp.userDateInput({target:{value:'05.11.2016'}});
+        comp.onUserDateInput('05.11.2016');
         fixture.detectChanges();
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).not.toBe(null);
 
-        comp.userDateInput({target:{value:'07.11.2016'}});
+        comp.onUserDateInput('07.11.2016');
         fixture.detectChanges();
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).not.toBe(null);
 
-        comp.userDateInput({target:{value:'02.11.2016'}});
+        comp.onUserDateInput('02.11.2016');
         fixture.detectChanges();
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).toBe(null);
@@ -1670,33 +1664,6 @@ describe('MyDatePicker', () => {
         fixture.detectChanges();
         selector = getElement('.selector');
         expect(selector).not.toBe(null);
-    });
-
-    it('options - input field value required', () => {
-        comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
-        comp.options = {};
-        comp.parseOptions();
-
-        fixture.detectChanges();
-        let selection = getElement('.selection');
-        expect(selection).not.toBe(null);
-        expect(selection.properties['required']).toBe(false);
-
-        comp.options = {inputValueRequired: true};
-        comp.parseOptions();
-
-        fixture.detectChanges();
-        selection = getElement('.selection');
-        expect(selection).not.toBe(null);
-        expect(selection.properties['required']).toBe(true);
-
-        comp.options = {inputValueRequired: false};
-        comp.parseOptions();
-
-        fixture.detectChanges();
-        selection = getElement('.selection');
-        expect(selection).not.toBe(null);
-        expect(selection.properties['required']).toBe(false);
     });
 
     it('options - show selector arrow', () => {
@@ -2070,7 +2037,7 @@ describe('MyDatePicker', () => {
         let sunday = getElement('.sunday');
         expect(sunday).not.toBe(null);
 
-        comp.userDateInput({target:{value:'10/10/2016'}});
+        comp.onUserDateInput('10/10/2016');
         expect(comp.invalidDate).toBe(false);
 
         fixture.detectChanges();
@@ -2320,7 +2287,7 @@ describe('MyDatePicker', () => {
         let sunday = getElement('.sunday');
         expect(sunday).not.toBe(null);
 
-        comp.userDateInput({target:{value:'10-10-2016'}});
+        comp.onUserDateInput('10-10-2016');
         expect(comp.invalidDate).toBe(false);
 
         fixture.detectChanges();

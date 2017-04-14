@@ -1,6 +1,8 @@
 import { Directive, ElementRef, Renderer, Input, HostListener } from "@angular/core";
 import { IMyInputAutoFill } from "../interfaces/my-input-auto-fill.interface";
 
+enum KeyCode {backspace = 8, delete = 46}
+
 @Directive({
     selector: "[myinputautofill]"
 })
@@ -11,7 +13,7 @@ export class InputAutoFillDirective {
     constructor(private el: ElementRef, private rndr: Renderer) {}
 
     @HostListener("keyup", ["$event"]) onKeyUp(evt: KeyboardEvent) {
-        if (!this.opts.enabled || evt.keyCode === 8 || evt.keyCode === 46) {
+        if (!this.opts.enabled || evt.keyCode === KeyCode.backspace || evt.keyCode === KeyCode.delete) {
             return;
         }
 

@@ -29,7 +29,6 @@ export class SampleDatePickerNormal implements OnInit {
         minYear: 1900,
         maxYear: 2200,
         componentDisabled: false,
-        inputValueRequired: false,
         showClearDateBtn: true,
         showSelectorArrow: true,
         showInputField: true,

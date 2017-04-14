@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {IMyOptions} from '../../src/my-date-picker/interfaces';
+import {IMyOptions, IMyInputFieldChanged} from '../../src/my-date-picker/interfaces';
 
 declare var require:any;
 const amSampleTpl: string = require('./sample-date-picker-access-modifier.html');
@@ -83,5 +83,9 @@ export class SampleDatePickerAccessModifier implements OnInit {
     clearDate(): void {
         // Clear the date using the setValue function
         this.myForm.setValue({myDate: ''});
+    }
+
+    onInputFieldChanged(event: IMyInputFieldChanged) {
+        console.log('onInputFieldChanged(): Value: ', event.value, ' - dateFormat: ', event.dateFormat, ' - valid: ', event.valid);
     }
 }
