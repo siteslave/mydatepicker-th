@@ -8,7 +8,7 @@
     "outDir": ".tmpbuild/dist",
     "rootDir": "./src/my-date-picker",
     "sourceMap": true,
-    "removeComments": false,
+    "removeComments": true,
     "moduleResolution": "node",
     "declaration": true,
     "lib": ["es2015", "dom"],

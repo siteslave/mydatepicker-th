@@ -373,7 +373,7 @@ Another way is to call a function of mydatepicker. [Here](https://github.com/kek
       * 1 = focus to input box
       * 2 = focus out of input box
     * event.value: Value of input box
-    * event parameter type is [IMyInputFocusBlur](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/interfaces/my-input-focus-blur.interface.ts)
+  * event parameter type is [IMyInputFocusBlur](https://github.com/kekeh/mydatepicker/blob/master/src/my-date-picker/interfaces/my-input-focus-blur.interface.ts)
 
   * Example of the input focus blur callback:
   ```js
