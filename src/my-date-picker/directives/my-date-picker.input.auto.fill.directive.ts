@@ -22,7 +22,7 @@ export class InputAutoFillDirective {
         let parts: Array<string> = val.split(this.opts.separator);
         let idx: number = parts.length - 1;
 
-        if (val.indexOf(this.opts.separator + this.opts.separator) !== -1) {
+        if (val.indexOf(this.opts.separator + this.opts.separator) !== -1 || idx > 2) {
             return;
         }
 
