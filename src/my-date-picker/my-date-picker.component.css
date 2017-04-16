@@ -182,15 +182,17 @@
     cursor: pointer;
 }
 
+.mydp .selectiondisabled,
 .mydp .btnpickerdisabled,
 .mydp .btncleardisabled,
 .mydp .headertodaybtndisabled,
 .mydp .headerbtndisabled {
     cursor: not-allowed;
+    opacity: 0.65;
 }
 
-.mydp .headerbtndisabled {
-    opacity: 0.4;
+.mydp .selectiondisabled {
+    background-color: #EEE;
 }
 
 .mydp .btnpicker,
