@@ -236,9 +236,9 @@ export class LocaleService {
             sunHighlight: true
         },
         "kk": {
-            dayLabels: { su: "Жексенбі", mo: "Дүйсенбі", tu: "Сейсенбі", we: "Сәрсенбі", th: "Бейсенбі", fr: "Жұма", sa: "Сенбі" },
-            monthLabels: { 1: "Қаңтар", 2: "Ақпан", 3: "Наурыз", 4: "Сәуір", 5: "Мамыр", 6: "Маусым", 7: "Шілде", 8: "Тамыз", 9: "Қыркүйек", 10: "Қазан", 11: "Қараша", 12: "Желтоқсан" },
-            dateFormat: "dd/mm/yyyy",
+            dayLabels: { su: "Жк", mo: "Дс", tu: "Сс", we: "Ср", th: "Бс", fr: "Жм", sa: "Сб" },
+            monthLabels: { 1: "Қаң", 2: "Ақп", 3: "Нау", 4: "Сәу", 5: "Мам", 6: "Мау", 7: "Шіл", 8: "Там", 9: "Қырк", 10: "Қаз", 11: "Қар", 12: "Желт" },
+            dateFormat: "dd-mmm-yyyy",
             todayBtnTxt: "Бүгін",
             firstDayOfWeek: "mo",
             sunHighlight: true
