@@ -234,6 +234,14 @@ export class LocaleService {
             todayBtnTxt: "Σήμερα",
             firstDayOfWeek: "mo",
             sunHighlight: true
+        },
+        "kk": {
+            dayLabels: { su: "Жк", mo: "Дс", tu: "Сс", we: "Ср", th: "Бс", fr: "Жм", sa: "Сб" },
+            monthLabels: { 1: "Қаң", 2: "Ақп", 3: "Нау", 4: "Сәу", 5: "Мам", 6: "Мау", 7: "Шіл", 8: "Там", 9: "Қырк", 10: "Қаз", 11: "Қар", 12: "Желт" },
+            dateFormat: "dd-mmm-yyyy",
+            todayBtnTxt: "Бүгін",
+            firstDayOfWeek: "mo",
+            sunHighlight: true
         }
     };
 
