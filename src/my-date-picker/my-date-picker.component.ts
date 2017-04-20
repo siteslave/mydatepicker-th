@@ -128,7 +128,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
                 this.showSelector = false;
                 this.calendarToggle.emit(CalToggle.CloseByOutClick);
             }
-            if (this.opts.editableMonthAndYear && event.target && this.elem.nativeElement.contains(event.target)) {
+            if (this.opts.editableMonthAndYear) {
                 this.resetMonthYearEdit();
             }
         });
@@ -355,6 +355,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     openBtnClicked(): void {
         // Open selector button clicked
         this.showSelector = !this.showSelector;
+        this.cdr.detectChanges();
         if (this.showSelector) {
             this.setVisibleMonth();
             this.calendarToggle.emit(CalToggle.Open);
