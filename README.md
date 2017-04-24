@@ -45,7 +45,7 @@ To install this component to an external project, follow the procedure:
             map: {
                 // Other components are here...
 
-                'mydatepicker': 'npm:mydatepicker/bundles/mydatepicker.umd.js'
+                'mydatepicker': 'npm:mydatepicker/bundles/mydatepicker.umd.min.js'
             },
             packages: {
             }
@@ -229,7 +229,6 @@ Value of the __options__ attribute is a type of [IMyOptions](https://github.com/
 | __showSelectorArrow__   | true | boolean | Is selector (calendar) arrow shown or not. Can be used if __inline = false__. |
 | __showInputField__   | true | boolean | Is selection area input field shown or not. If not, just show the icon. Can be used if __inline = false__. |
 | __openSelectorOnInputClick__   | false | boolean | Open selector when the input field is clicked. Can be used if __inline = false and editableDateField = false__. |
-| __inputAutoFill__   | true | boolean | Is auto fill used or not when typing to the input box. Can be used if __inline = false__. |
 | __ariaLabelInputField__   | Date input field | string | Aria label text of input field. |
 | __ariaLabelClearDate__   | Clear Date | string | Aria label text of clear date button. |
 | __ariaLabelOpenCalendar__   | Open Calendar | string | Aria label text of open calendar button. |

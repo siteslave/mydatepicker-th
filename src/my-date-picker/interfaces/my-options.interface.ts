@@ -40,7 +40,6 @@ export interface IMyOptions {
     showSelectorArrow?: boolean;
     showInputField?: boolean;
     openSelectorOnInputClick?: boolean;
-    inputAutoFill?: boolean;
     ariaLabelInputField?: string;
     ariaLabelClearDate?: string;
     ariaLabelOpenCalendar?: string;

@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ElementRef, ViewEncapsulation, ChangeDetectorRef, Renderer, forwardRef } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { IMyDate, IMyDateRange, IMyMonth, IMyCalendarDay, IMyWeek, IMyDayLabels, IMyMonthLabels, IMyOptions, IMyDateModel, IMyInputAutoFill, IMyInputFieldChanged, IMyCalendarViewChanged, IMyInputFocusBlur, IMyMarkedDates, IMyMarkedDate } from "./interfaces/index";
+import { IMyDate, IMyDateRange, IMyMonth, IMyCalendarDay, IMyWeek, IMyDayLabels, IMyMonthLabels, IMyOptions, IMyDateModel, IMyInputFieldChanged, IMyCalendarViewChanged, IMyInputFocusBlur, IMyMarkedDates, IMyMarkedDate } from "./interfaces/index";
 import { LocaleService } from "./services/my-date-picker.locale.service";
 import { UtilService } from "./services/my-date-picker.util.service";
 
@@ -21,6 +21,11 @@ enum Year {min = 1000, max = 9999}
 enum InputFocusBlur {focus = 1, blur = 2}
 enum KeyCode {enter = 13, space = 32}
 enum MonthId {prev = 1, curr = 2, next = 3}
+
+const MM = "mm";
+const MMM = "mmm";
+const DD = "dd";
+const YYYY = "yyyy";
 
 @Component({
     selector: "my-date-picker",
@@ -59,7 +64,6 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     disableTodayBtn: boolean = false;
     dayIdx: number = 0;
     weekDayOpts: Array<string> = ["su", "mo", "tu", "we", "th", "fr", "sa"];
-    autoFillOpts: IMyInputAutoFill = {separator: "", formatParts: [], enabled: true};
 
     editMonth: boolean = false;
     invalidMonth: boolean = false;
@@ -111,7 +115,6 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         showSelectorArrow: <boolean> true,
         showInputField: <boolean> true,
         openSelectorOnInputClick: <boolean> false,
-        inputAutoFill: <boolean> true,
         ariaLabelInputField: <string> "Date input field",
         ariaLabelClearDate: <string> "Clear Date",
         ariaLabelOpenCalendar: <string> "Open Calendar",
@@ -156,9 +159,6 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         if (this.disabled !== undefined) {
             this.opts.componentDisabled = this.disabled;
         }
-
-        let separator: string = this.utilService.getDateFormatSeparator(this.opts.dateFormat);
-        this.autoFillOpts = {separator: separator, formatParts: this.opts.dateFormat.split(separator), enabled: this.opts.inputAutoFill};
     }
 
     getSelectorTopPosition(): string {
@@ -506,8 +506,8 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
 
     formatDate(val: any): string {
         // Returns formatted date string, if mmm is part of dateFormat returns month as a string
-        let formatted: string = this.opts.dateFormat.replace("yyyy", val.year).replace("dd", this.preZero(val.day));
-        return this.opts.dateFormat.indexOf("mmm") !== -1 ? formatted.replace("mmm", this.monthText(val.month)) : formatted.replace("mm", this.preZero(val.month));
+        let formatted: string = this.opts.dateFormat.replace(YYYY, val.year).replace(DD, this.preZero(val.day));
+        return this.opts.dateFormat.indexOf(MMM) !== -1 ? formatted.replace(MMM, this.monthText(val.month)) : formatted.replace(MM, this.preZero(val.month));
     }
 
     monthText(m: number): string {
@@ -633,14 +633,19 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         // Parse selDate value - it can be string or IMyDate object
         let date: IMyDate = {day: 0, month: 0, year: 0};
         if (typeof selDate === "string") {
-            let sd: string = <string>selDate;
-            date.day = this.utilService.parseDatePartNumber(this.opts.dateFormat, sd, "dd");
+            let sd: string = <string> selDate;
+            let df: string = this.opts.dateFormat;
 
-            date.month = this.opts.dateFormat.indexOf("mmm") !== -1
-                ? this.utilService.parseDatePartMonthName(this.opts.dateFormat, sd, "mmm", this.opts.monthLabels)
-                : this.utilService.parseDatePartNumber(this.opts.dateFormat, sd, "mm");
+            date.month = df.indexOf(MMM) !== -1
+                ? this.utilService.parseDatePartMonthName(df, sd, MMM, this.opts.monthLabels)
+                : this.utilService.parseDatePartNumber(df, sd, MM);
 
-            date.year = this.utilService.parseDatePartNumber(this.opts.dateFormat, sd, "yyyy");
+            if (df.indexOf(MMM) !== -1 && this.opts.monthLabels[date.month]) {
+                df = this.utilService.changeDateFormat(df, this.opts.monthLabels[date.month].length);
+            }
+
+            date.day = this.utilService.parseDatePartNumber(df, sd, DD);
+            date.year = this.utilService.parseDatePartNumber(df, sd, YYYY);
         }
         else if (typeof selDate === "object") {
             date = selDate;

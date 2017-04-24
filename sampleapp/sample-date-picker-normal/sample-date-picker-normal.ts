@@ -16,7 +16,7 @@ export class SampleDatePickerNormal implements OnInit {
 
     private myDatePickerNormalOptions: IMyOptions = {
         todayBtnTxt: 'Today',
-        dateFormat: 'dd.mm.yyyy',
+        dateFormat: 'mmm dd, yyyy',
         firstDayOfWeek: 'mo',
         sunHighlight: true,
         markCurrentDay: true,
@@ -34,10 +34,23 @@ export class SampleDatePickerNormal implements OnInit {
         showInputField: true,
         openSelectorOnInputClick: false,
         disableHeaderButtons: true,
-        inputAutoFill: true,
         showWeekNumbers: false,
         markDates: [],
-        markWeekends: <IMyMarkedDate>{}
+        markWeekends: <IMyMarkedDate>{},
+        monthLabels: {
+            1: 'January',
+            2: 'February',
+            3: 'March',
+            4: 'April',
+            5: 'May',
+            6: 'June',
+            7: 'July',
+            8: 'August',
+            9: 'September',
+            10: 'October',
+            11: 'November',
+            12: 'December'
+        }
     };
     private selectedDateNormal:string = '';
 
@@ -103,12 +116,6 @@ export class SampleDatePickerNormal implements OnInit {
     onDisableHeaderButtons(checked: boolean) {
         let copy = this.getCopyOfOptions();
         copy.disableHeaderButtons = checked;
-        this.myDatePickerNormalOptions = copy;
-    }
-
-    onInputAutoFill(checked: boolean) {
-        let copy = this.getCopyOfOptions();
-        copy.inputAutoFill = checked;
         this.myDatePickerNormalOptions = copy;
     }
 

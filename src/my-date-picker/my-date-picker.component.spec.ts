@@ -6,7 +6,6 @@ import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
 import {MyDatePicker} from './my-date-picker.component';
 import {FocusDirective} from './directives/my-date-picker.focus.directive';
-import {InputAutoFillDirective} from './directives/my-date-picker.input.auto.fill.directive';
 
 
 let comp: MyDatePicker;
@@ -35,7 +34,7 @@ describe('MyDatePicker', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule],
-            declarations: [MyDatePicker, FocusDirective, InputAutoFillDirective],
+            declarations: [MyDatePicker, FocusDirective],
         });
 
         fixture = TestBed.createComponent(MyDatePicker);
@@ -1731,46 +1730,6 @@ describe('MyDatePicker', () => {
         fixture.detectChanges();
         selection = getElement('.selection');
         expect(selection).not.toBe(null);
-    });
-
-    it('options - input auto fill', () => {
-        comp.options = {inputAutoFill: false};
-        comp.parseOptions();
-
-        fixture.detectChanges();
-        let selection = getElement('.selection');
-        expect(selection).not.toBe(null);
-
-        fixture.detectChanges();
-        selection.nativeElement.value = '2016-2-1';
-        fixture.nativeElement.querySelector('.selection').dispatchEvent(new Event('keyup'));
-
-        fixture.detectChanges();
-        selection = getElement('.selection');
-        expect(selection.nativeElement.value).toBe('2016-2-1');
-
-
-        comp.options = {inputAutoFill: true};
-        comp.parseOptions();
-
-        fixture.detectChanges();
-        selection.nativeElement.value = '';
-
-        fixture.detectChanges();
-        selection.nativeElement.value = '2016-1-';
-        fixture.nativeElement.querySelector('.selection').dispatchEvent(new Event('keyup'));
-
-        fixture.detectChanges();
-        selection = getElement('.selection');
-        expect(selection.nativeElement.value).toBe('2016-01-');
-
-        fixture.detectChanges();
-        selection.nativeElement.value = '2016-01-9';
-        fixture.nativeElement.querySelector('.selection').dispatchEvent(new Event('keyup'));
-
-        fixture.detectChanges();
-        selection = getElement('.selection');
-        expect(selection.nativeElement.value).toBe('2016-01-09');
     });
 
     it('options - show week numbers', () => {

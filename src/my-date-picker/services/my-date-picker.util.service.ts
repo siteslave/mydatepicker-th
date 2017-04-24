@@ -6,29 +6,34 @@ import { IMyMonthLabels } from "../interfaces/my-month-labels.interface";
 import { IMyMarkedDates } from "../interfaces/my-marked-dates.interface";
 import { IMyMarkedDate } from "../interfaces/my-marked-date.interface";
 
+const M = "m";
+const MM = "mm";
+const MMM = "mmm";
+const DD = "dd";
+const YYYY = "yyyy";
+
 @Injectable()
 export class UtilService {
     isDateValid(dateStr: string, dateFormat: string, minYear: number, maxYear: number, disableUntil: IMyDate, disableSince: IMyDate, disableWeekends: boolean, disableDays: Array<IMyDate>, disableDateRanges: Array<IMyDateRange>, monthLabels: IMyMonthLabels, enableDays: Array<IMyDate>): IMyDate {
         let returnDate: IMyDate = {day: 0, month: 0, year: 0};
         let daysInMonth: Array<number> = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        let isMonthStr: boolean = this.getDatePartIndex(dateFormat, "mmm") !== -1;
+        let isMonthStr: boolean = dateFormat.indexOf(MMM) !== -1;
+        let separators: Array<string> = this.getDateFormatSeparators(dateFormat);
 
+        let month: number = isMonthStr ? this.parseDatePartMonthName(dateFormat, dateStr, MMM, monthLabels) : this.parseDatePartNumber(dateFormat, dateStr, MM);
+        if (isMonthStr && monthLabels[month]) {
+            dateFormat = this.changeDateFormat(dateFormat, monthLabels[month].length);
+        }
         if (dateStr.length !== dateFormat.length) {
             return returnDate;
         }
-
-        let separator: string = this.getDateFormatSeparator(dateFormat);
-
-        let parts: Array<string> = dateStr.split(separator);
-        if (parts.length !== 3) {
+        if (dateFormat.indexOf(separators[0]) !== dateStr.indexOf(separators[0]) || dateFormat.lastIndexOf(separators[1]) !== dateStr.lastIndexOf(separators[1])) {
             return returnDate;
         }
+        let day: number = this.parseDatePartNumber(dateFormat, dateStr, DD);
+        let year: number = this.parseDatePartNumber(dateFormat, dateStr, YYYY);
 
-        let day: number = this.parseDatePartNumber(dateFormat, dateStr, "dd");
-        let month: number = isMonthStr ? this.parseDatePartMonthName(dateFormat, dateStr, "mmm", monthLabels) : this.parseDatePartNumber(dateFormat, dateStr, "mm");
-        let year: number = this.parseDatePartNumber(dateFormat, dateStr, "yyyy");
-
-        if (day !== -1 && month !== -1 && year !== -1) {
+        if (month !== -1 && day !== -1 && year !== -1) {
             if (year < minYear || year > maxYear || month < 1 || month > 12) {
                 return returnDate;
             }
@@ -53,8 +58,16 @@ export class UtilService {
         return returnDate;
     }
 
-    getDateFormatSeparator(dateFormat: string): string {
-        return dateFormat.replace(/[dmy]/g, "")[0];
+    getDateFormatSeparators(dateFormat: string): Array<string> {
+        return dateFormat.match(/[^(dmy)]{1,}/g);
+    }
+
+    changeDateFormat(dateFormat: string, len: number): string {
+        let mp: string = "";
+        for (let i = 0; i < len; i++) {
+            mp += M;
+        }
+        return dateFormat.replace(MMM, mp);
     }
 
     isMonthLabelValid(monthLabel: string, monthLabels: IMyMonthLabels): number {
@@ -86,11 +99,16 @@ export class UtilService {
     }
 
     parseDatePartMonthName(dateFormat: string, dateString: string, datePart: string, monthLabels: IMyMonthLabels): number {
-        let pos: number = this.getDatePartIndex(dateFormat, datePart);
-        if (pos !== -1) {
-            return this.isMonthLabelValid(dateString.substring(pos, pos + datePart.length), monthLabels);
+        let monthLabel: string = "";
+        let start: number = dateFormat.indexOf(datePart);
+        if (dateFormat.substr(dateFormat.length - 3) === MMM) {
+            monthLabel = dateString.substring(start);
         }
-        return -1;
+        else {
+            let end: number = dateString.indexOf(dateFormat.charAt(start + datePart.length), start);
+            monthLabel = dateString.substring(start, end);
+        }
+        return this.isMonthLabelValid(monthLabel, monthLabels);
     }
 
     getDatePartIndex(dateFormat: string, datePart: string): number {
