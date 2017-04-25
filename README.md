@@ -3,7 +3,7 @@
 **Angular date picker**
 
 ## Description
-Flock from [https://github.com/kekeh/mydatepicker](https://github.com/kekeh/mydatepicker)
+Fork from [https://github.com/kekeh/mydatepicker](https://github.com/kekeh/mydatepicker)
 
 Online demo is [here](http://kekeh.github.io/mydatepicker)
 
