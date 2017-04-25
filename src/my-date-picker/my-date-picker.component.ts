@@ -382,7 +382,9 @@ export class MyDatePickerTH implements OnChanges, ControlValueAccessor {
             y = this.selectedDate.year;
             m = this.selectedDate.month;
         }
-        this.visibleMonth = {monthTxt: this.opts.monthLabels[m], monthNbr: m, year: y};
+        // set thai year
+        let thaiYear = y + 543;
+        this.visibleMonth = {monthTxt: this.opts.monthLabels[m], monthNbr: m, year: thaiYear};
 
         // Create current month
         this.generateCalendar(m, y, true);
