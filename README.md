@@ -139,8 +139,8 @@ Add the following snippet inside your template:
 
 ```html
 <form [formGroup]="myForm" novalidate>
-    <my-date-picker name="mydate" [options]="myDatePickerOptions"
-                    formControlName="myDate"></my-date-picker>
+    <my-date-picker-th name="mydate" [options]="myDatePickerOptions"
+                    formControlName="myDate"></my-date-picker-th>
   <!-- other controls are here... -->
 </form>
 ```
@@ -176,8 +176,8 @@ export class MyTestApp {
 Add the following snippet inside your template:
 
 ```html
-<my-date-picker [options]="myDatePickerOptions"
-                (dateChanged)="onDateChanged($event)"></my-date-picker>
+<my-date-picker-th [options]="myDatePickerOptions"
+                (dateChanged)="onDateChanged($event)"></my-date-picker-th>
 ```
 
 ## Attributes
