@@ -53,6 +53,9 @@ export class MyDatePickerTH implements OnChanges, ControlValueAccessor {
     onChangeCb: (_: any) => void = () => { };
     onTouchedCb: () => void = () => { };
 
+    currentSysYear: number;
+    currentThaiYear: number;
+
     showSelector: boolean = false;
     visibleMonth: IMyMonth = {monthTxt: "", monthNbr: 0, year: 0};
     selectedMonth: IMyMonth = {monthTxt: "", monthNbr: 0, year: 0};
@@ -392,42 +395,46 @@ export class MyDatePickerTH implements OnChanges, ControlValueAccessor {
 
     prevMonth(): void {
         // Previous month from calendar
-        let d: Date = this.getDate(this.visibleMonth.year, this.visibleMonth.monthNbr, 1);
+        this.currentSysYear = this.visibleMonth.year - 543;
+        let d: Date = this.getDate(this.currentSysYear, this.visibleMonth.monthNbr, 1);
         d.setMonth(d.getMonth() - 1);
 
         let y: number = d.getFullYear();
         let m: number = d.getMonth() + 1;
 
-        this.visibleMonth = {monthTxt: this.monthText(m), monthNbr: m, year: y};
+        this.currentThaiYear = y + 543;
+        this.visibleMonth = {monthTxt: this.monthText(m), monthNbr: m, year: this.currentThaiYear};
         this.generateCalendar(m, y, true);
     }
 
     nextMonth(): void {
         // Next month from calendar
-        let d: Date = this.getDate(this.visibleMonth.year, this.visibleMonth.monthNbr, 1);
+        this.currentSysYear = this.visibleMonth.year - 543;
+
+        let d: Date = this.getDate(this.currentSysYear, this.visibleMonth.monthNbr, 1);
         d.setMonth(d.getMonth() + 1);
 
         let y: number = d.getFullYear();
         let m: number = d.getMonth() + 1;
-
-        this.visibleMonth = {monthTxt: this.monthText(m), monthNbr: m, year: y};
+        this.currentThaiYear = y + 543;
+        this.visibleMonth = {monthTxt: this.monthText(m), monthNbr: m, year: this.currentThaiYear};
         this.generateCalendar(m, y, true);
     }
 
     prevYear(): void {
         // Previous year from calendar
-        let currentSysYear = this.visibleMonth.year - 543;
+        this.currentSysYear = this.visibleMonth.year - 543;
         this.visibleMonth.year--;
-        currentSysYear--;
-        this.generateCalendar(this.visibleMonth.monthNbr, currentSysYear, true);
+        this.currentSysYear--;
+        this.generateCalendar(this.visibleMonth.monthNbr, this.currentSysYear, true);
     }
 
     nextYear(): void {
         // Next year from calendar
-        let currentSysYear = this.visibleMonth.year - 543;
+        this.currentSysYear = this.visibleMonth.year - 543;
         this.visibleMonth.year++;
-        currentSysYear++;
-        this.generateCalendar(this.visibleMonth.monthNbr, currentSysYear, true);
+        this.currentSysYear++;
+        this.generateCalendar(this.visibleMonth.monthNbr, this.currentSysYear, true);
     }
 
     todayClicked(): void {
