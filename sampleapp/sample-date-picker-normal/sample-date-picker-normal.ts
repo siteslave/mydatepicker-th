@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {IMyOptions, IMyDateModel, IMyInputFieldChanged, IMyCalendarViewChanged, IMyInputFocusBlur, IMyMarkedDate} from '../../src/my-date-picker/interfaces';
-import {MyDatePicker} from '../../src/my-date-picker/my-date-picker.component';
+import {MyDatePickerTH} from '../../src/my-date-picker/my-date-picker.component';
 
 declare var require:any;
 const normalSampleTpl: string = require('./sample-date-picker-normal.html');
@@ -12,7 +12,7 @@ const normalSampleTpl: string = require('./sample-date-picker-normal.html');
 
 export class SampleDatePickerNormal implements OnInit {
 
-    @ViewChild('mydp') mydp: MyDatePicker;
+    @ViewChild('mydp') mydp: MyDatePickerTH;
 
     private myDatePickerNormalOptions: IMyOptions = {
         todayBtnTxt: 'Today',

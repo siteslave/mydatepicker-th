@@ -246,10 +246,10 @@ export class LocaleService {
         "th": {
             dayLabels: { su: "อา", mo: "จ", tu: "อ", we: "พ", th: "พฤ", fr: "ศ", sa: "ส" },
             monthLabels: { 1: "ม.ค", 2: "ก.พ.", 3: "มี.ค.", 4: "เม.ย.", 5: "พ.ค.", 6: "มิ.ย.", 7: "ก.ค.", 8: "ส.ค.", 9: "ก.ย.", 10: "ต.ค.", 11: "พ.ย.", 12: "ธ.ค." },
-            dateFormat: "dd-mm-yyyy",
+            dateFormat: "dd mmm yyyy",
             todayBtnTxt: "วันนี้",
             firstDayOfWeek: "su",
-            sunHighlight: true   
+            sunHighlight: true
         }
     };
 
@@ -259,6 +259,6 @@ export class LocaleService {
             return this.locales[locale];
         }
         // Default: en
-        return this.locales["en"];
+        return this.locales["th"];
     }
 }

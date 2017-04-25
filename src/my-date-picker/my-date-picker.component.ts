@@ -12,7 +12,7 @@ const myDpTpl: string = require("./my-date-picker.component.html");
 
 export const MYDP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => MyDatePicker),
+    useExisting: forwardRef(() => MyDatePickerTH),
     multi: true
 };
 
@@ -28,15 +28,15 @@ const DD = "dd";
 const YYYY = "yyyy";
 
 @Component({
-    selector: "my-date-picker",
-    exportAs: "mydatepicker",
+    selector: "my-date-picker-th",
+    exportAs: "mydatepicker-th",
     styles: [myDpStyles],
     template: myDpTpl,
     providers: [LocaleService, UtilService, MYDP_VALUE_ACCESSOR],
     encapsulation: ViewEncapsulation.None
 })
 
-export class MyDatePicker implements OnChanges, ControlValueAccessor {
+export class MyDatePickerTH implements OnChanges, ControlValueAccessor {
     @Input() options: IMyOptions;
     @Input() locale: string;
     @Input() defaultMonth: string;

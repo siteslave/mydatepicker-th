@@ -4,12 +4,12 @@ import {FormsModule} from "@angular/forms";
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
-import {MyDatePicker} from './my-date-picker.component';
+import {MyDatePickerTH} from './my-date-picker.component';
 import {FocusDirective} from './directives/my-date-picker.focus.directive';
 
 
-let comp: MyDatePicker;
-let fixture: ComponentFixture<MyDatePicker>;
+let comp: MyDatePickerTH;
+let fixture: ComponentFixture<MyDatePickerTH>;
 let de: DebugElement;
 let el: HTMLElement;
 
@@ -30,14 +30,14 @@ function getElements(id:string):Array<DebugElement> {
     return de.queryAll(By.css(id));
 }
 
-describe('MyDatePicker', () => {
+describe('MyDatePickerTH', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule],
-            declarations: [MyDatePicker, FocusDirective],
+            declarations: [MyDatePickerTH, FocusDirective],
         });
 
-        fixture = TestBed.createComponent(MyDatePicker);
+        fixture = TestBed.createComponent(MyDatePickerTH);
 
         comp = fixture.componentInstance;
 

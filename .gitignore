@@ -6,3 +6,5 @@ build-sampleapp/
 test-output/
 npmdist/
 .tmpbuild/
+
+.DS_Store

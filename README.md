@@ -2,33 +2,26 @@
 
 **Angular date picker**
 
-[![Build Status](https://travis-ci.org/kekeh/mydatepicker.svg?branch=master)](https://travis-ci.org/kekeh/mydatepicker)
-[![codecov](https://codecov.io/gh/kekeh/mydatepicker/branch/master/graph/badge.svg)](https://codecov.io/gh/kekeh/mydatepicker)
-[![npm](https://img.shields.io/npm/v/mydatepicker.svg?maxAge=2592000?style=flat-square)](https://www.npmjs.com/package/mydatepicker)
-
 ## Description
-Highly configurable Angular date picker. Compatible with __Angular2__ and __Angular4__ versions.
+Flock from [https://github.com/kekeh/mydatepicker](https://github.com/kekeh/mydatepicker)
 
 Online demo is [here](http://kekeh.github.io/mydatepicker)
-
-If you want to set own styles to the input box, the calendar and the clear buttons you can try [this](https://github.com/kekeh/ngx-mydatepicker)
-attribute directive date picker.
 
 ## Installation
 
 To install this component to an external project, follow the procedure:
 
-1. __npm install mydatepicker --save__
+1. __npm install mydatepicker-th --save__
 
 2. Add __MyDatePickerModule__ import to your __@NgModule__ like example below
     ```ts
     import { NgModule } from '@angular/core';
     import { BrowserModule } from '@angular/platform-browser';
     import { MyTestApp } from './my-test-app';
-    import { MyDatePickerModule } from 'mydatepicker';
+    import { MyDatePickerModuleTH } from 'mydatepicker-th';
 
     @NgModule({
-        imports:      [ BrowserModule, MyDatePickerModule ],
+        imports:      [ BrowserModule, MyDatePickerModuleTH ],
         declarations: [ MyTestApp ],
         bootstrap:    [ MyTestApp ]
     })
@@ -45,7 +38,7 @@ To install this component to an external project, follow the procedure:
             map: {
                 // Other components are here...
 
-                'mydatepicker': 'npm:mydatepicker/bundles/mydatepicker.umd.min.js'
+                'mydatepicker-th': 'npm:mydatepicker/bundles/mydatepicker.umd.min.js'
             },
             packages: {
             }
@@ -65,7 +58,7 @@ is an example application. It shows how to use the __ngModel__.
 To use ngModel define the application class as follows:
 
 ```ts
-import {IMyOptions} from 'mydatepicker';
+import {IMyOptions} from 'mydatepicker-th';
 // other imports here...
 
 export class MyTestApp {

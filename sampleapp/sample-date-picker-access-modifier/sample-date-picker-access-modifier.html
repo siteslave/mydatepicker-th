@@ -33,7 +33,7 @@
             <div class="title">ngModel</div>
             <div>
                 <form #f="ngForm" (ngSubmit)="onSubmitNgModel()" novalidate>
-                    <my-date-picker name="ngModelDate" [options]="myDatePickerOptions" [selector]="selector" [(ngModel)]="model.mydate" required></my-date-picker>
+                    <my-date-picker-th name="ngModelDate" [options]="myDatePickerOptions" [selector]="selector" [(ngModel)]="model.mydate" required></my-date-picker-th>
                     <div>
                         <button class="button" type="submit" [disabled]="!f.valid">Submit</button>
                         <button class="button" type="button" (click)="clearNgModelDate()">Clear date</button>
@@ -50,8 +50,8 @@
             <div class="title">Reactive forms</div>
             <div>
                 <form [formGroup]="myForm" (ngSubmit)="onSubmitReactiveForms()" novalidate>
-                    <my-date-picker name="reactiveFormsDate" [options]="myDatePickerOptions" formControlName="myDate"
-                                    (inputFieldChanged)="onInputFieldChanged($event)"></my-date-picker>
+                    <my-date-picker-th name="reactiveFormsDate" [options]="myDatePickerOptions" formControlName="myDate"
+                                    (inputFieldChanged)="onInputFieldChanged($event)"></my-date-picker-th>
                     <div>
                         <button class="button" type="submit" [disabled]="myForm.controls.myDate.errors">Submit</button>
                         <button class="button" type="button" (click)="setDate()">Set Today</button>
