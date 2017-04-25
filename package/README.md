@@ -1,21 +1,17 @@
 # mydatepicker
 
-**Angular date picker**
-
-[![Build Status](https://travis-ci.org/kekeh/mydatepicker.svg?branch=master)](https://travis-ci.org/kekeh/mydatepicker)
-[![codecov](https://codecov.io/gh/kekeh/mydatepicker/branch/master/graph/badge.svg)](https://codecov.io/gh/kekeh/mydatepicker)
-[![npm](https://img.shields.io/npm/v/mydatepicker.svg?maxAge=2592000?style=flat-square)](https://www.npmjs.com/package/mydatepicker)
-
+**Angular date picker for thai locale**
 ## Description
+Fork from [https://github.com/kekeh/mydatepicker](https://github.com/kekeh/mydatepicker)
 Highly configurable Angular date picker. Compatible with __Angular2__ and __Angular4__ versions.
 
 ## Installation
 
-__npm install mydatepicker --save__
+__npm install mydatepicker-th --save__
 
 ## Usage
 
-Follow instructions from [here](https://github.com/kekeh/mydatepicker/blob/master/README.md)
+Follow instructions from [here](https://github.com/siteslave/mydatepicker-th/blob/master/README.md)
 
 ## Demo
 Online demo is [here](http://kekeh.github.io/mydatepicker)
@@ -33,7 +29,7 @@ Online demo is [here](http://kekeh.github.io/mydatepicker)
 
 ## Author
 * Author: kekeh
-
+* Modified by: Satit
 ## Keywords
 * Date picker
 * Angular2

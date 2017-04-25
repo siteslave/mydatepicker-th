@@ -9,5 +9,5 @@ import { FocusDirective } from "./directives/my-date-picker.focus.directive";
     declarations: [MyDatePickerTH, FocusDirective],
     exports: [MyDatePickerTH, FocusDirective]
 })
-export class MyDatePickerModuleTH {
+export class MyDatePickerTHModule {
 }

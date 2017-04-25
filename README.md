@@ -13,15 +13,15 @@ To install this component to an external project, follow the procedure:
 
 1. __npm install mydatepicker-th --save__
 
-2. Add __MyDatePickerModule__ import to your __@NgModule__ like example below
+2. Add __MyDatePickerTHModule__ import to your __@NgModule__ like example below
     ```ts
     import { NgModule } from '@angular/core';
     import { BrowserModule } from '@angular/platform-browser';
     import { MyTestApp } from './my-test-app';
-    import { MyDatePickerModuleTH } from 'mydatepicker-th';
+    import { MyDatePickerTHModule } from 'mydatepicker-th';
 
     @NgModule({
-        imports:      [ BrowserModule, MyDatePickerModuleTH ],
+        imports:      [ BrowserModule, MyDatePickerTHModule ],
         declarations: [ MyTestApp ],
         bootstrap:    [ MyTestApp ]
     })
@@ -432,6 +432,7 @@ Online demo is [here](http://kekeh.github.io/mydatepicker)
 
 ## Author
 * Author: kekeh
+* Modified by: Satit
 
 ## Keywords
 * Date picker
