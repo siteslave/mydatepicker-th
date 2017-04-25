@@ -441,8 +441,11 @@ export class MyDatePickerTH implements OnChanges, ControlValueAccessor {
         // Today button clicked
         let today: IMyDate = this.getToday();
         this.selectDate(today);
-        if (this.opts.inline && today.year !== this.visibleMonth.year || today.month !== this.visibleMonth.monthNbr) {
-            this.visibleMonth = {monthTxt: this.opts.monthLabels[today.month], monthNbr: today.month, year: today.year};
+        this.currentSysYear = this.visibleMonth.year - 543;
+        this.currentThaiYear = today.year + 543;
+
+        if (this.opts.inline && today.year !== this.currentSysYear || today.month !== this.visibleMonth.monthNbr) {
+            this.visibleMonth = {monthTxt: this.opts.monthLabels[today.month], monthNbr: today.month, year: this.currentThaiYear};
             this.generateCalendar(today.month, today.year, true);
         }
     }
@@ -519,7 +522,9 @@ export class MyDatePickerTH implements OnChanges, ControlValueAccessor {
 
     formatDate(val: any): string {
         // Returns formatted date string, if mmm is part of dateFormat returns month as a string
-        let formatted: string = this.opts.dateFormat.replace(YYYY, val.year).replace(DD, this.preZero(val.day));
+        let thaiYear = val.year + 543;
+        let formatted: string = this.opts.dateFormat.replace(YYYY, thaiYear).replace(DD, this.preZero(val.day));
+        // console.log(formatted);
         return this.opts.dateFormat.indexOf(MMM) !== -1 ? formatted.replace(MMM, this.monthText(val.month)) : formatted.replace(MM, this.preZero(val.month));
     }
 

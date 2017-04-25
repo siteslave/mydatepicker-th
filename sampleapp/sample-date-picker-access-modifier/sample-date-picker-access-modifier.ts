@@ -88,4 +88,8 @@ export class SampleDatePickerAccessModifier implements OnInit {
     onInputFieldChanged(event: IMyInputFieldChanged) {
         console.log('onInputFieldChanged(): Value: ', event.value, ' - dateFormat: ', event.dateFormat, ' - valid: ', event.valid);
     }
+
+    showMyDate() {
+        alert(JSON.stringify(this.model));
+    }
 }
