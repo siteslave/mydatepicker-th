@@ -416,14 +416,18 @@ export class MyDatePickerTH implements OnChanges, ControlValueAccessor {
 
     prevYear(): void {
         // Previous year from calendar
+        let currentSysYear = this.visibleMonth.year - 543;
         this.visibleMonth.year--;
-        this.generateCalendar(this.visibleMonth.monthNbr, this.visibleMonth.year, true);
+        currentSysYear--;
+        this.generateCalendar(this.visibleMonth.monthNbr, currentSysYear, true);
     }
 
     nextYear(): void {
         // Next year from calendar
+        let currentSysYear = this.visibleMonth.year - 543;
         this.visibleMonth.year++;
-        this.generateCalendar(this.visibleMonth.monthNbr, this.visibleMonth.year, true);
+        currentSysYear++;
+        this.generateCalendar(this.visibleMonth.monthNbr, currentSysYear, true);
     }
 
     todayClicked(): void {
