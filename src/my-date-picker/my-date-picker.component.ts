@@ -186,9 +186,7 @@ export class MyDatePickerTH implements OnChanges, ControlValueAccessor {
 
     editYearClicked(event: any): void {
         event.stopPropagation();
-        if (this.opts.editableMonthAndYear) {
-            this.editYear = true;
-        }
+        this.editYear = false;
     }
 
     onUserDateInput(value: string): void {
