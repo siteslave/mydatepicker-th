@@ -30,6 +30,8 @@ export interface IMyOptions {
     selectionTxtFontSize?: string;
     inline?: boolean;
     showClearDateBtn?: boolean;
+    showDecreaseDateBtn?: boolean;
+    showIncreaseDateBtn?: boolean;
     alignSelectorRight?: boolean;
     openSelectorTopOfInput?: boolean;
     indicateInvalidDate?: boolean;
@@ -49,4 +51,6 @@ export interface IMyOptions {
     ariaLabelNextMonth?: string;
     ariaLabelPrevYear?: string;
     ariaLabelNextYear?: string;
+    ariaLabelDecreaseDate?: string;
+    ariaLabelIncreaseDate?: string;
 }

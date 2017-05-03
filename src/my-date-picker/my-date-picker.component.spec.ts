@@ -1350,6 +1350,120 @@ describe('MyDatePicker', () => {
         expect(btnclear).toBe(null);
     });
 
+    it('options - show decrease date button', () => {
+        let date = new Date();
+        comp.selectedMonth = {monthTxt: '', monthNbr: date.getMonth() + 1, year: date.getFullYear()};
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        let currday = getElement('.currday');
+        expect(currday).not.toBe(null);
+
+        currday.nativeElement.click();
+
+        fixture.detectChanges();
+        let btndecrease = getElement('.btndecrease');
+        expect(btndecrease).toBe(null);
+
+        comp.options = {showDecreaseDateBtn: true};
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        currday = getElement('.currday');
+        expect(currday).not.toBe(null);
+
+        currday.nativeElement.click();
+
+        fixture.detectChanges();
+        btndecrease = getElement('.btndecrease');
+        expect(btndecrease).not.toBe(null);
+        btndecrease.nativeElement.click();
+
+        btndecrease.nativeElement.click();
+
+
+        comp.options = {showDecreaseDateBtn: false};
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        currday = getElement('.currday');
+        expect(currday).not.toBe(null);
+
+        currday.nativeElement.click();
+
+        fixture.detectChanges();
+        btndecrease = getElement('.btndecrease');
+        expect(btndecrease).toBe(null);
+    });
+
+    it('options - show increase date button', () => {
+        let date = new Date();
+        comp.selectedMonth = {monthTxt: '', monthNbr: date.getMonth() + 1, year: date.getFullYear()};
+
+        fixture.detectChanges();
+        let btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        let currday = getElement('.currday');
+        expect(currday).not.toBe(null);
+
+        currday.nativeElement.click();
+
+        fixture.detectChanges();
+        let btnincrease = getElement('.btnincrease');
+        expect(btnincrease).toBe(null);
+
+        comp.options = {showIncreaseDateBtn: true};
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        currday = getElement('.currday');
+        expect(currday).not.toBe(null);
+
+        currday.nativeElement.click();
+
+        fixture.detectChanges();
+        btnincrease = getElement('.btnincrease');
+        expect(btnincrease).not.toBe(null);
+        btnincrease.nativeElement.click();
+
+        btnincrease.nativeElement.click();
+
+
+        comp.options = {showIncreaseDateBtn: false};
+        comp.parseOptions();
+
+        fixture.detectChanges();
+        btnpicker = getElement('.btnpicker');
+        btnpicker.nativeElement.click();
+
+        fixture.detectChanges();
+        currday = getElement('.currday');
+        expect(currday).not.toBe(null);
+
+        currday.nativeElement.click();
+
+        fixture.detectChanges();
+        btnincrease = getElement('.btnincrease');
+        expect(btnincrease).toBe(null);
+    });
+
     it('options - height', () => {
         comp.selectedMonth = {monthTxt: '', monthNbr: 10, year: 2016};
         comp.options = {height: '50px'};
@@ -1485,16 +1599,16 @@ describe('MyDatePicker', () => {
         invaliddate = getElement('.invaliddate');
         expect(invaliddate).toBe(null);
     });
-    
+
     it('options - disableUntil input dates validation', ()=> {
         comp.options = {
-            indicateInvalidDate: true, 
-            dateFormat: 'dd.mm.yyyy', 
+            indicateInvalidDate: true,
+            dateFormat: 'dd.mm.yyyy',
             disableUntil:{year: 2016, month: 11, day: 4}
         };
-        
+
         comp.parseOptions();
-        
+
         comp.onUserDateInput('11.12.2015');
         fixture.detectChanges();
         let invaliddate = getElement('.invaliddate');
@@ -1891,6 +2005,7 @@ describe('MyDatePicker', () => {
 
     it('options - aria label texts', () => {
         comp.selectedDate = comp.parseSelectedDate('2017-10-11');
+        comp.options = {showDecreaseDateBtn: true, showIncreaseDateBtn: true};
         comp.parseOptions();
 
         fixture.detectChanges();
@@ -1910,6 +2025,15 @@ describe('MyDatePicker', () => {
         expect(btnclear).not.toBe(null);
         expect(btnclear.nativeElement.attributes['aria-label'].textContent).toBe('Clear Date');
 
+        fixture.detectChanges();
+        let btndecrease = getElement('.btndecrease');
+        expect(btndecrease).not.toBe(null);
+        expect(btndecrease.nativeElement.attributes['aria-label'].textContent).toBe('Decrease Date');
+
+        fixture.detectChanges();
+        let btnincrease = getElement('.btnincrease');
+        expect(btnincrease).not.toBe(null);
+        expect(btnincrease.nativeElement.attributes['aria-label'].textContent).toBe('Increase Date');
 
         fixture.detectChanges();
         let prevmonth = getElement(PREVMONTH);
@@ -1936,11 +2060,13 @@ describe('MyDatePicker', () => {
         comp.options = {
             ariaLabelInputField: 'text 1',
             ariaLabelClearDate: 'text 2',
-            ariaLabelOpenCalendar: 'text 3',
-            ariaLabelPrevMonth: 'text 4',
-            ariaLabelNextMonth: 'text 5',
-            ariaLabelPrevYear: 'text 6',
-            ariaLabelNextYear: 'text 7'
+            ariaLabelDecreaseDate: 'text 3',
+            ariaLabelIncreaseDate: 'text 4',
+            ariaLabelOpenCalendar: 'text 5',
+            ariaLabelPrevMonth: 'text 6',
+            ariaLabelNextMonth: 'text 7',
+            ariaLabelPrevYear: 'text 8',
+            ariaLabelNextYear: 'text 9'
         };
         comp.parseOptions();
 
@@ -1961,6 +2087,15 @@ describe('MyDatePicker', () => {
         expect(btnclear).not.toBe(null);
         expect(btnclear.nativeElement.attributes['aria-label'].textContent).toBe(comp.options.ariaLabelClearDate);
 
+        fixture.detectChanges();
+        btndecrease = getElement('.btndecrease');
+        expect(btndecrease).not.toBe(null);
+        expect(btndecrease.nativeElement.attributes['aria-label'].textContent).toBe(comp.options.ariaLabelDecreaseDate);
+
+        fixture.detectChanges();
+        btnincrease = getElement('.btnincrease');
+        expect(btnincrease).not.toBe(null);
+        expect(btnincrease.nativeElement.attributes['aria-label'].textContent).toBe(comp.options.ariaLabelIncreaseDate);
 
         fixture.detectChanges();
         prevmonth = getElement(PREVMONTH);

@@ -109,6 +109,8 @@ export class MyDatePickerTH implements OnChanges, ControlValueAccessor {
         selectionTxtFontSize: <string>"14px",
         inline: <boolean>false,
         showClearDateBtn: <boolean>true,
+        showDecreaseDateBtn: <boolean>false,
+        showIncreaseDateBtn: <boolean>false,
         alignSelectorRight: <boolean>false,
         openSelectorTopOfInput: <boolean>false,
         indicateInvalidDate: <boolean>true,
@@ -122,6 +124,8 @@ export class MyDatePickerTH implements OnChanges, ControlValueAccessor {
         openSelectorOnInputClick: <boolean>false,
         ariaLabelInputField: <string>"Date input field",
         ariaLabelClearDate: <string>"Clear Date",
+        ariaLabelDecreaseDate: <string>"Decrease Date",
+        ariaLabelIncreaseDate: <string>"Increase Date",
         ariaLabelOpenCalendar: <string>"Open Calendar",
         ariaLabelPrevMonth: <string>"Previous Month",
         ariaLabelNextMonth: <string>"Next Month",
@@ -398,6 +402,68 @@ export class MyDatePickerTH implements OnChanges, ControlValueAccessor {
         this.clearDate();
         if (this.showSelector) {
             this.calendarToggle.emit(CalToggle.CloseByCalBtn);
+        }
+        this.showSelector = false;
+    }
+
+    decreaseBtnClicked(): void {
+        // Decrease date button clicked
+        this.decreaseDate();
+        if (this.showSelector) {
+            this.calendarToggle.emit(CalToggle.CloseByCalBtn);
+        }
+        this.showSelector = false;
+    }
+
+    increaseBtnClicked(): void {
+        // Increase date button clicked
+        this.increaseDate();
+        if (this.showSelector) {
+            this.calendarToggle.emit(CalToggle.CloseByCalBtn);
+        }
+        this.showSelector = false;
+    }
+
+    decreaseDate(): void {
+        // Decreases the date and notifies parent using callbacks and value accessor
+        let date = this.selectedDate;
+        if (date.day !== 0 && date.month !== 0 && date.year !== 0) {
+            let advancedDate = this.getDate(this.selectedDate.year, this.selectedDate.month, this.selectedDate.day);
+            advancedDate.setDate(advancedDate.getDate() - 1);
+            date = { year: advancedDate.getFullYear(), month: advancedDate.getMonth() + 1, day: advancedDate.getDate() };;
+        } else {
+            date = this.getToday();
+        }
+
+        let dateModel: IMyDateModel = this.getDateModel(date);
+        this.dateChanged.emit(dateModel);
+        this.onChangeCb(dateModel);
+        this.onTouchedCb();
+        this.updateDateValue(date, false);
+        if (this.showSelector) {
+            this.calendarToggle.emit(CalToggle.CloseByDateSel);
+        }
+        this.showSelector = false;
+    }
+
+    increaseDate(): void {
+        // Increases the date and notifies parent using callbacks and value accessor
+        let date = this.selectedDate;
+        if (date.day !== 0 && date.month !== 0 && date.year !== 0) {
+            let advancedDate = this.getDate(this.selectedDate.year, this.selectedDate.month, this.selectedDate.day);
+            advancedDate.setDate(advancedDate.getDate() + 1);
+            date = { year: advancedDate.getFullYear(), month: advancedDate.getMonth() + 1, day: advancedDate.getDate() };;
+        } else {
+            date = this.getToday();
+        }
+
+        let dateModel: IMyDateModel = this.getDateModel(date);
+        this.dateChanged.emit(dateModel);
+        this.onChangeCb(dateModel);
+        this.onTouchedCb();
+        this.updateDateValue(date, false);
+        if (this.showSelector) {
+            this.calendarToggle.emit(CalToggle.CloseByDateSel);
         }
         this.showSelector = false;
     }

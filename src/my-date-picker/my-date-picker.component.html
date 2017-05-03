@@ -1,11 +1,19 @@
 <div class="mydp" [ngStyle]="{'width': opts.showInputField ? opts.width : null, 'border': opts.inline ? 'none' : null}">
     <div class="selectiongroup" *ngIf="!opts.inline">
+        <div class="selbtngroup" [style.height]="opts.height">
+          <button type="button" [attr.aria-label]="opts.ariaLabelDecreaseDate" class="btndecrease" *ngIf="opts.showDecreaseDateBtn" (click)="decreaseBtnClicked()" [ngClass]="{'btndecreaseenabled': !opts.componentDisabled, 'btndecreasedisabled': opts.componentDisabled, 'btnrightborder': opts.showInputField, 'btnleftborderradius': !opts.showInputField}" [disabled]="opts.componentDisabled">
+              <span class="mydpicon icon-mydpleft"></span>
+          </button>
+        </div>
         <input *ngIf="opts.showInputField" ngtype="text" class="selection" [attr.aria-label]="opts.ariaLabelInputField" (click)="opts.openSelectorOnInputClick&&!opts.editableDateField&&openBtnClicked()" [ngClass]="{'invaliddate': invalidDate&&opts.indicateInvalidDate, 'inputnoteditable': opts.openSelectorOnInputClick&&!opts.editableDateField, 'selectiondisabled': opts.componentDisabled}"
                 placeholder="{{placeholder}}" [ngStyle]="{'height': opts.height, 'font-size': opts.selectionTxtFontSize}" [ngModel]="selectionDayTxt" (ngModelChange)="onUserDateInput($event)" [value]="selectionDayTxt" (keyup)="onCloseSelector($event)"
                (focus)="opts.editableDateField&&onFocusInput($event)" (blur)="opts.editableDateField&&onBlurInput($event)" [disabled]="opts.componentDisabled" [readonly]="!opts.editableDateField" autocomplete="off">
         <div class="selbtngroup" [style.height]="opts.height">
             <button type="button" [attr.aria-label]="opts.ariaLabelClearDate" class="btnclear" *ngIf="selectionDayTxt.length>0&&opts.showClearDateBtn" (click)="removeBtnClicked()" [ngClass]="{'btnclearenabled': !opts.componentDisabled, 'btncleardisabled': opts.componentDisabled, 'btnleftborder': opts.showInputField, 'btnleftborderradius': !opts.showInputField}" [disabled]="opts.componentDisabled">
                 <span class="mydpicon icon-mydpremove"></span>
+            </button>
+            <button type="button" [attr.aria-label]="opts.ariaLabelIncreaseDate" class="btnincrease" *ngIf="opts.showIncreaseDateBtn" (click)="increaseBtnClicked()" [ngClass]="{'btnincreaseenabled': !opts.componentDisabled, 'btnincreasedisabled': opts.componentDisabled, 'btnleftborder': opts.showInputField, 'btnleftborderradius': !opts.showInputField}" [disabled]="opts.componentDisabled">
+                <span class="mydpicon icon-mydpright"></span>
             </button>
             <button type="button" [attr.aria-label]="opts.ariaLabelOpenCalendar" class="btnpicker" (click)="openBtnClicked()" [ngClass]="{'btnpickerenabled': !opts.componentDisabled, 'btnpickerdisabled': opts.componentDisabled, 'btnleftborder': opts.showInputField||selectionDayTxt.length>0&&opts.showClearDateBtn, 'btnleftborderradius': !opts.showClearDateBtn&&!opts.showInputField||!opts.showInputField&&selectionDayTxt.length===0}" [disabled]="opts.componentDisabled">
                 <span class="mydpicon icon-mydpcalendar"></span>
@@ -68,7 +76,7 @@
             <tbody>
                 <tr>
                     <td colspan="5" class="yearchangebtncell">
-                        <button type="button" class="yearchangebtn mydpicon icon-mydpup" (click)="onPrevYears($event, years[0][0].year)"></button>
+                        <button type="button" class="yearchangebtn mydpicon icon-mydpup" (click)="onPrevYears($event, years[0][0].year)" [disabled]="prevYearsDisabled" [ngClass]="{'yearchangebtnenabled': !prevYearsDisabled, 'yearchangebtndisabled': prevYearsDisabled}"></button>
                     </td>
                 </tr>
                 <tr *ngFor="let yr of years">
@@ -78,7 +86,7 @@
                 </tr>
                 <tr>
                     <td colspan="5" class="yearchangebtncell">
-                        <button type="button" class="yearchangebtn mydpicon icon-mydpdown" (click)="onNextYears($event, years[0][0].year)"></button>
+                        <button type="button" class="yearchangebtn mydpicon icon-mydpdown" (click)="onNextYears($event, years[0][0].year)" [disabled]="nextYearsDisabled" [ngClass]="{'yearchangebtnenabled': !nextYearsDisabled, 'yearchangebtndisabled': nextYearsDisabled}"></button>
                     </td>
                 </tr>
             </tbody>

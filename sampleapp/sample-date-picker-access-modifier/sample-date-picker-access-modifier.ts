@@ -16,7 +16,9 @@ export class SampleDatePickerAccessModifier implements OnInit {
         dateFormat: 'dd.mm.yyyy',
         height: '34px',
         width: '210px',
-        inline: false
+        inline: false,
+        showDecreaseDateBtn: true,
+        showIncreaseDateBtn: true
     };
 
     private myForm: FormGroup;

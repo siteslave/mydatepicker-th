@@ -212,6 +212,8 @@ Value of the __options__ attribute is a type of [IMyOptions](https://github.com/
 | __showWeekNumbers__   | false | boolean | Are week numbers visible or not on calendar. Can be used if __firstDayOfWeek = mo__. |
 | __inline__   | false | boolean | Show mydatepicker in inline mode. |
 | __showClearDateBtn__   | true | boolean | Is clear date button shown or not. Can be used if __inline = false__. |
+| __showDecreaseDateBtn__   | false | boolean | Is decrease date button shown or not. Can be used if __inline = false__. |
+| __showIncreaseDateBtn__   | false | boolean | Is increase date button shown or not. Can be used if __inline = false__. |
 | __height__   | 34px | string | mydatepicker height in without selector. Can be used if __inline = false__. |
 | __width__   | 100% | string | mydatepicker width. Can be used if __inline = false__. |
 | __selectionTxtFontSize__   | 14px | string | Selection area font size. Can be used if __inline = false__. |
@@ -225,6 +227,8 @@ Value of the __options__ attribute is a type of [IMyOptions](https://github.com/
 | __openSelectorOnInputClick__   | false | boolean | Open selector when the input field is clicked. Can be used if __inline = false and editableDateField = false__. |
 | __ariaLabelInputField__   | Date input field | string | Aria label text of input field. |
 | __ariaLabelClearDate__   | Clear Date | string | Aria label text of clear date button. |
+| __ariaLabelDecreaseDate__   | Decrease Date | string | Aria label text of decrease date button. |
+| __ariaLabelIncreaseDate__   | Increase Date | string | Aria label text of increase date button. |
 | __ariaLabelOpenCalendar__   | Open Calendar | string | Aria label text of open calendar button. |
 | __ariaLabelPrevMonth__   | Previous Month | string | Aria label text of previous month button. |
 | __ariaLabelNextMonth__   | Next Month | string | Aria label text of next month button. |
