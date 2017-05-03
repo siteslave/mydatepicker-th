@@ -23,6 +23,8 @@ export interface IMyOptions {
     disableDateRanges?: Array<IMyDateRange>;
     disableWeekends?: boolean;
     showWeekNumbers?: boolean;
+    monthSelector?: boolean;
+    yearSelector?: boolean;
     height?: string;
     width?: string;
     selectionTxtFontSize?: string;
