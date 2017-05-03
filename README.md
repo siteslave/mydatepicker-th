@@ -153,7 +153,7 @@ is an example application. It shows how to use callbacks.
 To use callbacks define the application class as follows:
 
 ```js
-import {IMyOptions, IMyDateModel} from 'mydatepicker';
+import {IMyOptions, IMyDateModel} from 'mydatepicker-th';
 // other imports here...
 
 export class MyTestApp {
