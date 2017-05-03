@@ -30,7 +30,7 @@ function getElements(id:string):Array<DebugElement> {
     return de.queryAll(By.css(id));
 }
 
-describe('MyDatePickerTH', () => {
+describe('MyDatePicker', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule],
@@ -352,7 +352,7 @@ describe('MyDatePickerTH', () => {
             expect(currmonth[41]).not.toBe(null);
             expect(currmonth[41].nativeElement.textContent.trim()).toBe(endDate[i]);
 
-            comp.nextMonth();
+            comp.onNextMonth();
 
             i++;
         } while (i < 12)
@@ -397,7 +397,7 @@ describe('MyDatePickerTH', () => {
             expect(currmonth[41]).not.toBe(null);
             expect(currmonth[41].nativeElement.textContent.trim()).toBe(endDate[i]);
 
-            comp.prevMonth();
+            comp.onPrevMonth();
 
             i--;
         } while (i >= 0)
@@ -2255,8 +2255,3 @@ describe('MyDatePickerTH', () => {
     });
 
 });
-
-
-
-
-

@@ -352,6 +352,7 @@ Another way is to call a function of mydatepicker. [Here](https://github.com/kek
       * 2 = calendar closed by date select
       * 3 = calendar closed by calendar button
       * 4 = calendar closed by outside click (document click)
+      * 5 = calendar closed by ESC key
 
   * Example of the calendar toggle callback:
   ```js
