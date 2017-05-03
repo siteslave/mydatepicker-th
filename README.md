@@ -48,14 +48,23 @@ To install this component to an external project, follow the procedure:
 
 ## Usage
 
-Use one of the following three options.
+วิธีใช้งาน
 
 ### 1. ngModel binding
 
-In this option the ngModel binding is used. [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-access-modifier)
-is an example application. It shows how to use the __ngModel__.
+แก้ไขไฟล์ app.module.ts:
 
-To use ngModel define the application class as follows:
+```ts
+import { MyDatePickerTHModule } from 'mydatepicker-th';
+
+@NgModule({
+  imports: [
+    CommonModule,
+    FormsModule,
+    MyDatePickerTHModule
+  ]
+});
+```
 
 ```ts
 import {IMyOptions} from 'mydatepicker-th';
@@ -65,7 +74,7 @@ export class MyTestApp {
 
     private myDatePickerOptions: IMyOptions = {
         // other options...
-        dateFormat: 'dd.mm.yyyy',
+        dateFormat: 'dd mmm yyyy',
     };
 
     // Initialized to specific date (09.10.2018).
@@ -75,21 +84,16 @@ export class MyTestApp {
 }
 ```
 
-Add the following snippet inside your template:
+การใช้งานใน Template:
 
 ```html
 <form #myForm="ngForm" novalidate>
-    <my-date-picker name="mydate" [options]="myDatePickerOptions"
-                    [(ngModel)]="model" required></my-date-picker>
+    <my-date-picker-th name="mydate" [options]="myDatePickerOptions"
+      [(ngModel)]="model" required></my-date-picker-th>
 </form>
 ```
 
 ### 2. Reactive forms
-
-In this option the value accessor of reactive forms is used. [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-access-modifier)
-is an example application. It shows how to use the __formControlName__.
-
-To use reactive forms define the application class as follows:
 
 ```ts
 import {IMyOptions} from 'mydatepicker';
@@ -135,7 +139,7 @@ export class MyTestApp implements OnInit {
 }
 ```
 
-Add the following snippet inside your template:
+แก้ไข Template:
 
 ```html
 <form [formGroup]="myForm" novalidate>
@@ -145,12 +149,7 @@ Add the following snippet inside your template:
 </form>
 ```
 
-### 3. Callbacks
-
-In this option the mydatepicker sends data back to host application using callbacks. [Here](https://github.com/kekeh/mydatepicker/tree/master/sampleapp/sample-date-picker-normal)
-is an example application. It shows how to use callbacks.
-
-To use callbacks define the application class as follows:
+### 3. การใช้งาน Event
 
 ```js
 import {IMyOptions, IMyDateModel} from 'mydatepicker-th';
@@ -165,15 +164,14 @@ export class MyTestApp {
 
     constructor() { }
 
-    // dateChanged callback function called when the user select the date. This is mandatory callback
-    // in this option. There are also optional inputFieldChanged and calendarViewChanged callbacks.
     onDateChanged(event: IMyDateModel) {
-        // event properties are: event.date, event.jsdate, event.formatted and event.epoc
+      // event properties are: event.date, event.jsdate, event.formatted and event.epoc
+      console.log(event);
     }
 }
 ```
 
-Add the following snippet inside your template:
+Template:
 
 ```html
 <my-date-picker-th [options]="myDatePickerOptions"
