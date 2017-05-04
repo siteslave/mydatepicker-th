@@ -203,7 +203,8 @@ export class MyDatePickerTH implements OnChanges, ControlValueAccessor {
     onMonthCellClicked(cell: IMyCalendarMonth): void {
         let mc: boolean = cell.nbr !== this.visibleMonth.monthNbr;
         this.visibleMonth = { monthTxt: this.monthText(cell.nbr), monthNbr: cell.nbr, year: this.visibleMonth.year };
-        this.generateCalendar(cell.nbr, this.visibleMonth.year, mc);
+        let thaiYear = this.visibleMonth.year - 543;
+        this.generateCalendar(cell.nbr, thaiYear, mc);
         this.selectMonth = false;
         this.selectorEl.nativeElement.focus();
     }
