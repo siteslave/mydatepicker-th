@@ -64,7 +64,7 @@
     width: 252px;
     padding: 0;
     border: 1px solid #CCC;
-    z-index: 100;
+    z-index: 99999;
     animation: selectorfadein 0.1s;
 }
 
