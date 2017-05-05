@@ -15,7 +15,7 @@ const YYYY = "yyyy";
 @Injectable()
 export class UtilService {
     isDateValid(dateStr: string, dateFormat: string, minYear: number, maxYear: number, disableUntil: IMyDate, disableSince: IMyDate, disableWeekends: boolean, disableDays: Array<IMyDate>, disableDateRanges: Array<IMyDateRange>, monthLabels: IMyMonthLabels, enableDays: Array<IMyDate>): IMyDate {
-        let returnDate: IMyDate = {day: 0, month: 0, year: 0};
+        let returnDate: IMyDate = { day: 0, month: 0, year: 0 };
         let daysInMonth: Array<number> = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         let isMonthStr: boolean = dateFormat.indexOf(MMM) !== -1;
         let separators: Array<string> = this.getDateFormatSeparators(dateFormat);
@@ -38,7 +38,7 @@ export class UtilService {
                 return returnDate;
             }
 
-            let date: IMyDate = {year: year, month: month, day: day};
+            let date: IMyDate = { year: year, month: month, day: day };
 
             if (this.isDisabledDay(date, disableUntil, disableSince, disableWeekends, disableDays, disableDateRanges, enableDays)) {
                 return returnDate;
@@ -115,8 +115,12 @@ export class UtilService {
         return dateFormat.indexOf(datePart);
     }
 
+    isSameDate(d1: IMyDate, d2: IMyDate): boolean {
+        return d1.year === d2.year && d1.month === d2.month && d1.day === d2.day;
+    }
+
     parseDefaultMonth(monthString: string): IMyMonth {
-        let month: IMyMonth = {monthTxt: "", monthNbr: 0, year: 0};
+        let month: IMyMonth = { monthTxt: "", monthNbr: 0, year: 0 };
         if (monthString !== "") {
             let split = monthString.split(monthString.match(/[^0-9]/)[0]);
             month.monthNbr = split[0].length === 2 ? parseInt(split[0]) : parseInt(split[1]);
@@ -166,17 +170,17 @@ export class UtilService {
         for (let md of markedDates) {
             for (let d of md.dates) {
                 if (d.year === date.year && d.month === date.month && d.day === date.day) {
-                    return {marked: true, color: md.color};
+                    return { marked: true, color: md.color };
                 }
             }
         }
         if (markWeekends && markWeekends.marked) {
             let dayNbr = this.getDayNumber(date);
             if (dayNbr === 0 || dayNbr === 6) {
-                return {marked: true, color: markWeekends.color};
+                return { marked: true, color: markWeekends.color };
             }
         }
-        return {marked: false, color: ""};
+        return { marked: false, color: "" };
     }
 
     getWeekNumber(date: IMyDate): number {
